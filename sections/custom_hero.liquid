@@ -1,0 +1,561 @@
+{% comment %}
+  This section creates a full-screen hero banner with an interactive collection carousel.
+  - Each slide has a unique background image and a customizable content block.
+  - The content block includes a title, subtitle, and up to two buttons.
+  - The carousel supports autoplay with play/pause controls positioned at the bottom-center.
+{% endcomment %}
+
+<div
+  id="Hero-{{ section.id }}"
+  class="hero-carousel-section color-{{ section.settings.color_scheme }}"
+  data-section-id="{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-autoplay-speed="{{ section.settings.autoplay_speed }}"
+>
+  <div class="hero-carousel__media-container">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection_slide' -%}
+        {%- assign collection = block.settings.collection -%}
+
+        {%- assign fallback_image = collection.image | default: collection.products.first.featured_image -%}
+        {%- assign image_desktop = block.settings.image_desktop | default: fallback_image -%}
+        {%- assign image_tablet = block.settings.image_tablet | default: image_desktop -%}
+        {%- assign image_mobile = block.settings.image_mobile | default: image_tablet -%}
+
+        <div
+          class="hero-carousel__media-item{% if forloop.first %} is-active{% endif %}"
+          data-collection-handle="{{ collection.handle | default: block.id }}"
+        >
+          {% if image_desktop != blank %}
+            {%- assign loading_attr = 'lazy' -%}
+            {%- assign fetch_priority_attr = 'auto' -%}
+            {%- if forloop.first -%}
+              {%- assign loading_attr = 'eager' -%}
+              {%- assign fetch_priority_attr = 'high' -%}
+            {%- endif -%}
+
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                srcset="{{ image_desktop | image_url: width: 3840 }}"
+              >
+              <source
+                media="(min-width: 768px)"
+                srcset="{{ image_tablet | image_url: width: 2048 }}"
+              >
+              <img
+                src="{{ image_mobile | image_url: width: 1534 }}"
+                alt="{{ image_desktop.alt | default: collection.title | escape }}"
+                loading="{{ loading_attr }}"
+                fetchpriority="{{ fetch_priority_attr }}"
+                width="{{ image_desktop.width }}"
+                height="{{ image_desktop.height }}"
+                class="full-height-image"
+              >
+            </picture>
+          {% else %}
+            <div class="placeholder-wrapper">{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+          {% endif %}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="hero-carousel__content-container">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'collection_slide' -%}
+        {%- assign collection = block.settings.collection -%}
+        <div
+          class="hero-carousel__content-inner hero-content--{{ block.id }}{% if forloop.first %} is-active{% endif %}"
+          data-collection-handle="{{ collection.handle | default: block.id }}"
+        >
+          <div class="hero-carousel__text-content">
+            {%- if block.settings.title != blank -%}
+              <h2 class="hero-carousel__main-title">{{ block.settings.title | escape }}</h2>
+            {%- endif -%}
+            {%- if block.settings.subtitle != blank -%}
+              <div class="hero-carousel__subtitle">{{ block.settings.subtitle }}</div>
+            {%- endif -%}
+            
+            {%- if block.settings.button_label != blank or block.settings.button_2_label != blank -%}
+              <div class="hero-carousel__button-group">
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.button_link | default: collection.url }}" class="button hero-carousel__button">
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                {%- endif -%}
+                 {%- if block.settings.button_2_label != blank -%}
+                  <a href="{{ block.settings.button_2_link }}" class="button hero-carousel__button hero-carousel__button--secondary">
+                    {{ block.settings.button_2_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {%- assign collection_slides = section.blocks | where: 'type', 'collection_slide' -%}
+  {%- if collection_slides.size > 1 -%}
+    <div class="hero-carousel__nav-wrapper">
+      <div class="hero-carousel__nav">
+        <button type="button" class="hero-carousel__arrow hero-carousel__arrow--prev" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 18-6-6 6-6"/> </svg>
+        </button>
+        <div class="hero-carousel__titles">
+          {%- for block in collection_slides -%}
+            {%- assign collection = block.settings.collection -%}
+            <a
+              href="{{ collection.url }}"
+              class="hero-carousel__title-link {% if forloop.first %}is-active{% endif %}"
+              data-collection-handle="{{ collection.handle | default: block.id }}"
+            >
+              {{ collection.title | default: 'Slide' }}
+            </a>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="hero-carousel__arrow hero-carousel__arrow--next" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m9 18 6-6-6-6"/> </svg>
+        </button>
+        <button type="button" class="hero-carousel__play-pause" aria-label="Pause autoplay">
+          <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 4h4v16H6z"/><path d="M14 4h4v16h-4z"/> </svg>
+          <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <polygon points="6 3 20 12 6 21 6 3"/> </svg>
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  class HeroCarousel {
+    constructor(section) {
+      this.section = section;
+      this.nav = this.section.querySelector('.hero-carousel__nav-wrapper');
+      
+      if (!this.nav) return; // If only one slide, do nothing more.
+
+      this.links = this.section.querySelectorAll('.hero-carousel__title-link');
+      this.images = this.section.querySelectorAll('.hero-carousel__media-item');
+      this.contents = this.section.querySelectorAll('.hero-carousel__content-inner');
+      this.prevButton = this.nav.querySelector('.hero-carousel__arrow--prev');
+      this.nextButton = this.nav.querySelector('.hero-carousel__arrow--next');
+      this.playPauseButton = this.nav.querySelector('.hero-carousel__play-pause');
+      this.isPaused = false;
+      this.autoplay = this.section.dataset.autoplay === 'true';
+      this.autoplaySpeed = parseInt(this.section.dataset.autoplaySpeed, 10);
+      this.interval = null;
+      this.currentIndex = 0;
+
+      this.prevButton.addEventListener('click', this.prev.bind(this));
+      this.nextButton.addEventListener('click', this.next.bind(this));
+
+      this.links.forEach((link, index) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          this.goTo(index);
+        });
+      });
+
+      if (this.autoplay) {
+        this.playPauseButton.addEventListener('click', this.togglePlayPause.bind(this));
+        this.section.addEventListener('mouseenter', () => this.pause());
+        this.section.addEventListener('mouseleave', () => this.play());
+        this.start();
+      } else {
+        this.playPauseButton.style.display = 'none';
+      }
+    }
+
+    goTo(index) {
+      if (index === this.currentIndex || index < 0 || index >= this.links.length) return;
+      this.restartInterval();
+
+      this.links[this.currentIndex].classList.remove('is-active');
+      this.images[this.currentIndex].classList.remove('is-active');
+      this.contents[this.currentIndex].classList.remove('is-active');
+
+      this.links[index].classList.add('is-active');
+      this.images[index].classList.add('is-active');
+      this.contents[index].classList.add('is-active');
+
+      this.currentIndex = index;
+    }
+
+    next() {
+      const newIndex = (this.currentIndex + 1) % this.links.length;
+      this.goTo(newIndex);
+    }
+
+    prev() {
+      const newIndex = (this.currentIndex - 1 + this.links.length) % this.links.length;
+      this.goTo(newIndex);
+    }
+
+    start() {
+      this.isPaused = false;
+      this.playPauseButton.classList.remove('is-paused');
+      this.playPauseButton.setAttribute('aria-label', 'Pause autoplay');
+      this.interval = setInterval(() => this.next(), this.autoplaySpeed);
+    }
+
+    pause() {
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+    }
+
+    play() {
+      if (!this.isPaused && !this.interval) {
+        this.start();
+      }
+    }
+
+    togglePlayPause() {
+      this.isPaused = !this.isPaused;
+      if (this.isPaused) {
+        this.pause();
+        this.playPauseButton.classList.add('is-paused');
+        this.playPauseButton.setAttribute('aria-label', 'Play autoplay');
+      } else {
+        this.play();
+      }
+    }
+
+    restartInterval() {
+      if (this.autoplay && !this.isPaused) {
+        this.pause();
+        this.play();
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroCarouselSection = document.getElementById('Hero-{{ section.id }}');
+    if (heroCarouselSection) {
+      new HeroCarousel(heroCarouselSection);
+    }
+  });
+</script>
+
+{% stylesheet %}
+  .hero-carousel-section {
+    width: var(--section-width);
+    margin-left: calc(50% - 50vw);
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+    height: 50vh;
+    min-height: 600px;
+  }
+
+  .hero-carousel__media-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: #f0f0f0;
+  }
+
+  .hero-carousel__media-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 60%);
+    z-index: 2;
+  }
+
+  .hero-carousel__media-item {
+    width: 100%; height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute; inset: 0; z-index: 1;
+  }
+
+  .full-height-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-carousel__media-item.is-active {
+    opacity: 1; z-index: 2;
+  }
+
+  .hero-carousel__media-item picture,
+  .hero-carousel__media-item img {
+    display: block; width: 100%; height: 100%;
+  }
+
+  .hero-carousel__media-item .placeholder-wrapper {
+    height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .hero-carousel__content-container {
+    position: relative; z-index: 3;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-carousel__content-inner {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.2s;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-carousel__content-inner.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .hero-carousel__text-content {
+    text-align: center;
+    max-width: 650px;
+    padding: 2rem;
+  }
+
+  .hero-carousel__main-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .hero-carousel__subtitle {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin: 0 0 2rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .hero-carousel__button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .hero-carousel__button {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 12px 28px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .hero-carousel__button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: #000;
+  }
+
+  .hero-carousel__button--secondary {
+    background-color: transparent;
+    border: 1px solid #fff;
+  }
+  
+  .hero-carousel__button--secondary:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  .hero-carousel__nav-wrapper {
+    position: absolute; bottom: 3rem;
+    left: 0;
+    right: 0;
+    width: 100%; z-index: 4;
+    display: flex; justify-content: center;
+    padding: 0 2rem; pointer-events: none;
+  }
+
+  .hero-carousel__nav {
+    display: flex; align-items: center;
+    gap: 1rem; pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    max-width: 100%;
+  }
+
+  .hero-carousel__titles { display: flex; gap: 1.5rem; }
+  .hero-carousel__title-link {
+    color: #fff; text-decoration: none; font-size: 1rem; opacity: 0.6;
+    position: relative; transition: opacity 0.3s; padding-bottom: 5px;
+    white-space: nowrap;
+  }
+  .hero-carousel__title-link:hover, .hero-carousel__title-link.is-active { opacity: 1; }
+  .hero-carousel__title-link.is-active::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 1px; background-color: #fff;
+  }
+
+  .hero-carousel__arrow, .hero-carousel__play-pause {
+    background: none; border: none; cursor: pointer; padding: 0.5rem;
+    color: #fff; opacity: 0.7; transition: opacity 0.3s;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-carousel__arrow svg, .hero-carousel__play-pause svg {
+    width: 20px; height: 20px;
+  }
+  .hero-carousel__arrow:hover, .hero-carousel__play-pause:hover { opacity: 1; }
+
+  .hero-carousel__play-pause .icon-play { display: none; }
+  .hero-carousel__play-pause .icon-pause { display: block; }
+  .hero-carousel__play-pause.is-paused .icon-play { display: block; }
+  .hero-carousel__play-pause.is-paused .icon-pause { display: none; }
+
+  @media screen and (max-width: 768px) {
+    .hero-carousel__media-container::after { background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%); }
+
+    .hero-carousel__main-title { font-size: 2.2rem; }
+    .hero-carousel__subtitle { font-size: 1rem; }
+
+    .hero-carousel__nav-wrapper {
+      bottom: 1rem;
+      left: 50%; transform: translateX(-50%);
+      width: 100%; justify-content: center; padding: 0 1rem;
+    }
+    .hero-carousel__nav {
+      max-width: 400px; justify-content: center;
+      background: none; backdrop-filter: none;
+      padding: 0; border-radius: 0;
+      width: 100%;
+    }
+    .hero-carousel__arrow, .hero-carousel__title-link, .hero-carousel__play-pause { color: #fff; }
+    .hero-carousel__title-link.is-active::after { background-color: #fff; }
+
+    .hero-carousel__titles {
+      flex: 1;
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .hero-carousel__titles::-webkit-scrollbar {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero Carousel",
+  "tag": "section",
+  "class": "section--full-width",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Slide Duration",
+      "min": 3000,
+      "max": 9000,
+      "step": 500,
+      "unit": "ms",
+      "default": 5000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_slide",
+      "name": "Collection Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Desktop Background Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_tablet",
+          "label": "Tablet Background Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Background Image"
+        },
+        {
+          "type": "header",
+          "content": "Slide Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Your Collection Title"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "<p>Tell a story about this collection.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button 1 Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button 1 Link",
+          "info": "Optional. Defaults to the collection URL."
+        },
+        {
+          "type": "text",
+          "id": "button_2_label",
+          "label": "Button 2 Label",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button 2 Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Carousel",
+      "blocks": [{ "type": "collection_slide" }, { "type": "collection_slide" }, { "type": "collection_slide" }]
+    }
+  ]
+}
+{% endschema %}
