@@ -1,0 +1,491 @@
+{%- comment -%}
+  DEVELOPER NOTE:
+  This code has been updated to include a dynamic logo width setting.
+  - A new 'range' setting with id 'logo_width' has been added to the schema.
+  - The CSS for '.footer__logo img' now uses this setting for 'max-width'.
+  - The <img> tag for the logo now uses this setting for its 'width', 'height', and 'src' attributes.
+  - The accordion has been rebuilt for advanced CSS animations on the icon and dropdown menu.
+  - Social media icons are now managed by dynamic blocks for greater flexibility.
+{%- endcomment -%}
+
+{%- style -%}
+  /* --- Custom Footer Section --- */
+
+  .footer {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    display:flex;
+    flex-direction: column;
+  }
+
+  .footer__container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 0 20px;
+  }
+
+  .footer__left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .footer__logo img {
+    max-width: {{ section.settings.logo_width }}px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .footer__description {
+    font-size: 1.2rem;
+    margin: 0;
+    max-width: 376px;
+  }
+
+  .footer__description p {
+    margin: 0;
+  }
+
+  .footer__social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .social-icon__link {
+    color: var(--color-foreground);
+    transition: transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .social-icon__link:hover {
+    transform: scale(1.1);
+    color: var(--color-foreground); /* Ensure hover color is consistent */
+  }
+
+  .social-icon__link svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor; /* SVGs are designed with stroke, not fill */
+
+  }
+
+  .footer__right {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+  }
+
+  /* --- NEW ACCORDION STYLES START --- */
+  .footer__accordion-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .accordion-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+
+  .accordion-icon__bar {
+    position: absolute;
+    background-color: currentColor;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .accordion-icon__bar--horizontal {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .accordion-icon__bar--vertical {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+
+  /* When expanded, rotate the vertical bar to form a '-' sign */
+  .footer__accordion-toggle[aria-expanded="true"] .accordion-icon__bar--vertical {
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .footer__menu-list {
+    list-style: none;
+    margin: 0;
+    padding:0;
+    text-align: left;
+    overflow: hidden;
+    max-height: 0; /* Initially collapsed */
+    opacity: 0;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease-in, padding 0.4s ease-out;
+  }
+
+  /* When open, expand the menu with animation */
+  .footer__menu-list.is-open {
+    max-height: 300px; /* A value larger than the menu's content */
+    opacity: 1;
+  }
+
+  .footer__menu-list a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
+    transition: text-decoration 0.4s ease-in-out;
+  }
+
+  .footer__menu-list a:hover {
+    text-decoration: underline;
+  }
+  /* --- NEW ACCORDION STYLES END --- */
+
+  .copyright-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #0c1c4f;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .copyright p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-foreground);
+  }
+
+  .dev-banner p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-foreground);
+  }
+  .dev-banner a {
+    text-decoration: none;
+  }
+
+  /* Desktop override – always show menus */
+  @media screen and (min-width: 750px) {
+    .footer__accordion-toggle {
+      cursor: default;
+    }
+    .footer__accordion-toggle .accordion-icon {
+      display: none;
+    }
+    .footer__menu-list {
+      display: block !important;
+      max-height: none !important; /* Override animation properties */
+      opacity: 1 !important;
+      padding: 0;
+    }
+  }
+
+  /* --- Responsive Styles: Tablet and Up --- */
+  @media screen and (min-width: 750px) {
+    .footer__container {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 50px;
+    }
+    .footer__left {
+      flex: 1;
+      text-align: left;
+    }
+    .footer__logo img {
+      margin: 0;
+    }
+    .footer__social-icons {
+      justify-content: flex-start;
+    }
+    .footer__right {
+      flex: 2;
+      flex-direction: row;
+      justify-content: space-around;
+      text-align: left;
+      gap: 40px;
+    }
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 1.5 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 1.5 | round }}px;
+    }
+  }
+  @media(max-width: 768px) {
+      .copyright-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #0c1c4f;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: left;
+    }
+    .copyright p {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--color-foreground);
+    }
+  .dev-banner p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-foreground);
+  }
+  .social-icon__link {
+    color: var(--color-foreground);
+    transition: transform 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  }
+{%- endstyle -%}
+
+<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="page-width footer__container">
+    <div class="footer__left">
+      {%- if section.settings.logo != blank -%}
+        <div class="footer__logo">
+          <a href="{{ routes.root_url }}">
+            {%- assign logo_retina_width = section.settings.logo_width | times: 2 -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: logo_retina_width }}"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+              width="{{ section.settings.logo_width }}"
+              height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round }}"
+              loading="lazy"
+            >
+          </a>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <div class="footer__title rte">
+          {{ section.settings.title }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="footer__description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+
+      <div class="footer__social-icons">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'social_icon' -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="social-icon__link"
+              target="_blank"
+              aria-label="{{ block.settings.aria_label | default: 'Social media link' | escape }}"
+            >
+              {{ block.settings.svg_code }}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- assign footer_menu = linklists[section.settings.footer_menu] -%}
+    {%- if footer_menu.links.size > 0 -%}
+      <div class="footer__right">
+        {%- for link in footer_menu.links -%}
+          <div class="footer__menu-column">
+            <button class="footer__accordion-toggle" aria-expanded="false">
+              {{ link.title | escape }}
+              <span class="accordion-icon">
+                <span class="accordion-icon__bar accordion-icon__bar--horizontal"></span>
+                <span class="accordion-icon__bar accordion-icon__bar--vertical"></span>
+              </span>
+            </button>
+            {%- if link.links.size > 0 -%}
+              <ul class="footer__menu-list">
+                {%- for child_link in link.links -%}
+                  <li>
+                    <a href="{{ child_link.url }}">{{ child_link.title | escape }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="copyright-banner">
+    <div class="copyright">© {{ 'now' | date: '%Y' }} Sparkle Jewels</div>
+    <div class="dev-banner">
+      <p>Developed by <a href="https://solepoint.in/">Sole Point Tech Solutions</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const accordions = document.querySelectorAll('.footer__accordion-toggle');
+
+      accordions.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          // Check screen width to disable accordion on desktop
+          if (window.innerWidth >= 750) {
+            return;
+          }
+
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', !expanded);
+
+          const list = btn.nextElementSibling;
+          if (list) {
+            list.classList.toggle('is-open');
+          }
+        });
+      });
+    });
+  </script>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "tag": "footer",
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "Menu Settings"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer menu",
+      "info": "Select the menu to display. Top-level items will be column titles, and their nested items will be the links."
+    },
+    {
+      "type": "header",
+      "content": "Left Column Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 150
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Indulge in our store's best products. Explore over 200+ custom designs for any celebration!</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "title",
+      "default": "<p>Sparkle Jewels</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_icon",
+      "name": "Social Icon",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "The URL for the social media profile."
+        },
+        {
+          "type": "text",
+          "id": "aria_label",
+          "label": "Accessibility Label",
+          "info": "Describes the icon for screen readers, e.g., 'Follow us on X'."
+        },
+        {
+          "type": "textarea",
+          "id": "svg_code",
+          "label": "SVG Icon Code",
+          "info": "Paste your full SVG code. For best results, ensure the SVG is 24x24 and styled using 'stroke=\"currentColor\"' instead of a specific color."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
+{% endschema %}
