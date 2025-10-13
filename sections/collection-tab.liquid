@@ -164,7 +164,7 @@
                 {%- if block.settings.collection != blank -%}
                   {{ block.settings.collection.title }}
                 {%- else -%}
-                  {{ 'onboarding.collection_title' | t }}
+                  {{ ''}}
                 {%- endif -%}
               </button>
             </li>
@@ -195,7 +195,7 @@
                 {%- endfor -%}
               {%- else -%}
                 {%- for i in (1..limit) -%}
-                  {% render 'product-card-placeholder' %}
+                  {% render 'product-card' %}
                 {%- endfor -%}
               {%- endif -%}
             </div>
