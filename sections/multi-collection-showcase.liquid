@@ -54,7 +54,7 @@
             <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
               {% for product in collection.products limit: 4 %}
                 <div class="grid__item">
-                  {# CUSTOM PRODUCT CARD START #}
+                 
                   <a href="{{ product.url | within: collection }}" class="custom-product-card">
                     <div class="custom-product-card__image-wrapper">
                       {% if product.featured_media %}
@@ -93,7 +93,7 @@
                       </div>
                     </div>
                   </a>
-                  {# CUSTOM PRODUCT CARD END #}
+                 
                 </div>
               {% endfor %}
             </div>
