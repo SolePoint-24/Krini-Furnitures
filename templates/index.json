@@ -1281,6 +1281,10 @@
         "text_WBXxdw",
         "email_signup_BHzMP9"
       ],
+      "custom_css": [
+        ".background-image-container {opacity: 0.5;}",
+        ".section-background{background-color: black}"
+      ],
       "name": "t:names.email_signup",
       "settings": {
         "content_direction": "column",
