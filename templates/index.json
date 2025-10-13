@@ -1020,6 +1020,9 @@
         "collection_6GA6QG",
         "collection_DFiVRx"
       ],
+      "custom_css": [
+        ".page-width {width: 70%; margin: 0 auto;}"
+      ],
       "name": "Multi-Collection Viewer",
       "settings": {
         "heading": "Featured Collections",
