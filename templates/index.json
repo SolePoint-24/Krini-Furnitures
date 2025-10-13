@@ -236,7 +236,7 @@
           "settings": {
             "collection": "bed-frame",
             "custom_nav_title": "Slide",
-            "image_desktop": "shopify://shop_images/21-600x600_1.jpg",
+            "image_desktop": "shopify://shop_images/latest-small-bedroom-interior-design-modern-indian-storage-ideas.png",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
@@ -250,6 +250,7 @@
           "settings": {
             "collection": "sofa-cum-beds",
             "custom_nav_title": "Slide",
+            "image_desktop": "shopify://shop_images/Furniture_Essentials_for_Small_Indian_Apartments.webp",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
