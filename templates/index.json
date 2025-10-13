@@ -504,6 +504,53 @@
         "padding-block-end": 64
       }
     },
+    "collection_tab_CnNDAQ": {
+      "type": "collection-tab",
+      "blocks": {
+        "collection_tab_9bJtgU": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "bed-frames"
+          }
+        },
+        "collection_tab_Uaa4fr": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "sofa-cum-beds"
+          }
+        },
+        "collection_tab_JUPxrw": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "wall-beds"
+          }
+        },
+        "collection_tab_hJakjU": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "wall-mounted-folding-tables"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_9bJtgU",
+        "collection_tab_Uaa4fr",
+        "collection_tab_JUPxrw",
+        "collection_tab_hJakjU"
+      ],
+      "name": "Collection Tabs",
+      "settings": {
+        "color_scheme": "",
+        "title": "Fashionable & Functional",
+        "subtitle": "Explore The Full Edit",
+        "link_label": "",
+        "link_url": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": "2"
+      }
+    },
     "section_DHbwpb": {
       "type": "section",
       "blocks": {
@@ -1083,6 +1130,7 @@
     "hero_iLBwPd",
     "custom_hero_gKtgPw",
     "product_list_EDUBdR",
+    "collection_tab_CnNDAQ",
     "section_DHbwpb",
     "media_with_content_LfPdEJ",
     "collection_list_xpBxCm"
