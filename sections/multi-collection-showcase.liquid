@@ -53,15 +53,24 @@
 >
   {% if collection.products.size > 0 %}
     <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-      {% for product in collection.products limit: 4 %}
-        <div class="grid__item">
-          {% comment %}
-            This now correctly passes the 'product' and 'block' objects
-            to your specific product-card snippet.
-          {% endcomment %}
-          {% render 'product-card', product: product, block: block %}
-        </div>
-      {% endfor %}
+     {% for product in collection.products limit: 4 %}
+  <div class="grid__item">
+    {% comment %}
+      STEP 1: Capture the inner content of the card.
+      The 'card-product.liquid' snippet typically handles rendering
+      the product image, title, price, etc.
+    {% endcomment %}
+    {%- capture product_card_children -%}
+      {% render 'product-card', product: product, block: block %}
+    {%- endcapture -%}
+
+    {% comment %}
+      STEP 2: Render the main product card WRAPPER, passing the
+      captured content in the 'children' parameter.
+    {% endcomment %}
+    {% render 'product-card', product: product, block: block, children: product_card_children %}
+  </div>
+{% endfor %}
     </div>
   {% else %}
     <div class="multi-collection-viewer-grid--empty">
