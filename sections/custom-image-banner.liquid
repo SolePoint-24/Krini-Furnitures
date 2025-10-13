@@ -1,0 +1,274 @@
+{% comment %}
+  ** Custom Image Banner Section **
+  - Background image with overlay
+  - Customizable title and description using theme fonts
+  - Up to two buttons using theme's primary/secondary styles
+  - Fully configurable via the theme editor
+{% endcomment %}
+
+{%- liquid
+  assign title = section.settings.title
+  assign description = section.settings.description
+  assign text_color = section.settings.text_color
+  assign alignment = section.settings.content_alignment
+  assign height = section.settings.section_height
+  assign overlay_color = section.settings.overlay_color
+  assign overlay_opacity = section.settings.overlay_opacity
+
+  assign btn1_label = section.settings.button_1_label
+  assign btn1_link = section.settings.button_1_link
+
+  # Determine the CSS class for the first button
+  if section.settings.button_1_is_secondary
+    assign btn1_style_class = 'button--secondary'
+  else
+    assign btn1_style_class = 'button--primary'
+  endif
+
+  assign btn2_label = section.settings.button_2_label
+  assign btn2_link = section.settings.button_2_link
+
+  # Determine the CSS class for the second button
+  if section.settings.button_2_is_secondary
+    assign btn2_style_class = 'button--secondary'
+  else
+    assign btn2_style_class = 'button--primary'
+  endif
+-%}
+
+<style>
+  .custom-banner-{{ section.id }} {
+    --section-height: {{ height }}vh;
+    --text-color: {{ text_color }};
+    --overlay-color: {{ overlay_color }};
+    --overlay-opacity: {{ overlay_opacity }};
+    --content-justify: {% if alignment contains 'center' %}center{% elsif alignment contains 'left' %}flex-start{% else %}flex-end{% endif %};
+    --content-align: {% if alignment contains 'middle' %}center{% elsif alignment contains 'top' %}flex-start{% else %}flex-end{% endif %};
+    --text-align: {% if alignment contains 'center' %}center{% elsif alignment contains 'left' %}left{% else %}right{% endif %};
+
+    position: relative;
+    display: flex;
+    min-height: var(--section-height);
+    background-size: cover;
+    background-position: center;
+    color: var(--text-color);
+  }
+
+  .custom-banner-{{ section.id }} .custom-banner__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    opacity: var(--overlay-opacity);
+    z-index: 1;
+  }
+
+  .custom-banner-{{ section.id }} .custom-banner__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: var(--content-align);
+    align-items: var(--content-justify);
+    text-align: var(--text-align);
+  }
+
+  .custom-banner-{{ section.id }} .custom-banner__title {
+    margin-bottom: 15px;
+  }
+
+  .custom-banner-{{ section.id }} .custom-banner__description {
+    max-width: 60ch;
+    margin-bottom: 25px;
+  }
+
+  .custom-banner-{{ section.id }} .custom-banner__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: var(--text-align);
+  }
+</style>
+
+<div
+  class="custom-banner-{{ section.id }}"
+  style="
+    {%- if section.settings.background_image != blank -%}
+      background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}');
+    {%- else -%}
+      background-color: #f0f0f0;
+    {%- endif -%}
+  "
+>
+  <div class="custom-banner__overlay"></div>
+
+  <div class="custom-banner__content">
+    <div class="custom-banner__box">
+      {%- if title != blank -%}
+        <h2 class="custom-banner__title h1">{{ title | escape }}</h2>
+      {%- endif -%}
+
+      {%- if description != blank -%}
+        <div class="custom-banner__description rte">{{ description }}</div>
+      {%- endif -%}
+
+      {%- if btn1_label != blank or btn2_label != blank -%}
+        <div class="custom-banner__buttons">
+          {%- if btn1_label != blank and btn1_link != blank -%}
+            <a href="{{ btn1_link }}" class="button {{ btn1_style_class }}">
+              {{ btn1_label | escape }}
+            </a>
+          {%- endif -%}
+          {%- if btn2_label != blank and btn2_link != blank -%}
+            <a href="{{ btn2_link }}" class="button {{ btn2_style_class }}">
+              {{ btn2_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image Banner",
+  "tag": "section",
+  "class": "section-custom-image-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Section height",
+      "default": 65
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content alignment",
+      "options": [
+        { "value": "top-left", "label": "Top left" },
+        { "value": "top-center", "label": "Top center" },
+        { "value": "top-right", "label": "Top right" },
+        { "value": "middle-left", "label": "Middle left" },
+        { "value": "middle-center", "label": "Middle center" },
+        { "value": "middle-right", "label": "Middle right" },
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "bottom-right", "label": "Bottom right" }
+      ],
+      "default": "middle-center"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Image Banner"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Overlay opacity",
+      "default": 0.3
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button label",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_1_is_secondary",
+      "label": "Use secondary button style",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_2_is_secondary",
+      "label": "Use secondary button style",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Banner"
+    }
+  ]
+}
+{% endschema %}
