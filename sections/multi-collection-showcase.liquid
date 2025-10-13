@@ -3,7 +3,7 @@
   - Allows selecting up to 4 collections.
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
-  - Uses the theme's existing product card for consistent styling.
+  - Uses a custom-built product card for full control.
 {% endcomment %}
 
 <div class="page-width">
@@ -36,7 +36,7 @@
             aria-controls="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
             {{ block.shopify_attributes }}
           >
-            {{ collection.title | default: 'All Products' }}
+            {{ collection.title | default: 'Collection' }}
           </button>
         {% endfor %}
       </div>
@@ -50,31 +50,50 @@
           class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
           data-collection-content="{{ collection.handle | default: 'all' }}"
         >
-          {% if collection != blank and collection.products.size > 0 %}
+          {% if collection.products.size > 0 %}
             <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-              {% for product in collection.products limit: section.settings.products_to_show %}
+              {% for product in collection.products limit: 4 %}
                 <div class="grid__item">
-                  {% comment %}
-                    Render the product card using the proper structure expected by the Tinker theme
-                  {% endcomment %}
-                  {% render 'product-card', 
-                    product: product,
-                    block: section,
-                    children: '',
-                  %}
-                </div>
-              {% endfor %}
-            </div>
-          {% elsif collection == blank %}
-            {% comment %} Show all products if no collection is selected {% endcomment %}
-            <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-              {% for product in collections.all.products limit: section.settings.products_to_show %}
-                <div class="grid__item">
-                  {% render 'product-card',
-                    product: product,
-                    block: section,
-                    children: '',
-                  %}
+                  {# CUSTOM PRODUCT CARD START #}
+                  <a href="{{ product.url | within: collection }}" class="custom-product-card">
+                    <div class="custom-product-card__image-wrapper">
+                      {% if product.featured_media %}
+                        <img
+                          src="{{ product.featured_media | image_url: width: 500 }}"
+                          alt="{{ product.featured_media.alt | escape }}"
+                          loading="lazy"
+                          width="{{ product.featured_media.width }}"
+                          height="{{ product.featured_media.height }}"
+                          class="custom-product-card__image custom-product-card__image--primary"
+                        >
+                        {% comment %} Display second image on hover if available {% endcomment %}
+                        {% if product.media[1] %}
+                          <img
+                            src="{{ product.media[1] | image_url: width: 500 }}"
+                            alt="{{ product.media[1].alt | escape }}"
+                            loading="lazy"
+                            width="{{ product.media[1].width }}"
+                            height="{{ product.media[1].height }}"
+                            class="custom-product-card__image custom-product-card__image--secondary"
+                          >
+                        {% endif %}
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg custom-product-card__image' }}
+                      {% endif %}
+                    </div>
+                    <div class="custom-product-card__info">
+                      <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
+                      <div class="custom-product-card__price">
+                        
+                          {{ product.price | money }}
+                        
+                        {% if product.compare_at_price > product.price %}
+                          <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </a>
+                  {# CUSTOM PRODUCT CARD END #}
                 </div>
               {% endfor %}
             </div>
@@ -84,12 +103,13 @@
               <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
                 {% for i in (1..4) %}
                   <div class="grid__item">
-                    <div class="product-card-placeholder">
-                      {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
-                      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                      <div class="placeholder-text">
-                        <div class="placeholder-text__item"></div>
-                        <div class="placeholder-text__item short"></div>
+                    <div class="custom-product-card custom-product-card--placeholder">
+                      {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                      <div class="custom-product-card__info">
+                        <div class="placeholder-text">
+                          <div class="placeholder-text__item"></div>
+                          <div class="placeholder-text__item short"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -151,70 +171,124 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .multi-collection-viewer-tabs__button:hover:not(.is-active) {
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
   .hidden {
-    display: none !important;
+    display: none;
   }
 
-  /* Grid styling */
-  .multi-collection-viewer-grid .grid {
-    display: grid;
-    gap: 1.5rem;
+  /* Custom Product Card Styles */
+  .custom-product-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    position: relative; /* For image positioning */
   }
 
-  .grid--4-col-desktop {
-    grid-template-columns: repeat(4, 1fr);
+  .custom-product-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  /* Empty state styling */
-  .multi-collection-viewer-grid--empty {
-    text-align: center;
-  }
-
-  .multi-collection-viewer-grid--empty p {
-    margin-bottom: 2rem;
-    color: #666;
-  }
-
-  /* Placeholder styles for empty state */
-  .product-card-placeholder {
-    background-color: #f9f9f9;
-    border: 1px solid #e5e5e5;
-    border-radius: 4px;
+  .custom-product-card__image-wrapper {
+    width: 100%;
+    padding-bottom: 100%; /* Creates a square aspect ratio for the image container */
+    position: relative;
     overflow: hidden;
   }
-  
-  .product-card-placeholder .placeholder-svg {
+
+  .custom-product-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
   }
-  
-  .product-card-placeholder .placeholder-text {
+
+  .custom-product-card__image--secondary {
+    opacity: 0; /* Hidden by default */
+  }
+
+  .custom-product-card:hover .custom-product-card__image--primary {
+    opacity: 0; /* Hide primary on hover */
+  }
+
+  .custom-product-card:hover .custom-product-card__image--secondary {
+    opacity: 1; /* Show secondary on hover */
+  }
+
+  .custom-product-card__info {
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  .custom-product-card__title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    line-height: 1.3;
+  }
+
+  .custom-product-card__price {
+    font-size: 1em;
+    font-weight: 500;
+    color: #666;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .custom-product-card__compare-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9em;
+  }
+
+  /* Placeholder styles for empty state (custom product card version) */
+  .custom-product-card--placeholder {
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+  }
+  .custom-product-card--placeholder .placeholder-svg {
+    width: 100%;
+    height: 100%; /* Fill the image wrapper */
+    display: block;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .custom-product-card--placeholder .custom-product-card__image-wrapper {
+    background-color: #f0f0f0;
+  }
+  .custom-product-card--placeholder .custom-product-card__info {
     padding: 15px;
   }
-  
-  .product-card-placeholder .placeholder-text__item {
+  .custom-product-card--placeholder .placeholder-text {
+    width: 100%;
+  }
+  .custom-product-card--placeholder .placeholder-text__item {
     background-color: #e5e5e5;
     height: 12px;
     border-radius: 2px;
     margin-bottom: 8px;
   }
-  
-  .product-card-placeholder .placeholder-text__item.short {
+  .custom-product-card--placeholder .placeholder-text__item.short {
     width: 60%;
+    margin-left: auto;
+    margin-right: auto;
   }
+
 
   /* Responsive Adjustments */
-  @media screen and (max-width: 999px) {
-    .grid--4-col-desktop {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   @media screen and (max-width: 749px) {
     .multi-collection-viewer-header {
       flex-direction: column;
@@ -229,27 +303,11 @@
     .multi-collection-viewer-tabs__container {
       flex-wrap: wrap;
       justify-content: center;
-      width: 100%;
     }
 
     .multi-collection-viewer-tabs__button {
       font-size: 0.9rem;
       padding: 8px 18px;
-    }
-    
-    .grid--2-col-tablet,
-    .grid--2-col-mobile {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .multi-collection-viewer-grid .grid {
-      gap: 1rem;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .grid--2-col-mobile {
-      grid-template-columns: 1fr;
     }
   }
 {% endstylesheet %}
@@ -287,20 +345,8 @@ class MultiCollectionViewer {
     this.contents.forEach(content => {
       if (content.dataset.collectionContent === targetHandle) {
         content.classList.remove('hidden');
-        // Trigger any lazy loading or image loading if needed
-        this.loadImages(content);
       } else {
         content.classList.add('hidden');
-      }
-    });
-  }
-  
-  loadImages(content) {
-    // Trigger image lazy loading if the theme uses it
-    const images = content.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
-      if (img.dataset.src && !img.src) {
-        img.src = img.dataset.src;
       }
     });
   }
@@ -309,22 +355,13 @@ class MultiCollectionViewer {
 document.addEventListener('DOMContentLoaded', () => {
   const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
   viewers.forEach(viewer => {
+    // We need to target the parent section to include the content grids
     const sectionContainer = viewer.closest('.shopify-section');
     if (sectionContainer) {
       new MultiCollectionViewer(sectionContainer);
     }
   });
 });
-
-// Also initialize on Shopify theme editor events
-if (Shopify && Shopify.designMode) {
-  document.addEventListener('shopify:section:load', (event) => {
-    const section = event.target;
-    if (section.querySelector('.multi-collection-viewer-tabs')) {
-      new MultiCollectionViewer(section);
-    }
-  });
-}
 {% endjavascript %}
 
 {% schema %}
@@ -356,15 +393,6 @@ if (Shopify && Shopify.designMode) {
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "label": "Maximum products to show",
-      "min": 4,
-      "max": 12,
-      "step": 1,
-      "default": 8
     }
   ],
   "blocks": [
