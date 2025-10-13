@@ -13,6 +13,19 @@
   "sections": {
     "custom_footer_eMeNjk": {
       "type": "custom-footer",
+      "blocks": {
+        "social_icon_THwRgY": {
+          "type": "social_icon",
+          "settings": {
+            "link": "",
+            "aria_label": "",
+            "svg_code": ""
+          }
+        }
+      },
+      "block_order": [
+        "social_icon_THwRgY"
+      ],
       "name": "Custom Footer",
       "settings": {
         "color_scheme": "",
