@@ -385,13 +385,13 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "space-between",
                 "gap": 4,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100,
-                "height": "fit",
+                "height": "fill",
                 "custom_height": 100,
                 "inherit_color_scheme": true,
                 "color_scheme": "",
@@ -447,7 +447,7 @@
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "paragraph",
-                    "width": "100%",
+                    "width": "fit-content",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
@@ -1262,6 +1262,26 @@
         "padding_bottom": 36
       }
     },
+    "custom_image_banner_kzPVVU": {
+      "type": "custom-image-banner",
+      "name": "Image Banner",
+      "settings": {
+        "background_image": "shopify://shop_images/9-800x550.jpg",
+        "section_height": 65,
+        "content_alignment": "middle-center",
+        "title": "Ready to Transform Your Space?",
+        "description": "",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0.1,
+        "button_1_label": "Shop Furniture",
+        "button_1_link": "shopify://collections",
+        "button_1_is_secondary": false,
+        "button_2_label": "Get A Business Quote",
+        "button_2_link": "#",
+        "button_2_is_secondary": false
+      }
+    },
     "faq_section_a9fqKK": {
       "type": "faq-section",
       "blocks": {
@@ -1315,26 +1335,6 @@
         "button_link": "",
         "padding_top": 36,
         "padding_bottom": 36
-      }
-    },
-    "custom_image_banner_kzPVVU": {
-      "type": "custom-image-banner",
-      "name": "Image Banner",
-      "settings": {
-        "background_image": "shopify://shop_images/9-800x550.jpg",
-        "section_height": 65,
-        "content_alignment": "middle-center",
-        "title": "Ready to Transform Your Space?",
-        "description": "",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0.1,
-        "button_1_label": "Shop Furniture",
-        "button_1_link": "shopify://collections",
-        "button_1_is_secondary": false,
-        "button_2_label": "Get A Business Quote",
-        "button_2_link": "#",
-        "button_2_is_secondary": false
       }
     },
     "section_NhdUhA": {
