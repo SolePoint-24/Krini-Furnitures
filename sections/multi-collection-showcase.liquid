@@ -4,119 +4,133 @@
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
   - Uses a custom-built product card and a self-contained CSS grid.
+  - V3: Added padding settings and equal height cards.
 {% endcomment %}
 
-<div class="page-width">
-  <div class="multi-collection-viewer-header">
-    <div class="multi-collection-viewer-header__text-wrapper">
-      {% if section.settings.heading != blank %}
-        <h2 class="h2">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
-      {% if section.settings.description != blank %}
-        <div class="rte">{{ section.settings.description }}</div>
+{%- liquid
+  assign section_padding_styles = ''
+  if section.settings.padding_top > 0
+    assign section_padding_styles = 'padding-top: ' | append: section.settings.padding_top | append: 'px;'
+  endif
+  if section.settings.padding_bottom > 0
+    assign section_padding_styles = section_padding_styles | append: ' padding-bottom: ' | append: section.settings.padding_bottom | append: 'px;'
+  endif
+-%}
+
+<div id="multi-collection-viewer-{{ section.id }}" style="{{ section_padding_styles }}">
+  <div class="page-width">
+    <div class="multi-collection-viewer-header">
+      <div class="multi-collection-viewer-header__text-wrapper">
+        {% if section.settings.heading != blank %}
+          <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div class="rte">{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="button button--primary">
+          {{ section.settings.button_label | escape }}
+        </a>
       {% endif %}
     </div>
-    {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="button button--primary">
-        {{ section.settings.button_label | escape }}
-      </a>
-    {% endif %}
-  </div>
 
-  {%- assign section_blocks = section.blocks -%}
+    {%- assign section_blocks = section.blocks -%}
 
-  {% if section_blocks.size > 0 %}
-    <div class="multi-collection-viewer-tabs" id="CollectionTabs-{{ section.id }}">
-      <div class="multi-collection-viewer-tabs__container">
+    {% if section_blocks.size > 0 %}
+      <div class="multi-collection-viewer-tabs" id="CollectionTabs-{{ section.id }}">
+        <div class="multi-collection-viewer-tabs__container">
+          {% for block in section_blocks %}
+            {%- assign collection = block.settings.collection -%}
+            <button
+              class="multi-collection-viewer-tabs__button{% if forloop.first %} is-active{% endif %}"
+              data-collection-handle="{{ collection.handle | default: 'all' }}"
+              aria-controls="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ collection.title | default: 'Collection' }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="multi-collection-viewer-content">
         {% for block in section_blocks %}
           {%- assign collection = block.settings.collection -%}
-          <button
-            class="multi-collection-viewer-tabs__button{% if forloop.first %} is-active{% endif %}"
-            data-collection-handle="{{ collection.handle | default: 'all' }}"
-            aria-controls="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
-            {{ block.shopify_attributes }}
+          <div
+            id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
+            class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
+            data-collection-content="{{ collection.handle | default: 'all' }}"
           >
-            {{ collection.title | default: 'Collection' }}
-          </button>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="multi-collection-viewer-content">
-      {% for block in section_blocks %}
-        {%- assign collection = block.settings.collection -%}
-        <div
-          id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
-          class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
-          data-collection-content="{{ collection.handle | default: 'all' }}"
-        >
-          {% if collection.products.size > 0 %}
-            <div class="custom-product-grid">
-              {% for product in collection.products limit: 4 %}
-                <div class="grid__item">
-                  <a href="{{ product.url | within: collection }}" class="custom-product-card">
-                    <div class="custom-product-card__image-wrapper">
-                      {% if product.featured_media %}
-                        <img
-                          src="{{ product.featured_media | image_url: width: 500 }}"
-                          alt="{{ product.featured_media.alt | escape }}"
-                          loading="lazy"
-                          width="{{ product.featured_media.width }}"
-                          height="{{ product.featured_media.height }}"
-                          class="custom-product-card__image custom-product-card__image--primary"
-                        >
-                        {% if product.media[1] %}
+            {% if collection.products.size > 0 %}
+              <div class="custom-product-grid">
+                {% for product in collection.products limit: 4 %}
+                  <div class="grid__item">
+                    <a href="{{ product.url | within: collection }}" class="custom-product-card">
+                      <div class="custom-product-card__image-wrapper">
+                        {% if product.featured_media %}
                           <img
-                            src="{{ product.media[1] | image_url: width: 500 }}"
-                            alt="{{ product.media[1].alt | escape }}"
+                            src="{{ product.featured_media | image_url: width: 500 }}"
+                            alt="{{ product.featured_media.alt | escape }}"
                             loading="lazy"
-                            width="{{ product.media[1].width }}"
-                            height="{{ product.media[1].height }}"
-                            class="custom-product-card__image custom-product-card__image--secondary"
+                            width="{{ product.featured_media.width }}"
+                            height="{{ product.featured_media.height }}"
+                            class="custom-product-card__image custom-product-card__image--primary"
                           >
-                        {% endif %}
-                      {% else %}
-                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg custom-product-card__image' }}
-                      {% endif %}
-                    </div>
-                    <div class="custom-product-card__info">
-                      <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
-                      <div class="custom-product-card__price">
-                        {{ product.price | money }}
-                        {% if product.compare_at_price > product.price %}
-                          <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
+                          {% if product.media[1] %}
+                            <img
+                              src="{{ product.media[1] | image_url: width: 500 }}"
+                              alt="{{ product.media[1].alt | escape }}"
+                              loading="lazy"
+                              width="{{ product.media[1].width }}"
+                              height="{{ product.media[1].height }}"
+                              class="custom-product-card__image custom-product-card__image--secondary"
+                            >
+                          {% endif %}
+                        {% else %}
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg custom-product-card__image' }}
                         {% endif %}
                       </div>
-                    </div>
-                  </a>
-                </div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <div class="multi-collection-viewer-grid--empty">
-              <p>This collection has no products. Select another collection in the theme editor.</p>
-              <div class="custom-product-grid">
-                {% for i in (1..4) %}
-                  <div class="grid__item">
-                    <div class="custom-product-card custom-product-card--placeholder">
-                      {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
                       <div class="custom-product-card__info">
-                        <div class="placeholder-text">
-                          <div class="placeholder-text__item"></div>
-                          <div class="placeholder-text__item short"></div>
+                        <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
+                        <div class="custom-product-card__price">
+                          {{ product.price | money }}
+                          {% if product.compare_at_price > product.price %}
+                            <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
+                          {% endif %}
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 {% endfor %}
               </div>
-            </div>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
+            {% else %}
+              <div class="multi-collection-viewer-grid--empty">
+                <p>This collection has no products. Select another collection in the theme editor.</p>
+                <div class="custom-product-grid">
+                  {% for i in (1..4) %}
+                    <div class="grid__item">
+                      <div class="custom-product-card custom-product-card--placeholder">
+                        {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                        <div class="custom-product-card__info">
+                          <div class="placeholder-text">
+                            <div class="placeholder-text__item"></div>
+                            <div class="placeholder-text__item short"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 </div>
+
 
 {% stylesheet %}
   .multi-collection-viewer-header {
@@ -126,28 +140,23 @@
     gap: 20px;
     margin-bottom: 30px;
   }
-
   .multi-collection-viewer-header__text-wrapper {
     max-width: 650px;
   }
-
   .multi-collection-viewer-header h2 {
     margin-bottom: 10px;
   }
-
   .multi-collection-viewer-tabs {
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
   }
-
   .multi-collection-viewer-tabs__container {
     display: inline-flex;
     background-color: #f3f3f3;
     border-radius: 999px;
     padding: 6px;
   }
-
   .multi-collection-viewer-tabs__button {
     padding: 10px 24px;
     border: none;
@@ -159,13 +168,11 @@
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     color: #555;
   }
-
   .multi-collection-viewer-tabs__button.is-active {
     background-color: #ffffff;
     color: #121212;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
-
   .hidden {
     display: none;
   }
@@ -173,8 +180,12 @@
   /* Custom Grid Layout Styles */
   .custom-product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
-    gap: 20px; /* Adjust the gap between products as needed */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  /* NEW: This makes the grid item a flex container */
+  .grid__item {
+    display: flex;
   }
 
   /* Custom Product Card Styles */
@@ -188,19 +199,18 @@
     overflow: hidden;
     transition: box-shadow 0.3s ease;
     position: relative;
+    width: 100%; /* Ensure card takes up full width of grid item */
+    height: 100%; /* NEW: This makes the card stretch to the full height */
   }
-
   .custom-product-card:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
-
   .custom-product-card__image-wrapper {
     width: 100%;
-    padding-bottom: 100%; /* Creates a square aspect ratio for the image container */
+    padding-bottom: 100%;
     position: relative;
     overflow: hidden;
   }
-
   .custom-product-card__image {
     position: absolute;
     top: 0;
@@ -210,19 +220,15 @@
     object-fit: cover;
     transition: opacity 0.3s ease;
   }
-
   .custom-product-card__image--secondary {
-    opacity: 0; /* Hidden by default */
+    opacity: 0;
   }
-
   .custom-product-card:hover .custom-product-card__image--primary {
-    opacity: 0; /* Hide primary on hover */
+    opacity: 0;
   }
-
   .custom-product-card:hover .custom-product-card__image--secondary {
-    opacity: 1; /* Show secondary on hover */
+    opacity: 1;
   }
-
   .custom-product-card__info {
     padding: 15px;
     text-align: center;
@@ -231,7 +237,6 @@
     justify-content: space-between;
     flex-grow: 1;
   }
-
   .custom-product-card__title {
     font-size: 1.1em;
     font-weight: 600;
@@ -239,7 +244,6 @@
     color: #333;
     line-height: 1.3;
   }
-
   .custom-product-card__price {
     font-size: 1em;
     font-weight: 500;
@@ -250,7 +254,6 @@
     gap: 8px;
     flex-wrap: wrap;
   }
-
   .custom-product-card__compare-price {
     text-decoration: line-through;
     color: #999;
@@ -288,7 +291,6 @@
 
   /* Responsive Adjustments */
   @media screen and (max-width: 990px) {
-    /* Optional: adjust for tablets if needed */
     .custom-product-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -300,23 +302,19 @@
       align-items: flex-start;
       text-align: left;
     }
-
     .multi-collection-viewer-header .button {
       margin-top: 15px;
     }
-
     .multi-collection-viewer-tabs__container {
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .multi-collection-viewer-tabs__button {
       font-size: 0.9rem;
       padding: 8px 18px;
     }
-
     .custom-product-grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile/tablet */
+      grid-template-columns: repeat(2, 1fr);
       gap: 15px;
     }
   }
@@ -330,10 +328,8 @@ class MultiCollectionViewer {
     this.contents = this.container.querySelectorAll('[data-collection-content]');
     this.init();
   }
-
   init() {
     if (!this.tabs.length) return;
-
     this.tabs.forEach(tab => {
       tab.addEventListener('click', (event) => {
         event.preventDefault();
@@ -341,15 +337,12 @@ class MultiCollectionViewer {
       });
     });
   }
-
   onTabClick(clickedTab) {
     const targetHandle = clickedTab.dataset.collectionHandle;
-
     this.tabs.forEach(tab => {
       tab.classList.remove('is-active');
     });
     clickedTab.classList.add('is-active');
-
     this.contents.forEach(content => {
       if (content.dataset.collectionContent === targetHandle) {
         content.classList.remove('hidden');
@@ -359,7 +352,6 @@ class MultiCollectionViewer {
     });
   }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
   viewers.forEach(viewer => {
@@ -378,6 +370,10 @@ document.addEventListener('DOMContentLoaded', () => {
   "class": "spaced-section",
   "max_blocks": 4,
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -400,6 +396,30 @@ document.addEventListener('DOMContentLoaded', () => {
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
     }
   ],
   "blocks": [
