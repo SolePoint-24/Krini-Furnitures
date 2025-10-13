@@ -84,7 +84,7 @@
                     {{ block.settings.button_label | escape }}
                   </a>
                 {%- endif -%}
-                 {%- if block.settings.button_2_label != blank -%}
+                  {%- if block.settings.button_2_label != blank -%}
                   <a href="{{ block.settings.button_2_link }}" class="button hero-carousel__button hero-carousel__button--secondary">
                     {{ block.settings.button_2_label | escape }}
                   </a>
@@ -107,12 +107,23 @@
         <div class="hero-carousel__titles">
           {%- for block in collection_slides -%}
             {%- assign collection = block.settings.collection -%}
+        
+            {%- liquid
+              if block.settings.collection
+                assign nav_title = block.settings.collection.title
+              elsif block.settings.custom_nav_title != blank
+                assign nav_title = block.settings.custom_nav_title
+              else
+                assign nav_title = 'Slide'
+              endif
+            -%}
+            
             <a
-              href="{{ collection.url }}"
+              href="{{ collection.url | default: '#' }}"
               class="hero-carousel__title-link {% if forloop.first %}is-active{% endif %}"
               data-collection-handle="{{ collection.handle | default: block.id }}"
             >
-              {{ collection.title | default: 'Slide' }}
+              {{ nav_title }}
             </a>
           {%- endfor -%}
         </div>
@@ -493,6 +504,12 @@
           "type": "collection",
           "id": "collection",
           "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "custom_nav_title",
+          "label": "Custom Navigation Title",
+          "info": "Used as the navigation title if no collection is selected."
         },
         {
           "type": "image_picker",
