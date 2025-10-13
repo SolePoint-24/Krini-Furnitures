@@ -1025,9 +1025,9 @@
       ],
       "name": "Multi-Collection Viewer",
       "settings": {
-        "heading": "Featured Collections",
+        "heading": "Our Protfolio",
         "description": "",
-        "button_label": "View All",
+        "button_label": "View Full Portfolio",
         "button_link": "shopify://collections",
         "padding_top": 36,
         "padding_bottom": 36
