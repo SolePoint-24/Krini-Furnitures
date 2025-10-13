@@ -217,6 +217,20 @@
     "custom_hero_gKtgPw": {
       "type": "custom_hero",
       "blocks": {
+        "collection_slide_d6rxeE": {
+          "type": "collection_slide",
+          "settings": {
+            "collection": "sofa-cum-beds",
+            "custom_nav_title": "Krini",
+            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
+            "title": "Your Collection Title",
+            "subtitle": "<p>Tell a story about this collection.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_2_label": "Learn More",
+            "button_2_link": ""
+          }
+        },
         "collection_slide_xX6KKP": {
           "type": "collection_slide",
           "settings": {
@@ -246,26 +260,12 @@
             "button_2_label": "Learn More",
             "button_2_link": ""
           }
-        },
-        "collection_slide_d6rxeE": {
-          "type": "collection_slide",
-          "settings": {
-            "collection": "sofa-cum-beds",
-            "custom_nav_title": "Krini",
-            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
-            "title": "Your Collection Title",
-            "subtitle": "<p>Tell a story about this collection.</p>",
-            "button_label": "",
-            "button_link": "",
-            "button_2_label": "Learn More",
-            "button_2_link": ""
-          }
         }
       },
       "block_order": [
+        "collection_slide_d6rxeE",
         "collection_slide_xX6KKP",
-        "collection_slide_ARaXEU",
-        "collection_slide_d6rxeE"
+        "collection_slide_ARaXEU"
       ],
       "name": "Hero Carousel",
       "settings": {
