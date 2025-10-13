@@ -971,6 +971,7 @@
           ]
         }
       },
+      "disabled": true,
       "name": "t:names.products_carousel",
       "settings": {
         "collection": "frontpage",
@@ -990,6 +991,41 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 30,
         "padding-block-end": 30
+      }
+    },
+    "multi_collection_showcase_nhfX9U": {
+      "type": "multi-collection-showcase",
+      "blocks": {
+        "collection_dyHwdb": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "collection_6GA6QG": {
+          "type": "collection",
+          "settings": {
+            "collection": "wall-mounted-folding-tables"
+          }
+        },
+        "collection_DFiVRx": {
+          "type": "collection",
+          "settings": {
+            "collection": "l-shape-sofa-cum-beds"
+          }
+        }
+      },
+      "block_order": [
+        "collection_dyHwdb",
+        "collection_6GA6QG",
+        "collection_DFiVRx"
+      ],
+      "name": "Multi-Collection Viewer",
+      "settings": {
+        "heading": "Featured Collections",
+        "description": "",
+        "button_label": "View All",
+        "button_link": "shopify://collections"
       }
     },
     "section_xzhDMf": {
@@ -1617,6 +1653,7 @@
     "product_list_EDUBdR",
     "section_DHbwpb",
     "product_list_9AAQz9",
+    "multi_collection_showcase_nhfX9U",
     "section_xzhDMf",
     "collection_list_xpBxCm",
     "custom_image_banner_aE6HGD"
