@@ -1489,7 +1489,7 @@ summary {
 }
 
 summary:hover {
-  color: var(--color-primary-hover);
+ 
 }
 
 summary .svg-wrapper {
