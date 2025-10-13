@@ -112,7 +112,7 @@
               class="hero-carousel__title-link {% if forloop.first %}is-active{% endif %}"
               data-collection-handle="{{ collection.handle | default: block.id }}"
             >
-              {{ collection.title | default: 'Slide' }}
+              {{ collection.title | default: block.settings.custom_nav_title }}
             </a>
           {%- endfor -%}
         </div>
