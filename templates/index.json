@@ -217,23 +217,25 @@
     "custom_hero_gKtgPw": {
       "type": "custom_hero",
       "blocks": {
-        "collection_slide_xX6KKP": {
+        "collection_slide_qQVprL": {
           "type": "collection_slide",
           "settings": {
-            "collection": "bed-frame",
-            "image_desktop": "shopify://shop_images/21-600x600_1.jpg",
+            "collection": "",
+            "custom_nav_title": "Slide",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
-            "button_label": "",
+            "button_label": "Shop Now",
             "button_link": "",
             "button_2_label": "Learn More",
             "button_2_link": ""
           }
         },
-        "collection_slide_ARaXEU": {
+        "collection_slide_xX6KKP": {
           "type": "collection_slide",
           "settings": {
-            "collection": "beds",
+            "collection": "bed-frame",
+            "custom_nav_title": "Slide",
+            "image_desktop": "shopify://shop_images/21-600x600_1.jpg",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
@@ -246,6 +248,7 @@
           "type": "collection_slide",
           "settings": {
             "collection": "sofa-cum-beds",
+            "custom_nav_title": "Slide",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
@@ -256,8 +259,8 @@
         }
       },
       "block_order": [
+        "collection_slide_qQVprL",
         "collection_slide_xX6KKP",
-        "collection_slide_ARaXEU",
         "collection_slide_d6rxeE"
       ],
       "name": "Hero Carousel",
