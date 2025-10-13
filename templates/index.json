@@ -1176,6 +1176,7 @@
           "block_order": []
         }
       },
+      "custom_css": [],
       "name": "t:names.blog_posts_grid",
       "settings": {
         "blog": "news",
@@ -1283,7 +1284,7 @@
       ],
       "custom_css": [
         ".background-image-container {opacity: 0.5;}",
-        ".section-background {background-color: black;}"
+        ".section-background {background-color: black; color: white;}"
       ],
       "name": "t:names.email_signup",
       "settings": {
