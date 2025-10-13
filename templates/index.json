@@ -1190,7 +1190,7 @@
         "rows_gap": 8,
         "icons_style": "arrow",
         "icons_shape": "none",
-        "section_width": "full-width",
+        "section_width": "page-width",
         "gap": 12,
         "color_scheme": "",
         "padding-block-start": 48,
