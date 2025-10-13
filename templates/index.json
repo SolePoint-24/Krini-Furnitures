@@ -221,7 +221,8 @@
           "type": "collection_slide",
           "settings": {
             "collection": "",
-            "custom_nav_title": "Slide",
+            "custom_nav_title": "Krini",
+            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "Shop Now",
