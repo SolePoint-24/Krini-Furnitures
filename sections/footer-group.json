@@ -14,29 +14,17 @@
     "custom_footer_eMeNjk": {
       "type": "custom-footer",
       "blocks": {
-        "social_links_TUna4N": {
-          "type": "social-links",
-          "name": "t:names.social_media_links",
+        "social_icon_K8L9KM": {
+          "type": "social_icon",
           "settings": {
-            "facebook_url": "",
-            "instagram_url": "https://www.instagram.com/",
-            "youtube_url": "",
-            "tiktok_url": "",
-            "twitter_url": "",
-            "threads_url": "",
-            "linkedin_url": "",
-            "bluesky_url": "",
-            "snapchat_url": "",
-            "pinterest_url": "",
-            "tumblr_url": "",
-            "vimeo_url": "",
-            "custom_url": ""
-          },
-          "blocks": {}
+            "link": "",
+            "aria_label": "",
+            "svg_code": ""
+          }
         }
       },
       "block_order": [
-        "social_links_TUna4N"
+        "social_icon_K8L9KM"
       ],
       "name": "Custom Footer",
       "settings": {
