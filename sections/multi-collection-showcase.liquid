@@ -46,44 +46,43 @@
     <div class="multi-collection-viewer-content">
       {% for block in section_blocks %}
         {%- assign collection = block.settings.collection -%}
-        <div
-          id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
-          class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
-          data-collection-content="{{ collection.handle | default: 'all' }}"
-        >
-          {% if collection.products.size > 0 %}
-            <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-              {% for product in collection.products limit: 4 %}
-                <div class="grid__item">
-                  {% comment %}
-                    The following line renders your theme's product card.
-                    'product-card' is the standard snippet name in modern Shopify themes like Tinker.
-                    If it doesn't work, check your /snippets folder for a similar file.
-                  {% endcomment %}
-                  {% render 'product-card', product_card_product: product %}
-                </div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <div class="multi-collection-viewer-grid--empty">
-              <p>This collection has no products. Select another collection in the theme editor.</p>
-              <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-                {% for i in (1..4) %}
-                  <div class="grid__item">
-                    <div class="product-card-placeholder">
-                      {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
-                      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                      <div class="placeholder-text">
-                        <div class="placeholder-text__item"></div>
-                        <div class="placeholder-text__item short"></div>
-                      </div>
-                    </div>
-                  </div>
-                {% endfor %}
+       <div
+            id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
+            class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
+            data-collection-content="{{ collection.handle | default: 'all' }}"
+>
+  {% if collection.products.size > 0 %}
+    <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+      {% for product in collection.products limit: 4 %}
+        <div class="grid__item">
+          {% comment %}
+            This now correctly passes the 'product' and 'block' objects
+            to your specific product-card snippet.
+          {% endcomment %}
+          {% render 'product-card', product: product, block: block %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="multi-collection-viewer-grid--empty">
+      <p>This collection has no products. Select another collection in the theme editor.</p>
+      <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+        {% for i in (1..4) %}
+          <div class="grid__item">
+            <div class="product-card-placeholder">
+              {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
+              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+              <div class="placeholder-text">
+                <div class="placeholder-text__item"></div>
+                <div class="placeholder-text__item short"></div>
               </div>
             </div>
-          {% endif %}
-        </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
       {% endfor %}
     </div>
   {% endif %}
