@@ -1,0 +1,440 @@
+{% comment %}
+  ** FAQ Section **
+  - Block-based groups for intuitive content management.
+  - Filterable by group.
+  - Customizable color scheme via Theme Editor.
+  - Includes a "View All" button linking to a full FAQ page.
+  - Fully responsive and modern design.
+{% endcomment %}
+
+
+{%- style -%}
+
+/* assets/faq-section.css */
+
+.faq-section__container {
+
+  padding: 0 1.5rem;
+}
+
+.faq-section__heading {
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.faq-section__filters {
+  display: flex;
+  flex-wrap: none;
+  overflow-x: auto;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.faq-filter-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.faq-section__accordions {
+  display: grid;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 70rem;
+}
+
+.faq-accordion__details {
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 12px;
+  padding: 0.5rem 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.faq-accordion__details[open] {
+  background-color: rgba(var(--color-foreground), 0.04);
+}
+
+.faq-accordion__summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  list-style: none; /* Remove default marker */
+}
+
+.faq-accordion__summary::-webkit-details-marker {
+  display: none; /* Hide for Safari */
+}
+
+.faq-accordion__icon {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.faq-accordion__icon .icon {
+  position: absolute;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.faq-accordion__icon .icon-minus {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.faq-accordion__details[open] .icon-plus {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.faq-accordion__details[open] .icon-minus {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.faq-section__question {
+  font-size: 1.5rem;
+}
+
+.faq-accordion__answer {
+  padding-bottom: 1.25rem;
+  padding-right: 2.5rem; /* Space to avoid icon overlap */
+  opacity: 0.85;
+}
+
+
+.faq-accordion__details:hover .faq-accordion__question {
+  color: inherit !important;
+}
+.faq-section__view-all-wrapper {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .faq-section__container {
+    padding: 0 1rem;
+  }
+  
+  .faq-section__heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-section__filters {
+    margin-bottom: 2rem;
+    justify-content: flex-start;
+  }
+
+  .faq-section__filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .faq-accordion__details {
+    padding: 0.25rem 1rem;
+  }
+
+  .faq-accordion__summary {
+    font-size: 1rem;
+  }
+
+  
+  
+  .faq-accordion__answer {
+    padding-right: 1rem;
+  }
+}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  .faq-accordion__question {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding isolate">
+   {%- if section.settings.title != blank -%}
+        <h2 style="text-align:center" class="title inline-richtext   {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+          {{ section.settings.title }}
+        </h2>
+      {%- endif -%}
+
+    {%- assign faq_blocks = section.blocks -%}
+    {% if faq_blocks.size > 0 %}
+      {%- assign groups = faq_blocks | where: 'type', 'group_header' -%}
+      
+      {% if groups.size > 1 %}
+        <div class="faq-section__filters no-js-hidden" id="faq-filters-{{ section.id }}">
+        
+          {% for block in groups %}
+            {%- assign group_handle = block.settings.title | handleize -%}
+            <button type="button" class="faq-filter-button button button--secondary" data-group="{{ group_handle }}" aria-pressed="false">
+              {{ block.settings.title | escape }}
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="faq-section__accordions" id="faq-accordions-{{ section.id }}">
+        {%- assign current_group_handle = '' -%}
+        {% for block in faq_blocks %}
+          {%- if block.type == 'group_header' -%}
+            {%- assign current_group_handle = block.settings.title | handleize -%}
+          {%- elsif block.type == 'faq_item' -%}
+            <div class="faq-accordion" data-group-content="{{ current_group_handle }}" {{ block.shopify_attributes }}>
+              <details class="faq-accordion__details">
+                <summary class="faq-accordion__summary">
+                  <span class="faq-accordion__question">{{ block.settings.question | escape }}</span>
+                  <span class="faq-accordion__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-plus" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-minus" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="faq-accordion__answer rte">
+                  {{ block.settings.answer }}
+                </div>
+              </details>
+            </div>
+          {%- endif -%}
+        {% endfor %}
+      </div>
+
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <div class="faq-section__view-all-wrapper">
+          <a href="{{ section.settings.button_link }}" class="button button--primary">
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {% endif %}
+
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqSection = document.querySelector('.section-{{ section.id }}-padding');
+    if (!faqSection) return;
+
+    const filterButtons = faqSection.querySelectorAll('.faq-filter-button');
+    const accordions = faqSection.querySelectorAll('.faq-accordion');
+
+    if (filterButtons.length > 0) {
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const group = button.dataset.group;
+
+          // Update button styles
+          filterButtons.forEach(btn => {
+            btn.setAttribute('aria-pressed', 'false');
+            btn.classList.remove('button--primary');
+            btn.classList.add('button--secondary');
+          });
+          button.setAttribute('aria-pressed', 'true');
+          button.classList.add('button--primary');
+          button.classList.remove('button--secondary');
+
+          // Filter accordions
+          accordions.forEach(accordion => {
+            const accordionGroup = accordion.dataset.groupContent;
+            const shouldShow = group === 'all' || accordionGroup === group;
+            
+            accordion.style.display = shouldShow ? 'block' : 'none';
+          });
+        });
+      });
+      
+      // Trigger click on the first filter (not "All") to set initial view
+      if(filterButtons[1]) {
+        filterButtons[1].click();
+      } else if (filterButtons[0]) {
+        filterButtons[0].click(); // Fallback to "All" if no groups exist
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+  "type": "inline_richtext",
+  "id": "title",
+  "default": "Frequently Asked Questions",
+  "label": "Heading"
+},
+   {
+  "type": "select",
+  "id": "heading_size",
+  "options": [
+    {
+      "value": "h2",
+      "label": "Small"
+    },
+    {
+      "value": "h1",
+      "label": "Medium"
+    },
+    {
+      "value": "h0",
+      "label": "Large"
+    },
+    {
+      "value": "hxl",
+      "label": "Extra Large"
+    },
+    {
+      "value": "hxxl",
+      "label": "XX Large"
+    }
+  ],
+  "default": "h1",
+  "label": "Heading size"
+},
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "View All FAQs"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "info": "Link to your full FAQ page (e.g., /pages/faq)."
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "group_header",
+      "name": "FAQ Group",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Group Title",
+          "default": "Shipping",
+          "info": "This creates a new filterable group. Add 'FAQ Item' blocks below this."
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "limit": 50,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is the return policy?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Use this text to answer the question.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "group_header",
+          "settings": {
+            "title": "Shipping"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Our standard shipping typically takes 3-5 business days within the country. International shipping times may vary.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website.</p>"
+          }
+        },
+        {
+          "type": "group_header",
+          "settings": {
+            "title": "Returns"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We accept returns within 30 days of purchase for a full refund. Items must be in their original condition. Please visit our returns page to initiate a return.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

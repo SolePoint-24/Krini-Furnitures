@@ -112,7 +112,7 @@
               class="hero-carousel__title-link {% if forloop.first %}is-active{% endif %}"
               data-collection-handle="{{ collection.handle | default: block.id }}"
             >
-              {{ collection.title | default: 'Slide' }}
+              {{ collection.title | default: block.settings.custom_nav_title }}
             </a>
           {%- endfor -%}
         </div>
@@ -493,6 +493,13 @@
           "type": "collection",
           "id": "collection",
           "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "custom_nav_title",
+          "label": "Custom Navigation Title",
+          "default": "Slide",
+          "info": "Used as the navigation title if no collection is selected."
         },
         {
           "type": "image_picker",
