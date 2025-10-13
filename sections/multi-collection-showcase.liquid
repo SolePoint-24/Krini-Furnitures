@@ -6,7 +6,6 @@
   - Uses the theme's existing product card for consistent styling.
 {% endcomment %}
 
-
 <div class="page-width">
   <div class="multi-collection-viewer-header">
     <div class="multi-collection-viewer-header__text-wrapper">
@@ -37,7 +36,7 @@
             aria-controls="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
             {{ block.shopify_attributes }}
           >
-            {{ collection.title | default: 'Collection' }}
+            {{ collection.title | default: 'All Products' }}
           </button>
         {% endfor %}
       </div>
@@ -46,52 +45,59 @@
     <div class="multi-collection-viewer-content">
       {% for block in section_blocks %}
         {%- assign collection = block.settings.collection -%}
-       <div
-            id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
-            class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
-            data-collection-content="{{ collection.handle | default: 'all' }}"
->
-  {% if collection.products.size > 0 %}
-    <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-     {% for product in collection.products limit: 4 %}
-  <div class="grid__item">
-    {% comment %}
-      STEP 1: Capture the inner content of the card.
-      The 'card-product.liquid' snippet typically handles rendering
-      the product image, title, price, etc.
-    {% endcomment %}
-    {%- capture product_card_children -%}
-      {% render 'product-card', product: product, block: block %}
-    {%- endcapture -%}
-
-    {% comment %}
-      STEP 2: Render the main product card WRAPPER, passing the
-      captured content in the 'children' parameter.
-    {% endcomment %}
-    {% render 'product-card', product: product, block: block, children: product_card_children %}
-  </div>
-{% endfor %}
-    </div>
-  {% else %}
-    <div class="multi-collection-viewer-grid--empty">
-      <p>This collection has no products. Select another collection in the theme editor.</p>
-      <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
-        {% for i in (1..4) %}
-          <div class="grid__item">
-            <div class="product-card-placeholder">
-              {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
-              {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-              <div class="placeholder-text">
-                <div class="placeholder-text__item"></div>
-                <div class="placeholder-text__item short"></div>
+        <div
+          id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
+          class="multi-collection-viewer-grid{% unless forloop.first %} hidden{% endunless %}"
+          data-collection-content="{{ collection.handle | default: 'all' }}"
+        >
+          {% if collection != blank and collection.products.size > 0 %}
+            <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+              {% for product in collection.products limit: section.settings.products_to_show %}
+                <div class="grid__item">
+                  {% comment %}
+                    Render the product card using the proper structure expected by the Tinker theme
+                  {% endcomment %}
+                  {% render 'product-card', 
+                    product: product,
+                    block: block,
+                    children: {null},
+                  %}
+                </div>
+              {% endfor %}
+            </div>
+          {% elsif collection == blank %}
+            {% comment %} Show all products if no collection is selected {% endcomment %}
+            <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+              {% for product in collections.all.products limit: section.settings.products_to_show %}
+                <div class="grid__item">
+                  {% render 'product-card',
+                    product: product,
+                    block: block,
+                    children: {null},
+                  %}
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="multi-collection-viewer-grid--empty">
+              <p>This collection has no products. Select another collection in the theme editor.</p>
+              <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+                {% for i in (1..4) %}
+                  <div class="grid__item">
+                    <div class="product-card-placeholder">
+                      {% capture current %}{% cycle 1, 2, 3, 4 %}{% endcapture %}
+                      {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                      <div class="placeholder-text">
+                        <div class="placeholder-text__item"></div>
+                        <div class="placeholder-text__item short"></div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  {% endif %}
-</div>
+          {% endif %}
+        </div>
       {% endfor %}
     </div>
   {% endif %}
@@ -145,8 +151,32 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
+  .multi-collection-viewer-tabs__button:hover:not(.is-active) {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
   .hidden {
-    display: none;
+    display: none !important;
+  }
+
+  /* Grid styling */
+  .multi-collection-viewer-grid .grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .grid--4-col-desktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Empty state styling */
+  .multi-collection-viewer-grid--empty {
+    text-align: center;
+  }
+
+  .multi-collection-viewer-grid--empty p {
+    margin-bottom: 2rem;
+    color: #666;
   }
 
   /* Placeholder styles for empty state */
@@ -156,25 +186,35 @@
     border-radius: 4px;
     overflow: hidden;
   }
+  
   .product-card-placeholder .placeholder-svg {
     width: 100%;
     height: auto;
     display: block;
   }
+  
   .product-card-placeholder .placeholder-text {
     padding: 15px;
   }
+  
   .product-card-placeholder .placeholder-text__item {
     background-color: #e5e5e5;
     height: 12px;
     border-radius: 2px;
     margin-bottom: 8px;
   }
+  
   .product-card-placeholder .placeholder-text__item.short {
     width: 60%;
   }
 
   /* Responsive Adjustments */
+  @media screen and (max-width: 999px) {
+    .grid--4-col-desktop {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .multi-collection-viewer-header {
       flex-direction: column;
@@ -189,11 +229,27 @@
     .multi-collection-viewer-tabs__container {
       flex-wrap: wrap;
       justify-content: center;
+      width: 100%;
     }
 
     .multi-collection-viewer-tabs__button {
       font-size: 0.9rem;
       padding: 8px 18px;
+    }
+    
+    .grid--2-col-tablet,
+    .grid--2-col-mobile {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .multi-collection-viewer-grid .grid {
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .grid--2-col-mobile {
+      grid-template-columns: 1fr;
     }
   }
 {% endstylesheet %}
@@ -231,8 +287,20 @@ class MultiCollectionViewer {
     this.contents.forEach(content => {
       if (content.dataset.collectionContent === targetHandle) {
         content.classList.remove('hidden');
+        // Trigger any lazy loading or image loading if needed
+        this.loadImages(content);
       } else {
         content.classList.add('hidden');
+      }
+    });
+  }
+  
+  loadImages(content) {
+    // Trigger image lazy loading if the theme uses it
+    const images = content.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+      if (img.dataset.src && !img.src) {
+        img.src = img.dataset.src;
       }
     });
   }
@@ -241,13 +309,22 @@ class MultiCollectionViewer {
 document.addEventListener('DOMContentLoaded', () => {
   const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
   viewers.forEach(viewer => {
-    // We need to target the parent section to include the content grids
     const sectionContainer = viewer.closest('.shopify-section');
     if (sectionContainer) {
       new MultiCollectionViewer(sectionContainer);
     }
   });
 });
+
+// Also initialize on Shopify theme editor events
+if (Shopify && Shopify.designMode) {
+  document.addEventListener('shopify:section:load', (event) => {
+    const section = event.target;
+    if (section.querySelector('.multi-collection-viewer-tabs')) {
+      new MultiCollectionViewer(section);
+    }
+  });
+}
 {% endjavascript %}
 
 {% schema %}
@@ -279,6 +356,15 @@ document.addEventListener('DOMContentLoaded', () => {
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Maximum products to show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8
     }
   ],
   "blocks": [
