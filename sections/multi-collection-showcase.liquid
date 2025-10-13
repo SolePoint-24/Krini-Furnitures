@@ -57,10 +57,13 @@
                   {% comment %}
                     Render the product card using the proper structure expected by the Tinker theme
                   {% endcomment %}
+                   {% capture children %}
+                     {% content_for 'blocks', closest.product: product %}
+                    {% endcapture %}
                   {% render 'product-card', 
                     product: product,
                     block: block,
-                    children: {null},
+                    children: children,
                   %}
                 </div>
               {% endfor %}
@@ -73,7 +76,7 @@
                   {% render 'product-card',
                     product: product,
                     block: block,
-                    children: {null},
+                    children: children,
                   %}
                 </div>
               {% endfor %}
