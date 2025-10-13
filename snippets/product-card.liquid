@@ -9,11 +9,8 @@
   @param {number} [product_card_gap] - The gap between the product card children (overrides block settings)
 {%- enddoc -%}
 
-{% if block and block.settings %}
-  {% assign block_settings = block.settings %}
-{% else %}
-  {% assign block_settings = hash %}
-{% endif %}
+{% assign block_settings = block.settings | default: section.settings %}
+
 
 {% style %}
   {% if request.visual_preview_mode %}
