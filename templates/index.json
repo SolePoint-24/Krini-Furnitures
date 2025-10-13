@@ -253,12 +253,27 @@
             "button_2_label": "Learn More",
             "button_2_link": ""
           }
+        },
+        "collection_slide_tdV8FA": {
+          "type": "collection_slide",
+          "settings": {
+            "collection": "",
+            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
+            "image_tablet": "shopify://shop_images/hero-banner-krini.jpg",
+            "title": "",
+            "subtitle": "",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections",
+            "button_2_label": "Learn More",
+            "button_2_link": ""
+          }
         }
       },
       "block_order": [
         "collection_slide_xX6KKP",
         "collection_slide_ARaXEU",
-        "collection_slide_d6rxeE"
+        "collection_slide_d6rxeE",
+        "collection_slide_tdV8FA"
       ],
       "name": "Hero Carousel",
       "settings": {
