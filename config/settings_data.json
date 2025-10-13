@@ -9,8 +9,11 @@
  */
 {
   "current": {
-    "logo_height": 36,
+    "logo": "shopify://shop_images/krini-transparent-logo.png",
+    "logo_inverse": "shopify://shop_images/krini-transparent-logo.png",
+    "logo_height": 55,
     "logo_height_mobile": 28,
+    "favicon": "shopify://shop_images/krini-transparent-logo.png",
     "type_body_font": "montserrat_n5",
     "type_subheading_font": "manrope_n4",
     "type_heading_font": "manrope_n5",
@@ -82,12 +85,12 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#f5f3ef",
+          "background": "#eeddc6",
           "foreground_heading": "#2c2c2c",
           "foreground": "#2c2c2c",
           "primary": "#000000",
           "primary_hover": "#000000",
-          "border": "#e6e6e6",
+          "border": "#eeddc6",
           "shadow": "#000000",
           "primary_button_background": "#c3cca6",
           "primary_button_text": "#000000",
@@ -162,7 +165,7 @@
         "settings": {
           "background": "#a57f59",
           "foreground_heading": "#000000",
-          "foreground": "#000000",
+          "foreground": "#f5f3ef",
           "primary": "#000000",
           "primary_hover": "#000000",
           "border": "#000000",
@@ -279,7 +282,7 @@
         "settings": {
           "background": "#f1ede7",
           "foreground_heading": "#000000",
-          "foreground": "#000000",
+          "foreground": "#faf5ef",
           "primary": "#000000",
           "primary_hover": "#000000",
           "border": "#000000",
