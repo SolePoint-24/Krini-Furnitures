@@ -20,8 +20,8 @@
         "logo_width": 150,
         "description": "",
         "title": "",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 12,
+        "padding_bottom": 12
       }
     },
     "footer": {
@@ -239,46 +239,10 @@
         "padding-block-start": 36,
         "padding-block-end": 18
       }
-    },
-    "utilities": {
-      "type": "footer-utilities",
-      "blocks": {
-        "copyright": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_rfGrqz": {
-          "type": "footer-policy-list",
-          "name": "t:names.policy_list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "copyright",
-        "footer_policy_list_rfGrqz"
-      ],
-      "settings": {
-        "section_width": "page-width",
-        "gap": 24,
-        "divider_thickness": 1,
-        "color_scheme": "scheme-3",
-        "padding-block-start": 20,
-        "padding-block-end": 18
-      }
     }
   },
   "order": [
     "custom_footer_eMeNjk",
-    "footer",
-    "utilities"
+    "footer"
   ]
 }
