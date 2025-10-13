@@ -999,19 +999,19 @@
         "collection_dyHwdb": {
           "type": "collection",
           "settings": {
-            "collection": "frontpage"
+            "collection": "residential-installs"
           }
         },
         "collection_6GA6QG": {
           "type": "collection",
           "settings": {
-            "collection": "wall-mounted-folding-tables"
+            "collection": "hotel-projects"
           }
         },
         "collection_DFiVRx": {
           "type": "collection",
           "settings": {
-            "collection": "l-shape-sofa-cum-beds"
+            "collection": "designer-collaborations"
           }
         }
       },
@@ -1028,7 +1028,9 @@
         "heading": "Featured Collections",
         "description": "",
         "button_label": "View All",
-        "button_link": "shopify://collections"
+        "button_link": "shopify://collections",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "section_xzhDMf": {
