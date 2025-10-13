@@ -234,7 +234,7 @@
         "collection_slide_xX6KKP": {
           "type": "collection_slide",
           "settings": {
-            "collection": "bed-frame",
+            "collection": "bed-frames",
             "custom_nav_title": "Slide",
             "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
             "image_tablet": "shopify://shop_images/hero-banner-krini.jpg",
@@ -249,8 +249,8 @@
         "collection_slide_ARaXEU": {
           "type": "collection_slide",
           "settings": {
-            "collection": "beds",
-            "custom_nav_title": "beds",
+            "collection": "wall-bed-frames",
+            "custom_nav_title": "Wall Frames",
             "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
             "image_tablet": "shopify://shop_images/hero-banner-krini.jpg",
             "title": "Your Collection Title",
