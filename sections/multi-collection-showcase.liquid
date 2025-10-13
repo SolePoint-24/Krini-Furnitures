@@ -66,7 +66,7 @@
               <div class="custom-product-grid">
                 {% for product in collection.products limit: 4 %}
                   <div class="grid__item">
-                    <a href="{{ product.url | within: collection }}" class="custom-product-card">
+                    <a href="{{ product.url}}" class="custom-product-card">
                       <div class="custom-product-card__image-wrapper">
                         {% if product.featured_media %}
                           <img
