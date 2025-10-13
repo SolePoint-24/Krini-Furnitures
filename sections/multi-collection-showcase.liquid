@@ -3,7 +3,7 @@
   - Allows selecting up to 4 collections.
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
-  - Uses a custom-built product card for full control.
+  - Uses a custom-built product card and a self-contained CSS grid.
 {% endcomment %}
 
 <div class="page-width">
@@ -51,10 +51,9 @@
           data-collection-content="{{ collection.handle | default: 'all' }}"
         >
           {% if collection.products.size > 0 %}
-            <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+            <div class="custom-product-grid">
               {% for product in collection.products limit: 4 %}
                 <div class="grid__item">
-                 
                   <a href="{{ product.url | within: collection }}" class="custom-product-card">
                     <div class="custom-product-card__image-wrapper">
                       {% if product.featured_media %}
@@ -66,7 +65,6 @@
                           height="{{ product.featured_media.height }}"
                           class="custom-product-card__image custom-product-card__image--primary"
                         >
-                        {% comment %} Display second image on hover if available {% endcomment %}
                         {% if product.media[1] %}
                           <img
                             src="{{ product.media[1] | image_url: width: 500 }}"
@@ -84,23 +82,20 @@
                     <div class="custom-product-card__info">
                       <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
                       <div class="custom-product-card__price">
-                        
-                          {{ product.price | money }}
-                        
+                        {{ product.price | money }}
                         {% if product.compare_at_price > product.price %}
                           <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
                         {% endif %}
                       </div>
                     </div>
                   </a>
-                 
                 </div>
               {% endfor %}
             </div>
           {% else %}
             <div class="multi-collection-viewer-grid--empty">
               <p>This collection has no products. Select another collection in the theme editor.</p>
-              <div class="grid grid--4-col-desktop grid--2-col-tablet grid--2-col-mobile">
+              <div class="custom-product-grid">
                 {% for i in (1..4) %}
                   <div class="grid__item">
                     <div class="custom-product-card custom-product-card--placeholder">
@@ -175,6 +170,13 @@
     display: none;
   }
 
+  /* Custom Grid Layout Styles */
+  .custom-product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    gap: 20px; /* Adjust the gap between products as needed */
+  }
+
   /* Custom Product Card Styles */
   .custom-product-card {
     display: flex;
@@ -185,7 +187,7 @@
     border-radius: 8px;
     overflow: hidden;
     transition: box-shadow 0.3s ease;
-    position: relative; /* For image positioning */
+    position: relative;
   }
 
   .custom-product-card:hover {
@@ -255,19 +257,16 @@
     font-size: 0.9em;
   }
 
-  /* Placeholder styles for empty state (custom product card version) */
+  /* Placeholder styles */
   .custom-product-card--placeholder {
     background-color: #f9f9f9;
     border: 1px solid #e5e5e5;
   }
   .custom-product-card--placeholder .placeholder-svg {
     width: 100%;
-    height: 100%; /* Fill the image wrapper */
+    height: auto;
     display: block;
     border-bottom: 1px solid #e5e5e5;
-  }
-  .custom-product-card--placeholder .custom-product-card__image-wrapper {
-    background-color: #f0f0f0;
   }
   .custom-product-card--placeholder .custom-product-card__info {
     padding: 15px;
@@ -287,8 +286,14 @@
     margin-right: auto;
   }
 
-
   /* Responsive Adjustments */
+  @media screen and (max-width: 990px) {
+    /* Optional: adjust for tablets if needed */
+    .custom-product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .multi-collection-viewer-header {
       flex-direction: column;
@@ -308,6 +313,11 @@
     .multi-collection-viewer-tabs__button {
       font-size: 0.9rem;
       padding: 8px 18px;
+    }
+
+    .custom-product-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile/tablet */
+      gap: 15px;
     }
   }
 {% endstylesheet %}
@@ -335,13 +345,11 @@ class MultiCollectionViewer {
   onTabClick(clickedTab) {
     const targetHandle = clickedTab.dataset.collectionHandle;
 
-    // Update tabs
     this.tabs.forEach(tab => {
       tab.classList.remove('is-active');
     });
     clickedTab.classList.add('is-active');
 
-    // Update content
     this.contents.forEach(content => {
       if (content.dataset.collectionContent === targetHandle) {
         content.classList.remove('hidden');
@@ -355,7 +363,6 @@ class MultiCollectionViewer {
 document.addEventListener('DOMContentLoaded', () => {
   const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
   viewers.forEach(viewer => {
-    // We need to target the parent section to include the content grids
     const sectionContainer = viewer.closest('.shopify-section');
     if (sectionContainer) {
       new MultiCollectionViewer(sectionContainer);
