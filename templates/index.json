@@ -831,6 +831,61 @@
         "padding-block-end": 0
       }
     },
+    "faq_section_CiPXXe": {
+      "type": "faq-section",
+      "blocks": {
+        "group_header_VcfwN6": {
+          "type": "group_header",
+          "settings": {
+            "title": "Shipping"
+          }
+        },
+        "faq_item_tfWMUr": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Our standard shipping typically takes 3-5 business days within the country. International shipping times may vary.</p>"
+          }
+        },
+        "faq_item_dwPdJj": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website.</p>"
+          }
+        },
+        "group_header_awhqJk": {
+          "type": "group_header",
+          "settings": {
+            "title": "Returns"
+          }
+        },
+        "faq_item_GUajPk": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We accept returns within 30 days of purchase for a full refund. Items must be in their original condition. Please visit our returns page to initiate a return.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "group_header_VcfwN6",
+        "faq_item_tfWMUr",
+        "faq_item_dwPdJj",
+        "group_header_awhqJk",
+        "faq_item_GUajPk"
+      ],
+      "name": "FAQ Section",
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "heading_size": "h1",
+        "color_scheme": "",
+        "button_label": "View All FAQs",
+        "button_link": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "media_with_content_LfPdEJ": {
       "type": "media-with-content",
       "blocks": {
@@ -1133,6 +1188,7 @@
     "product_list_EDUBdR",
     "collection_tab_CnNDAQ",
     "section_DHbwpb",
+    "faq_section_CiPXXe",
     "media_with_content_LfPdEJ",
     "collection_list_xpBxCm"
   ]
