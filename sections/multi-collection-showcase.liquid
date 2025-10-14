@@ -25,6 +25,7 @@
     --description-color: {{ s.description_color }};
     --product-title-color: {{ s.product_title_color }};
     --product-price-color: {{ s.product_price_color }};
+    --product-card-bg-color: {{ s.product_card_bg_color }};
     {{ section_padding_styles }}
   }
 {%- endstyle -%}
@@ -215,6 +216,7 @@
     transition: box-shadow 0.3s ease;
     width: 100%;
     height: 100%;
+    background-color: var(--product-card-bg-color);
   }
   .custom-product-card:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -389,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "label": "Description",
       "default": "<p>Check out our curated collections. Find what you're looking for.</p>"
     },
+   
     {
       "type": "text",
       "id": "button_label",
@@ -403,6 +406,12 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "type": "header",
       "content": "Typography & Colors"
+    },
+    {
+      "type": "color",
+      "id": "product_card_bg_color",
+      "label": "Product card background color",
+      "default": "#ffffff"
     },
     {
       "type": "select",
