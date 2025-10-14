@@ -304,20 +304,18 @@
         </div>
       {%- endif -%}
 
-      {% raw %}
-<div class="footer__social-icons">
-  {%- for account in shop.social_accounts -%}
-    <a
-      href="{{ account.url }}"
-      class="social-icon__link"
-      target="_blank"
-      aria-label="{{ account.platform | capitalize }}"
-    >
-      {%- render 'icon-social', name: account.platform -%}
-    </a>
-  {%- endfor -%}
-</div>
-{% endraw %}
+      <div class="footer__social-icons">
+        {%- for account in shop.social_accounts -%}
+          <a
+            href="{{ account.url }}"
+            class="social-icon__link"
+            target="_blank"
+            aria-label="{{ account.platform | capitalize }}"
+          >
+            {%- render 'icon-social', name: account.platform -%}
+          </a>
+        {%- endfor -%}
+      </div>
     </div>
 
     {%- assign footer_menu = linklists[section.settings.footer_menu] -%}
@@ -480,8 +478,7 @@
           "info": "Paste your full SVG code. For best results, ensure the SVG is 24x24 and styled using 'stroke=\"currentColor\"' instead of a specific color."
         }
       ]
-    },
-    
+    }
   ],
   "presets": [
     {
