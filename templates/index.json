@@ -1259,6 +1259,7 @@
         "button_label": "View All",
         "button_link": "",
         "product_card_bg_color": "#eeddc6",
+        "product_price_font_size": 20,
         "heading_font_class": "h2",
         "heading_color": "#121212",
         "description_font_class": "body-text",
