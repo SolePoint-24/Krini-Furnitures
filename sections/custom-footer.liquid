@@ -304,20 +304,20 @@
         </div>
       {%- endif -%}
 
-      <div class="footer__social-icons">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'social_icon' -%}
-            <a
-              href="{{ block.settings.link }}"
-              class="social-icon__link"
-              target="_blank"
-              aria-label="{{ block.settings.aria_label | default: 'Social media link' | escape }}"
-            >
-              {{ block.settings.svg_code }}
-            </a>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+      {% raw %}
+<div class="footer__social-icons">
+  {%- for account in shop.social_accounts -%}
+    <a
+      href="{{ account.url }}"
+      class="social-icon__link"
+      target="_blank"
+      aria-label="{{ account.platform | capitalize }}"
+    >
+      {%- render 'icon-social', name: account.platform -%}
+    </a>
+  {%- endfor -%}
+</div>
+{% endraw %}
     </div>
 
     {%- assign footer_menu = linklists[section.settings.footer_menu] -%}
