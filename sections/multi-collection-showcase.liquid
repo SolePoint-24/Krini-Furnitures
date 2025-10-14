@@ -4,33 +4,45 @@
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
   - Uses a custom-built product card and a self-contained CSS grid.
-  - V3: Added padding settings and equal height cards.
+  - V4: Integrated theme typography and color scheme settings.
 {% endcomment %}
 
 {%- liquid
+  assign s = section.settings
+
   assign section_padding_styles = ''
-  if section.settings.padding_top > 0
-    assign section_padding_styles = 'padding-top: ' | append: section.settings.padding_top | append: 'px;'
+  if s.padding_top > 0
+    assign section_padding_styles = 'padding-top: ' | append: s.padding_top | append: 'px;'
   endif
-  if section.settings.padding_bottom > 0
-    assign section_padding_styles = section_padding_styles | append: ' padding-bottom: ' | append: section.settings.padding_bottom | append: 'px;'
+  if s.padding_bottom > 0
+    assign section_padding_styles = section_padding_styles | append: ' padding-bottom: ' | append: s.padding_bottom | append: 'px;'
   endif
 -%}
 
-<div id="multi-collection-viewer-{{ section.id }}" style="{{ section_padding_styles }}">
+{%- style -%}
+  #multi-collection-viewer-{{ section.id }} {
+    --heading-color: {{ s.heading_color }};
+    --description-color: {{ s.description_color }};
+    --product-title-color: {{ s.product_title_color }};
+    --product-price-color: {{ s.product_price_color }};
+    {{ section_padding_styles }}
+  }
+{%- endstyle -%}
+
+<div id="multi-collection-viewer-{{ section.id }}">
   <div class="page-width">
     <div class="multi-collection-viewer-header">
       <div class="multi-collection-viewer-header__text-wrapper">
-        {% if section.settings.heading != blank %}
-          <h2 >{{ section.settings.heading | escape }}</h2>
+        {% if s.heading != blank %}
+          <h2 class="{{ s.heading_font_class }}">{{ s.heading | escape }}</h2>
         {% endif %}
-        {% if section.settings.description != blank %}
-          <div class="rte">{{ section.settings.description }}</div>
+        {% if s.description != blank %}
+          <div class="rte {{ s.description_font_class }}">{{ s.description }}</div>
         {% endif %}
       </div>
-      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="button button--primary">
-          {{ section.settings.button_label | escape }}
+      {% if s.button_label != blank and s.button_link != blank %}
+        <a href="{{ s.button_link }}" class="button button--primary">
+          {{ s.button_label | escape }}
         </a>
       {% endif %}
     </div>
@@ -92,7 +104,7 @@
                         {% endif %}
                       </div>
                       <div class="custom-product-card__info">
-                        <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
+                        <h3 class="custom-product-card__title {{ s.product_title_font_class }}">{{ product.title | escape }}</h3>
                         <div class="custom-product-card__price">
                           {{ product.price | money }}
                           {% if product.compare_at_price > product.price %}
@@ -142,12 +154,14 @@
   }
   .multi-collection-viewer-header__text-wrapper {
     max-width: 650px;
+    flex-grow: 1;
   }
   .multi-collection-viewer-header h2 {
     margin-bottom: 10px;
-    /* CHANGE: Use the theme's heading font family. The .h2 class will handle the size. */
-     font-family: var(--font-h1--family);
-  
+    color: var(--heading-color);
+  }
+  .multi-collection-viewer-header .rte {
+    color: var(--description-color);
   }
   .multi-collection-viewer-tabs {
     display: flex;
@@ -167,8 +181,6 @@
     border-radius: 999px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-    /* CHANGES: Removed hardcoded font size, weight, and color. */
-    /* Now uses theme's body font family and text color. */
     font-family: var(--font-body-family);
     font-weight: var(--font-body-weight-bold);
     color: rgb(var(--color-base-text));
@@ -176,7 +188,6 @@
   .multi-collection-viewer-tabs__button.is-active {
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    /* CHANGE: Removed hardcoded color to ensure proper contrast based on theme settings. */
     color: rgb(var(--color-base-accent-2));
   }
   .hidden {
@@ -198,12 +209,10 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: inherit;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     overflow: hidden;
     transition: box-shadow 0.3s ease;
-    position: relative;
     width: 100%;
     height: 100%;
   }
@@ -245,12 +254,7 @@
   .custom-product-card__title {
     margin-bottom: 8px;
     line-height: 1.3;
-    /* CHANGES: Removed hardcoded font styles and color. */
-    /* Now uses the theme's heading font. The size will be inherited from the base h3 style. */
-    font-family: var(--font-heading-family);
-    font-size: inherit; /* Let the h3 tag's theme style apply */
-    font-weight: inherit; /* Let the h3 tag's theme style apply */
-    color: rgb(var(--color-base-text));
+    color: var(--product-title-color);
   }
   .custom-product-card__price {
     display: flex;
@@ -258,18 +262,12 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
-    /* CHANGES: Removed hardcoded font styles and color. */
-    /* Now uses theme's body font and text color. */
+    color: var(--product-price-color);
     font-family: var(--font-body-family);
-    font-size: inherit;
-    font-weight: inherit;
-    color: rgb(var(--color-base-text));
   }
   .custom-product-card__compare-price {
     text-decoration: line-through;
-    /* CHANGE: Removed hardcoded size and color. */
-    /* Now uses a secondary text color from the theme. */
-    font-size: 0.9em; /* Kept slightly smaller for style */
+    font-size: 0.9em;
     color: rgb(var(--color-base-accent-1));
   }
 
@@ -284,12 +282,8 @@
     display: block;
     border-bottom: 1px solid #e5e5e5;
   }
-  .custom-product-card--placeholder .custom-product-card__info {
-    padding: 15px;
-  }
-  .custom-product-card--placeholder .placeholder-text {
-    width: 100%;
-  }
+  .custom-product-card--placeholder .custom-product-card__info { padding: 15px; }
+  .custom-product-card--placeholder .placeholder-text { width: 100%; }
   .custom-product-card--placeholder .placeholder-text__item {
     background-color: #e5e5e5;
     height: 12px;
@@ -302,49 +296,13 @@
     margin-right: auto;
   }
   .page-width {
-  width: 90%;
-  margin: 0 auto;
-}
-
-@media screen and (max-width: 749px) {
-  .multi-collection-viewer-tabs {
-    margin-bottom: 30px;
+    width: 90%;
+    margin: 0 auto;
   }
-
-  .multi-collection-viewer-tabs__container {
-    width: 100%;
-    background-color: #f3f3f3;
-    border-radius: 9px;
-    padding: 4px;
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .multi-collection-viewer-tabs__button {
-    flex: 1 1 auto;
-    text-align: center;
-    padding: 10px 16px;
-    min-width: 110px;
-    border-radius: 999px;
-    white-space: nowrap;
-    /* CHANGE: Ensure mobile font size isn't hardcoded */
-    font-size: 0.95rem; /* Using rem for better accessibility */
-  }
-
-  .multi-collection-viewer-tabs__button.is-active {
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  }
-}
-
 
   /* Responsive Adjustments */
   @media screen and (max-width: 990px) {
-    .custom-product-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .custom-product-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
   @media screen and (max-width: 749px) {
@@ -353,21 +311,14 @@
       align-items: center;
       text-align: center;
     }
-    .multi-collection-viewer-header .button {
-      margin-top: 15px;
-    }
-    .multi-collection-viewer-tabs__container {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .multi-collection-viewer-tabs__button {
-      /* CHANGE: Removed fixed font-size to allow inheritance */
-      padding: 8px 18px;
-    }
-    .custom-product-grid {
-      grid-template-columns: repeat(1, 1fr);
-      gap: 15px;
-    }
+    .multi-collection-viewer-header .button { margin-top: 15px; }
+    .multi-collection-viewer-tabs__container { flex-wrap: wrap; justify-content: center; }
+    .multi-collection-viewer-tabs__button { padding: 8px 18px; }
+    .custom-product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .custom-product-grid { grid-template-columns: repeat(1, 1fr); }
   }
 {% endstylesheet %}
 
@@ -450,6 +401,68 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       "type": "header",
+      "content": "Typography & Colors"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_class",
+      "label": "Heading font",
+      "options": [
+        { "value": "h1", "label": "Heading 1"},
+        { "value": "h2", "label": "Heading 2"},
+        { "value": "h3", "label": "Heading 3"},
+        { "value": "h4", "label": "Heading 4"}
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#121212"
+    },
+    {
+      "type": "select",
+      "id": "description_font_class",
+      "label": "Description font",
+      "options": [
+        { "value": "body-text", "label": "Body"},
+        { "value": "body-text-sm", "label": "Body (Small)"},
+        { "value": "subheading", "label": "Subheading"}
+      ],
+      "default": "body-text"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#333333"
+    },
+    {
+      "type": "select",
+      "id": "product_title_font_class",
+      "label": "Product title font",
+      "options": [
+        { "value": "h5", "label": "Heading 5"},
+        { "value": "h6", "label": "Heading 6"},
+        { "value": "body-text", "label": "Body"}
+      ],
+      "default": "h6"
+    },
+    {
+      "type": "color",
+      "id": "product_title_color",
+      "label": "Product title color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "product_price_color",
+      "label": "Product price color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
       "content": "Section Padding"
     },
     {
@@ -490,15 +503,9 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       "name": "Multi-Collection Viewer",
       "blocks": [
-        {
-          "type": "collection"
-        },
-        {
-          "type": "collection"
-        },
-        {
-          "type": "collection"
-        }
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
       ]
     }
   ]
