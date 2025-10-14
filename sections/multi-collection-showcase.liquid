@@ -4,7 +4,7 @@
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
   - Uses a custom-built product card and a self-contained CSS grid.
-  - V6: Added separate color scheme for product cards.
+  - V7: Applied card color scheme to individual cards instead of the grid.
 {% endcomment %}
 
 {%- liquid
@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="multi-collection-viewer-content color-{{ s.card_color_scheme }}">
+      <div class="multi-collection-viewer-content">
         {% for block in section_blocks %}
           {%- assign collection = block.settings.collection -%}
           <div
@@ -72,7 +72,7 @@
               <div class="custom-product-grid">
                 {% for product in collection.products limit: 4 %}
                   <div class="grid__item">
-                    <a href="{{ product.url}}" class="custom-product-card gradient">
+                    <a href="{{ product.url}}" class="custom-product-card color-{{ s.card_color_scheme }} gradient">
                       <div class="custom-product-card__image-wrapper">
                         {% if product.featured_media %}
                           <img
@@ -116,7 +116,7 @@
                 <div class="custom-product-grid">
                   {% for i in (1..4) %}
                     <div class="grid__item">
-                      <div class="custom-product-card custom-product-card--placeholder">
+                      <div class="custom-product-card custom-product-card--placeholder color-{{ s.card_color_scheme }} gradient">
                         {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
                         <div class="custom-product-card__info">
                           <div class="placeholder-text">
@@ -266,7 +266,7 @@
 
   /* Placeholder styles */
   .custom-product-card--placeholder {
-    background-color: rgba(var(--color-foreground), 0.04);
+    background: var(--gradient-background);
     border: 1px solid rgba(var(--color-foreground), 0.08);
   }
   .custom-product-card--placeholder .placeholder-svg {
