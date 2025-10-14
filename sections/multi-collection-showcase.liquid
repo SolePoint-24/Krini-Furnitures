@@ -26,7 +26,7 @@
     --product-title-color: {{ s.product_title_color }};
     --product-price-color: {{ s.product_price_color }};
     --product-card-bg-color: {{ s.product_card_bg_color }};
-    --product-price-font-size: {{ s.product_price_font_size }}
+    --product-price-font-size: {{ s.product_price_font_size }}px;
     {{ section_padding_styles }}
   }
 {%- endstyle -%}
@@ -267,7 +267,7 @@
     flex-wrap: wrap;
     color: var(--product-price-color);
     font-family: var(--font-body-family);
-    font-size: var(--product-price-font-size)px;
+    font-size: var(--product-price-font-size);
   }
   .custom-product-card__compare-price {
     text-decoration: line-through;
