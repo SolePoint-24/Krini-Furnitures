@@ -305,7 +305,7 @@
       {%- endif -%}
 
       <div class="footer__social-icons">
-  {%- for account in shop.brand.metafields.social_links -%}
+  {%- for account in shop.brand.metafields.social_links.value -%}
     <a
       href="{{ account.url }}"
       class="social-icon__link"
