@@ -4,39 +4,33 @@
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
   - Uses a custom-built product card and a self-contained CSS grid.
-  - V7.1: Corrected CSS specificity for card-specific color schemes.
+  - V3: Added padding settings and equal height cards.
 {% endcomment %}
 
 {%- liquid
-  assign s = section.settings
-
   assign section_padding_styles = ''
-  if s.padding_top > 0
-    assign section_padding_styles = 'padding-top: ' | append: s.padding_top | append: 'px;'
+  if section.settings.padding_top > 0
+    assign section_padding_styles = 'padding-top: ' | append: section.settings.padding_top | append: 'px;'
   endif
-  if s.padding_bottom > 0
-    assign section_padding_styles = section_padding_styles | append: ' padding-bottom: ' | append: s.padding_bottom | append: 'px;'
+  if section.settings.padding_bottom > 0
+    assign section_padding_styles = section_padding_styles | append: ' padding-bottom: ' | append: section.settings.padding_bottom | append: 'px;'
   endif
 -%}
 
-<div
-  id="multi-collection-viewer-{{ section.id }}"
-  class="color-{{ s.color_scheme }} gradient"
-  style="{{ section_padding_styles }}"
->
+<div id="multi-collection-viewer-{{ section.id }}" style="{{ section_padding_styles }}">
   <div class="page-width">
     <div class="multi-collection-viewer-header">
       <div class="multi-collection-viewer-header__text-wrapper">
-        {% if s.heading != blank %}
-          <h2 class="{{ s.heading_font_class }}">{{ s.heading | escape }}</h2>
+        {% if section.settings.heading != blank %}
+          <h2 class="h2">{{ section.settings.heading | escape }}</h2>
         {% endif %}
-        {% if s.description != blank %}
-          <div class="rte {{ s.description_font_class }}">{{ s.description }}</div>
+        {% if section.settings.description != blank %}
+          <div class="rte">{{ section.settings.description }}</div>
         {% endif %}
       </div>
-      {% if s.button_label != blank and s.button_link != blank %}
-        <a href="{{ s.button_link }}" class="button button--primary">
-          {{ s.button_label | escape }}
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="button button--primary">
+          {{ section.settings.button_label | escape }}
         </a>
       {% endif %}
     </div>
@@ -72,7 +66,7 @@
               <div class="custom-product-grid">
                 {% for product in collection.products limit: 4 %}
                   <div class="grid__item">
-                    <a href="{{ product.url}}" class="custom-product-card color-{{ s.card_color_scheme }} gradient">
+                    <a href="{{ product.url}}" class="custom-product-card">
                       <div class="custom-product-card__image-wrapper">
                         {% if product.featured_media %}
                           <img
@@ -98,7 +92,7 @@
                         {% endif %}
                       </div>
                       <div class="custom-product-card__info">
-                        <h3 class="custom-product-card__title {{ s.product_title_font_class }}">{{ product.title | escape }}</h3>
+                        <h3 class="custom-product-card__title">{{ product.title | escape }}</h3>
                         <div class="custom-product-card__price">
                           {{ product.price | money }}
                           {% if product.compare_at_price > product.price %}
@@ -116,7 +110,7 @@
                 <div class="custom-product-grid">
                   {% for i in (1..4) %}
                     <div class="grid__item">
-                      <div class="custom-product-card custom-product-card--placeholder color-{{ s.card_color_scheme }} gradient">
+                      <div class="custom-product-card custom-product-card--placeholder">
                         {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
                         <div class="custom-product-card__info">
                           <div class="placeholder-text">
@@ -148,15 +142,12 @@
   }
   .multi-collection-viewer-header__text-wrapper {
     max-width: 650px;
-    flex-grow: 1;
-  }
-  .multi-collection-viewer-header h2,
-  .multi-collection-viewer-header .rte,
-  .multi-collection-viewer-grid--empty p {
-    color: rgb(var(--color-foreground));
   }
   .multi-collection-viewer-header h2 {
     margin-bottom: 10px;
+    /* CHANGE: Use the theme's heading font family. The .h2 class will handle the size. */
+     font-family: var(--font-h1--family);
+  
   }
   .multi-collection-viewer-tabs {
     display: flex;
@@ -165,7 +156,7 @@
   }
   .multi-collection-viewer-tabs__container {
     display: inline-flex;
-    background-color: rgba(var(--color-foreground), 0.05);
+    background-color: #f3f3f3;
     border-radius: 999px;
     padding: 6px;
   }
@@ -176,14 +167,17 @@
     border-radius: 999px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    /* CHANGES: Removed hardcoded font size, weight, and color. */
+    /* Now uses theme's body font family and text color. */
     font-family: var(--font-body-family);
     font-weight: var(--font-body-weight-bold);
-    color: rgb(var(--color-foreground));
+    color: rgb(var(--color-base-text));
   }
   .multi-collection-viewer-tabs__button.is-active {
-    background-color: rgb(var(--color-background));
-    color: rgb(var(--color-foreground));
-    box-shadow: 0 2px 10px rgba(var(--color-shadow), 0.1);
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* CHANGE: Removed hardcoded color to ensure proper contrast based on theme settings. */
+    color: rgb(var(--color-base-accent-2));
   }
   .hidden {
     display: none;
@@ -204,17 +198,17 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    border: 1px solid rgba(var(--color-foreground), 0.1);
+    color: inherit;
+    border: 1px solid #e0e0e0;
     border-radius: 8px;
     overflow: hidden;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: box-shadow 0.3s ease;
+    position: relative;
     width: 100%;
     height: 100%;
-    background: var(--gradient-background);
   }
   .custom-product-card:hover {
-    box-shadow: 0 4px 15px rgba(var(--color-shadow), 0.1);
-    border-color: rgba(var(--color-foreground), 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   .custom-product-card__image-wrapper {
     width: 100%;
@@ -231,9 +225,15 @@
     object-fit: cover;
     transition: opacity 0.3s ease;
   }
-  .custom-product-card__image--secondary { opacity: 0; }
-  .custom-product-card:hover .custom-product-card__image--primary { opacity: 0; }
-  .custom-product-card:hover .custom-product-card__image--secondary { opacity: 1; }
+  .custom-product-card__image--secondary {
+    opacity: 0;
+  }
+  .custom-product-card:hover .custom-product-card__image--primary {
+    opacity: 0;
+  }
+  .custom-product-card:hover .custom-product-card__image--secondary {
+    opacity: 1;
+  }
   .custom-product-card__info {
     padding: 15px;
     text-align: center;
@@ -242,17 +242,15 @@
     justify-content: space-between;
     flex-grow: 1;
   }
-
-  /* === CSS CORRECTION STARTS HERE === */
-  .custom-product-card .custom-product-card__title,
-  .custom-product-card .custom-product-card__price {
-    color: rgb(var(--color-foreground));
-  }
-  /* === CSS CORRECTION ENDS HERE === */
-
   .custom-product-card__title {
     margin-bottom: 8px;
     line-height: 1.3;
+    /* CHANGES: Removed hardcoded font styles and color. */
+    /* Now uses the theme's heading font. The size will be inherited from the base h3 style. */
+    font-family: var(--font-heading-family);
+    font-size: inherit; /* Let the h3 tag's theme style apply */
+    font-weight: inherit; /* Let the h3 tag's theme style apply */
+    color: rgb(var(--color-base-text));
   }
   .custom-product-card__price {
     display: flex;
@@ -260,35 +258,93 @@
     align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    /* CHANGES: Removed hardcoded font styles and color. */
+    /* Now uses theme's body font and text color. */
     font-family: var(--font-body-family);
+    font-size: inherit;
+    font-weight: inherit;
+    color: rgb(var(--color-base-text));
   }
-  .custom-product-card .custom-product-card__compare-price {
+  .custom-product-card__compare-price {
     text-decoration: line-through;
-    font-size: 0.9em;
-    color: rgba(var(--color-foreground), 0.75);
+    /* CHANGE: Removed hardcoded size and color. */
+    /* Now uses a secondary text color from the theme. */
+    font-size: 0.9em; /* Kept slightly smaller for style */
+    color: rgb(var(--color-base-accent-1));
   }
 
   /* Placeholder styles */
   .custom-product-card--placeholder {
-    background: var(--gradient-background);
-    border: 1px solid rgba(var(--color-foreground), 0.08);
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
   }
   .custom-product-card--placeholder .placeholder-svg {
+    width: 100%;
+    height: auto;
     display: block;
-    border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+    border-bottom: 1px solid #e5e5e5;
+  }
+  .custom-product-card--placeholder .custom-product-card__info {
+    padding: 15px;
+  }
+  .custom-product-card--placeholder .placeholder-text {
+    width: 100%;
   }
   .custom-product-card--placeholder .placeholder-text__item {
-    background-color: rgba(var(--color-foreground), 0.08);
+    background-color: #e5e5e5;
+    height: 12px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+  .custom-product-card--placeholder .placeholder-text__item.short {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .page-width {
+  width: 90%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 749px) {
+  .multi-collection-viewer-tabs {
+    margin-bottom: 30px;
   }
 
-  .page-width {
-    width: 90%;
-    margin: 0 auto;
+  .multi-collection-viewer-tabs__container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 9px;
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
   }
+
+  .multi-collection-viewer-tabs__button {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 10px 16px;
+    min-width: 110px;
+    border-radius: 999px;
+    white-space: nowrap;
+    /* CHANGE: Ensure mobile font size isn't hardcoded */
+    font-size: 0.95rem; /* Using rem for better accessibility */
+  }
+
+  .multi-collection-viewer-tabs__button.is-active {
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+}
+
 
   /* Responsive Adjustments */
   @media screen and (max-width: 990px) {
-    .custom-product-grid { grid-template-columns: repeat(3, 1fr); }
+    .custom-product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   @media screen and (max-width: 749px) {
@@ -297,16 +353,66 @@
       align-items: center;
       text-align: center;
     }
-    .multi-collection-viewer-header .button { margin-top: 15px; }
-    .multi-collection-viewer-tabs__container { flex-wrap: wrap; justify-content: center; }
-    .multi-collection-viewer-tabs__button { padding: 8px 18px; }
-    .custom-product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-  }
-
-  @media screen and (max-width: 480px) {
-    .custom-product-grid { grid-template-columns: repeat(1, 1fr); }
+    .multi-collection-viewer-header .button {
+      margin-top: 15px;
+    }
+    .multi-collection-viewer-tabs__container {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .multi-collection-viewer-tabs__button {
+      /* CHANGE: Removed fixed font-size to allow inheritance */
+      padding: 8px 18px;
+    }
+    .custom-product-grid {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 15px;
+    }
   }
 {% endstylesheet %}
+
+{% javascript %}
+class MultiCollectionViewer {
+  constructor(container) {
+    this.container = container;
+    this.tabs = this.container.querySelectorAll('[data-collection-handle]');
+    this.contents = this.container.querySelectorAll('[data-collection-content]');
+    this.init();
+  }
+  init() {
+    if (!this.tabs.length) return;
+    this.tabs.forEach(tab => {
+      tab.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.onTabClick(tab);
+      });
+    });
+  }
+  onTabClick(clickedTab) {
+    const targetHandle = clickedTab.dataset.collectionHandle;
+    this.tabs.forEach(tab => {
+      tab.classList.remove('is-active');
+    });
+    clickedTab.classList.add('is-active');
+    this.contents.forEach(content => {
+      if (content.dataset.collectionContent === targetHandle) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    });
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
+  viewers.forEach(viewer => {
+    const sectionContainer = viewer.closest('.shopify-section');
+    if (sectionContainer) {
+      new MultiCollectionViewer(sectionContainer);
+    }
+  });
+});
+{% endjavascript %}
 
 {% schema %}
 {
@@ -315,22 +421,6 @@
   "class": "spaced-section",
   "max_blocks": 4,
   "settings": [
-    {
-      "type": "header",
-      "content": "Color Schemes"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Section color scheme",
-      "default": "background-1"
-    },
-    {
-      "type": "color_scheme",
-      "id": "card_color_scheme",
-      "label": "Product card color scheme",
-      "default": "background-2"
-    },
     {
       "type": "header",
       "content": "Section Content"
@@ -357,44 +447,6 @@
       "type": "url",
       "id": "button_link",
       "label": "Button Link"
-    },
-    {
-      "type": "header",
-      "content": "Typography"
-    },
-    {
-      "type": "select",
-      "id": "heading_font_class",
-      "label": "Heading font",
-      "options": [
-        { "value": "h1", "label": "Heading 1"},
-        { "value": "h2", "label": "Heading 2"},
-        { "value": "h3", "label": "Heading 3"},
-        { "value": "h4", "label": "Heading 4"}
-      ],
-      "default": "h2"
-    },
-    {
-      "type": "select",
-      "id": "description_font_class",
-      "label": "Description font",
-      "options": [
-        { "value": "body-text", "label": "Body"},
-        { "value": "body-text-sm", "label": "Body (Small)"},
-        { "value": "subheading", "label": "Subheading"}
-      ],
-      "default": "body-text"
-    },
-    {
-      "type": "select",
-      "id": "product_title_font_class",
-      "label": "Product title font",
-      "options": [
-        { "value": "h5", "label": "Heading 5"},
-        { "value": "h6", "label": "Heading 6"},
-        { "value": "body-text", "label": "Body"}
-      ],
-      "default": "h6"
     },
     {
       "type": "header",
@@ -438,47 +490,17 @@
     {
       "name": "Multi-Collection Viewer",
       "blocks": [
-        { "type": "collection" },
-        { "type": "collection" },
-        { "type": "collection" }
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
       ]
     }
   ]
 }
 {% endschema %}
-
-{% javascript %}
-class MultiCollectionViewer {
-  constructor(container) {
-    this.container = container;
-    this.tabs = this.container.querySelectorAll('[data-collection-handle]');
-    this.contents = this.container.querySelectorAll('[data-collection-content]');
-    this.init();
-  }
-  init() {
-    if (!this.tabs.length) return;
-    this.tabs.forEach(tab => {
-      tab.addEventListener('click', (event) => {
-        event.preventDefault();
-        this.onTabClick(tab);
-      });
-    });
-  }
-  onTabClick(clickedTab) {
-    const targetHandle = clickedTab.dataset.collectionHandle;
-    this.tabs.forEach(tab => tab.classList.remove('is-active'));
-    clickedTab.classList.add('is-active');
-    this.contents.forEach(content => {
-      content.classList.toggle('hidden', content.dataset.collectionContent !== targetHandle);
-    });
-  }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('[id^="multi-collection-viewer-"]');
-  sections.forEach(section => {
-    if (section) {
-      new MultiCollectionViewer(section);
-    }
-  });
-});
-{% endjavascript %}
