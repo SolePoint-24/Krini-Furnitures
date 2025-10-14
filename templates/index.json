@@ -620,6 +620,20 @@
                 "padding-inline-end": 40
               },
               "blocks": {
+                "spacer_PXCnxM": {
+                  "type": "spacer",
+                  "name": "t:names.spacer",
+                  "settings": {
+                    "size": "percent",
+                    "percent_size": 100,
+                    "pixel_size": 120,
+                    "custom_mobile_size": false,
+                    "size_mobile": "percent",
+                    "percent_size_mobile": 100,
+                    "pixel_size_mobile": 120
+                  },
+                  "blocks": {}
+                },
                 "text_TQ3ntL": {
                   "type": "text",
                   "settings": {
@@ -661,6 +675,7 @@
                 }
               },
               "block_order": [
+                "spacer_PXCnxM",
                 "text_TQ3ntL",
                 "button_C3Jntr"
               ]
@@ -705,6 +720,20 @@
                 "padding-inline-end": 40
               },
               "blocks": {
+                "spacer_W8ChVL": {
+                  "type": "spacer",
+                  "name": "t:names.spacer",
+                  "settings": {
+                    "size": "percent",
+                    "percent_size": 100,
+                    "pixel_size": 120,
+                    "custom_mobile_size": false,
+                    "size_mobile": "percent",
+                    "percent_size_mobile": 100,
+                    "pixel_size_mobile": 120
+                  },
+                  "blocks": {}
+                },
                 "text_gqhAHP": {
                   "type": "text",
                   "settings": {
@@ -746,6 +775,7 @@
                 }
               },
               "block_order": [
+                "spacer_W8ChVL",
                 "text_gqhAHP",
                 "button_JhHTRm"
               ]
