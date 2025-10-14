@@ -4,7 +4,7 @@
   - Displays products in an interactive tabbed interface.
   - Customizable title, description, and CTA button.
   - Uses a custom-built product card and a self-contained CSS grid.
-  - V7: Applied card color scheme to individual cards instead of the grid.
+  - V7.1: Corrected CSS specificity for card-specific color schemes.
 {% endcomment %}
 
 {%- liquid
@@ -242,10 +242,14 @@
     justify-content: space-between;
     flex-grow: 1;
   }
-  .custom-product-card__title,
-  .custom-product-card__price {
+
+  /* === CSS CORRECTION STARTS HERE === */
+  .custom-product-card .custom-product-card__title,
+  .custom-product-card .custom-product-card__price {
     color: rgb(var(--color-foreground));
   }
+  /* === CSS CORRECTION ENDS HERE === */
+
   .custom-product-card__title {
     margin-bottom: 8px;
     line-height: 1.3;
@@ -258,7 +262,7 @@
     flex-wrap: wrap;
     font-family: var(--font-body-family);
   }
-  .custom-product-card__compare-price {
+  .custom-product-card .custom-product-card__compare-price {
     text-decoration: line-through;
     font-size: 0.9em;
     color: rgba(var(--color-foreground), 0.75);
@@ -303,42 +307,6 @@
     .custom-product-grid { grid-template-columns: repeat(1, 1fr); }
   }
 {% endstylesheet %}
-
-{% javascript %}
-class MultiCollectionViewer {
-  constructor(container) {
-    this.container = container;
-    this.tabs = this.container.querySelectorAll('[data-collection-handle]');
-    this.contents = this.container.querySelectorAll('[data-collection-content]');
-    this.init();
-  }
-  init() {
-    if (!this.tabs.length) return;
-    this.tabs.forEach(tab => {
-      tab.addEventListener('click', (event) => {
-        event.preventDefault();
-        this.onTabClick(tab);
-      });
-    });
-  }
-  onTabClick(clickedTab) {
-    const targetHandle = clickedTab.dataset.collectionHandle;
-    this.tabs.forEach(tab => tab.classList.remove('is-active'));
-    clickedTab.classList.add('is-active');
-    this.contents.forEach(content => {
-      content.classList.toggle('hidden', content.dataset.collectionContent !== targetHandle);
-    });
-  }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('[id^="multi-collection-viewer-"]');
-  sections.forEach(section => {
-    if (section) {
-      new MultiCollectionViewer(section);
-    }
-  });
-});
-{% endjavascript %}
 
 {% schema %}
 {
@@ -478,3 +446,39 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 }
 {% endschema %}
+
+{% javascript %}
+class MultiCollectionViewer {
+  constructor(container) {
+    this.container = container;
+    this.tabs = this.container.querySelectorAll('[data-collection-handle]');
+    this.contents = this.container.querySelectorAll('[data-collection-content]');
+    this.init();
+  }
+  init() {
+    if (!this.tabs.length) return;
+    this.tabs.forEach(tab => {
+      tab.addEventListener('click', (event) => {
+        event.preventDefault();
+        this.onTabClick(tab);
+      });
+    });
+  }
+  onTabClick(clickedTab) {
+    const targetHandle = clickedTab.dataset.collectionHandle;
+    this.tabs.forEach(tab => tab.classList.remove('is-active'));
+    clickedTab.classList.add('is-active');
+    this.contents.forEach(content => {
+      content.classList.toggle('hidden', content.dataset.collectionContent !== targetHandle);
+    });
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('[id^="multi-collection-viewer-"]');
+  sections.forEach(section => {
+    if (section) {
+      new MultiCollectionViewer(section);
+    }
+  });
+});
+{% endjavascript %}
