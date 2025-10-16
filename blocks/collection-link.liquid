@@ -1,10 +1,3 @@
-{%- comment -%}
-  ** Collection Link Block **
-  - Displays the first collection the current product belongs to.
-  - The collection name links directly to the collection page.
-  - If the product is not in a collection, this block will not render.
-{%- endcomment -%}
-
 {%- liquid
   assign current_collection = product.collections | first
 -%}
@@ -21,7 +14,7 @@
 <style>
   .product-collection-link p {
     margin: 0.5rem 0;
-    font-size: 1.4rem;
+    font-size: 0.8rem;
     line-height: 1.5;
     color: currentColor;
   }
