@@ -67,6 +67,17 @@
             "padding-inline-end": 12
           },
           "blocks": {
+            "breadcrumbs_GpY3yj": {
+              "type": "breadcrumbs",
+              "name": "Breadcrumbs",
+              "settings": {
+                "font_size": 12,
+                "alignment": "left",
+                "padding_top": 0,
+                "padding_bottom": 0
+              },
+              "blocks": {}
+            },
             "product_title_GnyQiN": {
               "type": "product-title",
               "name": "t:names.title",
@@ -755,6 +766,7 @@
             }
           },
           "block_order": [
+            "breadcrumbs_GpY3yj",
             "product_title_GnyQiN",
             "judge_me_reviews_preview_badge_AqYYa6",
             "reviews",
