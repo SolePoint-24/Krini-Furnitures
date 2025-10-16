@@ -216,6 +216,14 @@
               },
               "blocks": {}
             },
+            "collection_link_JXnAWw": {
+              "type": "collection-link",
+              "name": "collection link",
+              "settings": {
+                "title": "Collection:"
+              },
+              "blocks": {}
+            },
             "group_y49hLp": {
               "type": "group",
               "name": "t:names.group",
@@ -797,6 +805,7 @@
             "buy_buttons_eYQEYi",
             "product_description_LfDYCg",
             "social_share_gQCrkE",
+            "collection_link_JXnAWw",
             "group_y49hLp",
             "group_X39hBc",
             "accordion_g8EVVp"
