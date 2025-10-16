@@ -243,14 +243,6 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "collection_link_RGht89": {
-                  "type": "collection-link",
-                  "name": "collection link",
-                  "settings": {
-                    "title": "Collection:"
-                  },
-                  "blocks": {}
-                },
                 "social_share_iNWcgm": {
                   "type": "social-share",
                   "name": "Social Share",
@@ -263,11 +255,19 @@
                     "share_linkedin": true
                   },
                   "blocks": {}
+                },
+                "collection_link_RGht89": {
+                  "type": "collection-link",
+                  "name": "collection link",
+                  "settings": {
+                    "title": "Collection:"
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
-                "collection_link_RGht89",
-                "social_share_iNWcgm"
+                "social_share_iNWcgm",
+                "collection_link_RGht89"
               ]
             },
             "group_X39hBc": {
