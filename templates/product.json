@@ -203,6 +203,19 @@
               },
               "blocks": {}
             },
+            "social_share_gQCrkE": {
+              "type": "social-share",
+              "name": "Social Share",
+              "settings": {
+                "title": "Share:",
+                "share_facebook": true,
+                "share_twitter": true,
+                "share_pinterest": true,
+                "share_whatsapp": true,
+                "share_linkedin": true
+              },
+              "blocks": {}
+            },
             "group_X39hBc": {
               "type": "group",
               "name": "Values",
@@ -695,6 +708,7 @@
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "product_description_LfDYCg",
+            "social_share_gQCrkE",
             "group_X39hBc",
             "accordion_g8EVVp"
           ]
