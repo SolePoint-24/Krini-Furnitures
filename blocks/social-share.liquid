@@ -5,7 +5,7 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign product_url = product.url 
+  assign absolute_product_url = shop.url | append: product.url  
   assign product_title = product.title | url_encode
 -%}
 
@@ -16,7 +16,7 @@
 
   {%- if block.settings.share_facebook -%}
     <a
-      href="https://www.facebook.com/sharer/sharer.php?u={{ product_url }}"
+      href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_product_url }}"
       class="social-sharing-link"
       target="_blank"
       rel="noopener"
