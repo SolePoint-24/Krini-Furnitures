@@ -1157,6 +1157,10 @@
         "text_AzQfAL",
         "email_signup_YRk6Yg"
       ],
+      "custom_css": [
+        ".background-image-container {opacity: 0.5;}",
+        ".section-background {background-color: black; color: white;}"
+      ],
       "name": "t:names.email_signup",
       "settings": {
         "content_direction": "column",
