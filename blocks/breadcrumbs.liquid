@@ -1,0 +1,140 @@
+{%- comment -%}
+  ** Breadcrumbs Block **
+  - Renders a dynamic breadcrumb navigation trail.
+  - Can be placed inside other sections or blocks.
+{%- endcomment -%}
+
+{%- liquid
+  assign show_breadcrumbs = true
+  if template.name == 'index' or template.name == 'cart'
+    assign show_breadcrumbs = false
+  endif
+-%}
+
+{%- if show_breadcrumbs -%}
+  <div class="custom-breadcrumb-block" {{ block.shopify_attributes }}>
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+      <a href="/" title="Home">Home</a>
+      <span class="separator">&gt;</span>
+
+      {%- case template.name -%}
+        {%- when 'page' -%}
+          <strong>{{ page.title }}</strong>
+
+        {%- when 'product' -%}
+          {%- if product.collections.first -%}
+            <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+            <span class="separator">&gt;</span>
+          {%- endif -%}
+          <strong>{{ product.title }}</strong>
+
+        {%- when 'collection' and collection.handle != 'all' -%}
+          <strong>{{ collection.title }}</strong>
+
+        {%- when 'blog' -%}
+          <strong>{{ blog.title }}</strong>
+
+        {%- when 'article' -%}
+          <a href="{{ blog.url }}">{{ blog.title }}</a>
+          <span class="separator">&gt;</span>
+          <strong>{{ article.title }}</strong>
+        
+        {%- when 'list-collections' -%}
+          <strong>Collections</strong>
+
+        {%- else -%}
+          <strong>{{ page_title }}</strong>
+
+      {%- endcase -%}
+    </nav>
+  </div>
+{%- endif -%}
+
+<style>
+  .custom-breadcrumb-block {
+    padding-top: {{ block.settings.padding_top }}px;
+    padding-bottom: {{ block.settings.padding_bottom }}px;
+    font-size: {{ block.settings.font_size }}px;
+    text-align: {{ block.settings.alignment }};
+    width: 100%;
+  }
+  .breadcrumbs {
+    color: #555;
+  }
+  .breadcrumbs a {
+    color: #555;
+    text-decoration: none;
+  }
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  .breadcrumbs span.separator {
+    margin: 0 8px;
+    color: #999;
+  }
+  .breadcrumbs strong {
+    font-weight: 500;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "settings": [
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 20
+    }
+  ]
+}
+{% endschema %}
