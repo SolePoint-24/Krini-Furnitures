@@ -203,40 +203,18 @@
               },
               "blocks": {}
             },
-            "social_share_gQCrkE": {
-              "type": "social-share",
-              "name": "Social Share",
-              "settings": {
-                "title": "Share:",
-                "share_facebook": true,
-                "share_X": true,
-                "share_pinterest": true,
-                "share_whatsapp": true,
-                "share_linkedin": true
-              },
-              "blocks": {}
-            },
-            "collection_link_JXnAWw": {
-              "type": "collection-link",
-              "name": "collection link",
-              "settings": {
-                "title": "Collection:"
-              },
-              "blocks": {}
-            },
             "group_y49hLp": {
               "type": "group",
               "name": "t:names.group",
-              "disabled": true,
               "settings": {
-                "content_direction": "row",
+                "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 0,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -265,51 +243,31 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_aKxCRf": {
-                  "type": "text",
-                  "name": "t:names.text",
+                "collection_link_RGht89": {
+                  "type": "collection-link",
+                  "name": "collection link",
                   "settings": {
-                    "text": "<p><strong>Category :</strong></p>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "title": "Collection:"
                   },
                   "blocks": {}
                 },
-                "button_m9x6bd": {
-                  "type": "button",
-                  "name": "t:names.button",
+                "social_share_iNWcgm": {
+                  "type": "social-share",
+                  "name": "Social Share",
                   "settings": {
-                    "label": "Shop now",
-                    "link": "shopify://collections/all",
-                    "open_in_new_tab": false,
-                    "style_class": "link",
-                    "width": "fit-content",
-                    "custom_width": 100,
-                    "width_mobile": "fit-content",
-                    "custom_width_mobile": 100
+                    "title": "Share:",
+                    "share_facebook": true,
+                    "share_X": true,
+                    "share_pinterest": true,
+                    "share_whatsapp": true,
+                    "share_linkedin": true
                   },
                   "blocks": {}
                 }
               },
               "block_order": [
-                "text_aKxCRf",
-                "button_m9x6bd"
+                "collection_link_RGht89",
+                "social_share_iNWcgm"
               ]
             },
             "group_X39hBc": {
@@ -804,8 +762,6 @@
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "product_description_LfDYCg",
-            "social_share_gQCrkE",
-            "collection_link_JXnAWw",
             "group_y49hLp",
             "group_X39hBc",
             "accordion_g8EVVp"
