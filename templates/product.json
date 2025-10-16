@@ -182,8 +182,8 @@
               "name": "t:names.product_description",
               "settings": {
                 "text": "{{ closest.product.description }}",
-                "width": "fit-content",
-                "max_width": "normal",
+                "width": "100%",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-primary--family)",
