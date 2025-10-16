@@ -1,0 +1,126 @@
+{%- comment -%}
+  ** Social Share Block **
+  - Renders a row of social media share icons.
+  - The visibility of each icon is controlled by checkboxes in the block settings.
+{%- endcomment -%}
+
+{%- liquid
+  assign product_url = product.url | abs_url
+  assign product_title = product.title | url_encode
+-%}
+
+<div class="custom-social-sharing" {{ block.shopify_attributes }}>
+  {%- if block.settings.title != blank -%}
+    <span class="social-sharing-title">{{ block.settings.title | escape }}</span>
+  {%- endif -%}
+
+  {%- if block.settings.share_facebook -%}
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ product_url }}"
+       class="social-sharing-link" target="_blank" rel="noopener" aria-label="Share on Facebook">
+      {%- render 'icon-facebook' -%}
+    </a>
+  {%- endif -%}
+
+  {%- if block.settings.share_twitter -%}
+    <a href="https://twitter.com/intent/tweet?text={{ product_title }}&url={{ product_url }}"
+       class="social-sharing-link" target="_blank" rel="noopener" aria-label="Share on Twitter">
+      {%- render 'icon-twitter' -%}
+    </a>
+  {%- endif -%}
+
+  {%- if block.settings.share_pinterest -%}
+    {%- assign product_image = product.featured_image | image_url: width: 1024 -%}
+    <a href="https://pinterest.com/pin/create/button/?url={{ product_url }}&media={{ product_image }}&description={{ product_title }}"
+       class="social-sharing-link" target="_blank" rel="noopener" aria-label="Pin on Pinterest">
+      {%- render 'icon-pinterest' -%}
+    </a>
+  {%- endif -%}
+
+  {%- if block.settings.share_whatsapp -%}
+    <a href="https://wa.me/?text={{ product_title | append: '%20' | append: product_url }}"
+       class="social-sharing-link" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+      {%- render 'icon-whatsapp' -%}
+    </a>
+  {%- endif -%}
+
+  {%- if block.settings.share_linkedin -%}
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ product_url }}&title={{ product_title }}"
+       class="social-sharing-link" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+      {%- render 'icon-linkedin' -%}
+    </a>
+  {%- endif -%}
+</div>
+
+<style>
+  .custom-social-sharing {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .social-sharing-title {
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 1.4rem;
+  }
+  .social-sharing-link .icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: currentColor;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
+  .social-sharing-link:hover .icon {
+    opacity: 1;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Social Share",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Share:"
+    },
+    {
+      "type": "header",
+      "content": "Enable Social Platforms"
+    },
+    {
+      "type": "checkbox",
+      "id": "share_facebook",
+      "label": "Facebook",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "share_twitter",
+      "label": "Twitter",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "share_pinterest",
+      "label": "Pinterest",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "share_whatsapp",
+      "label": "WhatsApp",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "share_linkedin",
+      "label": "LinkedIn",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
