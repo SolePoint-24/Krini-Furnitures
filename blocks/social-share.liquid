@@ -5,8 +5,9 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign absolute_product_url = shop.url | append: product.url  
+  assign product_url = product.url 
   assign product_title = product.title | url_encode
+  assign absolute_product_url = shop.url | append: product.url
 -%}
 
 <div class="custom-social-sharing" {{ block.shopify_attributes }}>
