@@ -202,9 +202,9 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#000000",
-          "foreground_heading": "#ffffff",
-          "foreground": "#ffffff",
+          "background": "#f5f3ef",
+          "foreground_heading": "#a04637",
+          "foreground": "#000000",
           "primary": "#ffffff",
           "primary_hover": "#acacac",
           "border": "#666666",
