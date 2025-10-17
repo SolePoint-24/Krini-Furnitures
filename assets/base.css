@@ -4333,11 +4333,9 @@ text-component {
 .custom-product-card__title {
   font-family: var(--font-body-family);  /* Hardcoded to use body font */
   font-size: 14px;                      /* <-- Change this value for the title size */
-  font-weight: 600;                     /* Makes the title slightly bold. Use 400 for normal. */
   margin-bottom: 8px;
   line-height: 1.4;
   color: var(--product-title-color);
-  /* Optional: Limits title to 2 lines with an ellipsis */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
