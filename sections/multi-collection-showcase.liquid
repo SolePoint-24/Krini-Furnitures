@@ -79,11 +79,7 @@
             {% if collection.products.size > 0 %}
               <div class="custom-product-grid">
                 {% for product in collection.products limit: 4 %}
-                  <div class="custom-product-grid">
-  {% for product in collection.products limit: 4 %}
-    {% render 'custom-product-card', card_product: product %}
-  {% endfor %}
-</div>
+                  {% render 'custom-product-card', card_product: product %}
                 {% endfor %}
               </div>
             {% else %}
