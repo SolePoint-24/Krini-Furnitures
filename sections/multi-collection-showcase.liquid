@@ -79,47 +79,11 @@
             {% if collection.products.size > 0 %}
               <div class="custom-product-grid">
                 {% for product in collection.products limit: 4 %}
-                  <div class="grid__item">
-                    <a href="{{ product.url}}" class="custom-product-card">
-                      <div class="custom-product-card__image-wrapper">
-                        {% if product.featured_media %}
-                          <img
-                            src="{{ product.featured_media | image_url: width: 500 }}"
-                            alt="{{ product.featured_media.alt | escape }}"
-                            loading="lazy"
-                            width="{{ product.featured_media.width }}"
-                            height="{{ product.featured_media.height }}"
-                            class="custom-product-card__image custom-product-card__image--primary"
-                          >
-                          {% if product.media[1] %}
-                            <img
-                              src="{{ product.media[1] | image_url: width: 500 }}"
-                              alt="{{ product.media[1].alt | escape }}"
-                              loading="lazy"
-                              width="{{ product.media[1].width }}"
-                              height="{{ product.media[1].height }}"
-                              class="custom-product-card__image custom-product-card__image--secondary"
-                            >
-                          {% endif %}
-                        {% else %}
-                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg custom-product-card__image' }}
-                        {% endif %}
-                      </div>
-                      <div class="custom-product-card__info">
-                        <h3 class="custom-product-card__title {{ s.product_title_font_class }}">
-                          {{ product.title | escape }}
-                        </h3>
-                        <div class="custom-product-card__price">
-                          {{ product.price | money }}
-                          {% if product.compare_at_price > product.price %}
-                            <span class="custom-product-card__compare-price">
-                              {{- product.compare_at_price | money -}}
-                            </span>
-                          {% endif %}
-                        </div>
-                      </div>
-                    </a>
-                  </div>
+                  <div class="custom-product-grid">
+  {% for product in collection.products limit: 4 %}
+    {% render 'custom-product-card', card_product: product %}
+  {% endfor %}
+</div>
                 {% endfor %}
               </div>
             {% else %}
