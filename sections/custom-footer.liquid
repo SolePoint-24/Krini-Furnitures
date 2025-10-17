@@ -7,7 +7,6 @@
  - CSS has been modified to show menu links in horizontal rows on desktop while hiding the menu titles.
  - Mobile accordion logic remains unchanged.
  - Social media icons are now centered below the menu with a hardcoded "FOLLOW US" title.
-  - Menu font-size is now 1rem with a font-weight hover transition.
 {%- endcomment -%}
 
 {%- style -%}
@@ -160,16 +159,16 @@
  .footer__menu-list a {
   text-decoration: none;
   color: inherit;
-  font-size: 1rem; /* <-- CHANGED */
+  font-size: 1rem; /* Adjusted size */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 500;
-  transition: text-decoration 0.4s ease-in-out, font-weight 0.3s ease-in-out; /* <-- CHANGED */
+   transition: font-weight .4s ease-in-out;
  }
 
  .footer__menu-list a:hover {
-  text-decoration: underline;
-    font-weight: 700; /* <-- CHANGED */
+  font-weight: 700
+
  }
  /* --- NEW ACCORDION STYLES END --- */
 
@@ -186,7 +185,7 @@
  .copyright p {
   margin: 0;
   font-size: 1rem;
- C  color: var(--color-foreground);
+  color: var(--color-foreground);
  }
 
  /* Desktop override – Hide accordion title, show links as horizontal rows */
@@ -229,7 +228,7 @@
  @media screen and (min-width: 750px) {
   .section-{{ section.id }}-padding {
    padding-top: {{ section.settings.padding_top | times: 1.5 | round }}px;
- D   padding-bottom: {{ section.settings.padding_bottom | times: 1.5 | round }}px;
+   padding-bottom: {{ section.settings.padding_bottom | times: 1.5 | round }}px;
   }
  }
  @media(max-width: 768px) {
@@ -292,7 +291,7 @@
 
     <div> <h5 class="footer__follow-us">FOLLOW US</h5>
       <div class="footer__social-icons">
-  in    {%- for block in section.blocks -%}
+     {%- for block in section.blocks -%}
       {%- if block.type == 'social_icon' -%}
        <a
          href="{{ block.settings.link }}"
@@ -307,10 +306,10 @@
      </div>
     </div>
 
-ci  </div>
+ </div>
  <div class="copyright-banner">
   <div class="copyright"><p>© {{ 'now' | date: '%Y' }} krini furniture</p></div>
-    Note  </div>
+     </div>
 
  <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -328,7 +327,7 @@ ci  </div>
 
      const list = btn.nextElementSibling;
      if (list) {
-  Why     list.classList.toggle('is-open');
+      list.classList.toggle('is-open');
      }
     });
    });
@@ -417,7 +416,7 @@ ci  </div>
     {
      "type": "text",
      "id": "aria_label",
-           "label": "Accessibility Label",
+     "label": "Accessibility Label",
      "info": "Describes the icon for screen readers, e.g., 'Follow us on X'."
     },
     {
