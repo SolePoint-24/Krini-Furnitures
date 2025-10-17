@@ -31,7 +31,9 @@
             class="resource-list__item"
           >
             {% # theme-check-disable UniqueStaticBlockId %}
-              {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product %}
+              {% comment %} {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product %} {% endcomment %}
+                                {% render 'custom-product-card', card_product: product %}
+
             {% # theme-check-enable UniqueStaticBlockId %}
           </div>
 
@@ -47,6 +49,8 @@
         >
           {% # theme-check-disable UniqueStaticBlockId %}
             {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: null %}
+                              {% render 'custom-product-card', card_product: product %}
+
           {% # theme-check-enable UniqueStaticBlockId %}
         </div>
 
