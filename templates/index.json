@@ -1319,7 +1319,7 @@
         "product_price_font_size": 20,
         "heading_font_class": "h2",
         "heading_color": "#121212",
-        "description_font_class": "body-text",
+        "description_font_class": "body-text-sm",
         "description_color": "#333333",
         "product_title_font_class": "body-text",
         "product_title_color": "#121212",
