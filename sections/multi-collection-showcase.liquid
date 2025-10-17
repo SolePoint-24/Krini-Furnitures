@@ -106,11 +106,15 @@
                         {% endif %}
                       </div>
                       <div class="custom-product-card__info">
-                        <h3 class="custom-product-card__title {{ s.product_title_font_class }}">{{ product.title | escape }}</h3>
+                        <h3 class="custom-product-card__title {{ s.product_title_font_class }}">
+                          {{ product.title | escape }}
+                        </h3>
                         <div class="custom-product-card__price">
                           {{ product.price | money }}
                           {% if product.compare_at_price > product.price %}
-                            <span class="custom-product-card__compare-price">{{ product.compare_at_price | money }}</span>
+                            <span class="custom-product-card__compare-price">
+                              {{- product.compare_at_price | money -}}
+                            </span>
                           {% endif %}
                         </div>
                       </div>
@@ -144,7 +148,6 @@
     {% endif %}
   </div>
 </div>
-
 
 {% stylesheet %}
   .multi-collection-viewer-header {
@@ -224,7 +227,7 @@
     padding-bottom: 100%;
     position: relative;
     overflow: hidden;
-      border-radius: 8px;
+    border-radius: 8px;
 
   }
   .custom-product-card__image {
@@ -251,6 +254,8 @@
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
+    border-radius: 8px;
+
   }
   .custom-product-card__title {
     margin-bottom: 8px;
@@ -322,46 +327,46 @@
 {% endstylesheet %}
 
 {% javascript %}
-class MultiCollectionViewer {
-  constructor(container) {
-    this.container = container;
-    this.tabs = this.container.querySelectorAll('[data-collection-handle]');
-    this.contents = this.container.querySelectorAll('[data-collection-content]');
-    this.init();
-  }
-  init() {
-    if (!this.tabs.length) return;
-    this.tabs.forEach(tab => {
-      tab.addEventListener('click', (event) => {
-        event.preventDefault();
-        this.onTabClick(tab);
+  class MultiCollectionViewer {
+    constructor(container) {
+      this.container = container;
+      this.tabs = this.container.querySelectorAll('[data-collection-handle]');
+      this.contents = this.container.querySelectorAll('[data-collection-content]');
+      this.init();
+    }
+    init() {
+      if (!this.tabs.length) return;
+      this.tabs.forEach((tab) => {
+        tab.addEventListener('click', (event) => {
+          event.preventDefault();
+          this.onTabClick(tab);
+        });
       });
-    });
+    }
+    onTabClick(clickedTab) {
+      const targetHandle = clickedTab.dataset.collectionHandle;
+      this.tabs.forEach((tab) => {
+        tab.classList.remove('is-active');
+      });
+      clickedTab.classList.add('is-active');
+      this.contents.forEach((content) => {
+        if (content.dataset.collectionContent === targetHandle) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    }
   }
-  onTabClick(clickedTab) {
-    const targetHandle = clickedTab.dataset.collectionHandle;
-    this.tabs.forEach(tab => {
-      tab.classList.remove('is-active');
-    });
-    clickedTab.classList.add('is-active');
-    this.contents.forEach(content => {
-      if (content.dataset.collectionContent === targetHandle) {
-        content.classList.remove('hidden');
-      } else {
-        content.classList.add('hidden');
+  document.addEventListener('DOMContentLoaded', () => {
+    const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
+    viewers.forEach((viewer) => {
+      const sectionContainer = viewer.closest('.shopify-section');
+      if (sectionContainer) {
+        new MultiCollectionViewer(sectionContainer);
       }
     });
-  }
-}
-document.addEventListener('DOMContentLoaded', () => {
-  const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
-  viewers.forEach(viewer => {
-    const sectionContainer = viewer.closest('.shopify-section');
-    if (sectionContainer) {
-      new MultiCollectionViewer(sectionContainer);
-    }
   });
-});
 {% endjavascript %}
 
 {% schema %}
@@ -387,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "label": "Description",
       "default": "<p>Check out our curated collections. Find what you're looking for.</p>"
     },
-   
+
     {
       "type": "text",
       "id": "button_label",
@@ -413,17 +418,17 @@ document.addEventListener('DOMContentLoaded', () => {
       "type": "number",
       "id": "product_price_font_size",
       "label": "Product Card Price Font Size",
-      "default": 20,
+      "default": 20
     },
     {
       "type": "select",
       "id": "heading_font_class",
       "label": "Heading font",
       "options": [
-        { "value": "h1", "label": "Heading 1"},
-        { "value": "h2", "label": "Heading 2"},
-        { "value": "h3", "label": "Heading 3"},
-        { "value": "h4", "label": "Heading 4"}
+        { "value": "h1", "label": "Heading 1" },
+        { "value": "h2", "label": "Heading 2" },
+        { "value": "h3", "label": "Heading 3" },
+        { "value": "h4", "label": "Heading 4" }
       ],
       "default": "h2"
     },
@@ -438,9 +443,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "id": "description_font_class",
       "label": "Description font",
       "options": [
-        { "value": "body-text", "label": "Body"},
-        { "value": "body-text-sm", "label": "Body (Small)"},
-        { "value": "subheading", "label": "Subheading"}
+        { "value": "body-text", "label": "Body" },
+        { "value": "body-text-sm", "label": "Body (Small)" },
+        { "value": "subheading", "label": "Subheading" }
       ],
       "default": "body-text"
     },
@@ -455,9 +460,9 @@ document.addEventListener('DOMContentLoaded', () => {
       "id": "product_title_font_class",
       "label": "Product title font",
       "options": [
-        { "value": "h5", "label": "Heading 5"},
-        { "value": "h6", "label": "Heading 6"},
-        { "value": "body-text", "label": "Body"}
+        { "value": "h5", "label": "Heading 5" },
+        { "value": "h6", "label": "Heading 6" },
+        { "value": "body-text", "label": "Body" }
       ],
       "default": "h6"
     },
@@ -514,11 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
   "presets": [
     {
       "name": "Multi-Collection Viewer",
-      "blocks": [
-        { "type": "collection" },
-        { "type": "collection" },
-        { "type": "collection" }
-      ]
+      "blocks": [{ "type": "collection" }, { "type": "collection" }, { "type": "collection" }]
     }
   ]
 }
