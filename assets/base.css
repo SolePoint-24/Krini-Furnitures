@@ -4285,6 +4285,7 @@ text-component {
 }
 
 /* Custom Product Card Styles */
+/* --- Fully Self-Contained Custom Product Card Styles --- */
 .custom-product-card {
   display: flex;
   flex-direction: column;
@@ -4328,29 +4329,34 @@ text-component {
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  border-radius: 12px;
 }
+
+/* --- TITLE STYLES (EDIT HERE) --- */
 .custom-product-card__title {
-  font-family: var(--font-body-family);  /* Hardcoded to use body font */
-  font-size: 20px;                      /* <-- Change this value for the title size */
+  font-family: var(--font-body-family);
+  font-size: 14px;      /* <-- Adjust title font size */
+  font-weight: 600;
+  line-height: 1.4;
   margin-bottom: 8px;
-  line-height: 1;
-  color: var(--product-title-color);
+  color: #121212;       /* <-- Hardcoded title color */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* --- PRICE STYLES (EDIT HERE) --- */
 .custom-product-card__price {
-  font-family: var(--font-body-family); /* Hardcoded to use body font */
-  font-size: 20px;                     /* <-- Change this value for the price size */
+  font-family: var(--font-body-family);
+  font-size: 15px;      /* <-- Adjust price font size */
+  font-weight: 400;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  color: var(--product-price-color);
+  color: #121212;       /* <-- Hardcoded price color */
 }
 .custom-product-card__compare-price {
   text-decoration: line-through;
-  font-size: 14px;
-  color: rgb(var(--color-base-accent-1));
+  font-size: 0.9em;
+  color: #757575;       /* <-- Hardcoded compare-at price color */
 }
