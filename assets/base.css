@@ -4285,6 +4285,7 @@ text-component {
 }
 
 /* Custom Product Card Styles */
+/* --- Fully Self-Contained Custom Product Card Styles --- */
 .custom-product-card {
   display: flex;
   flex-direction: column;
@@ -4333,7 +4334,8 @@ text-component {
 /* --- TITLE STYLES (EDIT HERE) --- */
 .custom-product-card__title {
   font-family: var(--font-body-family);
-  font-size: 20px;      /* <-- Adjust title font size */
+  font-size: 14px;      /* <-- Adjust title font size */
+  font-weight: 600;
   line-height: 1.4;
   margin-bottom: 8px;
   color: #121212;       /* <-- Hardcoded title color */
@@ -4346,7 +4348,7 @@ text-component {
 /* --- PRICE STYLES (EDIT HERE) --- */
 .custom-product-card__price {
   font-family: var(--font-body-family);
-  font-size: 20px;      /* <-- Adjust price font size */
+  font-size: 15px;      /* <-- Adjust price font size */
   font-weight: 400;
   display: flex;
   gap: 8px;
