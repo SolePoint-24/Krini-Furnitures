@@ -849,6 +849,32 @@
           },
           "blocks": {}
         },
+        "text_iRDNjd": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Founded with a passion for redefining living spaces, Krini blends timeless craftsmanship with forward-thinking design to create smart, space-saving furniture. Guided by visionary founders, the brand turns modern lifestyle challenges into elegant, functional solutions. Every Krini creation reflects a perfect harmony of art, precision, and innovation that transforms how people live and interact with their spaces.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "group_b7kVwj": {
           "type": "group",
           "name": "t:names.group",
@@ -1224,6 +1250,7 @@
       },
       "block_order": [
         "text_ACHPEf",
+        "text_iRDNjd",
         "group_b7kVwj"
       ],
       "name": "t:names.icons_with_text",
