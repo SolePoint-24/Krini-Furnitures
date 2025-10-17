@@ -2,9 +2,7 @@
   ** Multi-Collection Viewer **
   - Allows selecting up to 4 collections.
   - Displays products in an interactive tabbed interface.
-  - Customizable title, description, and CTA button.
-  - Uses a custom-built product card and a self-contained CSS grid.
-  - V4: Integrated theme typography and color scheme settings.
+  - Relies on a global snippet 'custom-product-card.liquid' and global CSS for card styling.
 {% endcomment %}
 
 {%- liquid
@@ -23,10 +21,6 @@
   #multi-collection-viewer-{{ section.id }} {
     --heading-color: {{ s.heading_color }};
     --description-color: {{ s.description_color }};
-    --product-title-color: {{ s.product_title_color }};
-    --product-price-color: {{ s.product_price_color }};
-    --product-card-bg-color: {{ s.product_card_bg_color }};
-    --product-price-font-size: {{ s.product_price_font_size }}px;
     {{ section_padding_styles }}
   }
 {%- endstyle -%}
@@ -49,12 +43,10 @@
       {% endif %}
     </div>
 
-    {%- assign section_blocks = section.blocks -%}
-
-    {% if section_blocks.size > 0 %}
+    {%- if section.blocks.size > 0 -%}
       <div class="multi-collection-viewer-tabs" id="CollectionTabs-{{ section.id }}">
         <div class="multi-collection-viewer-tabs__container">
-          {% for block in section_blocks %}
+          {% for block in section.blocks %}
             {%- assign collection = block.settings.collection -%}
             <button
               class="multi-collection-viewer-tabs__button{% if forloop.first %} is-active{% endif %}"
@@ -69,7 +61,7 @@
       </div>
 
       <div class="multi-collection-viewer-content">
-        {% for block in section_blocks %}
+        {% for block in section.blocks %}
           {%- assign collection = block.settings.collection -%}
           <div
             id="CollectionGrid-{{ section.id }}-{{ forloop.index }}"
@@ -89,12 +81,12 @@
                   {% for i in (1..4) %}
                     <div class="grid__item">
                       <div class="custom-product-card custom-product-card--placeholder">
-                        {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+                        <div class="custom-product-card__image-wrapper">
+                           {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
                         <div class="custom-product-card__info">
-                          <div class="placeholder-text">
-                            <div class="placeholder-text__item"></div>
-                            <div class="placeholder-text__item short"></div>
-                          </div>
+                           <div class="placeholder-text" style="height: 1.2em; background-color: #f0f0f0; border-radius: 4px; margin-bottom: 8px;"></div>
+                           <div class="placeholder-text" style="height: 1em; width: 60%; background-color: #f0f0f0; border-radius: 4px;"></div>
                         </div>
                       </div>
                     </div>
@@ -105,11 +97,12 @@
           </div>
         {% endfor %}
       </div>
-    {% endif %}
+    {%- endif -%}
   </div>
 </div>
 
 {% stylesheet %}
+  /* Section Header & Tabs */
   .multi-collection-viewer-header {
     display: flex;
     justify-content: space-between;
@@ -159,7 +152,7 @@
     display: none;
   }
 
-  /* Custom Grid Layout Styles */
+  /* Grid Layout */
   .custom-product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -167,97 +160,6 @@
   }
   .grid__item {
     display: flex;
-  }
-
-  /* Custom Product Card Styles */
-  .custom-product-card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-    width: 100%;
-    height: 100%;
-  }
-  .custom-product-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-  .custom-product-card__image-wrapper {
-    width: 100%;
-    padding-bottom: 100%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-
-  }
-  .custom-product-card__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-  }
-  .custom-product-card__image--secondary {
-    opacity: 0;
-  }
-  .custom-product-card:hover .custom-product-card__image--primary {
-    opacity: 0;
-  }
-  .custom-product-card:hover .custom-product-card__image--secondary {
-    opacity: 1;
-  }
-  .custom-product-card__info {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
-    border-radius: 12px;
-
-  }
-  .custom-product-card__title {
-    margin-bottom: 8px;
-    line-height: 1.3;
-    color: var(--product-title-color);
-  }
-  .custom-product-card__price {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    color: var(--product-price-color);
-    font-family: var(--font-body-family);
-    font-size: var(--product-price-font-size);
-  }
-  .custom-product-card__compare-price {
-    text-decoration: line-through;
-    font-size: 0.9em;
-    color: rgb(var(--color-base-accent-1));
-  }
-
-  /* Placeholder styles */
-  .custom-product-card--placeholder {
-    background-color: #f9f9f9;
-    border: 1px solid #e5e5e5;
-  }
-  .custom-product-card--placeholder .placeholder-svg {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-bottom: 1px solid #e5e5e5;
-  }
-  .custom-product-card--placeholder .custom-product-card__info { padding: 15px; }
-  .custom-product-card--placeholder .placeholder-text { width: 100%; }
-  .custom-product-card--placeholder .placeholder-text__item {
-    height: 12px;
-    border-radius: 2px;
-    margin-bottom: 8px;
-  }
-  .custom-product-card--placeholder .placeholder-text__item.short {
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
   }
   .page-width {
     width: 90%;
@@ -282,7 +184,7 @@
   }
 
   @media screen and (max-width: 480px) {
-    .custom-product-grid { grid-template-columns: repeat(1, 1fr); }
+    .custom-product-grid { grid-template-columns: 1fr; }
   }
 {% endstylesheet %}
 
@@ -294,8 +196,10 @@
       this.contents = this.container.querySelectorAll('[data-collection-content]');
       this.init();
     }
+
     init() {
       if (!this.tabs.length) return;
+
       this.tabs.forEach((tab) => {
         tab.addEventListener('click', (event) => {
           event.preventDefault();
@@ -303,12 +207,15 @@
         });
       });
     }
+
     onTabClick(clickedTab) {
       const targetHandle = clickedTab.dataset.collectionHandle;
+
       this.tabs.forEach((tab) => {
         tab.classList.remove('is-active');
       });
       clickedTab.classList.add('is-active');
+
       this.contents.forEach((content) => {
         if (content.dataset.collectionContent === targetHandle) {
           content.classList.remove('hidden');
@@ -318,6 +225,7 @@
       });
     }
   }
+
   document.addEventListener('DOMContentLoaded', () => {
     const viewers = document.querySelectorAll('.multi-collection-viewer-tabs');
     viewers.forEach((viewer) => {
@@ -352,7 +260,6 @@
       "label": "Description",
       "default": "<p>Check out our curated collections. Find what you're looking for.</p>"
     },
-
     {
       "type": "text",
       "id": "button_label",
@@ -366,19 +273,7 @@
     },
     {
       "type": "header",
-      "content": "Typography & Colors"
-    },
-    {
-      "type": "color",
-      "id": "product_card_bg_color",
-      "label": "Product card background color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "number",
-      "id": "product_price_font_size",
-      "label": "Product Card Price Font Size",
-      "default": 20
+      "content": "Typography"
     },
     {
       "type": "select",
@@ -414,29 +309,6 @@
       "id": "description_color",
       "label": "Description color",
       "default": "#333333"
-    },
-    {
-      "type": "select",
-      "id": "product_title_font_class",
-      "label": "Product title font",
-      "options": [
-        { "value": "h5", "label": "Heading 5" },
-        { "value": "h6", "label": "Heading 6" },
-        { "value": "body-text-sm", "label": "Body (Small)" }
-      ],
-      "default": "h6"
-    },
-    {
-      "type": "color",
-      "id": "product_title_color",
-      "label": "Product title color",
-      "default": "#121212"
-    },
-    {
-      "type": "color",
-      "id": "product_price_color",
-      "label": "Product price color",
-      "default": "#121212"
     },
     {
       "type": "header",
