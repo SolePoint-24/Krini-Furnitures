@@ -861,6 +861,7 @@
                 },
                 "text_TQ3ntL": {
                   "type": "text",
+                  "disabled": true,
                   "settings": {
                     "text": "<p>Elegant, Durable & Export-Ready Furniture for Hospitality Spaces<br/></p>",
                     "width": "100%",
@@ -961,6 +962,7 @@
                 },
                 "text_gqhAHP": {
                   "type": "text",
+                  "disabled": true,
                   "settings": {
                     "text": "<p>Partner With Us for Bespoke, Project-Driven Furniture Solutions<br/></p>",
                     "width": "100%",
