@@ -4331,17 +4331,25 @@ text-component {
   border-radius: 12px;
 }
 .custom-product-card__title {
+  font-family: var(--font-body-family);  /* Hardcoded to use body font */
+  font-size: 14px;                      /* <-- Change this value for the title size */
+  font-weight: 600;                     /* Makes the title slightly bold. Use 400 for normal. */
   margin-bottom: 8px;
-  line-height: 1.3;
-  color: var(--product-title-color); /* You can keep this or hardcode a color */
+  line-height: 1.4;
+  color: var(--product-title-color);
+  /* Optional: Limits title to 2 lines with an ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .custom-product-card__price {
+  font-family: var(--font-body-family); /* Hardcoded to use body font */
+  font-size: 15px;                     /* <-- Change this value for the price size */
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  color: var(--product-price-color); /* You can keep this or hardcode a color */
-  font-family: var(--font-body-family);
-  font-size: var(--product-price-font-size); /* You can keep this or hardcode a value */
+  color: var(--product-price-color);
 }
 .custom-product-card__compare-price {
   text-decoration: line-through;
