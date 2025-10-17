@@ -4336,7 +4336,7 @@ text-component {
   font-size: 18px;      /* <-- Adjust title font size */
   line-height: 1.4;
   margin-bottom: 8px;
-  color: #a57f59;       /* <-- Hardcoded title color */
+  color: #513117;       /* <-- Hardcoded title color */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -4351,7 +4351,7 @@ text-component {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  color: #a57f59;       /* <-- Hardcoded price color */
+  color: #513117;       /* <-- Hardcoded price color */
 }
 .custom-product-card__compare-price {
   text-decoration: line-through;
