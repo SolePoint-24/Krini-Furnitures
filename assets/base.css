@@ -4334,7 +4334,7 @@ text-component {
   font-family: var(--font-body-family);  /* Hardcoded to use body font */
   font-size: 14px;                      /* <-- Change this value for the title size */
   margin-bottom: 8px;
-  line-height: 1.4;
+  line-height: 1;
   color: var(--product-title-color);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -4351,6 +4351,6 @@ text-component {
 }
 .custom-product-card__compare-price {
   text-decoration: line-through;
-  font-size: 0.9em;
+  font-size: 14px;
   color: rgb(var(--color-base-accent-1));
 }
