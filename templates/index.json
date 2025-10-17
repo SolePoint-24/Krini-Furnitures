@@ -1185,8 +1185,8 @@
         "horizontal_alignment": "flex-start",
         "gap": 28,
         "color_scheme": "scheme-1",
-        "padding-block-start": 46,
-        "padding-block-end": 46
+        "padding-block-start": 40,
+        "padding-block-end": 40
       }
     },
     "multi_collection_showcase_HA674p": {
