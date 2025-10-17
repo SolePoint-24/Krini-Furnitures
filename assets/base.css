@@ -4332,7 +4332,6 @@ text-component {
 }
 .custom-product-card__title {
   font-family: var(--font-body-family);  /* Hardcoded to use body font */
-  font-size: 20px;                      /* <-- Change this value for the title size */
   margin-bottom: 8px;
   line-height: 1;
   color: var(--product-title-color);
@@ -4343,7 +4342,6 @@ text-component {
 }
 .custom-product-card__price {
   font-family: var(--font-body-family); /* Hardcoded to use body font */
-  font-size: 20px;                     /* <-- Change this value for the price size */
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
