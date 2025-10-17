@@ -19,10 +19,8 @@
         "footer_menu": "footer",
         "logo": "shopify://shop_images/krini-transparent-logo.png",
         "logo_width": 150,
-        "description": "<p>We are one of the leading manufacturers of space saving furniture in India. We have a plethora of smart home ideas to inspire you, save you space and money, and ultimately help you live better in your space. We are a very well-known brand in Mumbai, India for Smart Furniture, Living Room Furniture, Home Furniture, Dining Room Furniture, Bedroom Furniture, Hotel Furniture, Office Furniture, Bed Frames, Space Saving Smart Furniture Hardware.<br/><br/></p>",
-        "title": "",
         "padding_top": 12,
-        "padding_bottom": 12
+        "padding_bottom": 0
       }
     },
     "footer": {
