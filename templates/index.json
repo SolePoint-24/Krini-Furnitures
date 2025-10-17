@@ -1321,7 +1321,7 @@
         "heading_color": "#121212",
         "description_font_class": "body-text",
         "description_color": "#333333",
-        "product_title_font_class": "h6",
+        "product_title_font_class": "body-text",
         "product_title_color": "#121212",
         "product_price_color": "#121212",
         "padding_top": 36,
