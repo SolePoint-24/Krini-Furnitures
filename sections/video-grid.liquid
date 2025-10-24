@@ -3,8 +3,6 @@
   Displays a title, description, and a grid of clickable YouTube videos that open in a modal.
 {% endcomment %}
 
-{{ 'video-grid.css' | asset_url | stylesheet_tag }}
-
 <div class="section-{{ section.id }} video-grid-section">
   <div class="video-grid-header page-width">
     {% if section.settings.heading != blank %}
