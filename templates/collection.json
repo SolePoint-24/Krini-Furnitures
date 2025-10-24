@@ -77,34 +77,10 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "image_R3wdVH": {
-              "type": "image",
-              "name": "t:names.image",
-              "settings": {
-                "image": "{{ closest.collection.image }}",
-                "link": "",
-                "image_ratio": "adapt",
-                "width": "custom",
-                "custom_width": 70,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
             }
           },
           "block_order": [
-            "text_aQmzpQ",
-            "image_R3wdVH"
+            "text_aQmzpQ"
           ]
         },
         "group_KwyQPe": {
