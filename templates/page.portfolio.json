@@ -252,13 +252,20 @@
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=FvKvAodgqSc"
           }
+        },
+        "video_pyPKdN": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=OZKUQo8zKEA"
+          }
         }
       },
       "block_order": [
         "video_zLRiDt",
         "video_Mrxgfq",
         "video_crFMRC",
-        "video_bzzACQ"
+        "video_bzzACQ",
+        "video_pyPKdN"
       ],
       "name": "Video Grid",
       "settings": {
