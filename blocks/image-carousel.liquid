@@ -4,6 +4,8 @@
   - NO Swiper.js. Uses pure CSS & JS.
   - This file lives in the 'blocks' folder.
   - Includes autoplay and fade transition.
+  - FIX: Increased CSS specificity to prevent theme conflicts.
+  - FIX: Replaced 'forloop.first' with a 'slide_rendered' flag for reliability.
 {% endcomment %}
 
 {% comment %}
@@ -42,12 +44,14 @@
   <div class="custom-carousel-block" id="carousel-{{ block.id }}" {{ block.shopify_attributes }}>
     <div class="carousel-track-container">
       <ul class="carousel-track">
+        {%- assign slide_rendered = false -%}
         {%- for key in carousel_image_keys -%}
           {%- if key.size > 0 -%}
             {%- assign image = block.settings[key] -%}
             {%- liquid
-              if forloop.first
+              if slide_rendered == false
                 assign is_active = "is-active"
+                assign slide_rendered = true
               else
                 assign is_active = ""
               endif
@@ -96,7 +100,7 @@
 {%- endif -%}
 
 <style>
-  .custom-carousel-block {
+  #carousel-{{ block.id }} {
     padding-top: {{ block.settings.padding_top }}px;
     padding-bottom: {{ block.settings.padding_bottom }}px;
     position: relative;
@@ -104,12 +108,12 @@
     height: {{ block.settings.carousel_height }}px;
     overflow: hidden;
   }
-  .carousel-track-container {
+  #carousel-{{ block.id }} .carousel-track-container {
     position: relative;
     height: 100%;
     width: 100%;
   }
-  .carousel-track {
+  #carousel-{{ block.id }} .carousel-track {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -117,7 +121,7 @@
     height: 100%;
     width: 100%;
   }
-  .carousel-slide {
+  #carousel-{{ block.id }} .carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -126,11 +130,11 @@
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
   }
-  .carousel-slide.is-active {
+  #carousel-{{ block.id }} .carousel-slide.is-active {
     opacity: 1;
     z-index: 1; /* Bring active slide to the front */
   }
-  .carousel-image {
+  #carousel-{{ block.id }} .carousel-image {
     display: block;
     width: 100%;
     height: 100%;
@@ -138,7 +142,7 @@
   }
 
   /* Buttons */
-  .carousel-button {
+  #carousel-{{ block.id }} .carousel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -156,22 +160,22 @@
     color: #333;
     padding: 0;
   }
-  .carousel-button:hover {
+  #carousel-{{ block.id }} .carousel-button:hover {
     background: rgba(255, 255, 255, 1);
   }
-  .carousel-button--left {
+  #carousel-{{ block.id }} .carousel-button--left {
     left: 16px;
   }
-  .carousel-button--right {
+  #carousel-{{ block.id }} .carousel-button--right {
     right: 16px;
   }
-  .carousel-button svg {
+  #carousel-{{ block.id }} .carousel-button svg {
     width: 24px;
     height: 24px;
   }
 
   /* Dots */
-  .carousel-nav {
+  #carousel-{{ block.id }} .carousel-nav {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -180,7 +184,7 @@
     display: flex;
     gap: 12px;
   }
-  .carousel-dot {
+  #carousel-{{ block.id }} .carousel-dot {
     background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
@@ -190,10 +194,10 @@
     padding: 0;
     transition: background-color 0.2s ease, transform 0.2s ease;
   }
-  .carousel-dot:hover {
+  #carousel-{{ block.id }} .carousel-dot:hover {
     background: rgba(255, 255, 255, 0.8);
   }
-  .carousel-dot.is-active {
+  #carousel-{{ block.id }} .carousel-dot.is-active {
     background: #ffffff;
     transform: scale(1.1);
   }
@@ -277,8 +281,13 @@
     startAutoplay();
   }
 
-  // Run on first load
-  document.addEventListener('DOMContentLoaded', initCustomCarousel_{{ block.id }});
+  // This simple check works better than DOMContentLoaded for block-level scripts
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCustomCarousel_{{ block.id }});
+  } else {
+    // DOM is already loaded
+    initCustomCarousel_{{ block.id }}();
+  }
 
   // Run in Shopify theme editor
   if (Shopify.designMode) {
@@ -336,16 +345,6 @@
     {
       "type": "header",
       "content": "Sizing & Spacing"
-    },
-    {
-      "type": "range",
-      "id": "carousel_height",
-      "min": 200,
-      "max": 800,
-      "step": 20,
-      "unit": "px",
-      "label": "Carousel Height",
-      "default": 400
     },
     {
       "type": "range",
