@@ -1,17 +1,15 @@
 {% comment %}
-  ** Image Carousel Block **
-  - Renders a Swiper.js carousel.
+  ** Custom Image Carousel Block **
+  - Renders a basic, custom-built carousel.
+  - NO Swiper.js. Uses pure CSS & JS.
   - This file lives in the 'blocks' folder.
-  - Includes autoplay.
-  - Uses compatible array-building logic (no 'push').
+  - Includes autoplay and fade transition.
 {% endcomment %}
 
 {% comment %}
   Build a comma-separated string of the setting keys for images that exist.
-  This is a compatible way to build an array without the 'push' filter.
 {% endcomment %}
 {%- assign image_keys_string = "" -%}
-
 {%- if block.settings.image_1 != blank -%}
   {%- assign image_keys_string = image_keys_string | append: "image_1," -%}
 {%- endif -%}
@@ -31,38 +29,65 @@
   {%- assign image_keys_string = image_keys_string | append: "image_6," -%}
 {%- endif -%}
 
-{% comment %}
-  Split the string into an array of keys.
-{% endcomment %}
 {%- assign carousel_image_keys = image_keys_string | split: "," -%}
+{%- assign slide_count = 0 -%}
+{%- for key in carousel_image_keys -%}
+  {%- if key.size > 0 -%}
+    {%- assign slide_count = slide_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
 
 
-{%- if carousel_image_keys.size > 0 -%}
-  <div class="custom-image-carousel-block" {{ block.shopify_attributes }}>
-    <div class="swiper-container image-carousel-{{ block.id }}">
-      <div class="swiper-wrapper">
-        {% comment %}
-          Loop through the array of keys and get the image object for each key.
-        {% endcomment %}
+{%- if slide_count > 0 -%}
+  <div class="custom-carousel-block" id="carousel-{{ block.id }}" {{ block.shopify_attributes }}>
+    <div class="carousel-track-container">
+      <ul class="carousel-track">
         {%- for key in carousel_image_keys -%}
-          {%- assign image = block.settings[key] -%}
-          <div class="swiper-slide">
-            <img
-              src="{{ image | image_url: width: 1200 }}"
-              alt="{{ image.alt | escape }}"
-              width="{{ image.width }}"
-              height="{{ image.height }}"
-              loading="lazy"
-              style="width: 100%; height: 100%; object-fit: cover;"
-            >
-          </div>
+          {%- if key.size > 0 -%}
+            {%- assign image = block.settings[key] -%}
+            {%- liquid
+              if forloop.first
+                assign is_active = "is-active"
+              else
+                assign is_active = ""
+              endif
+            -%}
+            <li class="carousel-slide {{ is_active }}">
+              <img
+                src="{{ image | image_url: width: 1200 }}"
+                alt="{{ image.alt | escape }}"
+                width="{{ image.width }}"
+                height="{{ image.height }}"
+                loading="lazy"
+                class="carousel-image"
+              >
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    {%- if slide_count > 1 -%}
+      <button class="carousel-button carousel-button--left" aria-label="Previous slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="carousel-button carousel-button--right" aria-label="Next slide">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+
+      <div class="carousel-nav">
+        {%- for i in (1..slide_count) -%}
+          {%- liquid
+            if forloop.first
+              assign is_active = "is-active"
+            else
+              assign is_active = ""
+            endif
+          -%}
+          <button class="carousel-dot {{ is_active }}" data-slide-index="{{ forloop.index0 }}"></button>
         {%- endfor -%}
       </div>
-      
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
+    {%- endif -%}
   </div>
 {%- else -%}
   <div {{ block.shopify_attributes }}>
@@ -71,73 +96,208 @@
 {%- endif -%}
 
 <style>
-  .custom-image-carousel-block {
+  .custom-carousel-block {
     padding-top: {{ block.settings.padding_top }}px;
     padding-bottom: {{ block.settings.padding_bottom }}px;
-  }
-  .image-carousel-{{ block.id }} {
+    position: relative;
     width: 100%;
     height: {{ block.settings.carousel_height }}px;
-    position: relative;
     overflow: hidden;
   }
-  /* Style for navigation arrows */
-  .image-carousel-{{ block.id }} .swiper-button-next,
-  .image-carousel-{{ block.id }} .swiper-button-prev {
-    color: #ffffff; /* White arrows */
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+  .carousel-track-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
   }
-  .image-carousel-{{ block.id }} .swiper-button-next::after,
-  .image-carousel-{{ block.id }} .swiper-button-prev::after {
-    font-size: 18px; /* Smaller arrow icon */
+  .carousel-track {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    height: 100%;
+    width: 100%;
   }
-  /* Style for pagination dots */
-  .image-carousel-{{ block.id }} .swiper-pagination-bullet {
-    background: #ffffff;
-    opacity: 0.7;
+  .carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
   }
-  .image-carousel-{{ block.id }} .swiper-pagination-bullet-active {
+  .carousel-slide.is-active {
     opacity: 1;
+    z-index: 1; /* Bring active slide to the front */
+  }
+  .carousel-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the slide */
+  }
+
+  /* Buttons */
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    color: #333;
+    padding: 0;
+  }
+  .carousel-button:hover {
+    background: rgba(255, 255, 255, 1);
+  }
+  .carousel-button--left {
+    left: 16px;
+  }
+  .carousel-button--right {
+    right: 16px;
+  }
+  .carousel-button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Dots */
+  .carousel-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 12px;
+  }
+  .carousel-dot {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .carousel-dot.is-active {
+    background: #ffffff;
+    transform: scale(1.1);
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof Swiper !== 'undefined') {
-      const carousel_{{ block.id }} = new Swiper('.image-carousel-{{ block.id }}', {
-        loop: true,
-        speed: 800,
-        
-        // Autoplay is enabled
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-        },
-        
-        // Pagination dots
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
+  function initCustomCarousel_{{ block.id }}() {
+    const carousel = document.getElementById('carousel-{{ block.id }}');
+    if (!carousel) return;
 
-        // Navigation arrows
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
-    } else {
-      console.warn('Swiper library is not loaded. Carousel cannot be initialized.');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    const nextButton = carousel.querySelector('.carousel-button--right');
+    const prevButton = carousel.querySelector('.carousel-button--left');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoplayInterval;
+
+    if (totalSlides <= 1) {
+      if(nextButton) nextButton.style.display = 'none';
+      if(prevButton) prevButton.style.display = 'none';
+      if(dots.length > 0) carousel.querySelector('.carousel-nav').style.display = 'none';
+      return; // No need for JS if 1 or 0 slides
     }
-  });
+
+    function moveToSlide(newIndex) {
+      // Handle looping
+      if (newIndex < 0) {
+        newIndex = totalSlides - 1;
+      } else if (newIndex >= totalSlides) {
+        newIndex = 0;
+      }
+
+      // Update slides
+      slides[currentIndex].classList.remove('is-active');
+      slides[newIndex].classList.add('is-active');
+      
+      // Update dots
+      if (dots.length > 0) {
+        dots[currentIndex].classList.remove('is-active');
+        dots[newIndex].classList.add('is-active');
+      }
+
+      currentIndex = newIndex;
+    }
+    
+    function startAutoplay() {
+      // Clear any existing interval
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      
+      autoplayInterval = setInterval(() => {
+        moveToSlide(currentIndex + 1);
+      }, 5000); // 5-second delay
+    }
+    
+    function resetAutoplay() {
+      clearInterval(autoplayInterval);
+      startAutoplay();
+    }
+
+    // --- Event Listeners ---
+    nextButton.addEventListener('click', () => {
+      moveToSlide(currentIndex + 1);
+      resetAutoplay();
+    });
+
+    prevButton.addEventListener('click', () => {
+      moveToSlide(currentIndex - 1);
+      resetAutoplay();
+    });
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', (e) => {
+        const newIndex = parseInt(e.currentTarget.dataset.slideIndex);
+        moveToSlide(newIndex);
+        resetAutoplay();
+      });
+    });
+
+    // Start autoplay
+    startAutoplay();
+  }
+
+  // Run on first load
+  document.addEventListener('DOMContentLoaded', initCustomCarousel_{{ block.id }});
+
+  // Run in Shopify theme editor
+  if (Shopify.designMode) {
+    document.addEventListener('shopify:block:load', function(event) {
+      if (event.detail.blockId === '{{ block.id }}') {
+        initCustomCarousel_{{ block.id }}();
+      }
+    });
+    document.addEventListener('shopify:block:select', function(event) {
+      if (event.detail.blockId === '{{ block.id }}') {
+        initCustomCarousel_{{ block.id }}();
+      }
+    });
+  }
 </script>
 
 {% schema %}
 {
-  "name": "Image Carousel",
+  "name": "Image Carousel (Custom)",
   "settings": [
     {
       "type": "header",
@@ -210,7 +370,7 @@
   ],
   "presets": [
     {
-      "name": "Image Carousel",
+      "name": "Image Carousel (Custom)",
       "category": "t:categories.custom"
     }
   ]
