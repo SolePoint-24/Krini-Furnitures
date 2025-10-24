@@ -143,11 +143,35 @@
             "platform": "facebook",
             "link": ""
           }
+        },
+        "social_link_bPXLXr": {
+          "type": "social_link",
+          "settings": {
+            "platform": "linkedin",
+            "link": ""
+          }
+        },
+        "social_link_4fhjbY": {
+          "type": "social_link",
+          "settings": {
+            "platform": "whatsapp",
+            "link": ""
+          }
+        },
+        "social_link_L8GB46": {
+          "type": "social_link",
+          "settings": {
+            "platform": "x",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "social_link_tEYzAY",
-        "social_link_8aHm7r"
+        "social_link_8aHm7r",
+        "social_link_bPXLXr",
+        "social_link_4fhjbY",
+        "social_link_L8GB46"
       ],
       "name": "Custom Map",
       "settings": {
