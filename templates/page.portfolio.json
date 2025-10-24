@@ -199,11 +199,66 @@
         "heading": "Wall Bed Concepts",
         "description": "<p>A <a href=\"https://krini.co.in/product-category/wall-bed/\">wall bed</a>, also known as a Murphy bed, is a dual purpose piece of furniture that can help you create a practical space for your home without sacrificing comfort. Wall Bed Combinations are exceptionally good space savers that merge the function of a living room, study room and a bedroom together in unity. Krini Furniture is one of the largest wall bed manufacturer in Mumbai, India. We manufacture wall bed with sofa storage, modern wall bed with sofa, wall bed with dining table, Wall Bed with Study Table, single wall bed, wall bed and wall bed with sofa from Mumbai, India.</p>"
       }
+    },
+    "video_grid_rtdi6w": {
+      "type": "video-grid",
+      "blocks": {
+        "video_AJKaKC": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=zyxDDbTcdZM"
+          }
+        },
+        "video_68btFR": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=Zg3I92MRTM4"
+          }
+        },
+        "video_GEL9WU": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=9EsQ5KMQa08"
+          }
+        },
+        "video_jYpmjp": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=-QR1aL3lJ2Q"
+          }
+        },
+        "video_CNAxDn": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=zxlQZW4a5VE"
+          }
+        },
+        "video_jK9E9y": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=QazJVsAj844"
+          }
+        }
+      },
+      "block_order": [
+        "video_AJKaKC",
+        "video_68btFR",
+        "video_GEL9WU",
+        "video_jYpmjp",
+        "video_CNAxDn",
+        "video_jK9E9y"
+      ],
+      "name": "Video Grid",
+      "settings": {
+        "heading": "Folding Bed (Single)",
+        "description": "<p>For smaller spaces or rooms, folding beds are an ideal pick. These beds also come handy when you have unexpected guests overnight. Can be used as Hospital Bed and Mattress, Patient Bed, Patient Mattress, Hospital and Medical Furniture.</p>"
+      }
     }
   },
   "order": [
     "main",
     "section_qK7hkz",
-    "video_grid_nKy9YM"
+    "video_grid_nKy9YM",
+    "video_grid_rtdi6w"
   ]
 }
