@@ -3,7 +3,8 @@
   It includes settings for address text and repeatable blocks for social media links.
 {% endcomment %}
 
-<div class="map-section color-{{ section.settings.color_scheme }}"> <div class="page-width">
+<div class="map-section color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
     <div class="map-section__grid">
       <div class="map-section__content">
         {%- if section.settings.heading != blank -%}
@@ -11,6 +12,8 @@
             {{ section.settings.heading | escape }}
           </h2>
         {%- endif -%}
+
+        <hr class="map-section__divider">
 
         {%- if section.settings.subheading != blank -%}
           <h3 class="map-section__subheading">{{ section.settings.subheading | escape }}</h3>
@@ -21,7 +24,9 @@
             {{ section.settings.address }}
           </div>
         {%- endif -%}
-        <hr>
+        
+        <hr class="map-section__divider">
+
         {%- if section.settings.email != blank -%}
           <p class="map-section__contact">
             <strong>Email:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
@@ -124,6 +129,14 @@
     color: var(--color-inverse-text);
   }
   /* Add more .color-scheme-name rules if your theme has them */
+
+  /* NEW */
+  .map-section__divider {
+    border: 0;
+    border-top: 1px solid currentColor; /* Uses the scheme's text color */
+    opacity: 0.15;
+    margin: 1.5rem 0; /* Adds vertical spacing */
+  }
 
 
   .map-section__grid {
@@ -266,7 +279,7 @@
     },
     {
       "type": "range",
-      "id": "height_desktop",
+      "id":"height_desktop",
       "min": 300,
       "max": 800,
       "step": 20,
