@@ -145,10 +145,47 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "video_grid_nKy9YM": {
+      "type": "video-grid",
+      "blocks": {
+        "video_c7wULT": {
+          "type": "video",
+          "settings": {
+            "video_title": "Murphy Bed with Study Desk",
+            "video_url": "https://www.youtube.com/watch?v=zyxDDbTcdZM"
+          }
+        },
+        "video_YgPWGC": {
+          "type": "video",
+          "settings": {
+            "video_title": "Murphy Bed with Study Desk",
+            "video_url": ""
+          }
+        },
+        "video_QABXme": {
+          "type": "video",
+          "settings": {
+            "video_title": "Murphy Bed with Study Desk",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_c7wULT",
+        "video_YgPWGC",
+        "video_QABXme"
+      ],
+      "name": "Video Grid",
+      "settings": {
+        "heading": "Wall Bed Concepts",
+        "description": "<p>A wall bed, also known as a Murphy bed, is a dual purpose piece of furniture that can help you create a practical space for your home without sacrificing comfort.</p>"
+      }
     }
   },
   "order": [
     "main",
-    "section_qK7hkz"
+    "section_qK7hkz",
+    "video_grid_nKy9YM"
   ]
 }
