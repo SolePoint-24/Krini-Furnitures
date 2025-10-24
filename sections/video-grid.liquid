@@ -97,6 +97,14 @@
         grid-template-columns: 1fr;
       }
     }
+    @media (min-width: 769px) { /* 1px above the tablet breakpoint */
+      .video-grid-container[data-block-count="2"] {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1000px; /* Keeps the 2 videos from being too wide */
+        margin-left: auto; /* Centers the container */
+        margin-right: auto;
+      }
+    }
 </style>
 
 {% schema %}
