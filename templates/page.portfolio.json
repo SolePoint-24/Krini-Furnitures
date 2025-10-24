@@ -206,47 +206,19 @@
         "video_AJKaKC": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=zyxDDbTcdZM"
+            "video_url": "https://www.youtube.com/watch?v=xp2p6x-cwy4"
           }
         },
         "video_68btFR": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=Zg3I92MRTM4"
-          }
-        },
-        "video_GEL9WU": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://www.youtube.com/watch?v=9EsQ5KMQa08"
-          }
-        },
-        "video_jYpmjp": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://www.youtube.com/watch?v=-QR1aL3lJ2Q"
-          }
-        },
-        "video_CNAxDn": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://www.youtube.com/watch?v=zxlQZW4a5VE"
-          }
-        },
-        "video_jK9E9y": {
-          "type": "video",
-          "settings": {
-            "video_url": "https://www.youtube.com/watch?v=QazJVsAj844"
+            "video_url": "https://www.youtube.com/watch?v=N4cfiKrnNGs"
           }
         }
       },
       "block_order": [
         "video_AJKaKC",
-        "video_68btFR",
-        "video_GEL9WU",
-        "video_jYpmjp",
-        "video_CNAxDn",
-        "video_jK9E9y"
+        "video_68btFR"
       ],
       "name": "Video Grid",
       "settings": {
