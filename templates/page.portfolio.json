@@ -166,12 +166,26 @@
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=9EsQ5KMQa08"
           }
+        },
+        "video_7BRPDM": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=-QR1aL3lJ2Q"
+          }
+        },
+        "video_gykTF6": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=zxlQZW4a5VE"
+          }
         }
       },
       "block_order": [
         "video_c7wULT",
         "video_YgPWGC",
-        "video_QABXme"
+        "video_QABXme",
+        "video_7BRPDM",
+        "video_gykTF6"
       ],
       "name": "Video Grid",
       "settings": {
