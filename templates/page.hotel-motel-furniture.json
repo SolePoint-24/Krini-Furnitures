@@ -126,10 +126,37 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "text_QKAJbh": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>When it comes to hotel and motel furniture, several key details need to be considered to ensure comfort, durability, and aesthetic appeal. Here are some important aspects to focus on :</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "text_GDPwLy"
+            "text_GDPwLy",
+            "text_QKAJbh"
           ]
         }
       },
