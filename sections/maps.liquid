@@ -35,12 +35,12 @@
     </div>
   </div>
 </div>
-
+{%- style -%}
   .map-section {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  
+
   .map-section__heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -63,7 +63,7 @@
     border: 0;
     height: {{ section.settings.height_mobile }}px;
   }
-  
+
   /* Desktop styles */
   @media screen and (min-width: 750px) {
     .map-section__iframe {
@@ -85,6 +85,7 @@
     max-width: 100px;
     margin-bottom: 1rem;
   }
+{%- endstyle -%}
 
 {% schema %}
 {
