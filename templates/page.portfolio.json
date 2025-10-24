@@ -178,6 +178,12 @@
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=zxlQZW4a5VE"
           }
+        },
+        "video_bCzgit": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=QazJVsAj844"
+          }
         }
       },
       "block_order": [
@@ -185,7 +191,8 @@
         "video_YgPWGC",
         "video_QABXme",
         "video_7BRPDM",
-        "video_gykTF6"
+        "video_gykTF6",
+        "video_bCzgit"
       ],
       "name": "Video Grid",
       "settings": {
