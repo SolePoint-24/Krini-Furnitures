@@ -1,8 +1,3 @@
-{% comment %}
-  Section: Video Grid
-  Displays a title, description, and a grid of clickable YouTube videos that open in a modal.
-{% endcomment %}
-
 <div class="section-{{ section.id }} video-grid-section">
   <div class="video-grid-header page-width">
     {% if section.settings.heading != blank %}
@@ -18,19 +13,20 @@
   {% if section.blocks.size > 0 %}
     <div class="video-grid-container page-width">
       {% for block in section.blocks %}
-        <div class="video-grid-item" data-video-url="{{ block.settings.video_url }}" {{ block.shopify_attributes }}>
+        {% liquid
+          assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first | split: 'youtu.be/' | last
+          assign thumbnail_url = 'https://img.youtube.com/vi/' | append: video_id | append: '/hqdefault.jpg'
+        %}
+        
+        <div class="video-grid-item" data-video-id="{{ video_id }}" {{ block.shopify_attributes }}>
           <div class="video-thumbnail-wrapper">
-            {% if block.settings.custom_thumbnail != blank %}
-              <img
-                src="{{ block.settings.custom_thumbnail | image_url: width: 500 }}"
-                alt="{{ block.settings.custom_thumbnail.alt | default: block.settings.video_title | escape }}"
-                width="{{ block.settings.custom_thumbnail.width }}"
-                height="{{ block.settings.custom_thumbnail.height }}"
-                loading="lazy"
-              >
-            {% else %}
-              {{ 'video' | placeholder_svg_tag: 'placeholder-svg' }}
-            {% endif %}
+            <img
+              src="{{ thumbnail_url }}"
+              alt="{{ block.settings.video_title | escape }}"
+              width="1280"
+              height="720"
+              loading="lazy"
+            >
 
             <div class="video-play-button">
               <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" width="48" height="48"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg>
@@ -48,17 +44,14 @@
   {% endif %}
 </div>
 
-<div id="videoModal-{{ section.id }}" class="video-modal" style="display: none;">
-  <div class="video-modal-content">
-    <button class="video-modal-close" aria-label="Close video player">&times;</button>
-    <div class="video-modal-iframe-container">
-      </div>
-  </div>
-</div>
-
 <style>
   .section-{{ section.id }} {
     padding: 50px 0;
+  }
+  .page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px; /* Added padding for mobile */
   }
 
   .video-grid-header {
@@ -70,6 +63,10 @@
     margin-bottom: 15px;
   }
   
+  .video-grid-description {
+    text-align: left; /* Force left align like your example */
+  }
+
   .video-grid-description p {
     max-width: 800px;
     margin: 0 auto;
@@ -86,15 +83,25 @@
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* This creates the 16:9 aspect ratio box */
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
   }
 
   .video-thumbnail-wrapper {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .video-thumbnail-wrapper img {
     width: 100%;
-    height: auto;
+    height: 100%; /* Make image fill the container */
+    object-fit: cover; /* Cover the area, won't distort */
     display: block;
     transition: transform 0.3s ease;
   }
@@ -138,53 +145,14 @@
     color: #fff;
   }
 
-  /* Modal Styles */
-  .video-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-
-  .video-modal-content {
-    position: relative;
-    width: 90%;
-    max-width: 900px;
-  }
-  
-  .video-modal-iframe-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-  }
-
-  .video-modal-iframe-container iframe {
+  /* Iframe styles (for when it's loaded) */
+  .video-grid-item iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: 0;
-  }
-
-  .video-modal-close {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 1;
   }
 
   /* Mobile Responsive */
@@ -208,63 +176,29 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const sectionId = '{{ section.id }}';
-    const modal = document.getElementById(`videoModal-${sectionId}`);
-    if (!modal) return;
-    
     const videoItems = document.querySelectorAll(`.section-${sectionId} .video-grid-item`);
-    const modalContent = modal.querySelector('.video-modal-iframe-container');
-    const closeModalBtn = modal.querySelector('.video-modal-close');
 
     videoItems.forEach(item => {
-      item.addEventListener('click', function() {
-        const videoUrl = this.getAttribute('data-video-url');
-        if (!videoUrl) return;
-
-        const videoId = getYouTubeId(videoUrl);
-        if (!videoId) {
-          console.error('Could not parse YouTube video ID.');
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const videoId = this.getAttribute('data-video-id');
+        if (!videoId || this.querySelector('iframe')) {
+          // If no ID or video is already loaded, do nothing
           return;
         }
 
-        // Create iframe with autoplay and other params
+        // Create iframe
         const iframe = document.createElement('iframe');
         iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
         iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
         iframe.setAttribute('allowfullscreen', '');
         
-        modalContent.innerHTML = ''; // Clear previous video
-        modalContent.appendChild(iframe);
-        modal.style.display = 'flex';
-      });
+        // Clear the item's content (thumbnail, button) and add the iframe
+        this.innerHTML = '';
+        this.appendChild(iframe);
+      }, { once: true }); // 'once: true' makes the listener fire only one time
     });
-
-    function closeModal() {
-      modal.style.display = 'none';
-      modalContent.innerHTML = ''; // Stop video by removing iframe
-    }
-
-    closeModalBtn.addEventListener('click', closeModal);
-    
-    // Optional: Close modal by clicking on the background
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-
-    // Helper function to extract YouTube ID
-    function getYouTubeId(url) {
-      let ID = '';
-      url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-      if (url[2] !== undefined) {
-        ID = url[2].split(/[^0-9a-z_\-]/i);
-        ID = ID[0];
-      } else {
-        ID = url;
-      }
-      return ID;
-    }
   });
 </script>
 
@@ -279,7 +213,7 @@
       "default": "Wall Bed Concepts"
     },
     {
-      "type": "richtext",
+      "type":"richtext",
       "id": "description",
       "label": "Description",
       "default": "<p>A wall bed, also known as a Murphy bed, is a dual purpose piece of furniture that can help you create a practical space for your home without sacrificing comfort.</p>"
@@ -293,20 +227,14 @@
         {
           "type": "text",
           "id": "video_title",
-          "label": "Video Title",
+          "label": "Video Title (Overlay)",
           "default": "Murphy Bed with Study Desk"
         },
         {
           "type": "url",
           "id": "video_url",
           "label": "YouTube Video URL",
-          "info": "Paste the full YouTube URL (e.g., https://www.youtube.com/watch?v=...)"
-        },
-        {
-          "type": "image_picker",
-          "id": "custom_thumbnail",
-          "label": "Custom Thumbnail",
-          "info": "500 x 280px (.jpg) recommended. If empty, a placeholder will be used."
+          "info": "Paste the full YouTube URL (e.g., https://www.youtube.com/watch?v=...)",
         }
       ]
     }
