@@ -16,7 +16,7 @@
         {% liquid
           assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first | split: 'youtu.be/' | last
         %}
-        
+
         <div class="video-grid-item" {{ block.shopify_attributes }}>
           <iframe
             src="https://www.youtube.com/embed/{{ video_id }}?rel=0&modestbranding=1"
@@ -32,69 +32,72 @@
 </div>
 
 <style>
-  .section-{{ section.id }} {
-    padding: 50px 0;
-  }
-.page-width {
-    max-width: 1200px; /* Or your theme's default */
-    margin: 0 auto;
-    padding: 0 20px; /* Mobile padding */
-  }
-
-  .video-grid-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .video-grid-heading {
-    margin-bottom: 30px;
-  }
-  
-  .video-grid-description {
-    text-align: left; /* Force left align like your example */
-  }
-
-  .video-grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  }
-
-  .video-grid-item {
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    
-    /* This creates the 16:9 aspect ratio box */
-    position: relative;
-    padding-bottom: 56.25%; 
-    height: 0;
-  }
-
-  /* Iframe styles */
-  .video-grid-item iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .video-grid-container {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+    .section-{{ section.id }} {
+      padding: 50px 0;
+    }
+  .page-width {
+      max-width: 1200px; /* Or your theme's default */
+      margin: 0 auto;
+      padding: 0 20px; /* Mobile padding */
     }
 
-  }
-
-  @media (max-width: 480px) {
-    .video-grid-container {
-      grid-template-columns: 1fr;
+    .video-grid-header {
+      text-align: center;
+      margin-bottom: 40px;
     }
-  }
+
+    .video-grid-heading {
+      margin-bottom: 30px;
+    }
+
+    .video-grid-description {
+      text-align: left; /* Force left align like your example */
+    }
+
+    .video-grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .video-grid-item {
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      /* This creates the 16:9 aspect ratio box */
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    /* Iframe styles */
+    .video-grid-item iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .video-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .page-width {
+        padding: 0 40px; /* Desktop padding */
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .video-grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
 </style>
 
 {% schema %}
@@ -108,7 +111,7 @@
       "default": "Wall Bed Concepts"
     },
     {
-      "type":"richtext",
+      "type": "richtext",
       "id": "description",
       "label": "Description",
       "default": "<p>A wall bed, also known as a Murphy bed, is a dual purpose piece of furniture that can help you create a practical space for your home without sacrificing comfort.</p>"
@@ -131,11 +134,7 @@
   "presets": [
     {
       "name": "Video Grid",
-      "blocks": [
-        { "type": "video" },
-        { "type": "video" },
-        { "type": "video" }
-      ]
+      "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }]
     }
   ]
 }
