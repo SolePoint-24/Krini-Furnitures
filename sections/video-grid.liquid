@@ -35,10 +35,18 @@
     .section-{{ section.id }} {
       padding: 50px 0;
     }
-  .page-width {
-      max-width: 1440px; /* Or your theme's default */
+
+    /* --- THIS IS THE CORRECTED PADDING --- */
+    .page-width {
+      max-width: 1440px; 
       margin: 0 auto;
     }
+    @media (min-width: 768px) {
+      .page-width {
+        padding: 0 40px; /* Desktop padding */
+      }
+    }
+    /* --- END OF PADDING FIX --- */
 
     .video-grid-header {
       text-align: center;
@@ -50,12 +58,12 @@
     }
 
     .video-grid-description {
-      text-align: left; /* Force left align like your example */
+      text-align: left; 
     }
 
     .video-grid-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr); /* Default is 3 columns */
       gap: 30px;
     }
 
@@ -63,14 +71,11 @@
       overflow: hidden;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-      /* This creates the 16:9 aspect ratio box */
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
     }
 
-    /* Iframe styles */
     .video-grid-item iframe {
       position: absolute;
       top: 0;
@@ -80,29 +85,41 @@
       border: 0;
     }
 
-    /* Mobile Responsive */
+    /* --- THIS IS THE CORRECTED LOGIC FOR 1 OR 2 VIDEOS --- */
+    @media (min-width: 769px) { /* 1px above the tablet breakpoint */
+      
+      /* If there is only 1 video, make it 1 column and center it */
+      .video-grid-container[data-block-count="1"] {
+        grid-template-columns: 1fr;
+        max-width: 680px; /* Adjust as needed */
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      /* If there are 2 videos, make it 2 columns and center them */
+      .video-grid-container[data-block-count="2"] {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1000px; 
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+    /* --- END OF NEW LOGIC --- */
+
+
+    /* Tablet Responsive */
     @media (max-width: 768px) {
       .video-grid-container {
+        /* On tablet, 2 columns is fine for 1, 2, or 3 videos */
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
       }
-      .page-width {
-        padding: 0 40px; /* Desktop padding */
-      }
-
     }
 
+    /* Mobile Responsive */
     @media (max-width: 480px) {
       .video-grid-container {
         grid-template-columns: 1fr;
-      }
-    }
-    @media (min-width: 769px) { /* 1px above the tablet breakpoint */
-      .video-grid-container[data-block-count="2"] {
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 1000px; /* Keeps the 2 videos from being too wide */
-        margin-left: auto; /* Centers the container */
-        margin-right: auto;
       }
     }
 </style>
