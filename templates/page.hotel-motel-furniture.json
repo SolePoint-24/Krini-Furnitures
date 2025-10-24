@@ -182,6 +182,13 @@
             "title": "Style and Aesthetics:",
             "description": "The furniture should match the overall design theme and ambiance of the hotel or motel. Choose furniture styles and colors that are modern, timeless, and appealing to a wide range of guests."
           }
+        },
+        "text_item_FVEbgd": {
+          "type": "text_item",
+          "settings": {
+            "title": "Functionality and Space Optimization:",
+            "description": "Opt for multi-functional furniture pieces that can serve dual purposes, such as sofa beds or storage ottomans. Ensure that the furniture doesn’t clutter the room but rather enhances the sense of space and functionality."
+          }
         }
       },
       "block_order": [
@@ -189,7 +196,8 @@
         "image_HMP9eE",
         "text_item_zLPpiw",
         "text_item_BgtBpw",
-        "text_item_wbr3Qe"
+        "text_item_wbr3Qe",
+        "text_item_FVEbgd"
       ],
       "name": "Image with Text Carousel",
       "settings": {
