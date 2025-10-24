@@ -1,0 +1,140 @@
+{% comment %}
+  This section allows you to embed a Google Map by pasting the iframe code.
+  It includes settings for a heading and responsive height control.
+{% endcomment %}
+
+<div class="map-section">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="map-section__heading h2_style_2 title-wrapper title-wrapper--no-top-margin">
+        {{ section.settings.heading | escape }}
+      </h2>
+    {%- endif -%}
+
+    <div class="map-section__container">
+      {%- if section.settings.map_embed_code != blank -%}
+        {%- liquid
+          assign map_src = section.settings.map_embed_code | split: 'src="' | last | split: '"' | first
+        -%}
+        <iframe
+          src="{{ map_src }}"
+          class="map-section__iframe"
+          frameborder="0"
+          scrolling="no"
+          allowfullscreen
+          loading="lazy"
+          aria-label="{{ section.settings.heading | escape | default: 'Map' }}"
+        >
+        </iframe>
+      {%- else -%}
+        <div class="map-section__placeholder">
+          {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <p>Please add a Google Maps embed code in the section settings.</p>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .map-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .map-section__heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .map-section__container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .map-section__iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 0;
+    height: {{ section.settings.height_mobile }}px;
+  }
+  
+  /* Desktop styles */
+  @media screen and (min-width: 750px) {
+    .map-section__iframe {
+      height: {{ section.settings.height_desktop }}px;
+    }
+  }
+
+  .map-section__placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: #f7f7f7;
+    border: 1px dashed #ccc;
+  }
+
+  .map-section__placeholder .placeholder-svg {
+    max-width: 100px;
+    margin-bottom: 1rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Map",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Location"
+    },
+    {
+      "type": "textarea",
+      "id": "map_embed_code",
+      "label": "Google Maps Embed Code",
+      "info": "Go to Google Maps, find your location, click 'Share', then 'Embed a map', and copy the HTML iframe code here."
+    },
+    {
+      "type": "header",
+      "content": "Sizing"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Map Height (Desktop)",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 250,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Map Height (Mobile)",
+      "default": 350
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Map"
+    }
+  ]
+}
+{% endschema %}
