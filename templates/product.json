@@ -287,7 +287,7 @@
               "settings": {
                 "content_direction": "row",
                 "vertical_on_mobile": false,
-                "horizontal_alignment": "space-between",
+                "horizontal_alignment": "center",
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
