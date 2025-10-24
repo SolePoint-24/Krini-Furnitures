@@ -1,0 +1,113 @@
+{% comment %}
+  This is a custom block for an image carousel.
+  It allows adding multiple images from theme settings to create a carousel.
+{% endcomment %}
+
+<div class="image-carousel-block">
+  {% assign carousel_images = block.settings.carousel_images %}
+
+  {% if carousel_images != blank %}
+    <div class="swiper-container image-carousel">
+      <div class="swiper-wrapper">
+        {% for image in carousel_images %}
+          <div class="swiper-slide">
+            <img src="{{ image | img_url: 'master' }}" alt="{{ image.alt | escape }}">
+          </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+
+    <style>
+      /* Basic styling for the carousel */
+      .image-carousel-block {
+        margin-bottom: 30px; /* Adjust as needed */
+      }
+      .image-carousel {
+        width: 100%;
+        height: 400px; /* Adjust height as needed */
+        overflow: hidden;
+      }
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      /* Swiper navigation and pagination styles (you might need to include Swiper CSS for full styling) */
+      .swiper-button-next, .swiper-button-prev {
+        color: #fff;
+      }
+      .swiper-pagination-bullet {
+        background: #fff;
+      }
+    </style>
+
+    <script>
+      // Initialize Swiper (ensure Swiper library is loaded in your theme)
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof Swiper !== 'undefined') {
+          new Swiper('.image-carousel', {
+            loop: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+              delay: 5000, // 5 seconds
+              disableOnInteraction: false,
+            },
+            speed: 800,
+          });
+        } else {
+          console.warn('Swiper library not found. Image carousel will not function.');
+        }
+      });
+    </script>
+  {% else %}
+    <p>No images added to the carousel yet.</p>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Image Carousel",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image_1",
+        "label": "Image 1"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_2",
+        "label": "Image 2"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_3",
+        "label": "Image 3"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_4",
+        "label": "Image 4 (Optional)"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_5",
+        "label": "Image 5 (Optional)"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image Carousel"
+      }
+    ]
+  }
+{% endschema %}
