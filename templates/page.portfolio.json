@@ -246,12 +246,19 @@
           "settings": {
             "video_url": "https://www.youtube.com/watch?v=uTOnuf4p2EE"
           }
+        },
+        "video_bzzACQ": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=FvKvAodgqSc"
+          }
         }
       },
       "block_order": [
         "video_zLRiDt",
         "video_Mrxgfq",
-        "video_crFMRC"
+        "video_crFMRC",
+        "video_bzzACQ"
       ],
       "name": "Video Grid",
       "settings": {
