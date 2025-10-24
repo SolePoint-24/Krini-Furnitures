@@ -272,6 +272,53 @@
         "heading": "L Shaped Sofa cum Bed",
         "description": "<p>Furnish your living space with our stylish and comfortable, <a href=\"/collections/l-shape-sofa-cum-beds\" title=\"L Shape Sofa Cum Beds\">L-shaped Sofa Set</a> with Lounger & Storage. When designing a small living room, often L-shaped sofas seem the best option as they provide more seating without occupying too much space. They practically double your seating options without occupying a lot of extra space compared to a regular sofa. It is also economical if you look at the per seat price. Pioneers in the industry, we offer l shape sofa set, l shape sofa, living room sofa set, l sofa sets, l corner sofa, l shaped sofa cum bed with storage and l-shaped sofa set from India.</p>"
       }
+    },
+    "video_grid_CbhYFB": {
+      "type": "video-grid",
+      "blocks": {
+        "video_nttVxE": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=VVQ48GZqp2o"
+          }
+        },
+        "video_G3GTbm": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=iAeOgGWpCeo"
+          }
+        },
+        "video_tBHV8J": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=uTOnuf4p2EE"
+          }
+        },
+        "video_DkA3rg": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=FvKvAodgqSc"
+          }
+        },
+        "video_w8GRBV": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=OZKUQo8zKEA"
+          }
+        }
+      },
+      "block_order": [
+        "video_nttVxE",
+        "video_G3GTbm",
+        "video_tBHV8J",
+        "video_DkA3rg",
+        "video_w8GRBV"
+      ],
+      "name": "Video Grid",
+      "settings": {
+        "heading": "Multipurpose Wall Mounted Table",
+        "description": "<p>Make the most of your existing space with our stylish <a href=\"https://krini.co.in/product-category/wall-mounted-folding-table/\">Multipurpose Wall Mounted Table cum Shelf</a>. This table can be used for study table, writing desk, office table, computer workstations, shelves and more. Wall mounted folding table (Multipurpose) cum Shelf is an excellent solution for apartments or offices, with space constraints.</p>"
+      }
     }
   },
   "order": [
@@ -279,6 +326,7 @@
     "section_qK7hkz",
     "video_grid_nKy9YM",
     "video_grid_rtdi6w",
-    "video_grid_gB8HLy"
+    "video_grid_gB8HLy",
+    "video_grid_CbhYFB"
   ]
 }
