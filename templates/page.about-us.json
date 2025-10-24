@@ -157,10 +157,109 @@
             "text_F4xGVL",
             "text_hkBiRM"
           ]
+        },
+        "group_qDyqeL": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 30,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_a9Uigz": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>Different Categories of Furniture we manufacture:</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_N4fnzw": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>To a great extent, the ambience within a room depends on the type of furniture which it possesses. At present space saving furniture or smart furniture is highly valued for its ability to fit into minimal spaces. With living spaces becoming pricier and smaller, space-saving furniture is more in demand than ever.</p><p>As one of the best furniture brands in India & a leading <strong>space saving furniture manufacturer in India</strong>, headquartered in Mumbai, we create furniture meant for use in offices, homes and commercial centres. We serve high-grade furniture requirements of <strong>Furniture Retail Stores & Furniture Chains, Furniture Wholesalers, and the Hospitality industry</strong> globally. We also provide <strong>space-saving furniture concepts for Residential, Commercial & Hospitality projects all over India</strong>.</p><p>At Krini Furniture, we proudly design and develop our entire range of furniture products in India. We support the ‘Make In India’ initiative. We combine creativity, craftsmanship, and technology to create furniture suited for our esteemed customers.</p><p>Being one of the <strong>most-trusted smart furniture brands in India</strong>, we have a considerable amount of experience in dealing with large format retail companies and online stores, in India. We also collaborate with Interior Designers, Architects, Builders & Contractors all over India to provide furniture solutions to their clients. Mostly all our materials are sourced locally, ensuring high quality.</p><p>Our exclusive concept, unparalleled expertise, premium quality materials, and super fast delivery have allowed us to become one of the leading furniture brands in the country. Since we commenced our journey in 2011 we have been delivering an unmatched range of remarkable furniture solutions to our clients from different regions in India.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_a9Uigz",
+            "text_N4fnzw"
+          ]
         }
       },
       "block_order": [
-        "group_iDiePx"
+        "group_iDiePx",
+        "group_qDyqeL"
       ],
       "name": "t:names.custom_section",
       "settings": {
@@ -171,7 +270,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 12,
+        "gap": 30,
         "section_width": "page-width",
         "section_height": "small",
         "section_height_custom": 50,
