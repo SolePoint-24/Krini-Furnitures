@@ -91,9 +91,9 @@
           "name": "t:names.text",
           "settings": {
             "text": "<p>With living spaces becoming pricier and smaller, space-saving furniture is more in demand than ever. Flexible, multi-functional & space-saving furniture is certainly a need of smart homes today. Check our complete Space saving furniture ideas portfolio below.</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "center",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
