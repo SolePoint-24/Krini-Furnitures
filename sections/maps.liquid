@@ -3,8 +3,7 @@
   It includes settings for address text and repeatable blocks for social media links.
 {% endcomment %}
 
-<div class="map-section">
-  <div class="page-width">
+<div class="map-section color-{{ section.settings.color_scheme }}"> <div class="page-width">
     <div class="map-section__grid">
       <div class="map-section__content">
         {%- if section.settings.heading != blank -%}
@@ -22,7 +21,7 @@
             {{ section.settings.address }}
           </div>
         {%- endif -%}
-
+        
         {%- if section.settings.email != blank -%}
           <p class="map-section__contact">
             <strong>Email:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
@@ -110,6 +109,22 @@
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
+  
+  /* This part applies the colors */
+  .map-section.color-background-1 {
+    background-color: var(--color-background-1);
+    color: var(--color-text-1);
+  }
+  .map-section.color-background-2 {
+    background-color: var(--color-background-2);
+    color: var(--color-text-2);
+  }
+  .map-section.color-inverse {
+    background-color: var(--color-inverse-background);
+    color: var(--color-inverse-text);
+  }
+  /* Add more .color-scheme-name rules if your theme has them */
+
 
   .map-section__grid {
     display: grid;
@@ -151,7 +166,7 @@
   }
 
   .map-section__social-link {
-    color: inherit;
+    color: inherit; /* This will make icons use the scheme's text color */
     opacity: 0.75;
     transition: opacity 0.3s ease;
   }
@@ -195,6 +210,11 @@
   "class": "section",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    }, {
       "type": "header",
       "content": "Address & Contact"
     },
