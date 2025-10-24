@@ -279,31 +279,37 @@
         "video_nttVxE": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=VVQ48GZqp2o"
+            "video_url": "https://www.youtube.com/watch?v=qe74uWz-Wr0"
           }
         },
         "video_G3GTbm": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=iAeOgGWpCeo"
+            "video_url": "https://www.youtube.com/watch?v=tgbZkoTrdOs"
           }
         },
         "video_tBHV8J": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=uTOnuf4p2EE"
+            "video_url": "https://www.youtube.com/watch?v=KfPDVWZZn7k"
           }
         },
         "video_DkA3rg": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=FvKvAodgqSc"
+            "video_url": "https://www.youtube.com/watch?v=yINRwDfMnxk"
+          }
+        },
+        "video_K766hG": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=CuLtRF3ects"
           }
         },
         "video_w8GRBV": {
           "type": "video",
           "settings": {
-            "video_url": "https://www.youtube.com/watch?v=OZKUQo8zKEA"
+            "video_url": "https://www.youtube.com/watch?v=xJ_LQtWxPK0"
           }
         }
       },
@@ -312,6 +318,7 @@
         "video_G3GTbm",
         "video_tBHV8J",
         "video_DkA3rg",
+        "video_K766hG",
         "video_w8GRBV"
       ],
       "name": "Video Grid",
