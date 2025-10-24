@@ -171,7 +171,7 @@
         }
       },
       "custom_css": [
-        ".facets-block-wrapper--vertical {@media screen and (min-width: 750px) {position: sticky; top: 122px; max-height: calc(100vh - 4rem); overflow-y: auto; }}"
+        ".facets-block-wrapper--vertical {@media screen and (min-width: 750px) {position: sticky; top: 78px; max-height: calc(100vh - 4rem); overflow-y: auto; }}"
       ],
       "settings": {
         "layout_type": "grid",
