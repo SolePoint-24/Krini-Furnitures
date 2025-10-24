@@ -83,7 +83,7 @@
         "text_fcM3nf": {
           "type": "text",
           "settings": {
-            "text": "<h2>{{ closest.page.title }}</h2>",
+            "text": "<h2>We’d Love to Hear From You</h2>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
