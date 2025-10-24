@@ -129,11 +129,31 @@
     },
     "maps_LamE8g": {
       "type": "maps",
+      "blocks": {
+        "social_link_tEYzAY": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "link": ""
+          }
+        },
+        "social_link_8aHm7r": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "social_link_tEYzAY",
+        "social_link_8aHm7r"
+      ],
       "name": "Custom Map",
       "settings": {
         "heading": "OUR ADDRESS",
         "subheading": "Mumbai",
-        "address": "<p>M/s. Krini Furniture Pvt Ltd<br/>Office No. 13 & 14, B Wing, 1st Floor, Sant Bhavan,<br/>Junction of Marve Road And B J Patel Road,</p><p>Malad (West),<br/>Mumbai 400064.<br/>Maharashtra, India.<br/><br/><br/></p>",
+        "address": "<p>M/s. Krini Furniture Pvt Ltd<br/>Office No. 13 & 14, B Wing, 1st Floor, Sant Bhavan,<br/>Junction of Marve Road And B J Patel Road,<br/>Malad (West),<br/>Mumbai 400064.<br/>Maharashtra, India.<br/><br/><br/></p>",
         "email": "info@krini.co.in",
         "phone_1": "For enquiries call or WhatsApp: +91-8591489667 / 662",
         "phone_2": "For Export Inquiries: +91-8591489671",
