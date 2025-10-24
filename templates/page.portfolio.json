@@ -225,12 +225,46 @@
         "heading": "Folding Bed (Single)",
         "description": "<p>For smaller spaces or rooms, folding beds are an ideal pick. These beds also come handy when you have unexpected guests overnight. Can be used as Hospital Bed and Mattress, Patient Bed, Patient Mattress, Hospital and Medical Furniture.</p>"
       }
+    },
+    "video_grid_gB8HLy": {
+      "type": "video-grid",
+      "blocks": {
+        "video_zLRiDt": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=VVQ48GZqp2o"
+          }
+        },
+        "video_Mrxgfq": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=iAeOgGWpCeo"
+          }
+        },
+        "video_crFMRC": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://www.youtube.com/watch?v=uTOnuf4p2EE"
+          }
+        }
+      },
+      "block_order": [
+        "video_zLRiDt",
+        "video_Mrxgfq",
+        "video_crFMRC"
+      ],
+      "name": "Video Grid",
+      "settings": {
+        "heading": "L Shaped Sofa cum Bed",
+        "description": "<p>Furnish your living space with our stylish and comfortable, <a href=\"/collections/l-shape-sofa-cum-beds\" title=\"L Shape Sofa Cum Beds\">L-shaped Sofa Set</a> with Lounger & Storage. When designing a small living room, often L-shaped sofas seem the best option as they provide more seating without occupying too much space. They practically double your seating options without occupying a lot of extra space compared to a regular sofa. It is also economical if you look at the per seat price. Pioneers in the industry, we offer l shape sofa set, l shape sofa, living room sofa set, l sofa sets, l corner sofa, l shaped sofa cum bed with storage and l-shaped sofa set from India.</p>"
+      }
     }
   },
   "order": [
     "main",
     "section_qK7hkz",
     "video_grid_nKy9YM",
-    "video_grid_rtdi6w"
+    "video_grid_rtdi6w",
+    "video_grid_gB8HLy"
   ]
 }
