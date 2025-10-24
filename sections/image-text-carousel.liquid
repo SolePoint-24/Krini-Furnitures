@@ -7,7 +7,12 @@
             {% if block.type == 'image' %}
               <div class="swiper-slide">
                 {% if block.settings.image != blank %}
-                  <img src="{{ block.settings.image | image_url: width: 1000 }}" alt="{{ block.settings.image.alt | escape }}">
+                  <img src="{{ block.settings.image | image_url: width: 1000 }}"
+                       alt="{{ block.settings.image.alt | escape }}"
+                       width="{{ block.settings.image.width }}"
+                       height="{{ block.settings.image.height }}"
+                       loading="lazy"
+                  >
                 {% else %}
                   {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                 {% endif %}
