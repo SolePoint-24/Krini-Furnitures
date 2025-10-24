@@ -3,38 +3,49 @@
   - Renders a Swiper.js carousel.
   - This file lives in the 'blocks' folder.
   - Includes autoplay.
+  - Uses compatible array-building logic (no 'push').
 {% endcomment %}
 
 {% comment %}
-  Assign all images from settings to a single array.
+  Build a comma-separated string of the setting keys for images that exist.
+  This is a compatible way to build an array without the 'push' filter.
 {% endcomment %}
-{%- assign carousel_images = "" | split: "" -%}
+{%- assign image_keys_string = "" -%}
 
 {%- if block.settings.image_1 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_1 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_1," -%}
 {%- endif -%}
 {%- if block.settings.image_2 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_2 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_2," -%}
 {%- endif -%}
 {%- if block.settings.image_3 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_3 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_3," -%}
 {%- endif -%}
 {%- if block.settings.image_4 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_4 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_4," -%}
 {%- endif -%}
 {%- if block.settings.image_5 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_5 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_5," -%}
 {%- endif -%}
 {%- if block.settings.image_6 != blank -%}
-  {%- assign carousel_images = carousel_images | push: block.settings.image_6 -%}
+  {%- assign image_keys_string = image_keys_string | append: "image_6," -%}
 {%- endif -%}
 
+{% comment %}
+  Split the string into an array of keys.
+{% endcomment %}
+{%- assign carousel_image_keys = image_keys_string | split: "," -%}
 
-{%- if carousel_images.size > 0 -%}
+
+{%- if carousel_image_keys.size > 0 -%}
   <div class="custom-image-carousel-block" {{ block.shopify_attributes }}>
     <div class="swiper-container image-carousel-{{ block.id }}">
       <div class="swiper-wrapper">
-        {%- for image in carousel_images -%}
+        {% comment %}
+          Loop through the array of keys and get the image object for each key.
+        {% endcomment %}
+        {%- for key in carousel_image_keys -%}
+          {%- assign image = block.settings[key] -%}
           <div class="swiper-slide">
             <img
               src="{{ image | image_url: width: 1200 }}"
