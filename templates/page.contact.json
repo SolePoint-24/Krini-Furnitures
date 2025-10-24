@@ -164,6 +164,13 @@
             "platform": "x",
             "link": ""
           }
+        },
+        "social_link_4MqkkB": {
+          "type": "social_link",
+          "settings": {
+            "platform": "youtube",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -171,7 +178,8 @@
         "social_link_8aHm7r",
         "social_link_bPXLXr",
         "social_link_4fhjbY",
-        "social_link_L8GB46"
+        "social_link_L8GB46",
+        "social_link_4MqkkB"
       ],
       "name": "Custom Map",
       "settings": {
