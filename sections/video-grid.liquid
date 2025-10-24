@@ -1,5 +1,5 @@
 <div class="section-{{ section.id }} video-grid-section page-width">
-  <div class="video-grid-header page-width">
+  <div class="video-grid-header">
     {% if section.settings.heading != blank %}
       <h2 class="video-grid-heading">{{ section.settings.heading | escape }}</h2>
     {% endif %}
@@ -11,7 +11,7 @@
   </div>
 
   {% if section.blocks.size > 0 %}
-    <div class="video-grid-container page-width">
+    <div class="video-grid-container">
       {% for block in section.blocks %}
         {% liquid
           assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first | split: 'youtu.be/' | last
@@ -35,11 +35,7 @@
   .section-{{ section.id }} {
     padding: 50px 0;
   }
-  .page-width {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px; /* Added padding for mobile */
-  }
+
 
   .video-grid-header {
     text-align: center;
@@ -87,9 +83,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-    .page-width {
-      padding: 0 20px;
-    }
+
   }
 
   @media (max-width: 480px) {
