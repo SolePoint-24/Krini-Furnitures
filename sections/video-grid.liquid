@@ -15,29 +15,16 @@
       {% for block in section.blocks %}
         {% liquid
           assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first | split: 'youtu.be/' | last
-          assign thumbnail_url = 'https://img.youtube.com/vi/' | append: video_id | append: '/hqdefault.jpg'
         %}
         
-        <div class="video-grid-item" data-video-id="{{ video_id }}" {{ block.shopify_attributes }}>
-          <div class="video-thumbnail-wrapper">
-            <img
-              src="{{ thumbnail_url }}"
-              alt="{{ block.settings.video_title | escape }}"
-              width="1280"
-              height="720"
-              loading="lazy"
-            >
-
-            <div class="video-play-button">
-              <svg aria-hidden="true" focusable="false" role="presentation" viewBox="0 0 24 24" width="48" height="48"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg>
-            </div>
-
-            {% if block.settings.video_title != blank %}
-              <div class="video-title-overlay">
-                {{ block.settings.video_title | escape }}
-              </div>
-            {% endif %}
-          </div>
+        <div class="video-grid-item" {{ block.shopify_attributes }}>
+          <iframe
+            src="https://www.youtube.com/embed/{{ video_id }}?rel=0&modestbranding=1"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
         </div>
       {% endfor %}
     </div>
@@ -79,7 +66,6 @@
   }
 
   .video-grid-item {
-    cursor: pointer;
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -90,62 +76,7 @@
     height: 0;
   }
 
-  .video-thumbnail-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .video-thumbnail-wrapper img {
-    width: 100%;
-    height: 100%; /* Make image fill the container */
-    object-fit: cover; /* Cover the area, won't distort */
-    display: block;
-    transition: transform 0.3s ease;
-  }
-
-  .video-grid-item:hover img {
-    transform: scale(1.05);
-  }
-  
-  .video-title-overlay {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 4px;
-    z-index: 2;
-  }
-
-  .video-play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.9);
-    pointer-events: none; /* Allows click to go to parent */
-    transition: all 0.3s ease;
-  }
-  
-  .video-play-button svg {
-    width: 60px;
-    height: 60px;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-  }
-
-  .video-grid-item:hover .video-play-button {
-    transform: translate(-50%, -50%) scale(1.1);
-    color: #fff;
-  }
-
-  /* Iframe styles (for when it's loaded) */
+  /* Iframe styles */
   .video-grid-item iframe {
     position: absolute;
     top: 0;
@@ -173,35 +104,6 @@
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const sectionId = '{{ section.id }}';
-    const videoItems = document.querySelectorAll(`.section-${sectionId} .video-grid-item`);
-
-    videoItems.forEach(item => {
-      item.addEventListener('click', function(e) {
-        e.preventDefault();
-        const videoId = this.getAttribute('data-video-id');
-        if (!videoId || this.querySelector('iframe')) {
-          // If no ID or video is already loaded, do nothing
-          return;
-        }
-
-        // Create iframe
-        const iframe = document.createElement('iframe');
-        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-        iframe.setAttribute('allowfullscreen', '');
-        
-        // Clear the item's content (thumbnail, button) and add the iframe
-        this.innerHTML = '';
-        this.appendChild(iframe);
-      }, { once: true }); // 'once: true' makes the listener fire only one time
-    });
-  });
-</script>
-
 {% schema %}
 {
   "name": "Video Grid",
@@ -225,16 +127,10 @@
       "name": "Video",
       "settings": [
         {
-          "type": "text",
-          "id": "video_title",
-          "label": "Video Title (Overlay)",
-          "default": "Murphy Bed with Study Desk"
-        },
-        {
           "type": "url",
           "id": "video_url",
           "label": "YouTube Video URL",
-          "info": "Paste the full YouTube URL (e.g., https://www.youtube.com/watch?v=...)",
+          "info": "Paste the full YouTube URL (e.g., https://www.youtube.com/watch?v=...)"
         }
       ]
     }
