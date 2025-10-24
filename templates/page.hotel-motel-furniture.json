@@ -162,6 +162,13 @@
             "image": "shopify://shop_images/81IUDKJkFKL._UF894_1000_QL80.jpg"
           }
         },
+        "text_item_zLPpiw": {
+          "type": "text_item",
+          "settings": {
+            "title": "Comfort and Ergonomics:",
+            "description": "The furniture should be designed with comfort in mind, especially for items like beds, sofas, and chairs. Ergonomic design principles should be applied to desk chairs, ensuring proper support for guests who may need to work or use a laptop."
+          }
+        },
         "text_item_BgtBpw": {
           "type": "text_item",
           "settings": {
@@ -180,14 +187,15 @@
       "block_order": [
         "image_U8mf3H",
         "image_HMP9eE",
+        "text_item_zLPpiw",
         "text_item_BgtBpw",
         "text_item_wbr3Qe"
       ],
       "name": "Image with Text Carousel",
       "settings": {
         "image_position": "left",
-        "heading": "Comfort and Ergonomics",
-        "text": "<p>The furniture should be designed with comfort in mind, especially for items like beds, sofas, and chairs. Ergonomic design principles should be applied to desk chairs, ensuring proper support for guests who may need to work or use a laptop.</p>"
+        "heading": "",
+        "text": ""
       }
     }
   },
