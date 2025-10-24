@@ -105,7 +105,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h1><strong>Hotel and Motel furniture</strong></h1>",
+                "text": "<h2>Hotel and Motel furniture</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
