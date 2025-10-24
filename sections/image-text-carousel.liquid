@@ -47,7 +47,7 @@
 
 <style>
   .section-{{ section.id }} {
-    padding: 50px 0; /* Adjust padding as needed */
+    padding: 50px 0; /* Adjust padding as needed for desktop */
   }
 
   .image-text-carousel-wrapper {
@@ -112,9 +112,23 @@
   @media (max-width: 768px) {
     .image-text-carousel-wrapper {
       flex-direction: column; /* Stack on smaller screens */
+      padding: 0 20px; /* Add horizontal padding to the wrapper on mobile */
+      gap: 20px; /* Adjust gap for mobile */
     }
     .image-text-carousel-wrapper.image-right {
       flex-direction: column; /* Still stack, order doesn't matter as much */
+    }
+
+    .image-carousel-container {
+      padding: 0 10px; /* Adjust padding inside the carousel container if needed */
+    }
+
+    .text-content-container {
+      padding: 0 10px; /* Adjust padding for the text content on mobile */
+    }
+
+    .section-{{ section.id }} {
+      padding: 30px 0; /* Adjust vertical padding for the whole section on mobile */
     }
   }
 </style>
