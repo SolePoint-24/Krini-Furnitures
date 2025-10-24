@@ -199,18 +199,6 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "image_carousel_DkDdCn": {
-              "type": "image-carousel",
-              "name": "Image Carousel",
-              "settings": {
-                "image_1": "shopify://shop_images/latest-small-bedroom-interior-design-modern-indian-storage-ideas.png",
-                "image_2": "shopify://shop_images/2_533x_0a118d15-7ecc-472b-a96e-7bfaf459a249.webp",
-                "carousel_height": 800,
-                "padding_top": 0,
-                "padding_bottom": 0
-              },
-              "blocks": {}
-            },
             "text_ihhgYp": {
               "type": "text",
               "name": "t:names.text",
@@ -236,11 +224,22 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "image_carousel_k6f6Wj": {
+              "type": "image-carousel",
+              "name": "Image Carousel (Custom)",
+              "settings": {
+                "image_1": "shopify://shop_images/66cca18ac9157025fa5272f4-nodax-formula-range-bed-with-storage.jpg",
+                "carousel_height": 400,
+                "padding_top": 0,
+                "padding_bottom": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "image_carousel_DkDdCn",
-            "text_ihhgYp"
+            "text_ihhgYp",
+            "image_carousel_k6f6Wj"
           ]
         }
       },
