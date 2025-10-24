@@ -255,11 +255,110 @@
             "text_a9Uigz",
             "text_N4fnzw"
           ]
+        },
+        "group_V4ggFz": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 30,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_CBH3WV": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>Our Furniture Products:</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_mbnTVD": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<ul><li>Living Room Furniture</li><li>Bedroom Furniture</li><li>Dining Room Furniture</li><li>Office Furniture</li><li>Hospitality Furniture</li><li>Computer Desk and Chair</li><li>Kids Furniture</li></ul><p>Krini Furniture is one of the largest manufacturer of Wall bed with sofa, Wall bed with dining table, Wall bed with study table, Single wall bed, Wall bed with l shaped sofa, Wall bed with side storage and Modular wall bed, Wall mounted dining table, wall mount folding table, Folding Wall Mounted Multipurpose Dining Table, folding dining table for small spaces, space saving table, Bar Table, dining table for 4, Work, Office Table, multipurpose desk, space saving dining table, restaurant table furniture, smart table, smart desk, space saving desk, Folding Study Tables, Hydraulic Storage Bed, Queen size beds, Beds with Storage, double bed with storage, queen size bed with storage, wooden bed with storage, queen size bed with hydraulic storage, hydraulic lift bed, platform bed with storage, queen bed with storage, bed without storage, modern storage bed, upholstered bed with storage, Hydraulic Beds, upholstered bed with storage, upholstered bed with hydraulic storage, upholstered queen bed with storage, full upholstered bed, Folding Beds, Fold up beds, Folding cot, Roll-away Beds, Metal foldable beds, Sofa cum beds, l Shape sofa beds with storage in Mumbai, India.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_CBH3WV",
+            "text_mbnTVD"
+          ]
         }
       },
       "block_order": [
         "group_iDiePx",
-        "group_qDyqeL"
+        "group_qDyqeL",
+        "group_V4ggFz"
       ],
       "name": "t:names.custom_section",
       "settings": {
