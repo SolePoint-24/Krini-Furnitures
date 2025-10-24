@@ -9,6 +9,73 @@
  */
 {
   "sections": {
+    "maps_LamE8g": {
+      "type": "maps",
+      "blocks": {
+        "social_link_tEYzAY": {
+          "type": "social_link",
+          "settings": {
+            "platform": "instagram",
+            "link": ""
+          }
+        },
+        "social_link_8aHm7r": {
+          "type": "social_link",
+          "settings": {
+            "platform": "facebook",
+            "link": ""
+          }
+        },
+        "social_link_bPXLXr": {
+          "type": "social_link",
+          "settings": {
+            "platform": "linkedin",
+            "link": ""
+          }
+        },
+        "social_link_4fhjbY": {
+          "type": "social_link",
+          "settings": {
+            "platform": "whatsapp",
+            "link": ""
+          }
+        },
+        "social_link_L8GB46": {
+          "type": "social_link",
+          "settings": {
+            "platform": "x",
+            "link": ""
+          }
+        },
+        "social_link_4MqkkB": {
+          "type": "social_link",
+          "settings": {
+            "platform": "youtube",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "social_link_tEYzAY",
+        "social_link_8aHm7r",
+        "social_link_bPXLXr",
+        "social_link_4fhjbY",
+        "social_link_L8GB46",
+        "social_link_4MqkkB"
+      ],
+      "name": "Custom Map",
+      "settings": {
+        "heading": "OUR ADDRESS",
+        "subheading": "Mumbai",
+        "address": "<p>M/s. Krini Furniture Pvt Ltd<br/>Office No. 13 & 14, B Wing, 1st Floor, Sant Bhavan,<br/>Junction of Marve Road And B J Patel Road,<br/>Malad (West),<br/>Mumbai 400064.<br/>Maharashtra, India.<br/><br/><br/></p>",
+        "email": "info@krini.co.in",
+        "phone_1": "For enquiries call or WhatsApp: +91-8591489667 / 662",
+        "phone_2": "For Export Inquiries: +91-8591489671",
+        "map_embed_code": "<iframe width=\"100%\" height=\"600\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Krini%20Furniture%20Pvt%20Ltd,%201st%20Floor,%20Sant%20Bhavan,%20Off%20No.%2013%20&%2014,%20B%20Wing,%20Chunilal%20Giridharilal%20Marg,%20Adarsh%20Nagar,%20Malad%20West,%20Mumbai,%20Maharashtra%20400064+(Krini%20Furniture%20Pvt%20Ltd)&t=&z=17&ie=UTF8&iwloc=B&output=embed\"><a href=\"https://www.mapsdirections.info/it/calcola-la-popolazione-su-una-mappa/\">città più popolate Italia mappa</a></iframe>",
+        "height_desktop": 500,
+        "height_mobile": 460
+      }
+    },
     "section": {
       "type": "section",
       "blocks": {
@@ -126,77 +193,10 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "maps_LamE8g": {
-      "type": "maps",
-      "blocks": {
-        "social_link_tEYzAY": {
-          "type": "social_link",
-          "settings": {
-            "platform": "instagram",
-            "link": ""
-          }
-        },
-        "social_link_8aHm7r": {
-          "type": "social_link",
-          "settings": {
-            "platform": "facebook",
-            "link": ""
-          }
-        },
-        "social_link_bPXLXr": {
-          "type": "social_link",
-          "settings": {
-            "platform": "linkedin",
-            "link": ""
-          }
-        },
-        "social_link_4fhjbY": {
-          "type": "social_link",
-          "settings": {
-            "platform": "whatsapp",
-            "link": ""
-          }
-        },
-        "social_link_L8GB46": {
-          "type": "social_link",
-          "settings": {
-            "platform": "x",
-            "link": ""
-          }
-        },
-        "social_link_4MqkkB": {
-          "type": "social_link",
-          "settings": {
-            "platform": "youtube",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "social_link_tEYzAY",
-        "social_link_8aHm7r",
-        "social_link_bPXLXr",
-        "social_link_4fhjbY",
-        "social_link_L8GB46",
-        "social_link_4MqkkB"
-      ],
-      "name": "Custom Map",
-      "settings": {
-        "heading": "OUR ADDRESS",
-        "subheading": "Mumbai",
-        "address": "<p>M/s. Krini Furniture Pvt Ltd<br/>Office No. 13 & 14, B Wing, 1st Floor, Sant Bhavan,<br/>Junction of Marve Road And B J Patel Road,<br/>Malad (West),<br/>Mumbai 400064.<br/>Maharashtra, India.<br/><br/><br/></p>",
-        "email": "info@krini.co.in",
-        "phone_1": "For enquiries call or WhatsApp: +91-8591489667 / 662",
-        "phone_2": "For Export Inquiries: +91-8591489671",
-        "map_embed_code": "<iframe width=\"100%\" height=\"600\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://maps.google.com/maps?width=100%25&height=600&hl=en&q=Krini%20Furniture%20Pvt%20Ltd,%201st%20Floor,%20Sant%20Bhavan,%20Off%20No.%2013%20&%2014,%20B%20Wing,%20Chunilal%20Giridharilal%20Marg,%20Adarsh%20Nagar,%20Malad%20West,%20Mumbai,%20Maharashtra%20400064+(Krini%20Furniture%20Pvt%20Ltd)&t=&z=17&ie=UTF8&iwloc=B&output=embed\"><a href=\"https://www.mapsdirections.info/it/calcola-la-popolazione-su-una-mappa/\">città più popolate Italia mappa</a></iframe>",
-        "height_desktop": 500,
-        "height_mobile": 460
-      }
     }
   },
   "order": [
-    "section",
-    "maps_LamE8g"
+    "maps_LamE8g",
+    "section"
   ]
 }
