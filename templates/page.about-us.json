@@ -528,6 +528,9 @@
         "group_V4ggFz",
         "group_DE6jYA"
       ],
+      "custom_css": [
+        "p{text-align: left}"
+      ],
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
