@@ -851,8 +851,7 @@
         }
       },
       "custom_css": [
-        ".details-content {line-height: 26px;}",
-        ".product-media{top: 77px}"
+        ".details-content {line-height: 26px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
