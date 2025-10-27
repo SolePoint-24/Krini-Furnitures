@@ -354,6 +354,7 @@
                 },
                 "accordion_row_YKzVW7": {
                   "type": "_accordion-row",
+                  "disabled": true,
                   "settings": {
                     "heading": "Features",
                     "open_by_default": false,
