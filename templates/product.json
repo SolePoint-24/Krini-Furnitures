@@ -864,7 +864,7 @@
         }
       },
       "custom_css": [
-        ".details-content{line-height: 22px;}"
+        ".details-content {line-height: 26px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
