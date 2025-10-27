@@ -351,12 +351,52 @@
                   "block_order": [
                     "text_DNPAct"
                   ]
+                },
+                "accordion_row_YKzVW7": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Shipping & Returns",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_mgjjtf": {
+                      "type": "text",
+                      "settings": {
+                        "text": "",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_mgjjtf"
+                  ]
                 }
               },
               "block_order": [
                 "accordion_row_Tc86wa",
                 "accordion_row_VyFryh",
-                "accordion_row_aaFerA"
+                "accordion_row_aaFerA",
+                "accordion_row_YKzVW7"
               ]
             },
             "group_X39hBc": {
