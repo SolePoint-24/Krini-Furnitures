@@ -400,6 +400,19 @@
                 "accordion_row_YKzVW7"
               ]
             },
+            "feature_tags_dt6nXy": {
+              "type": "feature-tags",
+              "name": "Product Feature Tags",
+              "settings": {
+                "heading": "Features",
+                "heading_font_size": 16,
+                "tag_font_size": 14,
+                "alignment": "left",
+                "padding_top": 20,
+                "padding_bottom": 20
+              },
+              "blocks": {}
+            },
             "group_X39hBc": {
               "type": "group",
               "name": "Values",
@@ -858,6 +871,7 @@
             "buy_buttons_eYQEYi",
             "product_description_LfDYCg",
             "accordion_g8EVVp",
+            "feature_tags_dt6nXy",
             "group_X39hBc",
             "group_y49hLp"
           ]
