@@ -1,0 +1,187 @@
+{%- comment -%}
+  ** Product Feature Tags Section **
+  - Renders a list of product features from a metafield.
+  - The metafield is assumed to be `product.metafields.custom.features`.
+  - This metafield should be a "List of Metaobjects".
+{%- endcomment -%}
+
+{%- liquid
+  -%}
+  {%- comment -%}
+    Get the list of feature metaobjects from the product metafield.
+    This assumes you are on a product page (product object is available).
+  {%- endcomment -%}
+  {%- assign feature_list = product.metafields.custom.features.value -%}
+
+  {%- if feature_list.size > 0 -%}
+    <div
+      class="product-features-section"
+      style="
+        --padding-top: {{ section.settings.padding_top }}px;
+        --padding-bottom: {{ section.settings.padding_bottom }}px;
+        --text-alignment: {{ section.settings.alignment }};
+      "
+    >
+      <div class="page-width">
+        {%- if section.settings.heading != blank -%}
+          <h3
+            class="product-features__heading"
+            style="text-align: {{ section.settings.alignment }};"
+          >
+            {{ section.settings.heading | escape }}
+          </h3>
+        {%- endif -%}
+
+        <div class="product-features__tag-list">
+          {%- for feature in feature_list -%}
+            {%- comment -%}
+              !!!! IMPORTANT !!!!
+              Your "Product Features 1" metaobject has a field for the text.
+              I am guessing it is called `name`.
+              If "Premium PU Leather" is stored in a field called `title` or `feature_name`,
+              you MUST change `feature.name` below to `feature.title` or `feature.feature_name`.
+            {%- endcomment -%}
+            {%- assign feature_text = feature.name -%}
+
+            {%- if feature_text != blank -%}
+              <span class="product-features__tag">{{ feature_text | escape }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+{%- style -%}
+  .product-features-section {
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+  }
+
+  /* Helper to keep content centered */
+  .page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    .page-width {
+      padding: 0 5rem;
+    }
+  }
+
+  .product-features__heading {
+    font-size: {{ section.settings.heading_font_size }}px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .product-features__tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* 8px */
+    justify-content: {{ section.settings.alignment }};
+  }
+
+  .product-features__tag {
+    display: inline-block;
+    padding: 0.5rem 1rem; /* 8px 16px */
+    font-size: {{ section.settings.tag_font_size }}px;
+    color: #333333; /* Dark text */
+    background-color: #f3f4f6; /* Light gray background */
+    border: 1px solid #e5e7eb; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product Feature Tags",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Features"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading Font Size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "tag_font_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Tag Font Size",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text & Tag Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Feature Tags"
+    }
+  ]
+}
+{% endschema %}
