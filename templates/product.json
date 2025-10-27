@@ -355,7 +355,7 @@
                 "accordion_row_YKzVW7": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Shipping & Returns",
+                    "heading": "Features",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -364,7 +364,7 @@
                     "text_mgjjtf": {
                       "type": "text",
                       "settings": {
-                        "text": "",
+                        "text": "{{ closest.product.metafields.shopify[\"bed-frame-features\"] | metafield_tag: field: 'label' }}",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
