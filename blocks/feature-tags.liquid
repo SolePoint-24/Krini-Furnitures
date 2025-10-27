@@ -11,9 +11,9 @@
     Get the list of feature metaobjects from the product metafield.
     This assumes you are on a product page (product object is available).
   {%- endcomment -%}
-  {%- assign feature_list = product.metafields.custom.features.value -%}
+  {%- assign feature_metaobject_list = product.metafields.custom.features.value -%}
 
-  {%- if feature_list.size > 0 -%}
+  {%- if feature_metaobject_list.size > 0 -%}
     <div
       class="product-features-section"
       style="
@@ -33,18 +33,26 @@
         {%- endif -%}
 
         <div class="product-features__tag-list">
-          {%- for feature in feature_list -%}
+          {%- comment -%}
+            Loop 1: Iterate through the list of metaobjects
+            (e.g., "Product Features" entries)
+          {%- endcomment -%}
+          {%- for feature_group in feature_metaobject_list -%}
             {%- comment -%}
-              !!!! IMPORTANT !!!!
-              Your "Product Features 1" metaobject has a field for the text.
-              I am guessing it is called `name`.
-              If "Premium PU Leather" is stored in a field called `title` or `feature_name`,
-              you MUST change `feature.name` below to `feature.title` or `feature.feature_name`.
+              Get the inner list of text strings from the "features" field
+              of each metaobject.
             {%- endcomment -%}
-            {%- assign feature_text = feature.name -%}
+            {%- assign inner_feature_tags = feature_group.features.value -%}
 
-            {%- if feature_text != blank -%}
-              <span class="product-features__tag">{{ feature_text | escape }}</span>
+            {%- if inner_feature_tags.size > 0 -%}
+              {%- comment -%}
+                Loop 2: Iterate through the actual list of feature text strings
+              {%- endcomment -%}
+              {%- for feature_text in inner_feature_tags -%}
+                {%- if feature_text != blank -%}
+                  <span class="product-features__tag">{{ feature_text | escape }}</span>
+                {%- endif -%}
+              {%- endfor -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
@@ -185,3 +193,4 @@
   ]
 }
 {% endschema %}
+
