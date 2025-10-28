@@ -25,6 +25,12 @@
   if collection == blank
     assign onboarding = true
   endif
+
+  assign shadow_h = block_settings.shadow_h_offset | default: -21
+  assign shadow_v = block_settings.shadow_v_offset | default: 21
+  assign shadow_blur = block_settings.shadow_blur | default: 0
+  assign shadow_spread = block_settings.shadow_spread | default: -6
+  assign shadow_color = block_settings.shadow_color | default: 'rgba(81,49,23,0.66)'
 %}
 
 <div
