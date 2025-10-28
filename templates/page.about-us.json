@@ -1999,10 +1999,23 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "divider_LLbbp9": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 5,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
-            "text_eYkEE9"
+            "text_eYkEE9",
+            "divider_LLbbp9"
           ]
         },
         "image_mfgWdA": {
