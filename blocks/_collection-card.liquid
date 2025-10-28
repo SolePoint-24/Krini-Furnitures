@@ -24,25 +24,21 @@
   assign title_size = block.settings.title_size | default: 24
   assign title_color = block.settings.title_color
   assign alignment = block.settings.horizontal_alignment | default: 'center'
-  assign title_font = block.settings.title_font | default: 'inherit'
-  assign title_uppercase = block.settings.title_uppercase
 -%}
 
 {% if collection.title != blank %}
- <h2 style="
-  text-align: {{ alignment }};
-  margin-bottom: 15px;
-  font-size: {{ title_size }}px;
-    font-family: {{ title_font }};
-  {% if title_color != blank %}
-   color: {{ title_color }};
-  {% endif %}
-    {% if title_uppercase %}
-      text-transform: uppercase;
-    {% endif %}
- ">
-  {{ collection.title }}
- </h2>
+  <h2
+    style="
+      text-align: {{ alignment }};
+      margin-bottom: 15px;
+      font-size: {{ title_size }}px;
+      {% if title_color != blank %}
+       color: {{ title_color }};
+      {% endif %}
+    "
+  >
+    {{ collection.title }}
+  </h2>
 {% endif %}
 
 {% render 'collection-card',
@@ -150,23 +146,23 @@
       "default": 8
     },
     {
-      "type": "header",
-      "content": "Title Style"
+      "type": "select",
+      "id": "title_font",
+      "label": "Title Font Family",
+      "options": [
+        { "value": "inherit", "label": "Theme Default" },
+        { "value": "Poppins, sans-serif", "label": "Poppins" },
+        { "value": "Arial, sans-serif", "label": "Arial" },
+        { "value": "Times New Roman, serif", "label": "Times New Roman" },
+        { "value": "Georgia, serif", "label": "Georgia" }
+      ],
+      "default": "inherit"
     },
     {
-      "type": "range",
-      "id": "title_size",
-      "label": "Title Font Size",
-      "min": 12,
-      "max": 60,
-      "step": 1,
-      "unit": "px",
-      "default": 24
-    },
-    {
-      "type": "color",
-      "id": "title_color",
-      "label": "Title Color"
+      "type": "checkbox",
+      "id": "title_uppercase",
+      "label": "Make title uppercase",
+      "default": false
     },
     {
       "type": "header",
