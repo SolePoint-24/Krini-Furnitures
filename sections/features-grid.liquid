@@ -126,36 +126,29 @@
     margin-top: 0;
   }
 
-  /* --- NEW BORDER LOGIC --- */
+  /* --- BORDER LOGIC --- */
   
   .features-grid-wrapper {
-    /* No borders on the wrapper */
     border: none;
   }
   
   .feature-item {
-    /* Set up for pseudo-elements */
     position: relative; 
-    
-    /* Use the increased padding */
     padding-top: 24px;
     padding-bottom: 24px;
-    padding-left: 20px;  /* Mobile horizontal padding */
-    padding-right: 20px; /* Mobile horizontal padding */
-    
-    border: none; /* Ensure no borders are on the item */
+    padding-left: 20px;
+    padding-right: 20px;
+    border: none;
   }
 
   /* --- Mobile Borders (Gapped) --- */
   
-  /* Add gapped lines BETWEEN stacked items on mobile */
   .features-grid-wrapper .feature-item + .feature-item::before {
     content: '';
     position: absolute;
     top: 0;
-    /* Gaps on left and right */
-    left: 20px;  /* Matches padding-left */
-    right: 20px; /* Matches padding-right */
+    left: 20px;
+    right: 20px;
     height: 1px;
     background-color: var(--color-border, #e5e5e5);
   }
@@ -172,7 +165,7 @@
       flex-basis: 50%;
       box-sizing: border-box;
       padding: 48px; /* Increased desktop padding */
-      border: none; /* Reset all borders */
+      border: none;
     }
 
     /* Hide the mobile border rule */
@@ -180,14 +173,14 @@
       content: none; 
     }
 
-    /* --- Add Inner Grid Lines with Gaps (CORRECTED) --- */
+    /* --- Add Inner Grid Lines with Gaps (FINAL FIX) --- */
 
-    /* Horizontal Line (on TOP of the BOTTOM row) */
-    .feature-item:nth-child(3)::after,
-    .feature-item:nth-child(4)::after {
+    /* Horizontal Line (on BOTTOM of the TOP row) */
+    .feature-item:nth-child(1)::after,
+    .feature-item:nth-child(2)::after {
       content: '';
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 48px;  /* Match padding */
       right: 48px; /* Match padding */
       height: 1px;
@@ -195,9 +188,10 @@
     }
     
     /* Vertical Line (on LEFT of the RIGHT column) */
+    /* We use ::before here, and it will no longer conflict */
     .feature-item:nth-child(2)::before,
     .feature-item:nth-child(4)::before {
-      content: '';
+      content: ''; /* This now works */
       position: absolute;
       top: 48px;    /* Match padding */
       bottom: 48px; /* Match padding */
