@@ -52,6 +52,7 @@
     --vertical-alignment: {{ block_settings.vertical_alignment }};
     --background-overlay-color: {{ block_settings.overlay_color }};
     --collection-card-gap: {{ block_settings.collection_card_gap }}px;
+    box-shadow: {{ shadow_h }}px {{ shadow_v }}px {{ shadow_blur }}px {{ shadow_spread }}px {{ shadow_color }};
   "
   {{- block.shopify_attributes -}}
 >
@@ -77,7 +78,6 @@
     flex: 1 1 var(--card-width-small);
     width: 100%;
     position: relative;
-    box-shadow: -21px 21px 0px -6px rgba(81,49,23,0.66);
   }
 
   .collection-card > svg {
