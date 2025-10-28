@@ -36,8 +36,8 @@
       {% for block in section.blocks %}
         {% if block.type == 'text_item' %}
           <div class="text-item-block" {{ block.shopify_attributes }}>
-          <h3>{{ block.settings.title }}</h3>
-          <p>{{ block.settings.description }}</p>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.description }}</p>
           </div>
         {% endif %}
       {% endfor %}
@@ -92,7 +92,7 @@
     aspect-ratio: var(--image-aspect-ratio, 1 / 1); /* Default aspect ratio */
     object-fit: cover;
   }
-  
+
   .placeholder-svg {
     display: flex;
     align-items: center;
@@ -112,18 +112,26 @@
     margin-bottom: 15px;
     color: var(--color-text); /* Use theme color */
   }
-  
+
   .text-content-container .rte {
      color: var(--color-text); /* Use theme color for base rte */
   }
 
   .text-content-container h3 {
     font-size: 1.5em;
-    margin-top: 25px;
+    margin-top: 0px;
     margin-bottom: 10px;
     color: var(--color-text); /* Use theme color */
   }
-  
+
+  .text-item-block {
+    border-top: 1px solid var(--color-border, #e5e5e5);
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px; 
+  }
+
   .text-content-container p {
      color: var(--color-text); /* Use theme color */
   }
@@ -152,7 +160,7 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     var swiper = new Swiper('.section-{{ section.id }} .image-carousel', {
       loop: true,
       pagination: {
