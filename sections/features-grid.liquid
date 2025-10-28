@@ -1,0 +1,291 @@
+{%- liquid
+  assign s = section.settings
+  assign container_max_width = 'max-width: ' | append: s.container_width | append: 'px;'
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+-%}
+
+<section class="section-features-grid color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}">
+  <div class="container" style="{{ container_max_width }}">
+    
+    {%- if s.heading != blank -%}
+      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }}</h2>
+    {%- endif -%}
+
+    <div class="features-grid-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="feature-item" {{ block.shopify_attributes }}>
+          <div class="feature-item__header">
+            {%- if block.settings.icon != blank -%}
+              <div class="feature-item__icon-wrapper">
+                <img
+                  src="{{ block.settings.icon | image_url: width: 100 }}"
+                  alt="{{ block.settings.icon.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                  class="feature-item__icon"
+                >
+              </div>
+            {%- endif -%}
+            
+            <div class="feature-item__header-content">
+              {%- if block.settings.title != blank -%}
+                <h3 class="feature-item__title h4">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.badges != blank -%}
+                <img
+                  src="{{ block.settings.badges | image_url: width: 200 }}"
+                  alt="{{ block.settings.badges.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.badges.width }}"
+                  height="{{ block.settings.badges.height }}"
+                  class="feature-item__badges"
+                >
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if block.settings.text != blank -%}
+            <div class="feature-item__text rte">
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* This <style> tag contains styles that use Liquid 
+    (like padding settings) and cannot be in {% stylesheet %}.
+  */
+  .padding-top-0 { padding-top: 0; }
+  .padding-top-20 { padding-top: 20px; }
+  .padding-top-40 { padding-top: 40px; }
+  .padding-top-60 { padding-top: 60px; }
+  .padding-top-80 { padding-top: 80px; }
+  .padding-top-100 { padding-top: 100px; }
+
+  .padding-bottom-0 { padding-bottom: 0; }
+  .padding-bottom-20 { padding-bottom: 20px; }
+  .padding-bottom-40 { padding-bottom: 40px; }
+  .padding-bottom-60 { padding-bottom: 60px; }
+  .padding-bottom-80 { padding-bottom: 80px; }
+  .padding-bottom-100 { padding-bottom: 100px; }
+</style>
+
+{% stylesheet %}
+  .section-features-grid .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .section-features-grid .section-heading {
+    margin-bottom: 40px;
+  }
+
+  .features-grid-wrapper {
+    /* Mobile-first: Items will stack by default */
+  }
+
+  .feature-item {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    /* On mobile, add a border between items */
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+  }
+  
+  .feature-item:first-child {
+    border-top: 1px solid var(--color-border, #e5e5e5);
+  }
+
+  .feature-item__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .feature-item__icon-wrapper {
+    flex-shrink: 0;
+    width: 60px; /* Adjust size of icon as needed */
+  }
+  
+  .feature-item__icon {
+    width: 100%;
+    height: auto;
+  }
+
+  .feature-item__header-content {
+    flex: 1; /* Allows title and badges to take remaining space */
+  }
+
+  .feature-item__title {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  
+  .feature-item__badges {
+    height: 24px; /* Adjust height of badge logos */
+    width: auto;
+  }
+  
+  .feature-item__text.rte {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .feature-item__text.rte p {
+    margin-top: 0;
+  }
+
+  /* --- DESKTOP FLEXBOX LAYOUT (2x2 Grid) --- */
+  @media (min-width: 768px) {
+    .features-grid-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      /* Remove mobile borders before adding grid borders */
+      border: none; 
+    }
+
+    .feature-item {
+      flex-basis: 50%; /* This is the key: each item takes 50% width */
+      box-sizing: border-box; /* Ensures padding doesn't break the 50% width */
+      padding: 32px;
+      
+      /* Reset all mobile borders */
+      border-top: none;
+      border-bottom: none; 
+    }
+
+    /* Add grid borders to match your image */
+    
+    /* Item 1 (Top-Left): Border Right & Bottom */
+    .feature-item:nth-child(1) {
+      border-right: 1px solid var(--color-border, #e5e5e5);
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
+    }
+    
+    /* Item 2 (Top-Right): Border Bottom */
+    .feature-item:nth-child(2) {
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
+    }
+    
+    /* Item 3 (Bottom-Left): Border Right */
+    .feature-item:nth-child(3) {
+      border-right: 1px solid var(--color-border, #e5e5e5);
+    }
+    
+    /* Item 4 (Bottom-Right): No borders needed */
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Features Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Commitments"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Section Max Width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 20,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 20,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (e.g., Shield, Leaf)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "badges",
+          "label": "Badges (e.g., ISO logos)"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}
