@@ -139,8 +139,8 @@
 
   .text-item-block {
     display: flex;
-    align-items: flex-start; /* Aligns icon and text to the top */
-    gap: 16px; /* Space between icon and text */
+    align-items: center; /* Vertically centers icon with content */
+    gap: 20px; /* Space between icon and text */
     border-top: 1px solid var(--color-border, #c6c6c6);
     padding-top: 20px;
     padding-bottom: 20px;
@@ -148,12 +148,17 @@
 
   .text-item-icon {
     flex-shrink: 0;
-    width: 32px; /* Set your desired icon width */
+    width: 48px; /* Set your desired icon width */
+    height: 48px; /* Set your desired icon height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .text-item-icon img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain; /* Prevents icon from stretching/cropping */
     display: block;
   }
 
@@ -165,7 +170,7 @@
   .text-item-content h3 {
     margin-top: 0;
   }
-
+  
   .text-item-content p {
     margin-bottom: 0;
   }

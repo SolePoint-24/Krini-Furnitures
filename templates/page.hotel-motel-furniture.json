@@ -196,6 +196,7 @@
         "text_item_zLPpiw": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/established.png",
             "title": "Comfort and Ergonomics",
             "description": "The furniture should be designed with comfort in mind, especially for items like beds, sofas, and chairs. Ergonomic design principles should be applied to desk chairs, ensuring proper support for guests who may need to work or use a laptop."
           }
