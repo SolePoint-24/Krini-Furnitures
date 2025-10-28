@@ -476,7 +476,7 @@
                   "name": "t:names.icon",
                   "settings": {
                     "icon": "price_tag",
-                    "image_upload": "shopify://shop_images/icon-drop.png",
+                    "image_upload": "shopify://shop_images/save-water.png",
                     "width": 70,
                     "link": "",
                     "open_in_new_tab": false
@@ -487,7 +487,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
+                    "text": "<p>Commitment to  rain water harvesting</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
