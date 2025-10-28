@@ -1,0 +1,399 @@
+{%- liquid
+  assign s = section.settings
+  assign container_max_width = 'max-width: ' | append: s.container_width | append: 'px;'
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+  assign content_text_alignment = 'text-align: ' | append: s.content_text_alignment | append: ';'
+
+  assign image_column_width = 'flex-basis: ' | append: s.image_column_width | append: '%;'
+  assign text_column_width = 'flex-basis: ' | append: 100 | minus: s.image_column_width | append: '%;'
+-%}
+
+<section
+  class="section-aligned-image-text isolate padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}"
+  data-section-type="aligned-image-text"
+  data-section-id="{{ section.id }}"
+>
+  <div class="container" style="{{ container_max_width }}">
+
+    {%- comment -%} Optional Main Heading for the entire section {%- endcomment -%}
+    {% if s.main_heading != blank %}
+      <div class="section-aligned-image-text__main-heading-wrapper" style="{{ heading_text_alignment }}">
+        <h2 class="h3 section-main-heading">{{ s.main_heading | escape }}</h2>
+      </div>
+    {% endif %}
+
+    <div class="section-aligned-image-text__grid">
+      <div class="section-aligned-image-text__image-column" style="{{ image_column_width }}">
+        {% if s.image != blank %}
+          <img
+            src="{{ s.image | image_url: width: 1000 }}"
+            alt="{{ s.image.alt | escape }}"
+            loading="lazy"
+            width="{{ s.image.width }}"
+            height="{{ s.image.height }}"
+            class="block w-full h-auto object-cover border-radius-{{ s.image_border_radius }}"
+          >
+        {% else %}
+          <div class="placeholder-svg image-placeholder block w-full h-full border-radius-{{ s.image_border_radius }}">
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg__image' }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="section-aligned-image-text__content-column" style="{{ text_column_width }}">
+        {% comment %} Blocks for the right content area {% endcomment %}
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'heading' %}
+              {% if block.settings.text != blank %}
+                <h3 class="h2 content-heading" {{ block.shopify_attributes }} style="{{ content_text_alignment }}">
+                  {{ block.settings.text | escape }}
+                </h3>
+              {% endif %}
+            {% when 'richtext' %}
+              {% if block.settings.text != blank %}
+                <div class="rte" {{ block.shopify_attributes }} style="{{ content_text_alignment }}">
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
+            {% when 'horizontal_rule' %}
+              <hr class="horizontal-rule" {{ block.shopify_attributes }}>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+    {% if s.bottom_text != blank %}
+      <div class="section-aligned-image-text__bottom-text-wrapper rte" style="{{ content_text_alignment }}">
+        {{ s.bottom_text }}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aligned Image & Text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Section Max Width",
+      "min": 700,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "image_column_width",
+      "label": "Image Column Width (Desktop)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main Image"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Section-Wide Heading"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Optional Top Heading",
+      "default": "ELEVATING ELEGANCE, LOWERING FOOTPRINT"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_alignment",
+      "label": "Main Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Content Text Alignment"
+    },
+    {
+      "type": "select",
+      "id": "content_text_alignment",
+      "label": "Content Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Optional Bottom Text"
+    },
+    {
+      "type": "richtext",
+      "id": "bottom_text",
+      "label": "Text below image/content grid"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Content Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading Text",
+          "default": "OPTIMIZED ENERGY EFFICIENCY"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "name": "Content Rich Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Rich Text",
+          "default": "<p>Installation of air pre-heaters and economizers for enhanced boiler performance.</p>"
+        }
+      ]
+    },
+    {
+      "type": "horizontal_rule",
+      "name": "Horizontal Rule",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aligned Image & Text",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "richtext"
+        },
+        {
+          "type": "horizontal_rule"
+        },
+        {
+          "type": "richtext",
+          "settings": {
+            "text": "<p>Example of more rich text or a sub-point.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  /* Dynamic styles for fluid image alignment */
+  @media (min-width: 768px) {
+    .section-aligned-image-text__grid {
+      display: flex;
+      gap: 32px; /* Adjust gap as needed */
+      align-items: flex-start; /* Key for top alignment of image */
+    }
+    .section-aligned-image-text__image-column {
+      margin-top: -40px; /* Adjust this value to control how much the image "sticks up" */
+    }
+  }
+</style>
+
+{% stylesheet %}
+  .section-aligned-image-text {
+    /* Background and overall padding handled by settings and utility classes */
+    overflow: hidden; /* To handle image margin-top sticking out */
+  }
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px; /* Default horizontal padding */
+    padding-right: 20px; /* Default horizontal padding */
+  }
+
+  .section-main-heading {
+    margin-bottom: 40px; /* Space below the optional top heading */
+    font-size: 2.5rem; /* Adjust as per your theme's h3/h2 styles */
+    line-height: 1.2;
+    color: #6D5C50; /* Example color, adjust to theme variables */
+    font-weight: normal; /* Example, use your theme's font weights */
+  }
+
+  .section-aligned-image-text__grid {
+    display: flex;
+    flex-direction: column; /* Stack on mobile */
+    gap: 24px; /* Gap on mobile */
+  }
+
+  .section-aligned-image-text__image-column,
+  .section-aligned-image-text__content-column {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .content-heading {
+    font-size: 2rem; /* Adjust as per your theme's h2/h1 styles */
+    line-height: 1.2;
+    color: #6D5C50; /* Example color */
+    margin-bottom: 16px;
+    font-weight: bold; /* Example, use your theme's font weights */
+  }
+
+  .rte {
+    line-height: 1.6;
+    color: #4A4A4A; /* Example text color */
+  }
+  .rte p {
+    margin-bottom: 1rem;
+  }
+
+  .horizontal-rule {
+    border: none;
+    border-top: 1px solid #D1D5DB; /* Example border color */
+    margin-top: 24px;
+    margin-bottom: 24px;
+    width: 100%; /* Spans full width */
+  }
+
+  .section-aligned-image-text__bottom-text-wrapper {
+    margin-top: 40px; /* Space above bottom text */
+  }
+
+  /* Image styling */
+  .object-cover { object-fit: cover; }
+  .block { display: block; }
+  .w-full { width: 100%; }
+  .h-auto { height: auto; }
+  .border-radius-0 { border-radius: 0; }
+  .border-radius-10 { border-radius: 10px; } /* Default image radius */
+  .border-radius-20 { border-radius: 20px; }
+  .border-radius-50 { border-radius: 50px; }
+
+  /* Placeholder SVG styles (basic, adjust to your theme) */
+  .placeholder-svg {
+    background-color: var(--color-background-accent-1, #f0f0f0);
+    border: 1px dashed var(--color-border, #ccc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text, #666);
+    min-height: 250px; /* Ensure placeholder has some height */
+  }
+  .placeholder-svg__image {
+    width: 60%;
+    height: 60%;
+    opacity: 0.5;
+  }
+
+  /* Padding utility classes for section */
+  .padding-top-0 { padding-top: 0; }
+  .padding-top-4 { padding-top: 4px; }
+  .padding-top-8 { padding-top: 8px; }
+  .padding-top-12 { padding-top: 12px; }
+  .padding-top-16 { padding-top: 16px; }
+  .padding-top-20 { padding-top: 20px; }
+  .padding-top-24 { padding-top: 24px; }
+  .padding-top-28 { padding-top: 28px; }
+  .padding-top-32 { padding-top: 32px; }
+  .padding-top-36 { padding-top: 36px; } /* Default */
+  .padding-top-40 { padding-top: 40px; }
+  .padding-top-44 { padding-top: 44px; }
+  .padding-top-48 { padding-top: 48px; }
+  .padding-top-52 { padding-top: 52px; }
+  .padding-top-56 { padding-top: 56px; }
+  .padding-top-60 { padding-top: 60px; }
+  .padding-top-64 { padding-top: 64px; }
+  .padding-top-68 { padding-top: 68px; }
+  .padding-top-72 { padding-top: 72px; }
+  .padding-top-76 { padding-top: 76px; }
+  .padding-top-80 { padding-top: 80px; }
+  .padding-top-84 { padding-top: 84px; }
+  .padding-top-88 { padding-top: 88px; }
+  .padding-top-92 { padding-top: 92px; }
+  .padding-top-96 { padding-top: 96px; }
+  .padding-top-100 { padding-top: 100px; }
+
+  .padding-bottom-0 { padding-bottom: 0; }
+  .padding-bottom-4 { padding-bottom: 4px; }
+  .padding-bottom-8 { padding-bottom: 8px; }
+  .padding-bottom-12 { padding-bottom: 12px; }
+  .padding-bottom-16 { padding-bottom: 16px; }
+  .padding-bottom-20 { padding-bottom: 20px; }
+  .padding-bottom-24 { padding-bottom: 24px; }
+  .padding-bottom-28 { padding-bottom: 28px; }
+  .padding-bottom-32 { padding-bottom: 32px; }
+  .padding-bottom-36 { padding-bottom: 36px; } /* Default */
+  .padding-bottom-40 { padding-bottom: 40px; }
+  .padding-bottom-44 { padding-bottom: 44px; }
+  .padding-bottom-48 { padding-bottom: 48px; }
+  .padding-bottom-52 { padding-bottom: 52px; }
+  .padding-bottom-56 { padding-bottom: 56px; }
+  .padding-bottom-60 { padding-bottom: 60px; }
+  .padding-bottom-64 { padding-bottom: 64px; }
+  .padding-bottom-68 { padding-bottom: 68px; }
+  .padding-bottom-72 { padding-bottom: 72px; }
+  .padding-bottom-76 { padding-bottom: 76px; }
+  .padding-bottom-80 { padding-bottom: 80px; }
+  .padding-bottom-84 { padding-bottom: 84px; }
+  .padding-bottom-88 { padding-bottom: 88px; }
+  .padding-bottom-92 { padding-bottom: 92px; }
+  .padding-bottom-96 { padding-bottom: 96px; }
+  .padding-bottom-100 { padding-bottom: 100px; }
+{% endstylesheet %}
