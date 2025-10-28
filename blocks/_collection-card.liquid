@@ -27,7 +27,11 @@
 {% endfor %}
 
 {% capture children %}
-  {% content_for 'blocks', closest.collection: collection %}
+  {% for inner_block in block.blocks %}
+    {% if inner_block.type != 'collection-title' %}
+      {% render 'block', block: inner_block, closest: { 'collection': collection } %}
+    {% endif %}
+  {% endfor %}
 {% endcapture %}
 
 {% render 'collection-card',
