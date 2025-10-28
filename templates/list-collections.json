@@ -91,7 +91,7 @@
             "placement": "on_image",
             "horizontal_alignment": "center",
             "vertical_alignment": "flex-end",
-            "collection_card_gap": 41,
+            "collection_card_gap": 0,
             "title_font": "Poppins, sans-serif",
             "title_uppercase": true,
             "inherit_color_scheme": true,
