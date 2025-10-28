@@ -365,29 +365,29 @@
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/bolt.png",
-            "title": "Feature Title",
-            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+            "title": "Innovation & Quality",
+            "text": "<p>We are committed to deliver innovative & quality products to all our esteemed customers. We  think differently to find innovative solutions.</p>"
           }
         },
         "feature_qJQ7gH": {
           "type": "feature",
           "settings": {
-            "title": "Feature Title",
-            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+            "title": "Customer Satisfaction",
+            "text": "<p>Customers are at the center of whatever we do at Krini Furniture. We ensure that we get the right customer solution in all our initiatives. Our main focus is Customer Satisfaction. We aim to set the global benchmark for customer happiness scores</p>"
           }
         },
         "feature_eemNRz": {
           "type": "feature",
           "settings": {
-            "title": "Feature Title",
-            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+            "title": "Integrity",
+            "text": "<p>We are honest, ethical, and trustworthy in the way we live life. We communicate transparently with all our stakeholders.</p>"
           }
         },
         "feature_pBd9nM": {
           "type": "feature",
           "settings": {
-            "title": "Feature Title",
-            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+            "title": "Teamwork",
+            "text": "<p>Teamwork is the foundation of all that we have achieved so far. We empower our teams to take fast and well informed decisions.</p>"
           }
         }
       },
