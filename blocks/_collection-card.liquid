@@ -24,6 +24,8 @@
   assign title_size = block.settings.title_size | default: 24
   assign title_color = block.settings.title_color
   assign alignment = block.settings.horizontal_alignment | default: 'center'
+  assign title_font = block.settings.title_font | default: 'inherit'
+  assign title_uppercase = block.settings.title_uppercase
 -%}
 
 {% if collection.title != blank %}
@@ -32,9 +34,13 @@
       text-align: {{ alignment }};
       margin-bottom: 15px;
       font-size: {{ title_size }}px;
+        font-family: {{ title_font }};
       {% if title_color != blank %}
        color: {{ title_color }};
       {% endif %}
+        {% if title_uppercase %}
+          text-transform: uppercase;
+        {% endif %}
     "
   >
     {{ collection.title }}
