@@ -145,7 +145,7 @@
 
 
   /* --- DESKTOP FLEXBOX LAYOUT (2x2 Grid) --- */
-  @media (min-width: 768px) {
+    @media (min-width: 768px) {
     .features-grid-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -155,26 +155,32 @@
       flex-basis: 50%;
       box-sizing: border-box;
       padding: 32px;
-      border: none; /* Reset all borders */
+      border: none;
+      position: relative;
     }
 
-    /* Reset the mobile border rule */
+    /* Reset mobile border */
     .features-grid-wrapper .feature-item + .feature-item {
       border-top: none;
     }
 
-    /* --- Add Inner Grid Borders --- */
-    
-    /* Add horizontal line (bottom border) to the TOP row */
+    /* Horizontal line with gap in center */
     .feature-item:nth-child(1),
     .feature-item:nth-child(2) {
       border-bottom: 1px solid var(--color-border, #e5e5e5);
+      margin-bottom: 16px; /* Creates vertical gap */
     }
     
-    /* Add vertical line (right border) to the LEFT column */
+    /* Vertical line with gap in center */
     .feature-item:nth-child(1),
     .feature-item:nth-child(3) {
       border-right: 1px solid var(--color-border, #e5e5e5);
+      margin-right: 16px; /* Creates horizontal gap */
+    }
+    
+    .feature-item:nth-child(3),
+    .feature-item:nth-child(4) {
+      margin-top: 16px; /* Matches vertical gap */
     }
   }
 {% endstylesheet %}
