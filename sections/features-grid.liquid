@@ -126,21 +126,38 @@
     margin-top: 0;
   }
 
-  /* --- Mobile Borders --- */
+  /* --- NEW BORDER LOGIC --- */
+  
   .features-grid-wrapper {
     /* No borders on the wrapper */
     border: none;
   }
   
   .feature-item {
+    /* Set up for pseudo-elements */
+    position: relative; 
+    
+    /* Use the increased padding */
     padding-top: 24px;
     padding-bottom: 24px;
-    border: none; /* No borders on the item itself */
+    padding-left: 20px;  /* Mobile horizontal padding */
+    padding-right: 20px; /* Mobile horizontal padding */
+    
+    border: none; /* Ensure no borders are on the item */
   }
 
-  /* Add lines BETWEEN stacked items on mobile */
-  .features-grid-wrapper .feature-item + .feature-item {
-    border-top: 1px solid var(--color-border, #e5e5e5);
+  /* --- Mobile Borders (Gapped) --- */
+  
+  /* Add gapped lines BETWEEN stacked items on mobile */
+  .features-grid-wrapper .feature-item + .feature-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    /* Gaps on left and right */
+    left: 20px;  /* Matches padding-left */
+    right: 20px; /* Matches padding-right */
+    height: 1px;
+    background-color: var(--color-border, #e5e5e5);
   }
 
 
@@ -154,31 +171,42 @@
     .feature-item {
       flex-basis: 50%;
       box-sizing: border-box;
-      padding: 32px;
+      padding: 48px; /* Increased desktop padding */
       border: none; /* Reset all borders */
     }
 
-    /* Reset the mobile border rule */
-    .features-grid-wrapper .feature-item + .feature-item {
-      border-top: none;
+    /* Hide the mobile border rule */
+    .features-grid-wrapper .feature-item + .feature-item::before {
+      display: none; 
     }
 
-    /* --- Add Inner Grid Borders --- */
-    
-    /* Add horizontal line (bottom border) to the TOP row */
-    .feature-item:nth-child(1),
-    .feature-item:nth-child(2) {
-      border-bottom: 1px solid var(--color-border, #e5e5e5);
+    /* --- Add Inner Grid Lines with Gaps --- */
+
+    /* Horizontal Line (on top row) */
+    .feature-item:nth-child(1)::after,
+    .feature-item:nth-child(2)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 48px;  /* Match padding */
+      right: 48px; /* Match padding */
+      height: 1px;
+      background-color: var(--color-border, #e5e5e5);
     }
     
-    /* Add vertical line (right border) to the LEFT column */
-    .feature-item:nth-child(1),
-    .feature-item:nth-child(3) {
-      border-right: 1px solid var(--color-border, #e5e5e5);
+    /* Vertical Line (on left column) */
+    .feature-item:nth-child(1)::before,
+    .feature-item:nth-child(3)::before {
+      content: '';
+      position: absolute;
+      top: 48px;    /* Match padding */
+      bottom: 48px; /* Match padding */
+      right: 0;
+      width: 1px;
+      background-color: var(--color-border, #e5e5e5);
     }
   }
 {% endstylesheet %}
-
 {% schema %}
 {
   "name": "Features Grid",
