@@ -738,8 +738,8 @@
                           "name": "t:names.text",
                           "settings": {
                             "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
-                            "width": "fit-content",
-                            "max_width": "normal",
+                            "width": "100%",
+                            "max_width": "none",
                             "alignment": "left",
                             "type_preset": "rte",
                             "font": "var(--font-body--family)",
@@ -822,8 +822,8 @@
                           "name": "t:names.text",
                           "settings": {
                             "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
-                            "width": "fit-content",
-                            "max_width": "normal",
+                            "width": "100%",
+                            "max_width": "none",
                             "alignment": "left",
                             "type_preset": "rte",
                             "font": "var(--font-body--family)",
@@ -952,8 +952,8 @@
                           "name": "t:names.text",
                           "settings": {
                             "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
-                            "width": "fit-content",
-                            "max_width": "normal",
+                            "width": "100%",
+                            "max_width": "none",
                             "alignment": "left",
                             "type_preset": "rte",
                             "font": "var(--font-body--family)",
