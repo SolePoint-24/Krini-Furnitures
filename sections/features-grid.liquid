@@ -126,31 +126,21 @@
     margin-top: 0;
   }
 
-  /* --- BORDER LOGIC --- */
-  
+  /* --- Mobile Borders --- */
   .features-grid-wrapper {
+    /* No borders on the wrapper */
     border: none;
   }
   
   .feature-item {
-    position: relative; 
     padding-top: 24px;
     padding-bottom: 24px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border: none;
+    border: none; /* No borders on the item itself */
   }
 
-  /* --- Mobile Borders (Gapped) --- */
-  
-  .features-grid-wrapper .feature-item + .feature-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 20px;
-    right: 20px;
-    height: 1px;
-    background-color: var(--color-border, #e5e5e5);
+  /* Add lines BETWEEN stacked items on mobile */
+  .features-grid-wrapper .feature-item + .feature-item {
+    border-top: 1px solid var(--color-border, #e5e5e5);
   }
 
 
@@ -164,42 +154,27 @@
     .feature-item {
       flex-basis: 50%;
       box-sizing: border-box;
-      padding: 48px; /* Increased desktop padding */
-      border: none;
+      padding: 32px;
+      border: none; /* Reset all borders */
     }
 
-    /* Hide the mobile border rule */
-    .features-grid-wrapper .feature-item + .feature-item::before {
-      content: none; 
+    /* Reset the mobile border rule */
+    .features-grid-wrapper .feature-item + .feature-item {
+      border-top: none;
     }
 
-    /* --- Add Inner Grid Lines with Gaps (FIXED) --- */
-
-    /* Horizontal Line (on TOP of the BOTTOM row) */
-    .feature-item:nth-child(3)::after,
-    .feature-item:nth-child(4)::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 48px;  /* Match padding */
-      right: 48px; /* Match padding */
-      height: 1px;
-      background-color: var(--color-border, #e5e5e5);
+    /* --- Add Inner Grid Borders --- */
+    
+    /* Add horizontal line (bottom border) to the TOP row */
+    .feature-item:nth-child(1),
+    .feature-item:nth-child(2) {
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
     }
     
-    /* Vertical Line (on LEFT of the RIGHT column)
-      We add .features-grid-wrapper to this selector to make it
-      MORE specific than the mobile reset rule. This fixes the bug.
-    */
-    .features-grid-wrapper .feature-item:nth-child(2)::before,
-    .features-grid-wrapper .feature-item:nth-child(4)::before {
-      content: '';
-      position: absolute;
-      top: 48px;    /* Match padding */
-      bottom: 48px; /* Match padding */
-      left: 0;
-      width: 1px;
-      background-color: var(--color-border, #e5e5e5);
+    /* Add vertical line (right border) to the LEFT column */
+    .feature-item:nth-child(1),
+    .feature-item:nth-child(3) {
+      border-right: 1px solid var(--color-border, #e5e5e5);
     }
   }
 {% endstylesheet %}
