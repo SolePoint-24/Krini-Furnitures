@@ -36,8 +36,21 @@
       {% for block in section.blocks %}
         {% if block.type == 'text_item' %}
           <div class="text-item-block" {{ block.shopify_attributes }}>
-            <h3>{{ block.settings.title }}</h3>
-            <p>{{ block.settings.description }}</p>
+            {% if block.settings.icon != blank %}
+              <div class="text-item-icon">
+                <img
+                  src="{{ block.settings.icon | image_url: width: 96 }}"
+                  alt="{{ block.settings.icon.alt | escape }}"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                  loading="lazy"
+                >
+              </div>
+            {% endif %}
+            <div class="text-item-content">
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.description }}</p>
+            </div>
           </div>
         {% endif %}
       {% endfor %}
@@ -125,9 +138,36 @@
   }
 
   .text-item-block {
+    display: flex;
+    align-items: flex-start; /* Aligns icon and text to the top */
+    gap: 16px; /* Space between icon and text */
     border-top: 1px solid var(--color-border, #c6c6c6);
     padding-top: 20px;
     padding-bottom: 20px;
+  }
+
+  .text-item-icon {
+    flex-shrink: 0;
+    width: 32px; /* Set your desired icon width */
+  }
+  
+  .text-item-icon img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .text-item-content {
+    flex-grow: 1;
+    min-width: 0; /* Prevents overflow */
+  }
+
+  .text-item-content h3 {
+    margin-top: 0;
+  }
+
+  .text-item-content p {
+    margin-bottom: 0;
   }
 
   .text-content-container .text-item-block:last-of-type {
@@ -236,6 +276,12 @@
       "type": "text_item",
       "name": "Text Item",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Recommended size: 32x32px or 48x48px"
+        },
         {
           "type": "text",
           "id": "title",
