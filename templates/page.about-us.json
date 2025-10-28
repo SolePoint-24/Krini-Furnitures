@@ -1661,7 +1661,7 @@
                       "type": "text",
                       "name": "t:names.text",
                       "settings": {
-                        "text": "<p>50%</p>",
+                        "text": "<p>EVs</p>",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -1687,7 +1687,7 @@
                       "type": "text",
                       "name": "t:names.text",
                       "settings": {
-                        "text": "<p>reduction in greenhouse gases by end of 2025 through replacement of fuel in our boiler house from coal to biomass.</p>",
+                        "text": "<p>will gradually replace all the diesel & petrol trucks.</p>",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
