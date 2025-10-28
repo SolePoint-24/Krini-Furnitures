@@ -93,7 +93,7 @@
           "settings": {
             "text": "<p>When it comes to hotel and motel furniture, several key details need to be considered to ensure comfort, durability, and aesthetic appeal. Here are some important aspects to focus on :</p>",
             "width": "fit-content",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
