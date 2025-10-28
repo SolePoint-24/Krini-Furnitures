@@ -18,20 +18,8 @@
     parent_block_id: block.id %}
 {% endcapture %}
 
-{% for inner_block in block.blocks %}
-  {% if inner_block.type == 'collection-title' %}
-    <div style="text-align: {{ block.settings.horizontal_alignment }};">
-      {% render 'block', block: inner_block, closest: { 'collection': collection } %}
-    </div>
-  {% endif %}
-{% endfor %}
-
 {% capture children %}
-  {% for inner_block in block.blocks %}
-    {% if inner_block.type != 'collection-title' %}
-      {% render 'block', block: inner_block, closest: { 'collection': collection } %}
-    {% endif %}
-  {% endfor %}
+  {% content_for 'blocks', closest.collection: collection %}
 {% endcapture %}
 
 {% render 'collection-card',
