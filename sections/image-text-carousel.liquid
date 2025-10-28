@@ -1,4 +1,4 @@
-<div class="section-{{ section.id }}">
+<div class="section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="image-text-carousel-wrapper {% if section.settings.image_position == 'right' %}image-right{% endif %}">
     <div class="image-carousel-container">
       <div class="swiper-container image-carousel">
@@ -21,9 +21,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
-        <!-- Add Navigation -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </div>
@@ -48,13 +46,16 @@
 <style>
   .section-{{ section.id }} {
     padding: 50px 0; /* Adjust padding as needed for desktop */
+    /* Background color is now controlled by the color-scheme class */
   }
 
   .image-text-carousel-wrapper {
-    padding:40px;
+    padding: 40px;
     display: flex;
     align-items: center;
     max-width: 1920px; /* Adjust max-width as needed */
+    margin-left: auto;
+    margin-right: auto;
     gap: 30px; /* Space between image and text */
     flex-direction: row; /* Default: image on left, text on right */
   }
@@ -66,6 +67,7 @@
   .image-carousel-container,
   .text-content-container {
     flex: 1; /* Both containers take equal width */
+    min-width: 0; /* Prevents overflow issues in flex */
   }
 
   .image-carousel-container {
@@ -80,34 +82,56 @@
     height: auto;
   }
 
-  .swiper-slide img {
+  .swiper-slide img,
+  .swiper-slide .placeholder-svg {
     width: 100%;
     height: auto;
     display: block;
+    aspect-ratio: var(--image-aspect-ratio, 1 / 1); /* Default aspect ratio */
+    object-fit: cover;
+  }
+  
+  .placeholder-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background-accent-1, #f0f0f0);
+    border: 1px dashed var(--color-border, #ccc);
   }
 
   .text-content-container h2 {
     font-size: 2.5em; /* Adjust heading size */
     margin-bottom: 20px;
+    color: var(--color-text); /* Use theme color */
   }
 
   .text-content-container .rte p {
     line-height: 1.6;
     margin-bottom: 15px;
+    color: var(--color-text); /* Use theme color */
+  }
+  
+  .text-content-container .rte {
+     color: var(--color-text); /* Use theme color for base rte */
   }
 
   .text-content-container h3 {
     font-size: 1.5em;
     margin-top: 25px;
     margin-bottom: 10px;
+    color: var(--color-text); /* Use theme color */
+  }
+  
+  .text-content-container p {
+     color: var(--color-text); /* Use theme color */
   }
 
   /* Swiper navigation and pagination styles (basic) */
   .swiper-button-next, .swiper-button-prev {
-    color: #333;
+    color: var(--color-text); /* Use theme's text color */
   }
   .swiper-pagination-bullet-active {
-    background: #333;
+    background: var(--color-text); /* Use theme's text color */
   }
 
   @media (max-width: 768px) {
@@ -130,12 +154,12 @@
     var swiper = new Swiper('.section-{{ section.id }} .image-carousel', {
       loop: true,
       pagination: {
-        el: '.swiper-pagination',
+        el: '.section-{{ section.id }} .swiper-pagination',
         clickable: true,
       },
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+        nextEl: '.section-{{ section.id }} .swiper-button-next',
+        prevEl: '.section-{{ section.id }} .swiper-button-prev',
       },
       autoplay: {
         delay: 5000, // 5 seconds
@@ -164,6 +188,12 @@
         }
       ],
       "default": "left"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
     },
     {
       "type": "text",
