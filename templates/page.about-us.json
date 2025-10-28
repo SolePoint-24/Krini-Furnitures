@@ -329,7 +329,9 @@
         "image_UdCbGL",
         "group_HNHenf"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "img {max-height: 500px;}"
+      ],
       "name": "t:names.image_with_text",
       "settings": {
         "content_direction": "row",
