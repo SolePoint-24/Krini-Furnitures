@@ -125,18 +125,13 @@
   }
 
   .text-item-block {
+    border-top: 1px solid var(--color-border, #e5e5e5);
     padding-top: 20px;
     padding-bottom: 20px;
   }
 
-  /* Add a top border to all text blocks *except* the first one */
-  .text-content-container .text-item-block + .text-item-block {
-    border-top: 1px solid var(--color-border, #e5e5e5);
-  }
-
-  /* Add a top border to the very first text block if it exists */
-  .text-content-container .text-item-block:first-of-type {
-    border-top: 1px solid var(--color-border, #e5e5e5);
+  .text-content-container .text-item-block:last-of-type {
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
   }
 
   .text-content-container p {
