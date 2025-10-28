@@ -364,6 +364,7 @@
         "feature_69jD6L": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/bolt.png",
             "title": "Feature Title",
             "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
           }

@@ -8,7 +8,7 @@
   <div class="container" style="{{ container_max_width }}">
     
     {%- if s.heading != blank -%}
-      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }}</h2>
+      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }} </h2>
     {%- endif -%}
 
     <div class="features-grid-wrapper">
@@ -33,16 +33,7 @@
                 <h3 class="feature-item__title h4">{{ block.settings.title | escape }}</h3>
               {%- endif -%}
 
-              {%- if block.settings.badges != blank -%}
-                <img
-                  src="{{ block.settings.badges | image_url: width: 200 }}"
-                  alt="{{ block.settings.badges.alt | escape }}"
-                  loading="lazy"
-                  width="{{ block.settings.badges.width }}"
-                  height="{{ block.settings.badges.height }}"
-                  class="feature-item__badges"
-                >
-              {%- endif -%}
+              {# REMOVED: Badges image rendering #}
             </div>
           </div>
 
@@ -112,10 +103,7 @@
     margin-bottom: 8px;
   }
   
-  .feature-item__badges {
-    height: 24px; /* Adjust height of badge logos */
-    width: auto;
-  }
+  /* REMOVED: .feature-item__badges style */
   
   .feature-item__text.rte {
     font-size: 0.95rem;
@@ -128,7 +116,6 @@
 
   /* --- Mobile Borders --- */
   .features-grid-wrapper {
-    /* No borders on the wrapper */
     border: none;
   }
   
@@ -255,11 +242,6 @@
           "id": "title",
           "label": "Title",
           "default": "Feature Title"
-        },
-        {
-          "type": "image_picker",
-          "id": "badges",
-          "label": "Badges (e.g., ISO logos)"
         },
         {
           "type": "richtext",
