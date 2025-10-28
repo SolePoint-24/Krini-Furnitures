@@ -59,8 +59,7 @@
 </section>
 
 <style>
-    
-  /* This <style> tag contains styles that use Liquid  */
+  /* This <style> tag contains styles that use Liquid */
   .padding-top-0 { padding-top: 0; }
   .padding-top-20 { padding-top: 20px; }
   .padding-top-40 { padding-top: 40px; }
@@ -74,8 +73,6 @@
   .padding-bottom-60 { padding-bottom: 60px; }
   .padding-bottom-80 { padding-bottom: 80px; }
   .padding-bottom-100 { padding-bottom: 100px; }
-
-  
 </style>
 
 {% stylesheet %}
@@ -88,21 +85,6 @@
   
   .section-features-grid .section-heading {
     margin-bottom: 40px;
-  }
-
-  .features-grid-wrapper {
-    /* Mobile-first: Items will stack by default */
-  }
-
-  .feature-item {
-    padding-top: 24px;
-    padding-bottom: 24px;
-    /* On mobile, add a border between items */
-    border-bottom: 1px solid var(--color-border, #e5e5e5);
-  }
-  
-  .feature-item:first-child {
-    border-top: 1px solid var(--color-border, #e5e5e5);
   }
 
   .feature-item__header {
@@ -145,44 +127,52 @@
     margin-top: 0;
   }
 
+  /* --- Mobile Borders --- */
+  .feature-item {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border: none; /* Reset borders */
+  }
+
+  /* Add container borders for mobile */
+  .features-grid-wrapper {
+    border-top: 1px solid var(--color-border, #e5e5e5);
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+  }
+
+  /* Add lines BETWEEN stacked items on mobile */
+  .features-grid-wrapper .feature-item + .feature-item {
+    border-top: 1px solid var(--color-border, #e5e5e5);
+  }
+
+
   /* --- DESKTOP FLEXBOX LAYOUT (2x2 Grid) --- */
   @media (min-width: 768px) {
     .features-grid-wrapper {
       display: flex;
       flex-wrap: wrap;
-      /* Remove mobile borders before adding grid borders */
-      border: none; 
+      border: none; /* Remove mobile wrapper borders */
+      border-top: 1px solid var(--color-border, #e5e5e5);
+      border-left: 1px solid var(--color-border, #e5e5e5);
     }
 
     .feature-item {
-      flex-basis: 50%; /* This is the key: each item takes 50% width */
-      box-sizing: border-box; /* Ensures padding doesn't break the 50% width */
+      flex-basis: 50%;
+      box-sizing: border-box;
       padding: 32px;
       
-      /* Reset all mobile borders */
-      border-top: none;
-      border-bottom: none; 
+      /* Reset mobile borders */
+      border-top: none; 
+
+      /* Add desktop grid borders */
+      border-right: 1px solid var(--color-border, #e5e5e5);
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
     }
 
-    /* Add grid borders to match your image */
-    
-    /* Item 1 (Top-Left): Border Right & Bottom */
-    .feature-item:nth-child(1) {
-      border-right: 1px solid var(--color-border, #e5e5e5);
-      border-bottom: 1px solid var(--color-border, #e5e5e5);
+    /* Reset the rule that added borders between mobile items */
+    .features-grid-wrapper .feature-item + .feature-item {
+      border-top: none;
     }
-    
-    /* Item 2 (Top-Right): Border Bottom */
-    .feature-item:nth-child(2) {
-      border-bottom: 1px solid var(--color-border, #e5e5e5);
-    }
-    
-    /* Item 3 (Bottom-Left): Border Right */
-    .feature-item:nth-child(3) {
-      border-right: 1px solid var(--color-border, #e5e5e5);
-    }
-    
-    /* Item 4 (Bottom-Right): No borders needed */
   }
 {% endstylesheet %}
 
