@@ -95,7 +95,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Smart Furniture, Smarter Spaces.</h2>",
+            "text": "<p>Maximize Your Space with Krini Furniture</p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "center",
@@ -121,7 +121,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>At krini, sustainability is more than a vision; it's the heart of everything we do. Our designs integrate timeless elegance with conscious choices, from ethically sourcing materials to setting a new standard for eco-friendly production. Each fabric epitomizes luxurious beauty and our dedication to a hopeful future. Join us as we pave the way towards a more responsible and beautiful world.<br/><br/></p>",
+            "text": "<p>Krini Furniture is one of India's largest manufacturers specializing in smart, space-saving solutions. We design and build a wide range of innovative, multifunctional furniture to help you maximize your living area. Our extensive collection includes modular wall beds with sofas, dining tables, or study desks, as well as hydraulic storage beds, wall-mounted folding tables, and L-shaped sofa cum beds. We are dedicated to providing high-quality, durable furniture that brings modern functionality and style to any home or office.<br/><br/></p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "center",
@@ -148,7 +148,6 @@
         "text_eQV9ht",
         "text_VyHxhJ"
       ],
-      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
