@@ -940,7 +940,7 @@
                           "name": "t:names.icon",
                           "settings": {
                             "icon": "price_tag",
-                            "image_upload": "shopify://shop_images/icon-drop.png",
+                            "image_upload": "shopify://shop_images/bolt.png",
                             "width": 70,
                             "link": "",
                             "open_in_new_tab": false
@@ -1024,7 +1024,7 @@
                           "name": "t:names.icon",
                           "settings": {
                             "icon": "price_tag",
-                            "image_upload": "shopify://shop_images/icon-drop.png",
+                            "image_upload": "shopify://shop_images/gas-station.png",
                             "width": 70,
                             "link": "",
                             "open_in_new_tab": false
