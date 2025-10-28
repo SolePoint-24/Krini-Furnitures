@@ -4,7 +4,8 @@
   assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
 -%}
 
-  <div class="container section-features-grid color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}" style="{{ container_max_width }}">
+<section class="section-features-grid color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}">
+  <div class="container" style="{{ container_max_width }}">
     {%- if s.heading != blank -%}
       <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }} </h2>
     {%- endif -%}
@@ -43,6 +44,7 @@
     </div>
 
   </div>
+</section>
 
 <style>
   .padding-top-0 { padding-top: 0; }
