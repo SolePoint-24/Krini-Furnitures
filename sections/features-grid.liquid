@@ -173,25 +173,27 @@
       content: none; 
     }
 
-    /* --- Add Inner Grid Lines with Gaps (FINAL FIX) --- */
+    /* --- Add Inner Grid Lines with Gaps (FIXED) --- */
 
-    /* Horizontal Line (on BOTTOM of the TOP row) */
-    .feature-item:nth-child(1)::after,
-    .feature-item:nth-child(2)::after {
+    /* Horizontal Line (on TOP of the BOTTOM row) */
+    .feature-item:nth-child(3)::after,
+    .feature-item:nth-child(4)::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 48px;  /* Match padding */
       right: 48px; /* Match padding */
       height: 1px;
       background-color: var(--color-border, #e5e5e5);
     }
     
-    /* Vertical Line (on LEFT of the RIGHT column) */
-    /* We use ::before here, and it will no longer conflict */
-    .feature-item:nth-child(2)::before,
-    .feature-item:nth-child(4)::before {
-      content: ''; /* This now works */
+    /* Vertical Line (on LEFT of the RIGHT column)
+      We add .features-grid-wrapper to this selector to make it
+      MORE specific than the mobile reset rule. This fixes the bug.
+    */
+    .features-grid-wrapper .feature-item:nth-child(2)::before,
+    .features-grid-wrapper .feature-item:nth-child(4)::before {
+      content: '';
       position: absolute;
       top: 48px;    /* Match padding */
       bottom: 48px; /* Match padding */
@@ -201,7 +203,6 @@
     }
   }
 {% endstylesheet %}
-
 
 {% schema %}
 {
