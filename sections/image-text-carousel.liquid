@@ -35,8 +35,10 @@
       {% endif %}
       {% for block in section.blocks %}
         {% if block.type == 'text_item' %}
+          <div class="text-item-block" {{ block.shopify_attributes }}>
           <h3>{{ block.settings.title }}</h3>
           <p>{{ block.settings.description }}</p>
+          </div>
         {% endif %}
       {% endfor %}
     </div>
