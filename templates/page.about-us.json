@@ -361,6 +361,53 @@
         "padding-block-end": 40
       }
     },
+    "collection_tab_yXcEzf": {
+      "type": "collection-tab",
+      "blocks": {
+        "collection_tab_H8eEjW": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "wall-beds"
+          }
+        },
+        "collection_tab_AzHKnL": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "wall-mounted-folding-tables"
+          }
+        },
+        "collection_tab_ajaC9K": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": "wall-bed-frames"
+          }
+        },
+        "collection_tab_U36NeG": {
+          "type": "collection_tab",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_H8eEjW",
+        "collection_tab_AzHKnL",
+        "collection_tab_ajaC9K",
+        "collection_tab_U36NeG"
+      ],
+      "name": "Collection Tabs",
+      "settings": {
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "title": "Fashionable & Functional",
+        "subtitle": "Explore The Full Edit",
+        "link_label": "",
+        "link_url": "",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": "2"
+      }
+    },
     "features_grid_FXbkWw": {
       "type": "features-grid",
       "blocks": {
@@ -502,54 +549,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 48,
         "padding-block-end": 48
-      }
-    },
-    "collection_tab_yXcEzf": {
-      "type": "collection-tab",
-      "blocks": {
-        "collection_tab_H8eEjW": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": "designer-collaborations"
-          }
-        },
-        "collection_tab_AzHKnL": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "collection_tab_ajaC9K": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "collection_tab_U36NeG": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_tab_H8eEjW",
-        "collection_tab_AzHKnL",
-        "collection_tab_ajaC9K",
-        "collection_tab_U36NeG"
-      ],
-      "disabled": true,
-      "name": "Collection Tabs",
-      "settings": {
-        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "title": "Fashionable & Functional",
-        "subtitle": "Explore The Full Edit",
-        "link_label": "",
-        "link_url": "",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "columns_tablet": 3,
-        "columns_mobile": "2"
       }
     },
     "section_BarAtL": {
@@ -3253,9 +3252,9 @@
     "hero_QaAFgP",
     "section_aPAY3V",
     "section_CQdPLk",
+    "collection_tab_yXcEzf",
     "features_grid_FXbkWw",
     "section_8hDccJ",
-    "collection_tab_yXcEzf",
     "section_BarAtL",
     "section_H8mzfJ",
     "section_34AWMi",
