@@ -316,9 +316,7 @@
 }
 {% endschema %}
 
-{% comment %} 
-  Dynamic styles (like loops) go in a <style> tag.
-{% endcomment %}
+
 <style>
   @media (min-width: 768px) { /* md: equivalent */
     {% for i in (1..20) %}
@@ -348,9 +346,6 @@
   .border-radius-50 { border-radius: 50px; }
 </style>
 
-{% comment %} 
-  Static styles go in the {% stylesheet %} tag.
-{% endcomment %}
 {% stylesheet %}
   .section-image-with-text__wrapper {
     /* Base for column layout on mobile, row on desktop */
