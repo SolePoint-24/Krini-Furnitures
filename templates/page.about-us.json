@@ -330,7 +330,7 @@
         "group_HNHenf"
       ],
       "custom_css": [
-        "img{max-height: 500px}"
+        "img {max-height: 500px;}"
       ],
       "name": "t:names.image_with_text",
       "settings": {
@@ -406,9 +406,9 @@
       "name": "Features Grid",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "heading": "Our Commitments",
+        "heading": "Our Core Values",
         "heading_text_alignment": "center",
-        "container_width": 1200,
+        "container_width": 1600,
         "padding_top": 40,
         "padding_bottom": 40
       }
