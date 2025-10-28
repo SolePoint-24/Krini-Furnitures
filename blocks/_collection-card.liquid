@@ -20,7 +20,6 @@
   {% content_for 'blocks', closest.collection: collection %}
 {% endcapture %}
 
-
 {%- liquid
   assign title_size = block.settings.title_size | default: 24
   assign title_color = block.settings.title_color
@@ -28,16 +27,18 @@
 -%}
 
 {% if collection.title != blank %}
- <h2 style="
-  text-align: {{ alignment }};
-  margin-bottom: 15px;
-  font-size: {{ title_size }}px;
-  {% if title_color != blank %}
-   color: {{ title_color }};
-  {% endif %}
- ">
-  {{ collection.title }}
- </h2>
+  <h2
+    style="
+      text-align: {{ alignment }};
+      margin-bottom: 15px;
+      font-size: {{ title_size }}px;
+      {% if title_color != blank %}
+       color: {{ title_color }};
+      {% endif %}
+    "
+  >
+    {{ collection.title }}
+  </h2>
 {% endif %}
 
 {% render 'collection-card',
