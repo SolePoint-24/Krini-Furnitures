@@ -737,7 +737,7 @@
                           "type": "text",
                           "name": "t:names.text",
                           "settings": {
-                            "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
+                            "text": "<p>Installed 3.15 MW rooftop solar panels replacing 8-9% of our electricity consumption with sustainable energy</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "left",
@@ -821,7 +821,7 @@
                           "type": "text",
                           "name": "t:names.text",
                           "settings": {
-                            "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
+                            "text": "<p>5% reduction in greenhouse gases through solar power generation</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "left",
