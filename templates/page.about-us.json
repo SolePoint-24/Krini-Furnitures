@@ -237,6 +237,7 @@
         "text_CyenJj",
         "text_m4ig7N"
       ],
+      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -1087,6 +1088,7 @@
         "group_xqiUNk",
         "group_c9Q6L3"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -1902,6 +1904,7 @@
         "text_7DE7pR",
         "group_aWUX6P"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
@@ -2118,6 +2121,7 @@
         "group_pR4C44",
         "group_EFrFcf"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -2207,6 +2211,7 @@
         "text_ikVPCj",
         "text_CtRntb"
       ],
+      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
