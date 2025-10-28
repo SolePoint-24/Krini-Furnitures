@@ -951,7 +951,7 @@
                           "type": "text",
                           "name": "t:names.text",
                           "settings": {
-                            "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
+                            "text": "<p>7-8% of renewable energy sourced through our solar plant</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "left",
@@ -1035,7 +1035,7 @@
                           "type": "text",
                           "name": "t:names.text",
                           "settings": {
-                            "text": "<p>50% of water consumption is recycled & reused with effluent treatment & water recycling plan</p>",
+                            "text": "<p>Revolutionized power conservation through LED lightings</p>",
                             "width": "100%",
                             "max_width": "none",
                             "alignment": "left",
