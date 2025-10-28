@@ -161,7 +161,7 @@
         "mobile_columns": "1",
         "columns_gap": 40,
         "bento_gap": 16,
-        "rows_gap": 40,
+        "rows_gap": 70,
         "max_collections": 4,
         "icons_style": "arrow",
         "icons_shape": "none",
