@@ -220,6 +220,7 @@
         "text_item_FVEbgd": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/established.png",
             "title": "Functionality and Space Optimization",
             "description": "Opt for multi-functional furniture pieces that can serve dual purposes, such as sofa beds or storage ottomans. Ensure that the furniture doesn’t clutter the room but rather enhances the sense of space and functionality."
           }
