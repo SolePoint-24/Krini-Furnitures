@@ -18,6 +18,14 @@
     parent_block_id: block.id %}
 {% endcapture %}
 
+{% for inner_block in block.blocks %}
+  {% if inner_block.type == 'collection-title' %}
+    <div style="text-align: {{ block.settings.horizontal_alignment }};">
+      {% render 'block', block: inner_block, closest: { 'collection': collection } %}
+    </div>
+  {% endif %}
+{% endfor %}
+
 {% capture children %}
   {% content_for 'blocks', closest.collection: collection %}
 {% endcapture %}
