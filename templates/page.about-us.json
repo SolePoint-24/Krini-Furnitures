@@ -726,7 +726,7 @@
                           "name": "t:names.icon",
                           "settings": {
                             "icon": "price_tag",
-                            "image_upload": "shopify://shop_images/icon-drop.png",
+                            "image_upload": "shopify://shop_images/solar-energy.png",
                             "width": 70,
                             "link": "",
                             "open_in_new_tab": false
@@ -810,7 +810,7 @@
                           "name": "t:names.icon",
                           "settings": {
                             "icon": "price_tag",
-                            "image_upload": "shopify://shop_images/icon-drop.png",
+                            "image_upload": "shopify://shop_images/co2-emission.png",
                             "width": 70,
                             "link": "",
                             "open_in_new_tab": false
