@@ -180,33 +180,35 @@
       display: none; 
     }
 
-    /* --- Add Inner Grid Lines with Gaps --- */
+    /* --- Add Inner Grid Lines with Gaps (CORRECTED) --- */
 
-    /* Horizontal Line (on top row) */
-    .feature-item:nth-child(1)::after,
-    .feature-item:nth-child(2)::after {
+    /* Horizontal Line (on TOP of the BOTTOM row) */
+    .feature-item:nth-child(3)::after,
+    .feature-item:nth-child(4)::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 48px;  /* Match padding */
       right: 48px; /* Match padding */
       height: 1px;
       background-color: var(--color-border, #e5e5e5);
     }
     
-    /* Vertical Line (on left column) */
-    .feature-item:nth-child(1)::before,
-    .feature-item:nth-child(3)::before {
+    /* Vertical Line (on LEFT of the RIGHT column) */
+    .feature-item:nth-child(2)::before,
+    .feature-item:nth-child(4)::before {
       content: '';
       position: absolute;
       top: 48px;    /* Match padding */
       bottom: 48px; /* Match padding */
-      right: 0;
+      left: 0;
       width: 1px;
       background-color: var(--color-border, #e5e5e5);
     }
   }
 {% endstylesheet %}
+
+
 {% schema %}
 {
   "name": "Features Grid",
