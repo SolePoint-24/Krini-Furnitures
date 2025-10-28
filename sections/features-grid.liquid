@@ -4,8 +4,9 @@
   assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
 -%}
 
-<section class="section-features-grid color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}">
+<section class="section-features-grid color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }} {% if s.full_width %}section--full-width{% endif %}">
   <div class="container" style="{{ container_max_width }}">
+    
     {%- if s.heading != blank -%}
       <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }} </h2>
     {%- endif -%}
@@ -64,12 +65,20 @@
 
 {% stylesheet %}
   .section-features-grid .container {
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 20px;
     padding-right: 20px;
   }
   
   .section-features-grid .section-heading {
     margin-bottom: 40px;
+  }
+  
+  /* Full Width 'Breakout' Style */
+  .section--full-width {
+    width: 100vw;
+    margin-left: calc( (100% - 100vw) / 2 );
   }
 
   .feature-item__header {
@@ -90,15 +99,13 @@
   }
 
   .feature-item__header-content {
-    flex: 1; /* Allows title and badges to take remaining space */
+    flex: 1;
   }
 
   .feature-item__title {
     margin-top: 0;
     margin-bottom: 8px;
   }
-  
-  /* REMOVED: .feature-item__badges style */
   
   .feature-item__text.rte {
     font-size: 0.95rem;
@@ -172,6 +179,12 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
     },
     {
       "type": "text",
