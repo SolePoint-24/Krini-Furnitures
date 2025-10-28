@@ -90,7 +90,7 @@
           "settings": {
             "placement": "on_image",
             "horizontal_alignment": "center",
-            "vertical_alignment": "flex-start",
+            "vertical_alignment": "flex-end",
             "collection_card_gap": 41,
             "inherit_color_scheme": true,
             "color_scheme": "scheme-6",
@@ -103,6 +103,7 @@
             "collection_title_zD4dJk": {
               "type": "collection-title",
               "name": "t:names.collection_title",
+              "disabled": true,
               "settings": {
                 "width": "fit-content",
                 "max_width": "normal",
