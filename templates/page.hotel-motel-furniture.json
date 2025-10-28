@@ -88,20 +88,20 @@
         "padding-block-end": 40
       }
     },
-    "section_m4kmQg": {
+    "section_raGNa3": {
       "type": "section",
       "blocks": {
-        "text_8e3aGH": {
+        "text_Rfy8aR": {
           "type": "text",
-          "name": "t:names.text",
+          "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Hotel and Motel furniture</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
+            "text": "<h2>Smart Furniture, Smarter Spaces.</h2>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "custom",
+            "font": "var(--font-heading--family)",
+            "font_size": "3rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
@@ -117,18 +117,18 @@
           },
           "blocks": {}
         },
-        "text_gHf9X8": {
+        "text_eYGV3e": {
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<p>When it comes to hotel and motel furniture, several key details need to be considered to ensure comfort, durability, and aesthetic appeal. Here are some important aspects to focus on :</p>",
-            "width": "fit-content",
+            "text": "<p>At krini, sustainability is more than a vision; it's the heart of everything we do. Our designs integrate timeless elegance with conscious choices, from ethically sourcing materials to setting a new standard for eco-friendly production. Each fabric epitomizes luxurious beauty and our dedication to a hopeful future. Join us as we pave the way towards a more responsible and beautiful world.<br/><br/></p>",
+            "width": "100%",
             "max_width": "none",
             "alignment": "center",
-            "type_preset": "rte",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
+            "font_size": "1.125rem",
+            "line_height": "loose",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
@@ -145,10 +145,10 @@
         }
       },
       "block_order": [
-        "text_8e3aGH",
-        "text_gHf9X8"
+        "text_Rfy8aR",
+        "text_eYGV3e"
       ],
-      "name": "t:names.custom_section",
+      "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -156,8 +156,8 @@
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 12,
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
@@ -173,7 +173,7 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 40,
+        "padding-block-start": 48,
         "padding-block-end": 0
       }
     },
@@ -301,7 +301,7 @@
   "order": [
     "main",
     "hero_9AWcqB",
-    "section_m4kmQg",
+    "section_raGNa3",
     "image_text_carousel_KTrBMA",
     "image_text_carousel_UkBCtf"
   ]
