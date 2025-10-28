@@ -367,33 +367,26 @@
         "collection_tab_H8eEjW": {
           "type": "collection_tab",
           "settings": {
-            "collection": "wall-beds"
+            "collection": "residential-installs"
           }
         },
         "collection_tab_AzHKnL": {
           "type": "collection_tab",
           "settings": {
-            "collection": "wall-mounted-folding-tables"
+            "collection": "hotel-projects"
           }
         },
         "collection_tab_ajaC9K": {
           "type": "collection_tab",
           "settings": {
-            "collection": "wall-bed-frames"
-          }
-        },
-        "collection_tab_U36NeG": {
-          "type": "collection_tab",
-          "settings": {
-            "collection": ""
+            "collection": "designer-collaborations"
           }
         }
       },
       "block_order": [
         "collection_tab_H8eEjW",
         "collection_tab_AzHKnL",
-        "collection_tab_ajaC9K",
-        "collection_tab_U36NeG"
+        "collection_tab_ajaC9K"
       ],
       "name": "Collection Tabs",
       "settings": {
