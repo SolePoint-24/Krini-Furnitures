@@ -1364,6 +1364,7 @@
         "heading": "Frequently Asked Questions",
         "heading_text_alignment": "center",
         "container_width": 1000,
+        "tab_bg_color": "#eeddc6",
         "heading_font_size": 36,
         "tab_font_size": 16,
         "question_font_size": 18,
