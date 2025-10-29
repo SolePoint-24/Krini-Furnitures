@@ -11,6 +11,9 @@
     assign section_styles = section_styles | append: '--color-text: ' | append: s.text_color | append: ';'
     assign section_styles = section_styles | append: '--color-border: ' | append: s.text_color | append: ' | color_modify: "alpha", 0.2;'
   endif
+  if s.tab_bg_color != 'rgba(0,0,0,0)' and s.tab_bg_color != blank
+    assign section_styles = section_styles | append: '--color-tab-background: ' | append: s.tab_bg_color | append: ';'
+  endif
 -%}
 
 <section
@@ -57,7 +60,7 @@
             {%- if q_value != blank and a_value != blank -%}
               <details class="faq-item">
                 <summary class="faq-question" style="font-size: {{ s.question_font_size }}px;">
-                  <p style="margin:0px">{{ q_value }}</p >
+                  <p style="margin:0px">{{ q_value }}</p>
                   <svg
                     class="icon-plus"
                     aria-hidden="true"
@@ -143,6 +146,7 @@
     justify-content: center;
     gap: 12px;
     margin-bottom: 30px;
+    border-bottom: 1px solid var(--color-border, #e5e5e5); /* This is the line under the tabs */
   }
 
   .faq-tab-button {
@@ -151,21 +155,22 @@
     padding: 10px 20px;
     cursor: pointer;
     border: none;
-    background-color: transparent;
+    background-color: var(--color-tab-background, #e0e0e0); /* NEW: Use new color variable */
     color: var(--color-text, #333);
-    opacity: 0.7;
-    border-bottom: 3px solid transparent;
+    opacity: 0.7; /* NEW: This is the inactive state */
+    border-bottom: none; /* REMOVED: no more underline */
     margin-bottom: -1px; /* Align with wrapper border */
-    transition: opacity 0.2s ease, border-color 0.2s ease;
+    transition: opacity 0.2s ease; /* UPDATED: transition opacity only */
+    border-radius: 5px 5px 0 0; /* NEW: Added for tab styling */
   }
 
   .faq-tab-button:hover {
-    opacity: 1;
+    opacity: 1; /* Keep hover state */
   }
 
   .faq-tab-button.active {
-    opacity: 1;
-    border-color: var(--color-text, #333);
+    opacity: 1; /* NEW: Active state is full opacity */
+    border-color: transparent; /* REMOVED: no more underline */
   }
 
   .faq-content-panel {
@@ -319,7 +324,13 @@
     },
     {
       "type": "header",
-      "content": "Typography"
+      "content": "Typography & Tab Style"
+    },
+    {
+      "type": "color",
+      "id": "tab_bg_color",
+      "label": "Tab Button Background",
+      "default": "#E0E0E0"
     },
     {
       "type": "range",
@@ -394,7 +405,7 @@
       "settings": [
         {
           "type": "text",
-          "id": "tab_title",
+          "id": "tabtitle",
           "label": "Tab Title",
           "default": "Orders"
         },
@@ -475,9 +486,6 @@
         },
         {
           "type": "category",
-          "settings": {
-            "tab_title": "Shipping"
-          }
         }
       ]
     }
