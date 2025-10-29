@@ -39,14 +39,16 @@
               assign a_value = block.settings[a]
             -%}
             {%- if q_value != blank and a_value != blank -%}
-              <details class="faq-item">
+              <details class="faq-item" data-accordion>
                 <summary class="faq-question">
                   <span>{{ q_value }}</span>
                   <svg class="icon-plus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                   <svg class="icon-minus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </summary>
-                <div class="faq-answer rte">
-                  {{ a_value }}
+                <div class="faq-answer-wrapper"> {# Wrapper for animation #}
+                  <div class="faq-answer rte">
+                    {{ a_value }}
+                  </div>
                 </div>
               </details>
             {%- endif -%}
@@ -147,7 +149,18 @@
     display: none;
   }
   
-  .faq-answer {
+  /* --- New styles for animation wrapper --- */
+  .faq-answer-wrapper {
+    overflow: hidden;
+    height: 0; /* Initial collapsed state */
+    transition: height 0.3s ease-out; /* Smooth transition */
+  }
+
+  .faq-item[open] > .faq-answer-wrapper {
+    height: var(--accordion-height, auto); /* Set by JS */
+  }
+
+  .faq-answer.rte {
     padding-bottom: 20px;
     padding-left: 16px; /* Indent answer */
   }
@@ -181,20 +194,60 @@
     sections.forEach(section => {
       const tabButtons = section.querySelectorAll('.faq-tab-button');
       const contentPanels = section.querySelectorAll('.faq-content-panel');
+      const accordions = section.querySelectorAll('.faq-item[data-accordion]');
 
+      // --- Tab functionality ---
       tabButtons.forEach(button => {
         button.addEventListener('click', function() {
           const targetId = this.getAttribute('data-tab-target');
           const targetPanel = section.querySelector(targetId);
 
-          // Remove active state from all buttons and panels in this section
           tabButtons.forEach(btn => btn.classList.remove('active'));
           contentPanels.forEach(panel => panel.classList.remove('active'));
 
-          // Add active state to the clicked button and target panel
           this.classList.add('active');
           if (targetPanel) {
             targetPanel.classList.add('active');
+          }
+        });
+      });
+
+      // --- Accordion animation functionality ---
+      accordions.forEach(accordion => {
+        const summary = accordion.querySelector('summary');
+        const answerWrapper = accordion.querySelector('.faq-answer-wrapper');
+        const answer = accordion.querySelector('.faq-answer.rte');
+
+        // Set initial height if already open (e.g., from browser history)
+        if (accordion.open) {
+          answerWrapper.style.height = answer.scrollHeight + 'px';
+          accordion.style.setProperty('--accordion-height', answer.scrollHeight + 'px');
+        }
+
+        summary.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default instant open/close behavior
+
+          if (accordion.open) {
+            // Close animation
+            answerWrapper.style.height = answer.scrollHeight + 'px'; // Ensure height is set for transition
+            requestAnimationFrame(() => {
+              answerWrapper.style.height = '0';
+            });
+            answerWrapper.addEventListener('transitionend', () => {
+              accordion.open = false; // Finally close the details tag after animation
+              answerWrapper.removeEventListener('transitionend', this); // Clean up
+            }, { once: true });
+          } else {
+            // Open animation
+            accordion.open = true; // Open the details tag immediately
+            answerWrapper.style.height = '0'; // Start from collapsed
+            const contentHeight = answer.scrollHeight;
+            answerWrapper.style.height = contentHeight + 'px';
+            accordion.style.setProperty('--accordion-height', contentHeight + 'px');
+            answerWrapper.addEventListener('transitionend', () => {
+              answerWrapper.style.height = 'auto'; // Remove fixed height after animation
+              answerWrapper.removeEventListener('transitionend', this); // Clean up
+            }, { once: true });
           }
         });
       });
