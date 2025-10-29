@@ -1316,54 +1316,49 @@
     "faq_section_a9fqKK": {
       "type": "faq-section",
       "blocks": {
-        "group_header_qmqNax": {
-          "type": "group_header",
+        "category_rFrBng": {
+          "type": "category",
           "settings": {
-            "title": "Shipping"
+            "tab_title": "Orders",
+            "q1": "What is my order status?",
+            "a1": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>",
+            "q2": "Can I modify my order?",
+            "a2": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>",
+            "q3": "",
+            "a3": "",
+            "q4": "",
+            "a4": "",
+            "q5": "",
+            "a5": ""
           }
         },
-        "faq_item_NzjDp9": {
-          "type": "faq_item",
+        "category_GQQgbt": {
+          "type": "category",
           "settings": {
-            "question": "How long does shipping take?",
-            "answer": "<p>Our standard shipping typically takes 3-5 business days within the country. International shipping times may vary.</p>"
-          }
-        },
-        "faq_item_3aic8d": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How can I track my order?",
-            "answer": "<p>Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website.</p>"
-          }
-        },
-        "group_header_Qa6Wt4": {
-          "type": "group_header",
-          "settings": {
-            "title": "Returns"
-          }
-        },
-        "faq_item_g68jfx": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "<p>We accept returns within 30 days of purchase for a full refund. Items must be in their original condition. Please visit our returns page to initiate a return.</p>"
+            "tab_title": "Orders",
+            "q1": "What is my order status?",
+            "a1": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>",
+            "q2": "Can I modify my order?",
+            "a2": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>",
+            "q3": "",
+            "a3": "",
+            "q4": "",
+            "a4": "",
+            "q5": "",
+            "a5": ""
           }
         }
       },
       "block_order": [
-        "group_header_qmqNax",
-        "faq_item_NzjDp9",
-        "faq_item_3aic8d",
-        "group_header_Qa6Wt4",
-        "faq_item_g68jfx"
+        "category_rFrBng",
+        "category_GQQgbt"
       ],
       "name": "FAQ Section",
       "settings": {
-        "title": "Frequently Asked Questions",
-        "heading_size": "h1",
         "color_scheme": "scheme-1",
-        "button_label": "View All FAQs",
-        "button_link": "",
+        "heading": "Frequently Asked Questions",
+        "heading_text_alignment": "center",
+        "container_width": 1000,
         "padding_top": 40,
         "padding_bottom": 40
       }
