@@ -196,7 +196,7 @@
         "text_item_zLPpiw": {
           "type": "text_item",
           "settings": {
-            "icon": "shopify://shop_images/established.png",
+            "icon": "shopify://shop_images/mattress.png",
             "title": "Comfort and Ergonomics",
             "description": "The furniture should be designed with comfort in mind, especially for items like beds, sofas, and chairs. Ergonomic design principles should be applied to desk chairs, ensuring proper support for guests who may need to work or use a laptop."
           }
@@ -204,7 +204,7 @@
         "text_item_BgtBpw": {
           "type": "text_item",
           "settings": {
-            "icon": "shopify://shop_images/support.png",
+            "icon": "shopify://shop_images/security.png",
             "title": "Durability and Quality",
             "description": "Since hotel and motel furniture is subjected to frequent use, it should be made from high-quality materials that can withstand wear and tear. Consider using materials like solid wood, metal frames, or high-grade plastics for durability."
           }
@@ -212,7 +212,7 @@
         "text_item_wbr3Qe": {
           "type": "text_item",
           "settings": {
-            "icon": "shopify://shop_images/reputation.png",
+            "icon": "shopify://shop_images/living-room.png",
             "title": "Style and Aesthetics",
             "description": "The furniture should match the overall design theme and ambiance of the hotel or motel. Choose furniture styles and colors that are modern, timeless, and appealing to a wide range of guests."
           }
@@ -220,7 +220,7 @@
         "text_item_FVEbgd": {
           "type": "text_item",
           "settings": {
-            "icon": "shopify://shop_images/established.png",
+            "icon": "shopify://shop_images/mattress.png",
             "title": "Functionality and Space Optimization",
             "description": "Opt for multi-functional furniture pieces that can serve dual purposes, such as sofa beds or storage ottomans. Ensure that the furniture doesn’t clutter the room but rather enhances the sense of space and functionality."
           }
