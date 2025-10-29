@@ -1,319 +1,213 @@
-{% comment %}
-  ** FAQ Section **
-  - Block-based groups for intuitive content management.
-  - Filterable by group.
-  - Customizable color scheme via Theme Editor.
-  - Includes a "View All" button linking to a full FAQ page.
-  - Fully responsive and modern design.
-{% endcomment %}
+{%- liquid
+  assign s = section.settings
+  assign container_max_width = 'max-width: ' | append: s.container_width | append: 'px;'
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+-%}
 
+<section
+  class="faq-tab-section color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="container" style="{{ container_max_width }}">
+    {%- if s.heading != blank -%}
+      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }}</h2>
+    {%- endif -%}
 
-{%- style -%}
+    <div class="faq-tabs">
+      {%- for block in section.blocks -%}
+        <button
+          class="faq-tab-button{% if forloop.first %} active{% endif %}"
+          data-tab-target="#faq-panel-{{ block.id }}"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.tab_title | default: "Category" }}
+        </button>
+      {%- endfor -%}
+    </div>
 
-/* assets/faq-section.css */
+    <div class="faq-content-panels">
+      {%- for block in section.blocks -%}
+        <div
+          id="faq-panel-{{ block.id }}"
+          class="faq-content-panel{% if forloop.first %} active{% endif %}"
+        >
+          {%- for i in (1..5) -%}
+            {%- liquid
+              assign q = 'q' | append: i
+              assign a = 'a' | append: i
+              assign q_value = block.settings[q]
+              assign a_value = block.settings[a]
+            -%}
+            {%- if q_value != blank and a_value != blank -%}
+              <details class="faq-item">
+                <summary class="faq-question">
+                  <span>{{ q_value }}</span>
+                  <svg class="icon-plus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  <svg class="icon-minus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </summary>
+                <div class="faq-answer rte">
+                  {{ a_value }}
+                </div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
 
-.faq-section__container {
+  </div>
+</section>
 
-  padding: 0 1.5rem;
-}
+<style>
+  .padding-top-0 { padding-top: 0; }
+  .padding-top-20 { padding-top: 20px; }
+  .padding-top-40 { padding-top: 40px; }
+  .padding-top-60 { padding-top: 60px; }
+  .padding-top-80 { padding-top: 80px; }
+  .padding-top-100 { padding-top: 100px; }
 
-.faq-section__heading {
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-}
+  .padding-bottom-0 { padding-bottom: 0; }
+  .padding-bottom-20 { padding-bottom: 20px; }
+  .padding-bottom-40 { padding-bottom: 40px; }
+  .padding-bottom-60 { padding-bottom: 60px; }
+  .padding-bottom-80 { padding-bottom: 80px; }
+  .padding-bottom-100 { padding-bottom: 100px; }
+</style>
 
-.faq-section__filters {
-  display: flex;
-  flex-wrap: none;
-  overflow-x: auto;
-  gap: 0.75rem;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-}
-
-.faq-filter-button {
-  transition: all 0.2s ease-in-out;
-}
-
-.faq-section__accordions {
-  display: grid;
-  gap: 1rem;
-  margin: 0 auto;
-  max-width: 70rem;
-}
-
-.faq-accordion__details {
-  border: 1px solid rgba(var(--color-foreground), 0.2);
-  border-radius: 12px;
-  padding: 0.5rem 1.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.faq-accordion__details[open] {
-  background-color: rgba(var(--color-foreground), 0.04);
-}
-
-.faq-accordion__summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 500;
-  list-style: none; /* Remove default marker */
-}
-
-.faq-accordion__summary::-webkit-details-marker {
-  display: none; /* Hide for Safari */
-}
-
-.faq-accordion__icon {
-  position: relative;
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-  margin-left: 1rem;
-}
-
-.faq-accordion__icon .icon {
-  position: absolute;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-
-.faq-accordion__icon .icon-minus {
-  transform: scale(0);
-  opacity: 0;
-}
-
-.faq-accordion__details[open] .icon-plus {
-  transform: scale(0);
-  opacity: 0;
-}
-
-.faq-accordion__details[open] .icon-minus {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.faq-section__question {
-  font-size: 1.5rem;
-}
-
-.faq-accordion__answer {
-  padding-bottom: 1.25rem;
-  padding-right: 2.5rem; /* Space to avoid icon overlap */
-  opacity: 0.85;
-}
-
-
-.faq-accordion__details:hover .faq-accordion__question {
-  color: inherit !important;
-}
-.faq-section__view-all-wrapper {
-  margin-top: 3rem;
-  text-align: center;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 749px) {
-  .faq-section__container {
-    padding: 0 1rem;
+{% stylesheet %}
+  .faq-tab-section .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
-  .faq-section__heading {
-    margin-bottom: 1.5rem;
+  .faq-tab-section .section-heading {
+    margin-bottom: 40px;
   }
 
-  .faq-section__filters {
-    margin-bottom: 2rem;
-    justify-content: flex-start;
+  .faq-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+  }
+  
+  .faq-tab-button {
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text, #333);
+    opacity: 0.7;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px; /* Align with wrapper border */
+    transition: opacity 0.2s ease, border-color 0.2s ease;
   }
 
-  .faq-section__filters::-webkit-scrollbar {
+  .faq-tab-button:hover {
+    opacity: 1;
+  }
+
+  .faq-tab-button.active {
+    opacity: 1;
+    border-color: var(--color-text, #333);
+  }
+
+  .faq-content-panel {
     display: none;
   }
 
-  .faq-accordion__details {
-    padding: 0.25rem 1rem;
+  .faq-content-panel.active {
+    display: block;
   }
-
-  .faq-accordion__summary {
-    font-size: 1rem;
-  }
-
   
+  .faq-item {
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+  }
   
-  .faq-accordion__answer {
-    padding-right: 1rem;
-  }
-}
-
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  .faq-accordion__question {
-    font-size: 1.5rem;
+  .faq-question {
+    font-size: 1.125rem;
     font-weight: 600;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none; /* Removes default triangle */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  /* Hide native summary marker */
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-answer {
+    padding-bottom: 20px;
+    padding-left: 16px; /* Indent answer */
+  }
+  
+  /* --- Accordion Icons --- */
+  .faq-item .icon-plus,
+  .faq-item .icon-minus {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--color-text, #333);
+  }
+  
+  .faq-item .icon-minus {
+    display: none;
+  }
+  
+  .faq-item[open] .icon-plus {
+    display: none;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+  .faq-item[open] .icon-minus {
+    display: block;
   }
-{%- endstyle -%}
-
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width section-{{ section.id }}-padding isolate">
-   {%- if section.settings.title != blank -%}
-        <h2 style="text-align:center" class="title inline-richtext   {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-          {{ section.settings.title }}
-        </h2>
-      {%- endif -%}
-
-    {%- assign faq_blocks = section.blocks -%}
-    {% if faq_blocks.size > 0 %}
-      {%- assign groups = faq_blocks | where: 'type', 'group_header' -%}
-      
-      {% if groups.size > 1 %}
-        <div class="faq-section__filters no-js-hidden" id="faq-filters-{{ section.id }}">
-        
-          {% for block in groups %}
-            {%- assign group_handle = block.settings.title | handleize -%}
-            <button type="button" class="faq-filter-button button button--secondary" data-group="{{ group_handle }}" aria-pressed="false">
-              {{ block.settings.title | escape }}
-            </button>
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      <div class="faq-section__accordions" id="faq-accordions-{{ section.id }}">
-        {%- assign current_group_handle = '' -%}
-        {% for block in faq_blocks %}
-          {%- if block.type == 'group_header' -%}
-            {%- assign current_group_handle = block.settings.title | handleize -%}
-          {%- elsif block.type == 'faq_item' -%}
-            <div class="faq-accordion" data-group-content="{{ current_group_handle }}" {{ block.shopify_attributes }}>
-              <details class="faq-accordion__details">
-                <summary class="faq-accordion__summary">
-                  <span class="faq-accordion__question">{{ block.settings.question | escape }}</span>
-                  <span class="faq-accordion__icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-plus" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-minus" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
-                    </svg>
-                  </span>
-                </summary>
-                <div class="faq-accordion__answer rte">
-                  {{ block.settings.answer }}
-                </div>
-              </details>
-            </div>
-          {%- endif -%}
-        {% endfor %}
-      </div>
-
-      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-        <div class="faq-section__view-all-wrapper">
-          <a href="{{ section.settings.button_link }}" class="button button--primary">
-            {{ section.settings.button_label | escape }}
-          </a>
-        </div>
-      {% endif %}
-
-    {% endif %}
-  </div>
-</div>
+{% endstylesheet %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const faqSection = document.querySelector('.section-{{ section.id }}-padding');
-    if (!faqSection) return;
+  document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.faq-tab-section');
+    
+    sections.forEach(section => {
+      const tabButtons = section.querySelectorAll('.faq-tab-button');
+      const contentPanels = section.querySelectorAll('.faq-content-panel');
 
-    const filterButtons = faqSection.querySelectorAll('.faq-filter-button');
-    const accordions = faqSection.querySelectorAll('.faq-accordion');
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-tab-target');
+          const targetPanel = section.querySelector(targetId);
 
-    if (filterButtons.length > 0) {
-      filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const group = button.dataset.group;
+          // Remove active state from all buttons and panels in this section
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          contentPanels.forEach(panel => panel.classList.remove('active'));
 
-          // Update button styles
-          filterButtons.forEach(btn => {
-            btn.setAttribute('aria-pressed', 'false');
-            btn.classList.remove('button--primary');
-            btn.classList.add('button--secondary');
-          });
-          button.setAttribute('aria-pressed', 'true');
-          button.classList.add('button--primary');
-          button.classList.remove('button--secondary');
-
-          // Filter accordions
-          accordions.forEach(accordion => {
-            const accordionGroup = accordion.dataset.groupContent;
-            const shouldShow = group === 'all' || accordionGroup === group;
-            
-            accordion.style.display = shouldShow ? 'block' : 'none';
-          });
+          // Add active state to the clicked button and target panel
+          this.classList.add('active');
+          if (targetPanel) {
+            targetPanel.classList.add('active');
+          }
         });
       });
-      
-      // Trigger click on the first filter (not "All") to set initial view
-      if(filterButtons[1]) {
-        filterButtons[1].click();
-      } else if (filterButtons[0]) {
-        filterButtons[0].click(); // Fallback to "All" if no groups exist
-      }
-    }
+    });
   });
 </script>
 
 {% schema %}
 {
-  "name": "FAQ Section",
+  "name": "FAQ with Tabs",
   "tag": "section",
-  "class": "section",
+  "class": "section faq-tab-section",
   "settings": [
-    {
-  "type": "inline_richtext",
-  "id": "title",
-  "default": "Frequently Asked Questions",
-  "label": "Heading"
-},
-   {
-  "type": "select",
-  "id": "heading_size",
-  "options": [
-    {
-      "value": "h2",
-      "label": "Small"
-    },
-    {
-      "value": "h1",
-      "label": "Medium"
-    },
-    {
-      "value": "h0",
-      "label": "Large"
-    },
-    {
-      "value": "hxl",
-      "label": "Extra Large"
-    },
-    {
-      "value": "hxxl",
-      "label": "XX Large"
-    }
-  ],
-  "default": "h1",
-  "label": "Heading size"
-},
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -321,116 +215,153 @@
       "default": "scheme-1"
     },
     {
-      "type": "header",
-      "content": "View All Button"
-    },
-    {
       "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "View All FAQs"
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
     },
     {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link",
-      "info": "Link to your full FAQ page (e.g., /pages/faq)."
+      "type": "select",
+      "id": "heading_text_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     },
     {
-      "type": "header",
-      "content": "Section Padding"
+      "type": "range",
+      "id": "container_width",
+      "label": "Section Max Width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1000
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 20,
       "unit": "px",
-      "label": "Top Padding",
-      "default": 36
+      "label": "Padding Top",
+      "default": 40
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 20,
       "unit": "px",
-      "label": "Bottom Padding",
-      "default": 36
+      "label": "Padding Bottom",
+      "default": 40
     }
   ],
   "blocks": [
     {
-      "type": "group_header",
-      "name": "FAQ Group",
-      "limit": 10,
+      "type": "category",
+      "name": "FAQ Category",
+      "limit": 5,
       "settings": [
         {
           "type": "text",
-          "id": "title",
-          "label": "Group Title",
-          "default": "Shipping",
-          "info": "This creates a new filterable group. Add 'FAQ Item' blocks below this."
-        }
-      ]
-    },
-    {
-      "type": "faq_item",
-      "name": "FAQ Item",
-      "limit": 50,
-      "settings": [
+          "id": "tab_title",
+          "label": "Tab Title",
+          "default": "Orders"
+        },
+        {
+          "type": "header",
+          "content": "Question 1"
+        },
         {
           "type": "text",
-          "id": "question",
+          "id": "q1",
           "label": "Question",
-          "default": "What is the return policy?"
+          "default": "What is my order status?"
         },
         {
           "type": "richtext",
-          "id": "answer",
+          "id": "a1",
           "label": "Answer",
-          "default": "<p>Use this text to answer the question.</p>"
+          "default": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Question 2"
+        },
+        {
+          "type": "text",
+          "id": "q2",
+          "label": "Question",
+          "default": "Can I modify my order?"
+        },
+        {
+          "type": "richtext",
+          "id": "a2",
+          "label": "Answer",
+          "default": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Question 3"
+        },
+        {
+          "type": "text",
+          "id": "q3",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "a3",
+          "label": "Answer"
+        },
+        {
+          "type": "header",
+          "content": "Question 4"
+        },
+        {
+          "type": "text",
+          "id": "q4",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "a4",
+          "label": "Answer"
+        },
+        {
+          "type": "header",
+          "content": "Question 5"
+        },
+        {
+          "type": "text",
+          "id": "q5",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "a5",
+          "label": "Answer"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ Section",
+      "name": "FAQ with Tabs",
       "blocks": [
         {
-          "type": "group_header",
-          "settings": {
-            "title": "Shipping"
-          }
+          "type": "category"
         },
         {
-          "type": "faq_item",
+          "type": "category",
           "settings": {
-            "question": "How long does shipping take?",
-            "answer": "<p>Our standard shipping typically takes 3-5 business days within the country. International shipping times may vary.</p>"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "How can I track my order?",
-            "answer": "<p>Once your order has shipped, you will receive an email with a tracking number and a link to the carrier's website.</p>"
-          }
-        },
-        {
-          "type": "group_header",
-          "settings": {
-            "title": "Returns"
-          }
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "<p>We accept returns within 30 days of purchase for a full refund. Items must be in their original condition. Please visit our returns page to initiate a return.</p>"
+            "tab_title": "Shipping"
           }
         }
       ]
