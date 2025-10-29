@@ -260,6 +260,7 @@
         "text_item_XUyNfU": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/compliant.png",
             "title": "Safety and Compliance",
             "description": "Ensure that all furniture meets safety standards and regulations, especially for items like cribs or bunk beds if applicable. Check for any sharp edges or protruding parts that could pose a risk to guests, especially children."
           }
@@ -267,6 +268,7 @@
         "text_item_9WQTpg": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/save-the-world.png",
             "title": "Environmentally Friendly Options",
             "description": "Consider eco-friendly furniture options made from sustainable materials or with recyclable components. Look for certifications such as FSC (Forest Stewardship Council) for wood products or GREENGUARD for low-emission furniture."
           }
@@ -274,6 +276,7 @@
         "text_item_DqwVGE": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/customer-support.png",
             "title": "Customization and Branding",
             "description": "Some hotels and motels opt for customized furniture pieces that reflect their brand identity or unique design elements. Incorporate branding elements subtly into the furniture design, such as using custom upholstery or branded hardware. By paying attention to these details, hotel and motel owners can create a comfortable, visually appealing, and functional environment for their guests."
           }
@@ -281,6 +284,7 @@
         "text_item_bXDAGN": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/janitorial-service.png",
             "title": "Maintenance and Cleaning",
             "description": "Select materials that are easy to clean and maintain, such as stain-resistant fabrics or smooth surfaces that can be wiped down easily. Consider furniture designs that minimize dust accumulation and are easy to move for cleaningpurposes."
           }
