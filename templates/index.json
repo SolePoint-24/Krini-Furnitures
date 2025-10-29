@@ -1316,7 +1316,7 @@
     "faq_section_a9fqKK": {
       "type": "faq-section",
       "blocks": {
-        "category_rFrBng": {
+        "category_Jmh3im": {
           "type": "category",
           "settings": {
             "tab_title": "Orders",
@@ -1329,29 +1329,32 @@
             "q4": "",
             "a4": "",
             "q5": "",
-            "a5": ""
-          }
-        },
-        "category_GQQgbt": {
-          "type": "category",
-          "settings": {
-            "tab_title": "Orders",
-            "q1": "What is my order status?",
-            "a1": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>",
-            "q2": "Can I modify my order?",
-            "a2": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>",
-            "q3": "",
-            "a3": "",
-            "q4": "",
-            "a4": "",
-            "q5": "",
-            "a5": ""
+            "a5": "",
+            "q6": "",
+            "a6": "",
+            "q7": "",
+            "a7": "",
+            "q8": "",
+            "a8": "",
+            "q9": "",
+            "a9": "",
+            "q10": "",
+            "a10": "",
+            "q11": "",
+            "a11": "",
+            "q12": "",
+            "a12": "",
+            "q13": "",
+            "a13": "",
+            "q14": "",
+            "a14": "",
+            "q15": "",
+            "a15": ""
           }
         }
       },
       "block_order": [
-        "category_rFrBng",
-        "category_GQQgbt"
+        "category_Jmh3im"
       ],
       "name": "FAQ Section",
       "settings": {
