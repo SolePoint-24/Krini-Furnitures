@@ -1359,9 +1359,15 @@
       "name": "FAQ Section",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "background_color": "",
+        "text_color": "",
         "heading": "Frequently Asked Questions",
         "heading_text_alignment": "center",
         "container_width": 1000,
+        "heading_font_size": 36,
+        "tab_font_size": 16,
+        "question_font_size": 18,
+        "answer_font_size": 16,
         "padding_top": 40,
         "padding_bottom": 40
       }
