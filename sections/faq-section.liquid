@@ -20,7 +20,12 @@
 >
   <div class="container" style="{{ container_max_width }}">
     {%- if s.heading != blank -%}
-      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }}</h2>
+      <h2
+        class="section-heading h2"
+        style="{{ heading_text_alignment }} font-size: {{ s.heading_font_size }}px;"
+      >
+        {{ s.heading | escape }}
+      </h2>
     {%- endif -%}
 
     <div class="faq-tabs">
@@ -29,6 +34,7 @@
           class="faq-tab-button{% if forloop.first %} active{% endif %}"
           data-tab-target="#faq-panel-{{ block.id }}"
           {{ block.shopify_attributes }}
+          style="font-size: {{ s.tab_font_size }}px;"
         >
           {{ block.settings.tab_title | default: "Category" }}
         </button>
@@ -50,12 +56,12 @@
             -%}
             {%- if q_value != blank and a_value != blank -%}
               <details class="faq-item">
-                <summary class="faq-question">
+                <summary class="faq-question" style="font-size: {{ s.question_font_size }}px;">
                   <span>{{ q_value }}</span>
                   <svg class="icon-plus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                   <svg class="icon-minus" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </summary>
-                <div class="faq-answer rte">
+                <div class="faq-answer rte" style="font-size: {{ s.answer_font_size }}px;">
                   <div class="faq-answer-content">
                     {{ a_value }}
                   </div>
@@ -101,7 +107,7 @@
   
   .faq-tab-section .section-heading {
     margin-bottom: 40px;
-    font-size: {{ section.settings.heading_font_size }}px;
+    /* font-size removed from here */
   }
 
   .faq-tabs {
@@ -114,7 +120,7 @@
   }
   
   .faq-tab-button {
-    font-size: {{ section.settings.tab_font_size }}px;
+    /* font-size removed from here */
     font-weight: 600;
     padding: 10px 20px;
     cursor: pointer;
@@ -149,7 +155,7 @@
   }
   
   .faq-question {
-    font-size: {{ section.settings.question_font_size }}px;
+    /* font-size removed from here */
     font-weight: 600;
     padding: 20px 0;
     cursor: pointer;
@@ -167,7 +173,7 @@
   
   .faq-answer {
     padding-left: 16px; /* Indent answer */
-    font-size: {{ section.settings.answer_font_size }}px;
+    /* font-size removed from here */
     
     /* --- Animation --- */
     display: grid;
@@ -424,8 +430,8 @@
         { "type": "text", "id": "q12", "label": "Question" },
         { "type": "richtext", "id": "a12", "label": "Answer" },
         { "type": "header", "content": "Question 13" },
-        { "type": "text", "id":"q13", "label": "Question" },
-        { "type": "richtext", "id": "a13", "label": "Answer" },
+        { "type": "text", "id": "q13", "label": "Question" },
+        { "type": "richtext", "id": "a1s13", "label": "Answer" },
         { "type": "header", "content": "Question 14" },
         { "type": "text", "id": "q14", "label": "Question" },
         { "type": "richtext", "id": "a14", "label": "Answer" },
