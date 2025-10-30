@@ -48,7 +48,7 @@
             "vertical_alignment": "flex-end",
             "collection_card_gap": 0,
             "title_font": "Poppins, sans-serif",
-            "title_uppercase": true,
+            "title_uppercase": false,
             "shadow_h_offset": -21,
             "shadow_v_offset": 21,
             "shadow_blur": 0,
