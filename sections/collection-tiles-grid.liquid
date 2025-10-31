@@ -10,9 +10,6 @@
 {%- endcomment -%}
 {%- style -%}
   .collection-tiles-section-{{ section.id }} {
-    --tile-bg-color: {{ section.settings.tile_bg_color }};
-    --tile-text-color: {{ section.settings.tile_text_color }};
-    
     /* Apply color scheme */
     background-color: var(--color-background);
     color: var(--color-text);
@@ -20,6 +17,10 @@
     /* Apply padding settings */
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    /* Assign tile colors from pickers */
+    --tile-bg-color: {{ section.settings.tile_bg_color }};
+    --tile-text-color: {{ section.settings.tile_text_color }};
   }
 
   .collection-tiles__grid {
@@ -37,6 +38,7 @@
 
   .collection-tile__link {
     display: block;
+    /* Use variables from color pickers */
     background-color: var(--tile-bg-color);
     color: var(--tile-text-color);
     padding: 2.5rem 1.5rem; /* 40px 24px */
@@ -56,14 +58,14 @@
     font-size: 1.75rem; /* 28px */
     font-weight: 600;
     margin: 0 0 0.5rem 0;
-    color: var(--tile-text-color);
+    color: inherit; /* Inherit color from parent link */
   }
 
   .collection-tile__subtitle {
     font-size: 0.875rem; /* 14px */
     font-weight: 400;
     margin: 0;
-    color: var(--tile-text-color);
+    color: inherit; /* Inherit color from parent link */
     opacity: 0.9;
   }
 
@@ -166,7 +168,7 @@
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
-      "max": 5,
+      "max": 4,
       "step": 1,
       "label": "Columns on Desktop",
       "default": 2
