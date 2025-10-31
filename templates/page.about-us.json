@@ -436,13 +436,31 @@
             "title": "",
             "subtitle": ""
           }
+        },
+        "collection_tile_wJhiw4": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "hotel-projects",
+            "title": "",
+            "subtitle": ""
+          }
+        },
+        "collection_tile_NmTWYN": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "hotel-projects",
+            "title": "",
+            "subtitle": ""
+          }
         }
       },
       "block_order": [
         "collection_tile_GBbb94",
         "collection_tile_znBAp3",
         "collection_tile_QKnDFa",
-        "collection_tile_abxMxa"
+        "collection_tile_abxMxa",
+        "collection_tile_wJhiw4",
+        "collection_tile_NmTWYN"
       ],
       "name": "Collection Tiles Grid",
       "settings": {
