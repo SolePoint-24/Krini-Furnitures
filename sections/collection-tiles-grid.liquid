@@ -115,9 +115,6 @@
       </div>
     {%- endif -%}
 
-    {%- if section.blocks.size == 0 -%}
-      {%- render 'no-blocks-placeholder', message: "Add collection tiles to this section." -%}
-    {%- endif -%}
   </div>
 </div>
 
@@ -169,7 +166,7 @@
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
-      "max": 4,
+      "max": 5,
       "step": 1,
       "label": "Columns on Desktop",
       "default": 2
