@@ -1,0 +1,190 @@
+{%- comment -%}
+  This section displays a title and a grid of clickable collection tiles.
+  - Title text is configurable.
+  - Tiles are created using blocks.
+  - Tile colors are configurable.
+{%- endcomment -%}
+
+{%- comment -%}
+  Assign CSS variables from section settings
+{%- endcomment -%}
+{%- style -%}
+  .collection-tiles-section-{{ section.id }} {
+    --tile-bg-color: {{ section.settings.tile_bg_color }};
+    --tile-text-color: {{ section.settings.tile_text_color }};
+    
+    /* Apply color scheme */
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  .collection-tiles__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem; /* 24px */
+  }
+
+  /* On medium screens and up, switch to 2 columns */
+  @media screen and (min-width: 750px) {
+    .collection-tiles__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .collection-tile__link {
+    display: block;
+    background-color: var(--tile-bg-color);
+    color: var(--tile-text-color);
+    padding: 2.5rem 1.5rem; /* 40px 24px */
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .collection-tile__link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .collection-tile__title {
+    font-size: 1.75rem; /* 28px */
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--tile-text-color);
+  }
+
+  .collection-tile__subtitle {
+    font-size: 0.875rem; /* 14px */
+    font-weight: 400;
+    margin: 0;
+    color: var(--tile-text-color);
+    opacity: 0.9;
+  }
+
+  .collection-tiles__heading {
+    text-align: center;
+    margin-bottom: 2.5rem; /* 40px */
+  }
+{%- endstyle -%}
+
+<div class="collection-tiles-section-{{ section.id }} section-padding">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="collection-tiles__heading h2_style_2">
+        {{ section.settings.title | escape }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="collection-tiles__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign collection = block.settings.collection
+            assign tile_title = block.settings.title
+            assign tile_subtitle = block.settings.subtitle
+
+            if tile_title == blank and collection != blank
+              assign tile_title = collection.title
+            elsif tile_title == blank
+              assign tile_title = "Collection Title"
+            endif
+
+            assign collection_url = collection.url | default: "#"
+          -%}
+          <div
+            class="collection-tile__item"
+            {{ block.shopify_attributes }}
+          >
+            <a href="{{ collection_url }}" class="collection-tile__link">
+              <h3 class="collection-tile__title">{{ tile_title | escape }}</h3>
+              {%- if tile_subtitle != blank -%}
+                <p class="collection-tile__subtitle">{{ tile_subtitle | escape }}</p>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size == 0 -%}
+      {%- render 'no-blocks-placeholder', message: "Add collection tiles to this section." -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Tiles Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Classes We Offer"
+    },
+    {
+      "type": "header",
+      "content": "Tile Colors"
+    },
+    {
+      "type": "color",
+      "id": "tile_bg_color",
+      "label": "Tile Background Color",
+      "default": "#223F29"
+    },
+    {
+      "type": "color",
+      "id": "tile_text_color",
+      "label": "Tile Text Color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tile",
+      "name": "Collection Tile",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Leave blank to use the collection's title. Example: 'Painting Classes'"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "info": "Example: 'Age Group: 19+'"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Tiles Grid",
+      "blocks": [
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" },
+        { "type": "collection_tile" }
+      ]
+    }
+  ]
+}
+{% endschema %}
