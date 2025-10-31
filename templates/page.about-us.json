@@ -402,6 +402,56 @@
         "padding_bottom": 40
       }
     },
+    "collection_tiles_grid_jRffKA": {
+      "type": "collection-tiles-grid",
+      "blocks": {
+        "collection_tile_GBbb94": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "l-shape-sofa-cum-beds",
+            "title": "",
+            "subtitle": ""
+          }
+        },
+        "collection_tile_znBAp3": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "wall-beds",
+            "title": "",
+            "subtitle": ""
+          }
+        },
+        "collection_tile_QKnDFa": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "designer-collaborations",
+            "title": "",
+            "subtitle": ""
+          }
+        },
+        "collection_tile_abxMxa": {
+          "type": "collection_tile",
+          "settings": {
+            "collection": "hotel-projects",
+            "title": "",
+            "subtitle": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tile_GBbb94",
+        "collection_tile_znBAp3",
+        "collection_tile_QKnDFa",
+        "collection_tile_abxMxa"
+      ],
+      "name": "Collection Tiles Grid",
+      "settings": {
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "title": "Our Furniture Products",
+        "tile_bg_color": "#223F29",
+        "tile_text_color": "#FFFFFF"
+      }
+    },
     "features_grid_FXbkWw": {
       "type": "features-grid",
       "blocks": {
@@ -3246,6 +3296,7 @@
     "section_aPAY3V",
     "section_CQdPLk",
     "multi_collection_showcase_PN8Hza",
+    "collection_tiles_grid_jRffKA",
     "features_grid_FXbkWw",
     "section_8hDccJ",
     "section_BarAtL",
