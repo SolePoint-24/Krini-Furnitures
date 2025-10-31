@@ -10,9 +10,9 @@
 {%- endcomment -%}
 {%- style -%}
   .collection-tiles-section-{{ section.id }} {
-    /* Apply color scheme */
-    background-color: var(--color-background);
-    color: var(--color-text);
+    /* Color scheme is now applied by the "color-{{ section.settings.color_scheme }}" 
+      class on the main div, using your theme's global styles. 
+    */
 
     /* Apply padding settings */
     padding-top: {{ section.settings.padding_top }}px;
@@ -21,6 +21,16 @@
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
     --tile-text-color: {{ section.settings.tile_text_color }};
+
+    /* Assign max width from picker */
+    --section-max-width: {{ section.settings.max_width }}px;
+  }
+
+  /* Apply the max-width to the page-width container inside this section */
+  .collection-tiles-section-{{ section.id }} .page-width {
+    max-width: var(--section-max-width);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .collection-tiles__grid {
@@ -78,7 +88,7 @@
   }
 {%- endstyle -%}
 
-<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}" >
+<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="collection-tiles__heading h2_style_2">
@@ -116,7 +126,6 @@
         {%- endfor -%}
       </div>
     {%- endif -%}
-
   </div>
 </div>
 
@@ -201,6 +210,16 @@
       "unit": "px",
       "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Content Width",
+      "default": 1200
     }
   ],
   "blocks": [
