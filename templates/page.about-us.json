@@ -472,7 +472,8 @@
         "columns_desktop": 3,
         "columns_mobile": 1,
         "padding_top": 40,
-        "padding_bottom": 40
+        "padding_bottom": 40,
+        "max_width": 1600
       }
     },
     "features_grid_FXbkWw": {
