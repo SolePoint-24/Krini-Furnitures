@@ -18,7 +18,7 @@
   # Create an inline style to FORCE the background color
   assign section_styles = ''
   if s.color_scheme != blank and s.color_scheme.settings.background
-    assign bg_color = s.color_scheme.settings.background | color_to_css
+    assign bg_color = s.color_scheme.settings.background 
     assign section_styles = 'background-color: ' | append: bg_color | append: ';'
   endif
 -%}
