@@ -4,7 +4,8 @@
   !! FIX: Corrected missing '| color_to_css' filter.
   !! This was the error breaking the background color.
   
-  !! NEW: Added a text-based scroll hint for mobile devices.
+  !! NEW: Replaced static text with a "peek-a-boo" scroll
+  !! animation and a gradient fade on mobile.
 {%- endcomment -%}
 
 {%- liquid
@@ -21,7 +22,7 @@
   if s.color_scheme != blank and s.color_scheme.settings.background
     # THIS IS THE PERMANENT FIX: Added the '| color_to_css' filter
     assign bg_color = s.color_scheme.settings.background 
-    assign section_styles = 'background-color: ' | append: bg_color | append: ';'
+    assign section_styles = 'background-color: ' | append: bg_color | append: '; --section-bg-color: ' | append: bg_color | append: ';'
   endif
 -%}
 
@@ -37,20 +38,16 @@
     padding: 50px 0; /* Vertical padding for the section */
   }
 
-  /* This class must be here for the full-width toggle */
   .section--full-width {
     width: 100vw;
     margin-left: calc( (100% - 100vw) / 2 );
   }
 
-  /* This wrapper centers the content and adds horizontal padding */
   .dynamic-table-content-wrapper {
     padding: 40px;
     max-width: 1536px; /* Max width of the content */
     margin-left: auto;
     margin-right: auto;
-    
-    /* MOBILE OVERFLOW FIX: */
     width: 100%;
     box-sizing: border-box; 
   }
@@ -73,11 +70,12 @@
 
   .dynamic-table-section-{{ section.id }} .table-scroll-wrapper {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
     border: 1px solid var(--color-border, #e5e5e5);
     border-radius: 8px;
     margin: 0 auto;
     max-width: 100%; 
+    position: relative; /* Needed for the gradient hint */
   }
 
   .dynamic-table-section-{{ section.id }} .spec-table {
@@ -88,12 +86,12 @@
 
   .dynamic-table-section-{{ section.id }} .spec-table th,
   .dynamic-table-section-{{ section.id }} .spec-table td {
-    padding: 0.875rem 1rem; /* 14px 16px */
+    padding: 0.875rem 1rem;
     border: 1px solid var(--color-border, #e5e5e5);
     text-align: left;
     vertical-align: middle;
-    white-space: nowrap; /* Prevents text from wrapping */
-    background-color: transparent; /* This lets the section BG show through */
+    white-space: nowrap;
+    background-color: transparent;
   }
 
   .dynamic-table-section-{{ section.id }} .spec-table thead th {
@@ -129,19 +127,34 @@
     stroke-width: 2.5;
   }
 
-  /* --- NEW: Scroll Hint CSS --- */
-  .dynamic-table-section-{{ section.id }} .scroll-hint-text {
-    display: none; /* Hidden on desktop */
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--color-text, #555);
-    opacity: 0.7;
-    margin-top: 1rem;
+  /* --- NEW: Scroll Animation & Hint --- */
+
+  /* 1. The Keyframe Animation */
+  @keyframes peek-a-boo-scroll {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-40px); } /* The "peek" */
+    40% { transform: translateX(-40px); } /* Hold the "peek" */
+    60% { transform: translateX(0); } /* Return */
+    100% { transform: translateX(0); }
   }
 
+  /* 2. Gradient Fade Hint (Mobile Only) */
   @media (max-width: 767px) {
-    .dynamic-table-section-{{ section.id }} .scroll-hint-text {
-      display: block; /* Visible on mobile */
+    .dynamic-table-section-{{ section.id }} .table-scroll-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      background: linear-gradient(to left, var(--section-bg-color, #FFF), transparent);
+      pointer-events: none; /* Lets you scroll "through" it */
+    }
+
+    /* 3. Apply the "peek" animation to the table on mobile */
+    .dynamic-table-section-{{ section.id }} .spec-table {
+      /* animation: name duration timing-function delay iteration-count */
+      animation: peek-a-boo-scroll 3s ease-in-out 2.5s 2;
     }
   }
 {%- endstyle -%}
@@ -208,12 +221,8 @@
           </tbody>
         </table>
       </div>
-
-      <div class="scroll-hint-text">
-        &larr; Scroll for more &rarr;
-      </div>
       
-    {%- endif -%}
+      {%- endif -%}
 
   </div> </div>
 
