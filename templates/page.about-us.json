@@ -432,7 +432,7 @@
         "collection_tile_abxMxa": {
           "type": "collection_tile",
           "settings": {
-            "collection": "hotel-projects",
+            "collection": "eurasia-center-cum-folding-bed-hardware-fittings-1",
             "title": "",
             "subtitle": ""
           }
@@ -440,7 +440,7 @@
         "collection_tile_wJhiw4": {
           "type": "collection_tile",
           "settings": {
-            "collection": "hotel-projects",
+            "collection": "beds-1",
             "title": "",
             "subtitle": ""
           }
@@ -448,7 +448,7 @@
         "collection_tile_NmTWYN": {
           "type": "collection_tile",
           "settings": {
-            "collection": "hotel-projects",
+            "collection": "residential-installs",
             "title": "",
             "subtitle": ""
           }
@@ -465,7 +465,7 @@
       "name": "Collection Tiles Grid",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "section_bg_color": "#f3efe7",
+        "section_bg_color": "",
         "full_width": true,
         "title": "Our Furniture Products",
         "heading_color": "#000000",
