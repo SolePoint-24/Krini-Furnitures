@@ -161,6 +161,20 @@
             "spec_title": "Automated Process",
             "row_data": "tick | cross | tick"
           }
+        },
+        "table_row_MpekEC": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Core Gaps",
+            "row_data": "cross | tick | cross"
+          }
+        },
+        "table_row_Dp3kHc": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Delamination",
+            "row_data": "cross | cross | tick"
+          }
         }
       },
       "block_order": [
@@ -178,7 +192,9 @@
         "table_row_FKLBYn",
         "table_row_Qbd8BJ",
         "table_row_8w6U9U",
-        "table_row_paiezj"
+        "table_row_paiezj",
+        "table_row_MpekEC",
+        "table_row_Dp3kHc"
       ],
       "name": "Dynamic Table",
       "settings": {
