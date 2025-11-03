@@ -9,7 +9,7 @@
   Assign CSS variables from section settings
 {%- endcomment -%}
 {%- style -%}
-  .collection-tiles-section {
+  .collection-tiles-section-{{ section.id }} {
     /* Color scheme is now applied by the "color-{{ section.settings.color_scheme }}" 
       class on the main div, using your theme's global styles. 
     */
@@ -23,10 +23,11 @@
     --tile-text-color: {{ section.settings.tile_text_color }};
 
     /* Assign max width from picker */
+    --section-max-width: {{ section.settings.max_width }}px;
   }
 
   /* Apply the max-width to the page-width container inside this section */
-  .collection-tiles-section .page-width {
+  .collection-tiles-section-{{ section.id }} .page-width {
     margin-left: auto;
     margin-right: auto;
   }
@@ -86,7 +87,7 @@
   }
 {%- endstyle -%}
 
-<section class="collection-tiles-section color-{{ section.settings.color_scheme }}">
+<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="collection-tiles__heading h2_style_2">
@@ -125,7 +126,7 @@
       </div>
     {%- endif -%}
   </div>
-</section>
+</div>
 
 {% schema %}
 {
