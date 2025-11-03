@@ -126,6 +126,13 @@
             "spec_title": "All Glue Line",
             "row_data": "tick | cross | tick"
           }
+        },
+        "table_row_e39ymd": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Easy to Cut",
+            "row_data": "tick | tick | tick"
+          }
         }
       },
       "block_order": [
@@ -138,7 +145,8 @@
         "table_row_U6p8Di",
         "table_row_pPU8Xa",
         "table_row_aUK8Ae",
-        "table_row_C9ar8N"
+        "table_row_C9ar8N",
+        "table_row_e39ymd"
       ],
       "name": "Dynamic Table",
       "settings": {
