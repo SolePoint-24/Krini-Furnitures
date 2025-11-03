@@ -1,9 +1,8 @@
 {%- comment -%}
   This is a NEW section file for a 3x3 features grid.
   
-  - It uses the full-width background and centered content layout.
-  - The grid is set to 3 columns on desktop.
-  - The Color Scheme background is forced to apply.
+  !! FIX: Changed {% stylesheet %} to {% style %} to
+  !! fix linter errors and allow Liquid variables in CSS.
 {%- endcomment -%}
 
 {%- liquid
@@ -13,7 +12,7 @@
   # Create an inline style to FORCE the background color
   assign section_styles = ''
   if s.color_scheme != blank and s.color_scheme.settings.background
-    assign bg_color = s.color_scheme.settings.background | color_to_css
+    assign bg_color = s.color_scheme.settings.background 
     assign section_styles = 'background-color: ' | append: bg_color | append: ';'
   endif
 -%}
@@ -64,7 +63,7 @@
   </div>
 </section>
 
-{% stylesheet %}
+{%- style -%}
   /* ---
     LAYOUT STYLES
   --- */
@@ -188,7 +187,7 @@
       border-right: 1px solid var(--color-border, #e5e5e5);
     }
   }
-{% endstylesheet %}
+{%- endstyle -%}
 
 {% schema %}
 {
