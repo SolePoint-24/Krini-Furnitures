@@ -98,6 +98,34 @@
             "spec_title": "Duco Paint",
             "row_data": "tick | cross | tick"
           }
+        },
+        "table_row_U6p8Di": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Calibrated",
+            "row_data": "tick | cross | tick"
+          }
+        },
+        "table_row_pPU8Xa": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Use of Conventional Tools",
+            "row_data": "tick | tick | cross"
+          }
+        },
+        "table_row_aUK8Ae": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Dimensional Stability",
+            "row_data": "tick | tick | cross"
+          }
+        },
+        "table_row_C9ar8N": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "All Glue Line",
+            "row_data": "tick | cross | tick"
+          }
         }
       },
       "block_order": [
@@ -106,7 +134,11 @@
         "column_header_4ndqtk",
         "table_row_ap8YCM",
         "table_row_wW8eMp",
-        "table_row_h4M6n8"
+        "table_row_h4M6n8",
+        "table_row_U6p8Di",
+        "table_row_pPU8Xa",
+        "table_row_aUK8Ae",
+        "table_row_C9ar8N"
       ],
       "name": "Dynamic Table",
       "settings": {
