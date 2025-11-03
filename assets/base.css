@@ -4353,7 +4353,3 @@ text-component {
   font-size: 0.9em;
   color: #757575;       /* <-- Hardcoded compare-at price color */
 }
-
-..swiper-pagination{
-  z-index:2
-}
