@@ -1,0 +1,317 @@
+{%- comment -%}
+  This section displays a dynamic comparison table.
+  - Columns are created with 'column_header' blocks.
+  - Rows are created with 'table_row' blocks.
+  - On mobile, the table wraps in a scrollable container ("carousel").
+  - Automatically converts 'tick'/'cross' to icons.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+
+  # Get all column header blocks
+  assign column_blocks = section.blocks | where: 'type', 'column_header'
+  # Get all table row blocks
+  assign row_blocks = section.blocks | where: 'type', 'table_row'
+-%}
+
+{%- comment -%}
+  CSS for the section
+{%- endcomment -%}
+{%- style -%}
+  /* --- Standard Layout Classes --- */
+  .padding-top-0 { padding-top: 0; }
+  .padding-top-20 { padding-top: 20px; }
+  .padding-top-40 { padding-top: 40px; }
+  .padding-top-60 { padding-top: 60px; }
+  .padding-top-80 { padding-top: 80px; }
+  .padding-top-100 { padding-top: 100px; }
+
+  .padding-bottom-0 { padding-bottom: 0; }
+  .padding-bottom-20 { padding-bottom: 20px; }
+  .padding-bottom-40 { padding-bottom: 40px; }
+  .padding-bottom-60 { padding-bottom: 60px; }
+  .padding-bottom-80 { padding-bottom: 80px; }
+  .padding-bottom-100 { padding-bottom: 100px; }
+
+  .section--full-width {
+    width: 100vw;
+    margin-left: calc( (100% - 100vw) / 2 );
+  }
+
+  /* --- Section Specific CSS --- */
+  .dynamic-table-section-{{ section.id }} .section-heading {
+    margin-bottom: 2.5rem; /* 40px */
+  }
+
+  /* This is the "carousel" wrapper.
+    It allows the table to scroll horizontally on small screens.
+  */
+  .dynamic-table-section-{{ section.id }} .table-scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .dynamic-table-section-{{ section.id }} .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* This is key for mobile. 
+      It forces the table to be wide, which triggers the scroll.
+    */
+    min-width: 600px; 
+  }
+
+  .dynamic-table-section-{{ section.id }} .spec-table th,
+  .dynamic-table-section-{{ section.id }} .spec-table td {
+    padding: 0.875rem 1rem; /* 14px 16px */
+    border: 1px solid var(--color-border, #e5e5e5);
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap; /* Prevents text from wrapping */
+  }
+
+  .dynamic-table-section-{{ section.id }} .spec-table thead th {
+    background-color: var(--color-background-muted, #f8f8f8);
+    font-weight: 600;
+  }
+
+  /* First column header (e.g., "Specifications") */
+  .dynamic-table-section-{{ section.id }} .spec-table thead th:first-child {
+    background-color: var(--color-background-secondary, #f1f1f1);
+    font-weight: 700;
+    min-width: 200px; /* Give the spec name column some space */
+    white-space: normal;
+  }
+  
+  /* First column in the body (row titles) */
+  .dynamic-table-section-{{ section.id }} .spec-table tbody td:first-child {
+    font-weight: 600;
+    background-color: var(--color-background-muted, #f8f8f8);
+    white-space: normal;
+  }
+
+  /* Center-align the tick/cross cells */
+  .dynamic-table-section-{{ section.id }} .spec-table td[data-icon] {
+    text-align: center;
+  }
+
+  .dynamic-table-section-{{ section.id }} .icon-check {
+    width: 20px;
+    height: 20px;
+    stroke: green;
+    stroke-width: 2.5;
+  }
+  
+  .dynamic-table-section-{{ section.id }} .icon-cross {
+    width: 20px;
+    height: 20px;
+    stroke: red;
+    stroke-width: 2.5;
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  SVG definitions for the icons
+{%- endcomment -%}
+<svg style="display: none;">
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </symbol>
+  <symbol id="icon-cross" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </symbol>
+</svg>
+
+<div
+  class="dynamic-table-section-{{ section.id }} section color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }} {% if s.full_width %}section--full-width{% endif %}"
+>
+  <div class="page-width">
+    {%- if s.heading != blank -%}
+      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">
+        {{ s.heading | escape }}
+      </h2>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="table-scroll-wrapper">
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th>{{ s.first_column_title | escape }}</th>
+            
+            {%- for block in column_blocks -%}
+              <th {{ block.shopify_attributes }}>
+                {{ block.settings.title | escape }}
+              </th>
+            {%- endfor -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in row_blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ block.settings.spec_title | escape }}</td>
+              
+              {%- assign cells = block.settings.row_data | split: '|' -%}
+
+              {%- for cell in cells -%}
+                {%- assign cell_content = cell | strip | downcase -%}
+
+                {%- if cell_content == 'tick' or cell_content == 'yes' or cell_content == 'check' -%}
+                  <td data-icon="check">
+                    <svg class="icon-check" aria-hidden="true" focusable="false"><use href="#icon-check" /></svg>
+                  </td>
+                {%- elsif cell_content == 'cross' or cell_content == 'no' or cell_content == 'x' -%}
+                  <td data-icon="cross">
+                    <svg class="icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross" /></svg>
+                  </td>
+                {%- else -%}
+                  <td>{{ cell | strip }}</td>
+                {%- endif -%}
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Dynamic Table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Specifications"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "first_column_title",
+      "label": "First Column Title",
+      "default": "Specifications"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 20,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 20,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column_header",
+      "name": "Column Header",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column Title",
+          "default": "Column"
+        }
+      ]
+    },
+    {
+      "type": "table_row",
+      "name": "Table Row",
+      "limit": 50,
+      "settings": [
+        {
+          "type": "text",
+          "id": "spec_title",
+          "label": "Specification Name",
+          "default": "Density"
+        },
+        {
+          "type": "text",
+          "id": "row_data",
+          "label": "Row Data",
+          "info": "Separate data for each column with a pipe (|). Use 'tick' or 'cross' for icons. Example: `Value 1 | tick | cross | Value 4`"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Table",
+      "blocks": [
+        { "type": "column_header", "settings": { "title": "S-OSB" } },
+        { "type": "column_header", "settings": { "title": "Plywood" } },
+        { "type": "column_header", "settings": { "title": "HDF" } },
+        { 
+          "type": "table_row", 
+          "settings": { 
+            "spec_title": "Density(in Lb/m3)", 
+            "row_data": "1545 - 1655 | 1435 - 1545 | 1545 - 1655" 
+          } 
+        },
+        { 
+          "type": "table_row", 
+          "settings": { 
+            "spec_title": "Prelam Option", 
+            "row_data": "tick | cross | tick" 
+          } 
+        },
+        { 
+          "type": "table_row", 
+          "settings": { 
+            "spec_title": "Duco Paint", 
+            "row_data": "tick | cross | tick" 
+          } 
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
