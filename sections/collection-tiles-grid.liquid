@@ -7,11 +7,20 @@
   !! LAYOUT MERGED FROM 'FEATURES GRID' !!
   - Added full_width, color_scheme, and new padding settings.
   - Added new CSS for padding and full-width breakout.
+
+  !! FIX !!
+  - Moved 'section_bg_color' to an inline style to win CSS specificity.
 {%- endcomment -%}
 
 {%- liquid
   assign s = section.settings
-  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';' -%}
+
+  comment "FIX: Create an inline style variable for the background" endcomment
+  assign section_styles = ''
+  if s.section_bg_color != blank
+    assign section_styles = 'background-color: ' | append: s.section_bg_color | append: ';'
+  endif
 -%}
 
 {%- comment -%}
@@ -42,6 +51,10 @@
   /* Original Collection Tile CSS */
   .collection-tiles-section-{{ section.id }} {
     /* Padding is now handled by classes on the main div */
+    
+    /* FIX: Removed background-color from here. 
+      It's now handled by an inline style on the main div.
+    */
 
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
@@ -105,6 +118,7 @@
 
 <div
   class="collection-tiles-section-{{ section.id }} section color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }} {% if s.full_width %}section--full-width{% endif %}"
+  style="{{ section_styles }}"
 >
   <div class="page-width">
     {%- if section.settings.title != blank -%}
@@ -157,6 +171,12 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Custom Background Color",
+      "info": "Optional. Overrides the background color from the Color Scheme."
     },
     {
       "type": "checkbox",
