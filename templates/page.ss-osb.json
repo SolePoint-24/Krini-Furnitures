@@ -173,9 +173,9 @@
       ],
       "name": "Features Grid (3 Column)",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
         "full_width": true,
-        "heading": "Our Commitments",
+        "heading": "",
         "heading_text_alignment": "center"
       }
     }
