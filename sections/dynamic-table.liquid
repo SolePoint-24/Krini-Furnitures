@@ -1,9 +1,8 @@
 {%- comment -%}
   This section displays a dynamic comparison table.
-  - It now uses the layout, padding, and container styles from your
-    'Image with Text Carousel' section.
-  - The 'full_width' and 'padding' settings have been removed.
-  - The Color Scheme background is applied directly.
+  
+  !! FIX: This version uses the EXACT layout from the 'Image Carousel'
+  !! section to achieve a full-width background with centered content.
 {%- endcomment -%}
 
 {%- liquid
@@ -28,29 +27,36 @@
 {%- endcomment -%}
 {%- style -%}
   /* ---
-    NEW LAYOUT STYLES
+    LAYOUT STYLES
     Copied from 'Image with Text Carousel'
   --- */
   .dynamic-table-section-{{ section.id }} {
-    padding: 50px 0; /* Adjust padding as needed for desktop */
+    padding: 50px 0; /* Vertical padding for the section */
   }
 
-  .dynamic-table-wrapper {
+  /* This class must be here for the full-width toggle */
+  .section--full-width {
+    width: 100vw;
+    margin-left: calc( (100% - 100vw) / 2 );
+  }
+
+  /* This wrapper centers the content and adds horizontal padding */
+  .dynamic-table-content-wrapper {
     padding: 40px;
-    max-width: 1536px; /* Adjust max-width as needed */
+    max-width: 1536px; /* Max width of the content */
     margin-left: auto;
     margin-right: auto;
   }
 
   @media (max-width: 768px) {
-    .dynamic-table-wrapper {
-      padding: 0 20px; /* Add horizontal padding to the wrapper on mobile */
-    }
     .dynamic-table-section-{{ section.id }} {
-      padding: 30px 0; /* Adjust vertical padding for the whole section on mobile */
+      padding: 30px 0; /* Adjust vertical padding for mobile */
+    }
+    .dynamic-table-content-wrapper {
+      padding: 0 20px; /* Adjust horizontal padding for mobile */
     }
   }
-  /* --- End of new layout styles --- */
+  /* --- End of layout styles --- */
 
 
   /* --- Section Specific CSS --- */
@@ -58,9 +64,6 @@
     margin-bottom: 2.5rem; /* 40px */
   }
 
-  /* This is the "carousel" wrapper.
-    It allows the table to scroll horizontally on small screens.
-  */
   .dynamic-table-section-{{ section.id }} .table-scroll-wrapper {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
@@ -72,9 +75,6 @@
   .dynamic-table-section-{{ section.id }} .spec-table {
     width: 100%;
     border-collapse: collapse;
-    /* This is key for mobile. 
-      It forces the table to be wide, which triggers the scroll.
-    */
     min-width: 600px; 
   }
 
@@ -92,20 +92,17 @@
     font-weight: 600;
   }
 
-  /* First column header (e.g., "Specifications") */
   .dynamic-table-section-{{ section.id }} .spec-table thead th:first-child {
     font-weight: 700;
-    min-width: 200px; /* Give the spec name column some space */
+    min-width: 200px;
     white-space: normal;
   }
   
-  /* First column in the body (row titles) */
   .dynamic-table-section-{{ section.id }} .spec-table tbody td:first-child {
     font-weight: 600;
     white-space: normal;
   }
 
-  /* Center-align the tick/cross cells */
   .dynamic-table-section-{{ section.id }} .spec-table td[data-icon] {
     text-align: center;
   }
@@ -139,10 +136,10 @@
 </svg>
 
 <div
-  class="dynamic-table-section-{{ section.id }} section"
+  class="dynamic-table-section-{{ section.id }} section {% if s.full_width %}section--full-width{% endif %}"
   style="{{ section_styles }}"
 >
-  <div class="dynamic-table-wrapper">
+  <div class="dynamic-table-content-wrapper">
     
     {%- if s.heading != blank -%}
       <h2 class="section-heading h2" style="{{ heading_text_alignment }}">
@@ -208,6 +205,12 @@
       "default": "scheme-1"
     },
     {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
@@ -230,8 +233,6 @@
       "label": "First Column Title",
       "default": "Specifications"
     }
-    /* REMOVED: 'full_width', 'padding_top', 'padding_bottom'
-    */
   ],
   "blocks": [
     {
