@@ -3,6 +3,9 @@
   
   !! FIX: This version uses the EXACT layout from the 'Image Carousel'
   !! section to achieve a full-width background with centered content.
+  
+  !! MOBILE FIX: Added 'max-width: 100%' to '.table-scroll-wrapper'
+  !! to enable horizontal scrolling ("carousel") on mobile.
 {%- endcomment -%}
 
 {%- liquid
@@ -70,6 +73,7 @@
     border: 1px solid var(--color-border, #e5e5e5);
     border-radius: 8px;
     margin: 0 auto;
+    max-width: 100%; /* <-- THIS IS THE MOBILE SCROLLING FIX */
   }
 
   .dynamic-table-section-{{ section.id }} .spec-table {
