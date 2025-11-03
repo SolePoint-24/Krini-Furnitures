@@ -1,27 +1,191 @@
+{%- comment -%}
+  This section displays a dynamic FAQ with tabs.
+  
+  !! LAYOUT UPDATED !!
+  - This section now uses the same full-width layout as the 'Dynamic Table'.
+  - The 'full_width' toggle has been added.
+  - The old padding and container_width settings have been removed.
+  - The Color Scheme background is now forced to apply.
+{%- endcomment -%}
+
 {%- liquid
   assign s = section.settings
-  assign container_max_width = 'max-width: ' | append: s.container_width | append: 'px;'
   assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
 
+  # Create an inline style to FORCE the background color from the Color Scheme
   assign section_styles = ''
-  if s.background_color != 'rgba(0,0,0,0)' and s.background_color != blank
-    assign section_styles = section_styles | append: '--color-background: ' | append: s.background_color | append: ';'
+  if s.color_scheme != blank and s.color_scheme.settings.background
+    assign bg_color = s.color_scheme.settings.background 
+    assign section_styles = 'background-color: ' | append: bg_color | append: ';'
   endif
+
+  # Add custom text color if set
   if s.text_color != 'rgba(0,0,0,0)' and s.text_color != blank
     assign section_styles = section_styles | append: '--color-text: ' | append: s.text_color | append: ';'
     assign section_styles = section_styles | append: '--color-border: ' | append: s.text_color | append: ' | color_modify: "alpha", 0.2;'
   endif
+  
+  # Add custom tab BG color if set
   if s.tab_bg_color != 'rgba(0,0,0,0)' and s.tab_bg_color != blank
     assign section_styles = section_styles | append: '--color-tab-background: ' | append: s.tab_bg_color | append: ';'
   endif
 -%}
 
+{%- comment -%}
+  CSS for the section
+{%- endcomment -%}
+{%- style -%}
+  /* ---
+    NEW LAYOUT STYLES
+    Copied from 'Dynamic Table'
+  --- */
+  .faq-tab-section-{{ section.id }} {
+    padding: 50px 0; /* Vertical padding for the section */
+    
+    /* Apply custom colors from settings */
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  /* This class must be here for the full-width toggle */
+  .section--full-width {
+    width: 100vw;
+    margin-left: calc( (100% - 100vw) / 2 );
+  }
+
+  /* This wrapper centers the content and adds horizontal padding */
+  .faq-content-wrapper {
+    padding: 40px;
+    max-width: 1536px; /* Max width of the content */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .faq-tab-section-{{ section.id }} {
+      padding: 30px 0; /* Adjust vertical padding for mobile */
+    }
+    .faq-content-wrapper {
+      padding: 0 20px; /* Adjust horizontal padding for mobile */
+    }
+  }
+  /* --- End of new layout styles --- */
+
+
+  /* --- Original FAQ Styles --- */
+  .faq-tab-section-{{ section.id }} .section-heading {
+    margin-bottom: 40px;
+    /* font-size removed from here, applied inline */
+  }
+
+  .faq-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .faq-tab-button {
+    /* font-size removed from here, applied inline */
+    font-weight: 600;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: var(--color-tab-background, #e0e0e0);
+    color: var(--color-text, #333);
+    opacity: 0.7;
+    border-bottom: none;
+    margin-bottom: -1px;
+    transition: opacity 0.2s ease;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .faq-tab-button:hover {
+    opacity: 1;
+  }
+
+  .faq-tab-button.active {
+    opacity: 1;
+    border-color: transparent;
+  }
+
+  .faq-content-panel {
+    display: none;
+  }
+
+  .faq-content-panel.active {
+    display: block;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border, #e5e5e5);
+  }
+
+  .faq-question {
+    /* font-size removed from here, applied inline */
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none; /* Removes default triangle */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* Hide native summary marker */
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-answer {
+    padding-left: 16px; /* Indent answer */
+    /* font-size removed from here, applied inline */
+
+    /* --- Animation --- */
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+  }
+
+  .faq-answer-content {
+    /* This inner wrapper allows for padding and overflow control */
+    overflow: hidden;
+    padding-bottom: 20px;
+  }
+
+  .faq-item[open] .faq-answer {
+    grid-template-rows: 1fr;
+  }
+
+  /* --- Accordion Icons --- */
+  .faq-item .icon-plus,
+  .faq-item .icon-minus {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--color-text, #333);
+  }
+
+  .faq-item .icon-minus {
+    display: none;
+  }
+
+  .faq-item[open] .icon-plus {
+    display: none;
+  }
+
+  .faq-item[open] .icon-minus {
+    display: block;
+  }
+{%- endstyle -%}
+
 <section
-  class="faq-tab-section color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }}"
+  class="faq-tab-section-{{ section.id }} section {% if s.full_width %}section--full-width{% endif %}"
   data-section-id="{{ section.id }}"
   style="{{ section_styles }}"
 >
-  <div class="container" style="{{ container_max_width }}">
+  <div class="faq-content-wrapper">
     {%- if s.heading != blank -%}
       <h2
         class="section-heading h2"
@@ -103,144 +267,7 @@
         </div>
       {%- endfor -%}
     </div>
-  </div>
-</section>
-
-<style>
-  .padding-top-0 { padding-top: 0; }
-  .padding-top-20 { padding-top: 20px; }
-  .padding-top-40 { padding-top: 40px; }
-  .padding-top-60 { padding-top: 60px; }
-  .padding-top-80 { padding-top: 80px; }
-  .padding-top-100 { padding-top: 100px; }
-
-  .padding-bottom-0 { padding-bottom: 0; }
-  .padding-bottom-20 { padding-bottom: 20px; }
-  .padding-bottom-40 { padding-bottom: 40px; }
-  .padding-bottom-60 { padding-bottom: 60px; }
-  .padding-bottom-80 { padding-bottom: 80px; }
-  .padding-bottom-100 { padding-bottom: 100px; }
-</style>
-
-{% stylesheet %}
-  .faq-tab-section {
-    background-color: var(--color-background);
-    color: var(--color-text);
-  }
-
-  .faq-tab-section .container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .faq-tab-section .section-heading {
-    margin-bottom: 40px;
-    /* font-size removed from here */
-  }
-
-  .faq-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
-
-  .faq-tab-button {
-    /* font-size removed from here */
-    font-weight: 600;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    background-color: var(--color-tab-background, #e0e0e0); /* NEW: Use new color variable */
-    color: var(--color-text, #333);
-    opacity: 0.7; /* NEW: This is the inactive state */
-    border-bottom: none; /* REMOVED: no more underline */
-    margin-bottom: -1px; /* Align with wrapper border */
-    transition: opacity 0.2s ease; /* UPDATED: transition opacity only */
-    border-radius: 5px 5px 0 0; /* NEW: Added for tab styling */
-  }
-
-  .faq-tab-button:hover {
-    opacity: 1; /* Keep hover state */
-  }
-
-  .faq-tab-button.active {
-    opacity: 1; /* NEW: Active state is full opacity */
-    border-color: transparent; /* REMOVED: no more underline */
-  }
-
-  .faq-content-panel {
-    display: none;
-  }
-
-  .faq-content-panel.active {
-    display: block;
-  }
-
-  .faq-item {
-    border-bottom: 1px solid var(--color-border, #e5e5e5);
-  }
-
-  .faq-question {
-    /* font-size removed from here */
-    padding: 20px 0;
-    cursor: pointer;
-    list-style: none; /* Removes default triangle */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-  }
-
-  /* Hide native summary marker */
-  .faq-question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-answer {
-    padding-left: 16px; /* Indent answer */
-    /* font-size removed from here */
-
-    /* --- Animation --- */
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease-out;
-  }
-
-  .faq-answer-content {
-    /* This inner wrapper allows for padding and overflow control */
-    overflow: hidden;
-    padding-bottom: 20px;
-  }
-
-  .faq-item[open] .faq-answer {
-    grid-template-rows: 1fr;
-  }
-
-  /* --- Accordion Icons --- */
-  .faq-item .icon-plus,
-  .faq-item .icon-minus {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    color: var(--color-text, #333);
-  }
-
-  .faq-item .icon-minus {
-    display: none;
-  }
-
-  .faq-item[open] .icon-plus {
-    display: none;
-  }
-
-  .faq-item[open] .icon-minus {
-    display: block;
-  }
-{% endstylesheet %}
+  </div> </section>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -283,10 +310,10 @@
       "default": "scheme-1"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "info": "Overrides color scheme background."
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
     },
     {
       "type": "color",
@@ -310,16 +337,6 @@
         { "value": "right", "label": "Right" }
       ],
       "default": "center"
-    },
-    {
-      "type": "range",
-      "id": "container_width",
-      "label": "Section Max Width",
-      "min": 800,
-      "max": 1600,
-      "step": 20,
-      "unit": "px",
-      "default": 1000
     },
     {
       "type": "header",
@@ -370,31 +387,13 @@
       "step": 1,
       "unit": "px",
       "default": 16
-    },
-    {
-      "type": "header",
-      "content": "Section Padding"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 20,
-      "unit": "px",
-      "label": "Padding Top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 20,
-      "unit": "px",
-      "label": "Padding Bottom",
-      "default": 40
     }
+    /* REMOVED: 
+      - background_color (now handled by scheme)
+      - container_width
+      - padding_top
+      - padding_bottom 
+    */
   ],
   "blocks": [
     {
@@ -486,9 +485,7 @@
         {
           "type": "category",
           "settings": {
-
             "tab_title": "Shipping"
-
           }
         }
       ]
