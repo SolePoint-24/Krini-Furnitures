@@ -7,9 +7,6 @@
   !! LAYOUT MERGED FROM 'FEATURES GRID' !!
   - Added full_width, color_scheme, and new padding settings.
   - Added new CSS for padding and full-width breakout.
-
-  !! NEW !!
-  - Added 'section_bg_color' setting to override the scheme background.
 {%- endcomment -%}
 
 {%- liquid
@@ -45,11 +42,6 @@
   /* Original Collection Tile CSS */
   .collection-tiles-section-{{ section.id }} {
     /* Padding is now handled by classes on the main div */
-
-    /* Apply custom background color if set */
-    {%- if section.settings.section_bg_color != blank -%}
-      background-color: {{ section.settings.section_bg_color }};
-    {%- endif -%}
 
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
@@ -167,12 +159,6 @@
       "default": "scheme-1"
     },
     {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Custom Background Color",
-      "info": "Optional. Overrides the background color from the Color Scheme."
-    },
-    {
       "type": "checkbox",
       "id": "full_width",
       "label": "Make section full width",
@@ -241,7 +227,7 @@
     },
     {
       "type": "range",
-      "id":"padding_top",
+      "id": "padding_top",
       "min": 0,
       "max": 100,
       "step": 20,
