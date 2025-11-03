@@ -56,9 +56,72 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "dynamic_table_dJTmTE": {
+      "type": "dynamic-table",
+      "blocks": {
+        "column_header_pJqcGk": {
+          "type": "column_header",
+          "settings": {
+            "title": "S-OSB"
+          }
+        },
+        "column_header_rqUbFG": {
+          "type": "column_header",
+          "settings": {
+            "title": "Plywood"
+          }
+        },
+        "column_header_4ndqtk": {
+          "type": "column_header",
+          "settings": {
+            "title": "HDF"
+          }
+        },
+        "table_row_ap8YCM": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Density(in Lb/m3)",
+            "row_data": "1545 - 1655 | 1435 - 1545 | 1545 - 1655"
+          }
+        },
+        "table_row_wW8eMp": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Prelam Option",
+            "row_data": "tick | cross | tick"
+          }
+        },
+        "table_row_h4M6n8": {
+          "type": "table_row",
+          "settings": {
+            "spec_title": "Duco Paint",
+            "row_data": "tick | cross | tick"
+          }
+        }
+      },
+      "block_order": [
+        "column_header_pJqcGk",
+        "column_header_rqUbFG",
+        "column_header_4ndqtk",
+        "table_row_ap8YCM",
+        "table_row_wW8eMp",
+        "table_row_h4M6n8"
+      ],
+      "name": "Dynamic Table",
+      "settings": {
+        "color_scheme": "",
+        "full_width": false,
+        "heading": "Specifications",
+        "heading_text_alignment": "center",
+        "first_column_title": "Specifications",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "dynamic_table_dJTmTE"
   ]
 }
