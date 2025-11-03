@@ -27,7 +27,12 @@
   }
 
   /* Apply the max-width to the page-width container inside this section */
-
+  .collection-tiles-section-{{ section.id }}{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 
   .collection-tiles__grid {
     display: grid;
@@ -84,7 +89,7 @@
   }
 {%- endstyle -%}
 
-<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }} ">
+<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="collection-tiles__heading h2_style_2">
