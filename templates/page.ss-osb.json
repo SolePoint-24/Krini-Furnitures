@@ -116,10 +116,73 @@
         "heading_text_alignment": "center",
         "first_column_title": "Specifications"
       }
+    },
+    "features_grid_3_col_Yx78CY": {
+      "type": "features-grid-3-col",
+      "blocks": {
+        "feature_FybQjN": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        },
+        "feature_LPcL8w": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        },
+        "feature_iqTiF3": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        },
+        "feature_JWfiaM": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        },
+        "feature_kf3tLh": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        },
+        "feature_bhW7w7": {
+          "type": "feature",
+          "settings": {
+            "title": "Feature Title",
+            "text": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_FybQjN",
+        "feature_LPcL8w",
+        "feature_iqTiF3",
+        "feature_JWfiaM",
+        "feature_kf3tLh",
+        "feature_bhW7w7"
+      ],
+      "name": "Features Grid (3 Column)",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "heading": "Our Commitments",
+        "heading_text_alignment": "center"
+      }
     }
   },
   "order": [
     "main",
-    "dynamic_table_dJTmTE"
+    "dynamic_table_dJTmTE",
+    "features_grid_3_col_Yx78CY"
   ]
 }
