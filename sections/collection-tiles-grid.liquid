@@ -14,9 +14,8 @@
 
 {%- liquid
   assign s = section.settings
-  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';' -%}
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
 
-  comment "FIX: Create an inline style variable for the background" endcomment
   assign section_styles = ''
   if s.section_bg_color != blank
     assign section_styles = 'background-color: ' | append: s.section_bg_color | append: ';'
@@ -51,10 +50,6 @@
   /* Original Collection Tile CSS */
   .collection-tiles-section-{{ section.id }} {
     /* Padding is now handled by classes on the main div */
-    
-    /* FIX: Removed background-color from here. 
-      It's now handled by an inline style on the main div.
-    */
 
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
