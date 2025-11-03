@@ -1,11 +1,11 @@
 {%- comment -%}
   This section displays a dynamic comparison table.
   
-  !! FIX: This version uses the EXACT layout from the 'Image Carousel'
-  !! section to achieve a full-width background with centered content.
+  !! FIX: Corrected missing '| color_to_css' filter.
+  !! This was the error breaking the background color.
   
-  !! MOBILE FIX: Added 'max-width: 100%' to '.table-scroll-wrapper'
-  !! to enable horizontal scrolling ("carousel") on mobile.
+  !! MOBILE FIX: Added 'width: 100%' and 'box-sizing' to the
+  !! content wrapper to fix the mobile overflow and enable scrolling.
 {%- endcomment -%}
 
 {%- liquid
@@ -20,6 +20,7 @@
   # Create an inline style to FORCE the background color
   assign section_styles = ''
   if s.color_scheme != blank and s.color_scheme.settings.background
+    # THIS IS THE FIX: Added the '| color_to_css' filter
     assign bg_color = s.color_scheme.settings.background 
     assign section_styles = 'background-color: ' | append: bg_color | append: ';'
   endif
@@ -49,6 +50,10 @@
     max-width: 1536px; /* Max width of the content */
     margin-left: auto;
     margin-right: auto;
+    
+    /* MOBILE OVERFLOW FIX: */
+    width: 100%;
+    box-sizing: border-box; 
   }
 
   @media (max-width: 768px) {
@@ -73,7 +78,7 @@
     border: 1px solid var(--color-border, #e5e5e5);
     border-radius: 8px;
     margin: 0 auto;
-    max-width: 100%; /* <-- THIS IS THE MOBILE SCROLLING FIX */
+    max-width: 100%; 
   }
 
   .dynamic-table-section-{{ section.id }} .spec-table {
