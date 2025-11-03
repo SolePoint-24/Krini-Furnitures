@@ -4,8 +4,7 @@
   !! FIX: Corrected missing '| color_to_css' filter.
   !! This was the error breaking the background color.
   
-  !! MOBILE FIX: Added 'width: 100%' and 'box-sizing' to the
-  !! content wrapper to fix the mobile overflow and enable scrolling.
+  !! NEW: Added a text-based scroll hint for mobile devices.
 {%- endcomment -%}
 
 {%- liquid
@@ -20,7 +19,7 @@
   # Create an inline style to FORCE the background color
   assign section_styles = ''
   if s.color_scheme != blank and s.color_scheme.settings.background
-    # THIS IS THE FIX: Added the '| color_to_css' filter
+    # THIS IS THE PERMANENT FIX: Added the '| color_to_css' filter
     assign bg_color = s.color_scheme.settings.background 
     assign section_styles = 'background-color: ' | append: bg_color | append: ';'
   endif
@@ -129,6 +128,22 @@
     stroke: red;
     stroke-width: 2.5;
   }
+
+  /* --- NEW: Scroll Hint CSS --- */
+  .dynamic-table-section-{{ section.id }} .scroll-hint-text {
+    display: none; /* Hidden on desktop */
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--color-text, #555);
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .dynamic-table-section-{{ section.id }} .scroll-hint-text {
+      display: block; /* Visible on mobile */
+    }
+  }
 {%- endstyle -%}
 
 {%- comment -%}
@@ -162,7 +177,6 @@
           <thead>
             <tr>
               <th>{{ s.first_column_title | escape }}</th>
-              
               {%- for block in column_blocks -%}
                 <th {{ block.shopify_attributes }}>
                   {{ block.settings.title | escape }}
@@ -174,12 +188,9 @@
             {%- for block in row_blocks -%}
               <tr {{ block.shopify_attributes }}>
                 <td>{{ block.settings.spec_title | escape }}</td>
-                
                 {%- assign cells = block.settings.row_data | split: '|' -%}
-
                 {%- for cell in cells -%}
                   {%- assign cell_content = cell | strip | downcase -%}
-
                   {%- if cell_content == 'tick' or cell_content == 'yes' or cell_content == 'check' -%}
                     <td data-icon="check">
                       <svg class="icon-check" aria-hidden="true" focusable="false"><use href="#icon-check" /></svg>
@@ -197,6 +208,11 @@
           </tbody>
         </table>
       </div>
+
+      <div class="scroll-hint-text">
+        &larr; Scroll for more &rarr;
+      </div>
+      
     {%- endif -%}
 
   </div> </div>
