@@ -272,11 +272,49 @@
         "heading": "",
         "heading_text_alignment": "center"
       }
+    },
+    "image_text_carousel_P8jRwn": {
+      "type": "image-text-carousel",
+      "blocks": {
+        "image_7jcLkz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1-750x650.jpg"
+          }
+        },
+        "text_item_y8PWEh": {
+          "type": "text_item",
+          "settings": {
+            "title": "Structural Farming",
+            "description": "SS-OSB can be used in structural framing\nsystems, serving as beams, joists, and headers. It is often used in conjunction with other building materials to create load-bearing components."
+          }
+        },
+        "text_item_g64G3J": {
+          "type": "text_item",
+          "settings": {
+            "title": "Durability and Quality",
+            "description": "Select hotel and motel furniture is subjected to frequent use, it should be made from high-quality materials that can withstand wear and tear. Consider using materials like solid wood, metal frames, or high-grade plastics for durability."
+          }
+        }
+      },
+      "block_order": [
+        "image_7jcLkz",
+        "text_item_y8PWEh",
+        "text_item_g64G3J"
+      ],
+      "name": "Image with Text Carousel",
+      "settings": {
+        "image_position": "left",
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "heading": "",
+        "text": ""
+      }
     }
   },
   "order": [
     "main",
     "dynamic_table_dJTmTE",
-    "features_grid_3_col_Yx78CY"
+    "features_grid_3_col_Yx78CY",
+    "image_text_carousel_P8jRwn"
   ]
 }
