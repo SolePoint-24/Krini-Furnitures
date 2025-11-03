@@ -3,57 +3,34 @@
   - Title text is configurable.
   - Tiles are created using blocks.
   - Tile colors are configurable.
-
-  !! LAYOUT MERGED FROM 'FEATURES GRID' !!
-  - Added full_width, color_scheme, and new padding settings.
-  - Added new CSS for padding and full-width breakout.
-
-  !! FIX !!
-  - Moved 'section_bg_color' to an inline style to win CSS specificity.
 {%- endcomment -%}
-
-{%- liquid
-  assign s = section.settings
-  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
-
-  assign section_styles = ''
-  if s.section_bg_color != blank
-    assign section_styles = 'background-color: ' | append: s.section_bg_color | append: ';'
-  endif
--%}
 
 {%- comment -%}
   Assign CSS variables from section settings
 {%- endcomment -%}
 {%- style -%}
-  /* CSS for padding classes (from Features Grid) */
-  .padding-top-0 { padding-top: 0; }
-  .padding-top-20 { padding-top: 20px; }
-  .padding-top-40 { padding-top: 40px; }
-  .padding-top-60 { padding-top: 60px; }
-  .padding-top-80 { padding-top: 80px; }
-  .padding-top-100 { padding-top: 100px; }
-
-  .padding-bottom-0 { padding-bottom: 0; }
-  .padding-bottom-20 { padding-bottom: 20px; }
-  .padding-bottom-40 { padding-bottom: 40px; }
-  .padding-bottom-60 { padding-bottom: 60px; }
-  .padding-bottom-80 { padding-bottom: 80px; }
-  .padding-bottom-100 { padding-bottom: 100px; }
-
-  /* CSS for full width (from Features Grid) */
-  .section--full-width {
-    width: 100vw;
-    margin-left: calc( (100% - 100vw) / 2 );
-  }
-
-  /* Original Collection Tile CSS */
   .collection-tiles-section-{{ section.id }} {
-    /* Padding is now handled by classes on the main div */
+    /* Color scheme is now applied by the "color-{{ section.settings.color_scheme }}" 
+      class on the main div, using your theme's global styles. 
+    */
+
+    /* Apply padding settings */
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
 
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
     --tile-text-color: {{ section.settings.tile_text_color }};
+
+    /* Assign max width from picker */
+    --section-max-width: {{ section.settings.max_width }}px;
+  }
+
+  /* Apply the max-width to the page-width container inside this section */
+  .collection-tiles-section-{{ section.id }} .page-width {
+    max-width: var(--section-max-width);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .collection-tiles__grid {
@@ -111,13 +88,10 @@
   }
 {%- endstyle -%}
 
-<div
-  class="collection-tiles-section-{{ section.id }} section color-{{ s.color_scheme }} padding-top-{{ s.padding_top }} padding-bottom-{{ s.padding_bottom }} {% if s.full_width %}section--full-width{% endif %}"
-  style="{{ section_styles }}"
->
+<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
-      <h2 class="collection-tiles__heading h2_style_2" style="{{ heading_text_alignment }}">
+      <h2 class="collection-tiles__heading h2_style_2">
         {{ section.settings.title | escape }}
       </h2>
     {%- endif -%}
@@ -165,19 +139,7 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color Scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Custom Background Color",
-      "info": "Optional. Overrides the background color from the Color Scheme."
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Make section full width",
-      "default": true
+      "default": "background-1"
     },
     {
       "type": "text",
@@ -189,18 +151,7 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading Color",
-      "info": "Leave blank to use the theme's default text color."
-    },
-    {
-      "type": "select",
-      "id": "heading_text_alignment",
-      "label": "Heading Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
+      "info": "Leave blank to use the color scheme's default text color."
     },
     {
       "type": "header",
@@ -245,20 +196,30 @@
       "id": "padding_top",
       "min": 0,
       "max": 100,
-      "step": 20,
+      "step": 4,
       "unit": "px",
       "label": "Padding Top",
-      "default": 40
+      "default": 36
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
       "max": 100,
-      "step": 20,
+      "step": 4,
       "unit": "px",
       "label": "Padding Bottom",
-      "default": 40
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 2000,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Content Width",
+      "default": 1200
     }
   ],
   "blocks": [
@@ -300,3 +261,4 @@
   ]
 }
 {% endschema %}
+
