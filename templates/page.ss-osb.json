@@ -110,7 +110,8 @@
       ],
       "name": "Dynamic Table",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "full_width": true,
         "heading": "Smooth Surface Oriented Strand Board",
         "heading_text_alignment": "center",
         "first_column_title": "Specifications"
