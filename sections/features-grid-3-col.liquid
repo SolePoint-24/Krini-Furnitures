@@ -1,0 +1,272 @@
+{%- comment -%}
+  This is a NEW section file for a 3x3 features grid.
+  
+  - It uses the full-width background and centered content layout.
+  - The grid is set to 3 columns on desktop.
+  - The Color Scheme background is forced to apply.
+{%- endcomment -%}
+
+{%- liquid
+  assign s = section.settings
+  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
+
+  # Create an inline style to FORCE the background color
+  assign section_styles = ''
+  if s.color_scheme != blank and s.color_scheme.settings.background
+    assign bg_color = s.color_scheme.settings.background | color_to_css
+    assign section_styles = 'background-color: ' | append: bg_color | append: ';'
+  endif
+-%}
+
+<section
+  class="section-features-grid-{{ section.id }} section {% if s.full_width %}section--full-width{% endif %}"
+  style="{{ section_styles }}"
+>
+  <div class="features-grid-content-wrapper">
+    
+    {%- if s.heading != blank -%}
+      <h2 class="section-heading h2" style="{{ heading_text_alignment }}">{{ s.heading | escape }} </h2>
+    {%- endif -%}
+
+    <div class="features-grid-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="feature-item" {{ block.shopify_attributes }}>
+          <div class="feature-item__header">
+            {%- if block.settings.icon != blank -%}
+              <div class="feature-item__icon-wrapper">
+                <img
+                  src="{{ block.settings.icon | image_url: width: 100 }}"
+                  alt="{{ block.settings.icon.alt | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                  class="feature-item__icon"
+                >
+              </div>
+            {%- endif -%}
+            
+            <div class="feature-item__header-content">
+              {%- if block.settings.title != blank -%}
+                <h3 class="feature-item__title h4">{{ block.settings.title | escape }}</h3>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if block.settings.text != blank -%}
+            <div class="feature-item__text rte">
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% stylesheet %}
+  /* ---
+    LAYOUT STYLES
+  --- */
+  .section-features-grid-{{ section.id }} {
+    padding: 50px 0; /* Vertical padding for the section */
+  }
+
+  /* This class must be here for the full-width toggle */
+  .section--full-width {
+    width: 100vw;
+    margin-left: calc( (100% - 100vw) / 2 );
+  }
+
+  /* This wrapper centers the content and adds horizontal padding */
+  .features-grid-content-wrapper {
+    padding: 40px;
+    max-width: 1536px; /* Max width of the content */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    box-sizing: border-box; 
+  }
+
+  @media (max-width: 768px) {
+    .section-features-grid-{{ section.id }} {
+      padding: 30px 0; /* Adjust vertical padding for mobile */
+    }
+    .features-grid-content-wrapper {
+      padding: 0 20px; /* Adjust horizontal padding for mobile */
+    }
+  }
+  /* --- End of new layout styles --- */
+
+
+  /* --- Original Feature Grid Styles --- */
+  .section-features-grid-{{ section.id }} .section-heading {
+    margin-bottom: 40px;
+  }
+  
+  .feature-item__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .feature-item__icon-wrapper {
+    flex-shrink: 0;
+    width: 60px; /* Adjust size of icon as needed */
+  }
+  
+  .feature-item__icon {
+    width: 100%;
+    height: auto;
+  }
+
+  .feature-item__header-content {
+    flex: 1;
+  }
+
+  .feature-item__title {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  
+  .feature-item__text.rte {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .feature-item__text.rte p {
+    margin-top: 0;
+  }
+
+  /* --- Mobile Borders --- */
+  .features-grid-wrapper {
+    border: none;
+  }
+  
+  .feature-item {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border: none; /* No borders on the item itself */
+  }
+
+  /* Add lines BETWEEN stacked items on mobile */
+  .features-grid-wrapper .feature-item + .feature-item {
+    border-top: 1px solid var(--color-border, #e5e5e5);
+  }
+
+
+  /* --- DESKTOP FLEXBOX LAYOUT (3x3 Grid) --- */
+  @media (min-width: 768px) {
+    .features-grid-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .feature-item {
+      flex-basis: 33.333%;
+      box-sizing: border-box;
+      padding: 32px;
+      border: none; /* Reset all borders */
+    }
+
+    /* Reset the mobile border rule */
+    .features-grid-wrapper .feature-item + .feature-item {
+      border-top: none;
+    }
+
+    /* --- Add Inner Grid Borders --- */
+    
+    /* Add horizontal line to the TOP TWO rows (items 1-6) */
+    .feature-item:nth-child(-n + 6) {
+      border-bottom: 1px solid var(--color-border, #e5e5e5);
+    }
+    
+    /* Add vertical line to the FIRST TWO columns */
+    .feature-item:nth-child(3n - 2),
+    .feature-item:nth-child(3n - 1) {
+      border-right: 1px solid var(--color-border, #e5e5e5);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Features Grid (3 Column)",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Commitments"
+    },
+    {
+      "type": "select",
+      "id": "heading_text_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "limit": 9,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (e.g., Shield, Leaf)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Explain your feature in a brief paragraph. This text describes the commitment or quality standard.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid (3 Column)",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}
