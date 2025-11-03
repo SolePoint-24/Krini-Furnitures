@@ -10,6 +10,10 @@
 {%- endcomment -%}
 {%- style -%}
   .collection-tiles-section-{{ section.id }} {
+    /* Color scheme is now applied by the "color-{{ section.settings.color_scheme }}" 
+      class on the main div, using your theme's global styles. 
+    */
+
     /* Apply padding settings */
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -17,6 +21,8 @@
     /* Assign tile colors from pickers */
     --tile-bg-color: {{ section.settings.tile_bg_color }};
     --tile-text-color: {{ section.settings.tile_text_color }};
+
+
   }
 
   .collection-tiles__grid {
@@ -74,7 +80,7 @@
   }
 {%- endstyle -%}
 
-<div class="collection-tiles-section-{{ section.id }}">
+<div class="collection-tiles-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
     {%- if section.settings.title != blank -%}
       <h2 class="collection-tiles__heading h2_style_2">
@@ -121,8 +127,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    /* FIX: I removed the "color_scheme" setting from here.
-    */
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
     {
       "type": "text",
       "id": "title",
@@ -133,7 +143,7 @@
       "type": "color",
       "id": "heading_color",
       "label": "Heading Color",
-      "info": "Leave blank to use the theme's default text color."
+      "info": "Leave blank to use the color scheme's default text color."
     },
     {
       "type": "header",
@@ -181,7 +191,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding Top",
-      "default": 0
+      "default": 36
     },
     {
       "type": "range",
@@ -191,7 +201,17 @@
       "step": 4,
       "unit": "px",
       "label": "Padding Bottom",
-      "default": 0
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 2000,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Content Width",
+      "default": 1200
     }
   ],
   "blocks": [
@@ -233,3 +253,4 @@
   ]
 }
 {% endschema %}
+
