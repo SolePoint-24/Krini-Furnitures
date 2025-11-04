@@ -56,9 +56,15 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "main_compare_TFCR9G": {
+      "type": "main-compare",
+      "name": "Compare Page",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "main_compare_TFCR9G"
   ]
 }
