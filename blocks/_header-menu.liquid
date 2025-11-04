@@ -217,8 +217,16 @@
   }
   .menu-list:not(:has(.menu-list__list-item:hover)) .menu-list__link--active {
     color: var(--menu-top-level-font-color);
-    background-color: #c3cca6; /* <-- YOUR COLOR */
+    background-color: #c3cca6;
     border-radius: 4px;
+    
+    /* Add padding for a better look */
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    
+    /* Compensate with negative margin so it doesn't break the layout */
+    margin-left: -0.75em;
+    margin-right: -0.75em;
   }
 
   .overflow-menu::part(list) {
