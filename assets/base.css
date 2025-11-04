@@ -4355,3 +4355,82 @@ text-component {
 }
 
 /* button style for product paage comare button */
+
+/* Style for when the item is added to compare */
+.custom-product-card__action-btn.is-added-to-compare {
+  background-color: #4CAF50; /* Green background */
+  border-color: #4CAF50;
+}
+
+.custom-product-card__action-btn.is-added-to-compare svg {
+  stroke: #ffffff; /* White icon */
+  /* Hide the original compare icon */
+  display: none; 
+}
+
+/* New: Add a checkmark icon */
+.custom-product-card__action-btn.is-added-to-compare::after {
+  content: '✓'; /* Checkmark character */
+  color: #ffffff;
+  font-size: 1.5em; /* Adjust size as needed */
+  line-height: 1; /* Center vertically */
+  display: block;
+}
+
+/* Optional: Tooltip for "Compare products" on hover */
+.custom-product-card__action-btn {
+  position: relative; /* For absolute positioning of tooltip */
+}
+
+.custom-product-card__action-btn::before {
+  content: attr(aria-label); /* Get text from aria-label */
+  position: absolute;
+  right: calc(100% + 10px); /* Position to the left of the button */
+  top: 50%;
+  transform: translateY(-50%);
+  
+  background-color: black;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.85em;
+  pointer-events: none; /* Allows clicks to pass through to the button */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11; /* Ensure it's above other elements */
+}
+
+/* Pointer for the tooltip */
+.custom-product-card__action-btn::after {
+  content: '';
+  position: absolute;
+  right: calc(100% + 6px); /* Adjust to align with tooltip */
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background-color: black;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11;
+}
+
+/* Show tooltip on hover */
+.custom-product-card__action-btn:hover::before,
+.custom-product-card__action-btn:hover::after {
+  opacity: 1;
+}
+
+/* Special state for "Added to Compare" text */
+.custom-product-card__action-btn.is-added-to-compare::before {
+  content: 'Added to compare!';
+  background-color: #4CAF50; /* Green background */
+  right: calc(100% + 10px);
+}
+
+.custom-product-card__action-btn.is-added-to-compare::after {
+  background-color: #4CAF50; /* Green background */
+  right: calc(100% + 6px);
+}
