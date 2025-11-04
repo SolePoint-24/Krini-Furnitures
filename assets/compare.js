@@ -1,30 +1,64 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Function to add a product to the compare list
-  function addToCompare(handle) {
-    let compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-    if (!compareList.includes(handle)) {
-      compareList.push(handle);
-      localStorage.setItem('compareList', JSON.stringify(compareList));
-      alert(handle + ' added to compare!'); // Or update an icon
+  const COMPARE_LIST_KEY = 'compareList'; // Define a constant for the key
+
+  // --- Helper Functions ---
+  function getCompareList() {
+    return JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
+  }
+
+  function saveCompareList(list) {
+    localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
+  }
+
+  // Updates the visual state of a single compare button
+  function updateButtonState(button, handle, isAdded) {
+    if (isAdded) {
+      button.classList.add('is-added-to-compare');
+      button.setAttribute('aria-label', 'Added to compare!');
     } else {
-      alert(handle + ' is already in the list.');
+      button.classList.remove('is-added-to-compare');
+      button.setAttribute('aria-label', 'Compare products'); // Reset to original label
     }
   }
 
-  // Find all compare buttons on the page
-  const compareButtons = document.querySelectorAll('.button-compare');
-  
-  // Add a click event listener to each button
-  compareButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      // ▼▼▼ ADD THESE TWO LINES ▼▼▼
-      e.preventDefault();    // Stops default button behavior
-      e.stopPropagation(); // Stops the click from bubbling up to the <a> link
+  // --- Main Logic ---
 
-      // Get the handle from the 'data-product-handle' attribute
+  // 1. Initialize button states on page load
+  const compareButtons = document.querySelectorAll('.button-compare');
+  const currentCompareList = getCompareList();
+
+  compareButtons.forEach(button => {
+    const handle = button.dataset.productHandle;
+    if (currentCompareList.includes(handle)) {
+      updateButtonState(button, handle, true); // Mark as added if already in list
+    } else {
+      updateButtonState(button, handle, false); // Ensure correct initial state
+    }
+
+    // 2. Add click event listener to each button
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation(); 
+
       const handle = button.dataset.productHandle;
-      if (handle) {
-        addToCompare(handle);
+      let compareList = getCompareList();
+
+      if (!compareList.includes(handle)) {
+        // Product not in list, so add it
+        compareList.push(handle);
+        saveCompareList(compareList);
+        updateButtonState(button, handle, true); // Update button to 'added' state
+        // Optional: Temporarily show a message
+        // console.log(`${handle} added to compare!`);
+
+      } else {
+        // Product is already in list, do nothing or remove it
+        // For this request, we'll just acknowledge it's there or remove it.
+        // Let's make it toggle for better UX: if already added, click again to remove.
+        compareList = compareList.filter(h => h !== handle); // Remove from list
+        saveCompareList(compareList);
+        updateButtonState(button, handle, false); // Update button to original state
+        // console.log(`${handle} removed from compare!`);
       }
     });
   });
