@@ -4398,46 +4398,8 @@ text-component {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.custom-product-card__action-btn::before {
-  content: attr(aria-label); /* Get text from aria-label */
-  position: absolute;
-  right: calc(100% + 10px); /* Position to the left of the button */
-  top: 50%;
-  transform: translateY(-50%);
-  
-  background-color: black;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 0.85em;
-  pointer-events: none; /* Allows clicks to pass through to the button */
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 11; /* Ensure it's above other elements */
-}
-
-/* Pointer for the tooltip */
-.custom-product-card__action-btn::after {
-  content: '';
-  position: absolute;
-  right: calc(100% + 6px); /* Adjust to align with tooltip */
-  top: 50%;
-  transform: translateY(-50%) rotate(45deg);
-  width: 8px;
-  height: 8px;
-  background-color: black;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 11;
-}
 
 /* Show tooltip on hover */
-.custom-product-card__action-btn:hover::before,
-.custom-product-card__action-btn:hover::after {
-  opacity: 1;
-}
 
 .custom-product-card__action-btn:hover {
   background-color: #f5f5f5;
@@ -4470,6 +4432,9 @@ text-component {
   opacity: 1;
   transform: translateX(0);
 }
+.custom-product-card__action-btn .icon-checkmark {
+  display: none;
+}
 
 .custom-product-card__action-btn svg {
   width: 16px; /* Icon size */
@@ -4478,13 +4443,6 @@ text-component {
   transition: stroke 0.2s ease;
 }
 
-.custom-product-card__action-btn .icon-checkmark {
-  display: none;
-}
-
-.custom-product-card__action-btn.is-added-to-compare .icon-compare {
-  display: none;
-}
 
 /* ...and show the checkmark icon in white. */
 .custom-product-card__action-btn.is-added-to-compare .icon-checkmark {
