@@ -4477,9 +4477,12 @@ text-component {
 }
 
 .custom-product-card__action-btn svg {
-  width: 16px; /* Smaller icon */
-  height: 16px; /* Smaller icon */
-  stroke: #333;
-  display: block; 
+  width: 16px; /* Icon size */
+  height: 16px; /* Icon size */
+  stroke: #333; /* Default icon color */
   transition: stroke 0.2s ease;
+}
+
+.custom-product-card__action-btn .icon-checkmark {
+  display: none;
 }
