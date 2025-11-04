@@ -288,6 +288,7 @@
         "text_item_y8PWEh": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/frame.png",
             "title": "Structural Framing",
             "description": "SS-OSB can be used in structural framing\nsystems, serving as beams, joists, and headers. It is often used in conjunction with other building materials to create load-bearing components."
           }
@@ -295,6 +296,7 @@
         "text_item_g64G3J": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/soundproof.png",
             "title": "Soundproofing",
             "description": "In some applications, SS-OSB may be used as part of a soundproofing system due to its\ndensity and ability to dampen sound."
           }
@@ -302,6 +304,7 @@
         "text_item_CJezVW": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/under-construction.png",
             "title": "Sheathing & Roof Decking",
             "description": "SS-OSB is frequently used as sheathing for walls, roofs, and floors. It provides structural support and serves as a stable base for exterior finishes such as\nsiding or roofing materials."
           }
@@ -333,6 +336,7 @@
         "text_item_6dhiRQ": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/defensive-wall.png",
             "title": "Wall and Roof Construction",
             "description": "SS-OSB panels are employed in the construction of walls and roofs, particularly in residential and commercial buildings. It offers excellent strength and stability, contributing to the overall structural integrity of the building."
           }
@@ -340,6 +344,7 @@
         "text_item_tAPKib": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/parquet.png",
             "title": "Subflooring",
             "description": "SS-OSB is commonly used as a subfloor material. It provides a solid and stable base for finished flooring materials such as hardwood, laminate, or carpet."
           }
@@ -347,6 +352,7 @@
         "text_item_ffDa6W": {
           "type": "text_item",
           "settings": {
+            "icon": "shopify://shop_images/crate.png",
             "title": "Packaging and Crating",
             "description": "In industrial applications, SS-OSB may be\nused for packaging & crating due to its\nstrength and rigidity."
           }
