@@ -12,6 +12,18 @@
     {% render 'account-drawer' %}
   {% endif %}
 
+  {% comment %} --- ADD COMPARE ICON HERE --- {% endcomment %}
+  <a href="/pages/compare-products" class="header-actions__action header-icon header-icon--compare">
+    {% comment %} This is the two-way arrow icon {% endcomment %}
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 17 21 12 16 7"></polyline>
+      <polyline points="8 17 3 12 8 7"></polyline>
+      <line x1="21" y1="12" x2="3" y2="12"></line>
+    </svg>
+    <span class="header-icon__badge compare-count">0</span>
+  </a>
+  {% comment %} --- END COMPARE ICON --- {% endcomment %}
+
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     {% render 'cart-drawer' %}
   {% else %}
@@ -192,6 +204,10 @@
 
   header-actions {
     display: flex;
+    /* ▼▼▼ ADDED: Make icons stay in a row with space ▼▼▼ */
+    flex-wrap: nowrap;
+    gap: var(--gap-md);
+    /* ▲▲▲ End of new styles ▲▲▲ */
 
     @media screen and (max-width: 749px) {
       justify-self: flex-end;
@@ -267,4 +283,79 @@
   .cart-bubble--animating .cart-bubble__text {
     animation: cartBubbleSlideIn var(--animation-speed) var(--animation-easing);
   }
+
+  /* ▼▼▼ ADDED: Styles for Compare Icon & Badge ▼▼▼ */
+
+  /* 1. Style the Compare Icon to match other icons */
+  .header-icon--compare {
+    position: relative; /* For the badge */
+  }
+
+  .header-icon--compare svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+  }
+
+  /* 2. Style the count badge to match your site's style */
+  .header-icon__badge.compare-count {
+    position: absolute;
+    
+    /* Positioned to match your cart badge */
+    top: 20px; 
+    right: -2px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Colors to match your cart badge */
+    background-color: #c0caad; /* Muted olive/green */
+    color: #333333; /* Dark text */
+
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 1;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 2px;
+
+    border-radius: 50%;
+    box-sizing: border-box;
+
+    /* Hide it by default, JS will show it */
+    display: none;
+  }
+  /* ▲▲▲ End of new styles ▲▲▲ */
+
 {% endstylesheet %}
+
+{% comment %} 
+  --- SCRIPT TO FIX DISAPPEARING COUNT ---
+  This runs after other scripts to ensure the count is always correct.
+{% endcomment %}
+<script>
+  function updateCompareCountOnHeader() {
+    const countElement = document.querySelector('.compare-count');
+    if (countElement) {
+      const compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+      countElement.textContent = compareList.length;
+      
+      if (compareList.length > 0) {
+        countElement.style.display = 'flex';
+      } else {
+        countElement.style.display = 'none';
+      }
+    }
+  }
+  
+  // Run when the page is loaded
+  document.addEventListener('DOMContentLoaded', updateCompareCountOnHeader);
+
+  // Run after a short delay to override any cart scripts
+  setTimeout(updateCompareCountOnHeader, 1000); 
+  
+  // Also run every time the cart is updated (which often refreshes the header)
+  document.addEventListener('cart:updated', updateCompareCountOnHeader);
+</script>
+
