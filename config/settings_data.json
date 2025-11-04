@@ -281,8 +281,8 @@
       "scheme-7": {
         "settings": {
           "background": "#f1ede7",
-          "foreground_heading": "#000000",
-          "foreground": "#faf5ef",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#000000",
           "primary_hover": "#000000",
           "border": "#000000",
