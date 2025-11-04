@@ -4445,9 +4445,9 @@ text-component {
 
 
 /* ...and show the checkmark icon in white. */
-.custom-product-card__action-btn.is-added-to-compare .icon-checkmark {
-  display: block;
-  stroke: #ffffff; /* White checkmark */
+.custom-product-card__action-btn.is-added-to-compare {
+  background-color: #4CAF50; /* Green background */
+  border-color: #4CAF50;
 }
 
 .compare-message {
