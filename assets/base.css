@@ -4459,15 +4459,16 @@ text-component {
 }
 
 .compare-message {
-  background-color: #4CAF50; /* Green background */
+  background-color: #4CAF50; 
   color: white;
-  padding: 4px 8px; /* Small padding */
+  padding: 4px 8px; 
   border-radius: 4px;
-  font-size: 0.75em; /* Small font size */
+  font-size: 0.75em; 
   white-space: nowrap;
   
-  opacity: 0; /* Hidden by default */
-  transform: translateX(100%); /* Starts off-screen to the right */
+  /* Hide by default */
+  opacity: 0; 
+  transform: translateX(100%); 
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
