@@ -62,7 +62,19 @@
   /* Apply sticky background to label cells */
   .compare-column--labels .compare-cell {
     background-color: #f9f9f9;
+    /* ▼▼▼ MODIFICATION: Align labels to the left ▼▼▼ */
+    align-items: flex-start;
+    text-align: left;
+    /* ▲▲▲ End of Modification ▲▲▲ */
   }
+  
+  /* ▼▼▼ NEW RULE: Center-align content in product columns ▼▼▼ */
+  .compare-column:not(.compare-column--labels) .compare-cell {
+    align-items: center;
+    text-align: center;
+  }
+  /* ▲▲▲ End of New Rule ▲▲▲ */
+
 
   .compare-cell:last-child {
     border-bottom: none;
@@ -70,12 +82,12 @@
   
   .compare-cell--header {
     min-height: 180px; /* Taller cells for top block */
-    text-align: center;
+    /* text-align: center; -- Removed, handled by new rule */
   }
   
   .compare-column--labels .compare-cell--header {
     justify-content: center;
-    align-items: center;
+    /* align-items: center; -- Removed, handled by base rule */
   }
 
   .compare-cell--label {
@@ -144,9 +156,19 @@
   .compare-cell .description {
     font-size: 0.9em;
     line-height: 1.6;
-    max-height: 200px; /* Limit description height */
-    overflow-y: auto;
+    /* ▼▼▼ MODIFICATION: Removed scrollbar, align text left ▼▼▼ */
+    /* max-height: 200px; */ 
+    /* overflow-y: auto; */
+    text-align: left; 
+    /* ▲▲▲ End of Modification ▲▲▲ */
   }
+  
+  /* ▼▼▼ NEW RULE: Align description cell content to the left ▼▼▼ */
+  .compare-column:not(.compare-column--labels) .compare-cell:has(.description) {
+     align-items: flex-start;
+  }
+  /* ▲▲▲ End of New Rule ▲▲▲ */
+
 
   /* Empty/Loading States */
   .compare-empty-message,
@@ -233,15 +255,19 @@
       // Create the Label Column
       const labelColumn = document.createElement('div');
       labelColumn.className = 'compare-column compare-column--labels';
+      
+      /* ▼▼▼ MODIFICATION: Added labels for rows ▼▼▼ */
       labelColumn.innerHTML = `
         <div class="compare-cell compare-cell--header" style="min-height: 80px;"></div>
-        <div class="compare-cell compare-cell--header"></div>
-        <div class="compare-cell compare-cell--header"></div>
-        <div class="compare-cell compare-cell--header"></div>
+        <div class="compare-cell compare-cell--header compare-cell--label">Product</div>
+        <div class="compare-cell compare-cell--header compare-cell--label">Title</div>
+        <div class="compare-cell compare-cell--header compare-cell--label">Price</div>
         <div class="compare-cell compare-cell--header"></div>
         <div class="compare-cell compare-cell--label">Availability</div>
         <div class="compare-cell compare-cell--label">Description</div>
       `;
+      /* ▲▲▲ End of Modification ▲▲▲ */
+      
       tableContainer.appendChild(labelColumn);
 
       // Create a column for each product
