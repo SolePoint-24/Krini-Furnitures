@@ -20,7 +20,20 @@
       <polyline points="8 17 3 12 8 7"></polyline>
       <line x1="21" y1="12" x2="3" y2="12"></line>
     </svg>
-    <span class="header-icon__badge compare-count">0</span>
+    <span class="header-icon__badge compare-count" aria-hidden="true"></span>
+    <script>
+    (function () {
+      try {
+        var count = (JSON.parse(localStorage.getItem('compareList') || '[]') || []).length;
+        var el = document.currentScript.previousElementSibling; // the <span>
+        if (el && el.classList.contains('compare-count')) {
+          el.textContent = count;
+          el.setAttribute('data-count', String(count));
+          el.setAttribute('data-ready', '1'); // marks “initialized”
+        }
+      } catch (e) {}
+    })();
+  </script>
   </a>
   {% comment %} --- END COMPARE ICON --- {% endcomment %}
 
