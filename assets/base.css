@@ -4443,12 +4443,7 @@ text-component {
   background-color: #f5f5f5;
   border-color: #c0c0c0;
 }
-/* Special state for "Added to Compare" text */
-.custom-product-card__action-btn.is-added-to-compare::before {
-  content: 'Added to compare!';
-  background-color: #4CAF50; /* Green background */
-  right: calc(100% + 10px);
-}
+
 
 .custom-product-card__action-btn.is-added-to-compare::after {
   background-color: #4CAF50; /* Green background */
@@ -4508,4 +4503,14 @@ text-component {
   opacity: 0; /* Hidden by default */
   transform: translateX(100%); /* Starts off-screen to the right */
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.custom-product-card__action-btn.is-added-to-compare + .compare-message {
+  opacity: 1;
+  transform: translateX(0); /* Slides into view */
+}
+
+/* Adjust layout when message is visible */
+.custom-product-card__action-btn.is-added-to-compare + .compare-message {
+  margin-top: 5px; /* Space between button and message */
 }
