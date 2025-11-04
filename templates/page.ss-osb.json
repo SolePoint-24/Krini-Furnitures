@@ -375,69 +375,6 @@
     "section_UNddJm": {
       "type": "section",
       "blocks": {
-        "accordion_iU4nEe": {
-          "type": "accordion",
-          "name": "t:names.accordion",
-          "settings": {
-            "icon": "plus",
-            "dividers": true,
-            "type_preset": "h5",
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "accordion_row_kPmWX4": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Wildfires Are Getting Worse, So Why Is the U.S. Still Building Homes With Wood?",
-                "open_by_default": true,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_MdtCrP": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<ul><li>Cost-effectiveness: Wood is often more affordable than alternative building materials, such as steel or concrete. This makes it an attractive option for developers and homeowners looking to keep construction costs down.</li></ul><p></p><ul><li>Renewable resource: Wood is a renewable resource, and sustainable non- forestry practices can ensure a steady supply. Responsible clean environment management can help<br/>offset the environmental impact of using wood for construction.</li></ul><p></p><ul><li>Energy efficiency: Wood is a natural insulator, providing good thermal performance. Wooden structures can be energy-efficient, helping reduce heating and cooling costs.</li></ul><p></p><ul><li>Aesthetic appeal: Many people appreciate the natural beauty and warmth of wood, making it a popular choice for residential construction.</li></ul>",
-                    "width": "100%",
-                    "max_width": "none",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_MdtCrP"
-              ]
-            }
-          },
-          "block_order": [
-            "accordion_row_kPmWX4"
-          ]
-        },
         "group_HNqzaT": {
           "type": "group",
           "name": "t:names.group",
@@ -478,6 +415,132 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "accordion_LkfFff": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_xXRhVK": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Advantages of Using SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_DfGgQx": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Cost-Effective: SS-OSB is generally more affordable than plywood, making it<br/>a cost-effective choice for builders and homeowners.</li><li>Versatility: SS-OSB can be used in many applications, including roofing,<br/>flooring, wall sheathing, and furniture construction.</li><li>High Strength: The oriented strand arrangement gives SS-OSB superior<br/>strength, making it suitable for demanding structural applications.</li><li>Moisture Resistance: With the right treatment and coatings, SS-OSB can<br/>resist moisture, making it suitable for humid environments.</li><li>Sustainability: SS-OSB is made from fast-growing wood species and is often<br/>produced using sustainable forestry practices.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_DfGgQx"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_xXRhVK"
+              ]
+            },
+            "accordion_46NWV4": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_kPmWX4": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Wildfires Are Getting Worse, So Why Is the U.S. Still Building Homes With Wood?",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_MdtCrP": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Cost-effectiveness: Wood is often more affordable than alternative building materials, such as steel or concrete. This makes it an attractive option for developers and homeowners looking to keep construction costs down.</li></ul><p></p><ul><li>Renewable resource: Wood is a renewable resource, and sustainable non- forestry practices can ensure a steady supply. Responsible clean environment management can help<br/>offset the environmental impact of using wood for construction.</li></ul><p></p><ul><li>Energy efficiency: Wood is a natural insulator, providing good thermal performance. Wooden structures can be energy-efficient, helping reduce heating and cooling costs.</li></ul><p></p><ul><li>Aesthetic appeal: Many people appreciate the natural beauty and warmth of wood, making it a popular choice for residential construction.</li></ul>",
+                        "width": "100%",
+                        "max_width": "none",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_MdtCrP"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_kPmWX4"
+              ]
+            },
             "accordion_EA8yff": {
               "type": "accordion",
               "name": "t:names.accordion",
@@ -606,6 +669,8 @@
             }
           },
           "block_order": [
+            "accordion_LkfFff",
+            "accordion_46NWV4",
             "accordion_EA8yff",
             "accordion_7XQVam"
           ]
@@ -614,7 +679,7 @@
           "type": "group",
           "name": "t:names.group",
           "settings": {
-            "content_direction": "row",
+            "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-start",
@@ -650,6 +715,69 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "accordion_CE7MJJ": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_G3XcgM": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Comparision",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_4GA7Ht": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p><strong>Is SS-OSB stronger than plywood?<br/></strong>SS-OSB is generally stronger than plywood due to its oriented strand<br/>arrangement and high density which enhances its load-bearing capacity.</p><p><strong>Can SS-OSB be used outdoors?<br/></strong>SS-OSB can be used outdoors, but it should be protected from prolonged<br/>exposure to moisture. Coatings or sealants can enhance its moisture resistance.</p><p><strong>Is SS-OSB more affordable than plywood?<br/></strong>The price of SS-OSB is generally similar to plywood, but the quality that of<br/>SS-OSB is far better than the Plywood making it a popular choice for<br/>construction projects.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_4GA7Ht"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_G3XcgM"
+              ]
+            },
             "accordion_WYYUG7": {
               "type": "accordion",
               "name": "t:names.accordion",
@@ -778,188 +906,15 @@
             }
           },
           "block_order": [
+            "accordion_CE7MJJ",
             "accordion_WYYUG7",
             "accordion_yagfb8"
-          ]
-        },
-        "group_4bnGk7": {
-          "type": "group",
-          "name": "t:names.group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-start",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "link": "",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "accordion_aJVbzq": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_xXRhVK": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Advantages of Using SS-OSB",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_DfGgQx": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<ul><li>Cost-Effective: SS-OSB is generally more affordable than plywood, making it<br/>a cost-effective choice for builders and homeowners.</li><li>Versatility: SS-OSB can be used in many applications, including roofing,<br/>flooring, wall sheathing, and furniture construction.</li><li>High Strength: The oriented strand arrangement gives SS-OSB superior<br/>strength, making it suitable for demanding structural applications.</li><li>Moisture Resistance: With the right treatment and coatings, SS-OSB can<br/>resist moisture, making it suitable for humid environments.</li><li>Sustainability: SS-OSB is made from fast-growing wood species and is often<br/>produced using sustainable forestry practices.</li></ul>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_DfGgQx"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_xXRhVK"
-              ]
-            },
-            "accordion_HP76Dg": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_G3XcgM": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Comparision",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_4GA7Ht": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p><strong>Is SS-OSB stronger than plywood?<br/></strong>SS-OSB is generally stronger than plywood due to its oriented strand<br/>arrangement and high density which enhances its load-bearing capacity.</p><p><strong>Can SS-OSB be used outdoors?<br/></strong>SS-OSB can be used outdoors, but it should be protected from prolonged<br/>exposure to moisture. Coatings or sealants can enhance its moisture resistance.</p><p><strong>Is SS-OSB more affordable than plywood?<br/></strong>The price of SS-OSB is generally similar to plywood, but the quality that of<br/>SS-OSB is far better than the Plywood making it a popular choice for<br/>construction projects.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_4GA7Ht"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_G3XcgM"
-              ]
-            }
-          },
-          "block_order": [
-            "accordion_aJVbzq",
-            "accordion_HP76Dg"
           ]
         }
       },
       "block_order": [
-        "accordion_iU4nEe",
         "group_HNqzaT",
-        "group_RGwx4Y",
-        "group_4bnGk7"
+        "group_RGwx4Y"
       ],
       "name": "t:names.custom_section",
       "settings": {
