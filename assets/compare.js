@@ -8,25 +8,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveCompareList(list) {
     localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
+    // --- ▼▼▼ NEW ▼▼▼ ---
+    // Every time we save, update the header count
+    updateCompareCount();
+    // --- ▲▲▲ END NEW ▲▲▲ ---
   }
+  
+  // --- ▼▼▼ NEW FUNCTION ▼▼▼ ---
+  /**
+   * Finds the compare count badge in the header and updates it.
+   */
+  function updateCompareCount() {
+    const countElement = document.querySelector('.compare-count');
+    if (countElement) {
+      const compareList = getCompareList();
+      countElement.textContent = compareList.length;
+      
+      // Show or hide the badge if the count is > 0
+      if (compareList.length > 0) {
+        countElement.style.display = 'flex';
+      } else {
+        countElement.style.display = 'none';
+      }
+    }
+  }
+  // --- ▲▲▲ END NEW FUNCTION ▲▲▲ ---
 
   // Updates the visual state of a single compare button
   function updateButtonState(button, handle, isAdded) {
     if (isAdded) {
       button.classList.add('is-added-to-compare');
-      // No need to change aria-label now, as message is a separate element
-      // button.setAttribute('aria-label', 'Added to compare!'); 
     } else {
       button.classList.remove('is-added-to-compare');
-      // button.setAttribute('aria-label', 'Compare products');
     }
   }
 
   // --- Main Logic ---
 
-  // 1. Initialize button states on page load
+  // 1. Initialize button states AND header count on page load
   const compareButtons = document.querySelectorAll('.button-compare');
   const currentCompareList = getCompareList();
+
+  // --- ▼▼▼ NEW ▼▼▼ ---
+  updateCompareCount(); // Update count as soon as the page loads
+  // --- ▲▲▲ END NEW ▲▲▲ ---
 
   compareButtons.forEach(button => {
     const handle = button.dataset.productHandle;
@@ -47,12 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!compareList.includes(handle)) {
         // Product not in list, so add it
         compareList.push(handle);
-        saveCompareList(compareList);
+        saveCompareList(compareList); // This now calls updateCompareCount()
         updateButtonState(button, handle, true); // Update button to 'added' state
       } else {
         // Product is already in list, click again to remove (toggle)
         compareList = compareList.filter(h => h !== handle); // Remove from list
-        saveCompareList(compareList);
+        saveCompareList(compareList); // This now calls updateCompareCount()
         updateButtonState(button, handle, false); // Update button to original state
       }
     });
