@@ -9,14 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveCompareList(list) {
     localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
     
-    // --- MODIFICATION ---
-    // We will trigger a *custom* event to avoid conflicts with the cart script.
-    document.dispatchEvent(new Event('compare:updated'));
+    // --- ▼▼▼ MODIFICATION ▼▼▼ ---
+    // We will trigger a custom event that the script in 'header-actions.liquid'
+    // is already listening for. This avoids the "fight".
+    document.dispatchEvent(new Event('cart:updated'));
   }
-
-  // --- REMOVED ---
-  // The updateCompareCount() function has been removed from this file.
   
+  // --- ▼▼▼ REMOVED ▼▼▼ ---
+  // The 'updateCompareCount()' function is REMOVED from this file.
+  // It was causing the "flash".
+  // --- ▲▲▲ END REMOVED ▲▲▲ ---
+
+
   // Updates the visual state of a single compare button
   function updateButtonState(button, handle, isAdded) {
     if (isAdded) {
@@ -31,9 +35,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize button states on page load
   const compareButtons = document.querySelectorAll('.button-compare');
   const currentCompareList = getCompareList();
-  
-  // --- REMOVED ---
-  // updateCompareCount() is no longer called on page load from this file.
+
+  // --- ▼▼▼ REMOVED ▼▼▼ ---
+  // 'updateCompareCount()' is no longer called here.
+  // --- ▲▲▲ END REMOVED ▲▲▲ ---
+
 
   compareButtons.forEach(button => {
     const handle = button.dataset.productHandle;
@@ -54,21 +60,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!compareList.includes(handle)) {
         // Product not in list, so add it
         compareList.push(handle);
-        saveCompareList(compareList); // This now triggers the event
-        updateButtonState(button, handle, true); 
+        saveCompareList(compareList); // This now calls the event
+        updateButtonState(button, handle, true); // Update button to 'added' state
       } else {
         // Product is already in list, click again to remove (toggle)
         compareList = compareList.filter(h => h !== handle); // Remove from list
-        saveCompareList(compareList); // This now triggers the event
-        updateButtonState(button, handle, false); 
+        saveCompareList(compareList); // This now calls the event
+        updateButtonState(button, handle, false); // Update button to original state
       }
     });
   });
 
-  // --- NEW ---
-  // Also trigger an update when the page loads, just in case.
-  // This will be heard by the script in header-actions.liquid.
-  // We run this *after* the initial button setup.
-  document.dispatchEvent(new Event('compare:updated'));
+  // --- ▼▼▼ NEW ▼▼▼ ---
+  // Tell the header to update its count ONCE on page load
+  // This is safe because it only happens once.
+  document.dispatchEvent(new Event('cart:updated'));
+  // --- ▲▲▲ END NEW ▲▲▲ ---
 });
 
