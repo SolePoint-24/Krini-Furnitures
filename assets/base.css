@@ -4439,3 +4439,15 @@ text-component {
   background-color: #4CAF50; /* Green background */
   right: calc(100% + 6px);
 }
+
+.custom-product-card__actions {
+  position: absolute;
+  top: 10px; /* "a little down" */
+  right: 10px; /* "to right" */
+  z-index: 10;
+  
+  /* Hide by default */
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
