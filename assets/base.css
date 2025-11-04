@@ -4486,3 +4486,13 @@ text-component {
 .custom-product-card__action-btn .icon-checkmark {
   display: none;
 }
+
+.custom-product-card__action-btn.is-added-to-compare .icon-compare {
+  display: none;
+}
+
+/* ...and show the checkmark icon in white. */
+.custom-product-card__action-btn.is-added-to-compare .icon-checkmark {
+  display: block;
+  stroke: #ffffff; /* White checkmark */
+}
