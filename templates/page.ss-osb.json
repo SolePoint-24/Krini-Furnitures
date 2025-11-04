@@ -434,6 +434,84 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "accordion_row_7HFPi9": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "How is SS-OSB Made?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_apHipn": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>The manufacturing process of SS-OSB involves several steps:</p><ul><li>Logs are debarked and cut into strands. These strands are oriented in<br/>specific directions to maximize the panel’s strength and performance.</li><li>The oriented strands are mixed with a resin binder and wax to enhance<br/>moisture resistance. The mixture is then spread onto a mat and<br/>compressed under high pressure and heat.</li><li>The SS-OSB panels are cut into desired sizes and undergo quality checks<br/>before use.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_apHipn"
+                  ]
+                },
+                "accordion_row_jBjXbz": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Advantages of Using SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_DfGgQx": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Cost-Effective: SS-OSB is generally more affordable than plywood, making it<br/>a cost-effective choice for builders and homeowners.</li><li>Versatility: SS-OSB can be used in many applications, including roofing,<br/>flooring, wall sheathing, and furniture construction.</li><li>High Strength: The oriented strand arrangement gives SS-OSB superior<br/>strength, making it suitable for demanding structural applications.</li><li>Moisture Resistance: With the right treatment and coatings, SS-OSB can<br/>resist moisture, making it suitable for humid environments.</li><li>Sustainability: SS-OSB is made from fast-growing wood species and is often<br/>produced using sustainable forestry practices.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_DfGgQx"
+                  ]
+                },
                 "accordion_row_kPmWX4": {
                   "type": "_accordion-row",
                   "settings": {
@@ -472,158 +550,8 @@
                   "block_order": [
                     "text_MdtCrP"
                   ]
-                }
-              },
-              "block_order": [
-                "accordion_row_kPmWX4"
-              ]
-            },
-            "accordion_LkfFff": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_xXRhVK": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Advantages of Using SS-OSB",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_DfGgQx": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<ul><li>Cost-Effective: SS-OSB is generally more affordable than plywood, making it<br/>a cost-effective choice for builders and homeowners.</li><li>Versatility: SS-OSB can be used in many applications, including roofing,<br/>flooring, wall sheathing, and furniture construction.</li><li>High Strength: The oriented strand arrangement gives SS-OSB superior<br/>strength, making it suitable for demanding structural applications.</li><li>Moisture Resistance: With the right treatment and coatings, SS-OSB can<br/>resist moisture, making it suitable for humid environments.</li><li>Sustainability: SS-OSB is made from fast-growing wood species and is often<br/>produced using sustainable forestry practices.</li></ul>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_DfGgQx"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_xXRhVK"
-              ]
-            },
-            "accordion_EA8yff": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_NVqePb": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "How is SS-OSB Made?",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_apHipn": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>The manufacturing process of SS-OSB involves several steps:</p><ul><li>Logs are debarked and cut into strands. These strands are oriented in<br/>specific directions to maximize the panel’s strength and performance.</li><li>The oriented strands are mixed with a resin binder and wax to enhance<br/>moisture resistance. The mixture is then spread onto a mat and<br/>compressed under high pressure and heat.</li><li>The SS-OSB panels are cut into desired sizes and undergo quality checks<br/>before use.</li></ul>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_apHipn"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_NVqePb"
-              ]
-            },
-            "accordion_7XQVam": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_89yViC": {
+                },
+                "accordion_row_GUgpih": {
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "The Composition of SS-OSB",
@@ -664,15 +592,15 @@
                 }
               },
               "block_order": [
-                "accordion_row_89yViC"
+                "accordion_row_7HFPi9",
+                "accordion_row_jBjXbz",
+                "accordion_row_kPmWX4",
+                "accordion_row_GUgpih"
               ]
             }
           },
           "block_order": [
-            "accordion_46NWV4",
-            "accordion_LkfFff",
-            "accordion_EA8yff",
-            "accordion_7XQVam"
+            "accordion_46NWV4"
           ]
         },
         "group_RGwx4Y": {
@@ -734,6 +662,84 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "accordion_row_QU3xgD": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Strength and Durability of SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_p9am7P": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>One of the key advantages of SS-OSB is its exceptional strength and durability.</li><li>The oriented arrangement of strands gives SS-OSB superior load-bearing<br/>capacity, making it suitable for various structural applications.</li><li>SS-OSB panels also have excellent dimensional stability, meaning they are less<br/>likely to expand or contract due to changes in temperature and humidity.</li><li>Additionally, SS-OSB is highly impact-resistant and can withstand heavy loads<br/>without significant deformation.</li><li>This Board can be used vertically or horizontally but the STRENGTH will<br/>remain the same due to over cross laying of STRANDS.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_p9am7P"
+                  ]
+                },
+                "accordion_row_giwHk7": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Applications of SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_jtkBYQ": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Construction: SS-OSB is used for construction of the entire houses including roofing and<br/>flooring, hotels and motels.</li><li>Roof Decking: SS-OSB is often used as a base material for roofing systems, providing a<br/>sturdy and reliable surface for shingles or other roofing materials.</li><li>Wall Sheathing: SS-OSB panels are commonly used as an exterior wall covering, providing<br/>structural support and insulation for buildings.</li><li>Subflooring: SS-OSB is an excellent choice due to its strength, stability, and moisture<br/>resistance.</li><li>Furniture Construction: SS-OSB can create sturdy and durable furniture, such as<br/>wardrobes, shelves, cabinets, and tables.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_jtkBYQ"
+                  ]
+                },
                 "accordion_row_G3XcgM": {
                   "type": "_accordion-row",
                   "settings": {
@@ -775,140 +781,14 @@
                 }
               },
               "block_order": [
+                "accordion_row_QU3xgD",
+                "accordion_row_giwHk7",
                 "accordion_row_G3XcgM"
-              ]
-            },
-            "accordion_WYYUG7": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_YY9J6i": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Applications of SS-OSB",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_jtkBYQ": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<ul><li>Construction: SS-OSB is used for construction of the entire houses including roofing and<br/>flooring, hotels and motels.</li><li>Roof Decking: SS-OSB is often used as a base material for roofing systems, providing a<br/>sturdy and reliable surface for shingles or other roofing materials.</li><li>Wall Sheathing: SS-OSB panels are commonly used as an exterior wall covering, providing<br/>structural support and insulation for buildings.</li><li>Subflooring: SS-OSB is an excellent choice due to its strength, stability, and moisture<br/>resistance.</li><li>Furniture Construction: SS-OSB can create sturdy and durable furniture, such as<br/>wardrobes, shelves, cabinets, and tables.</li></ul>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_jtkBYQ"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_YY9J6i"
-              ]
-            },
-            "accordion_yagfb8": {
-              "type": "accordion",
-              "name": "t:names.accordion",
-              "settings": {
-                "icon": "plus",
-                "dividers": true,
-                "type_preset": "h5",
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "accordion_row_pNB96p": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Strength and Durability of SS-OSB",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_p9am7P": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<ul><li>One of the key advantages of SS-OSB is its exceptional strength and durability.</li><li>The oriented arrangement of strands gives SS-OSB superior load-bearing<br/>capacity, making it suitable for various structural applications.</li><li>SS-OSB panels also have excellent dimensional stability, meaning they are less<br/>likely to expand or contract due to changes in temperature and humidity.</li><li>Additionally, SS-OSB is highly impact-resistant and can withstand heavy loads<br/>without significant deformation.</li><li>This Board can be used vertically or horizontally but the STRENGTH will<br/>remain the same due to over cross laying of STRANDS.</li></ul>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_p9am7P"
-                  ]
-                }
-              },
-              "block_order": [
-                "accordion_row_pNB96p"
               ]
             }
           },
           "block_order": [
-            "accordion_CE7MJJ",
-            "accordion_WYYUG7",
-            "accordion_yagfb8"
+            "accordion_CE7MJJ"
           ]
         }
       },
