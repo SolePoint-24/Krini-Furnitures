@@ -31,11 +31,10 @@
       "block_order": [
         "announcement_mxxhta"
       ],
-      "disabled": true,
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
-        "section_width": "full-width",
+        "section_width": "page-width",
         "color_scheme": "scheme-4",
         "divider_width": 0,
         "padding-block-start": 15,
