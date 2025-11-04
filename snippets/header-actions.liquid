@@ -329,32 +329,60 @@
   This runs after other scripts to ensure the count is always correct.
 {% endcomment %}
 <script>
-  (function() {
-    function updateCompareCountOnHeader() {
-      const countElement = document.querySelector('.compare-count');
-      if (countElement) {
-        const compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-        countElement.textContent = compareList.length;
-        
-        if (compareList.length > 0) {
-          countElement.style.display = 'flex';
-        } else {
-          countElement.style.display = 'none';
-        }
+  (function () {
+    const COMPARE_LIST_KEY = 'compareList';
+
+    function getCompareList() {
+      try {
+        return JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
+      } catch (_) {
+        return [];
       }
     }
-    
-    // 1. Run when our compare.js script tells us to
-    document.addEventListener('compare:updated', updateCompareCountOnHeader);
 
-    // 2. Run when the cart script *might* be messing with the header
-    // We add a 50ms delay to make sure our script runs LAST and wins the "race".
-    document.addEventListener('cart:updated', () => {
-      setTimeout(updateCompareCountOnHeader, 50);
-    });
+    function updateAllCompareBadges() {
+      const compareList = getCompareList();
+      const count = compareList.length;
+      // Update ALL compare badges in case the header exists in multiple places
+      document.querySelectorAll('.compare-count').forEach((el) => {
+        el.textContent = count;
+        el.setAttribute('data-count', String(count));
+      });
+    }
 
-    // 3. Run once on page load just in case
-    document.addEventListener('DOMContentLoaded', updateCompareCountOnHeader);
+    // Debounce utility so we don't spam updates on rapid mutations
+    function debounce(fn, delay) {
+      let t = null;
+      return function () {
+        clearTimeout(t);
+        t = setTimeout(fn, delay);
+      };
+    }
+
+    const debouncedUpdate = debounce(updateAllCompareBadges, 50);
+
+    // Listen to our custom compare events (from compare.js)
+    document.addEventListener('compare:updated', debouncedUpdate);
+
+    // Listen to common theme/Shopify events that re-render header
+    document.addEventListener('cart:updated', debouncedUpdate);
+    document.addEventListener('shopify:section:load', debouncedUpdate);
+    document.addEventListener('shopify:section:unload', debouncedUpdate);
+    document.addEventListener('shopify:section:reorder', debouncedUpdate);
+    document.addEventListener('shopify:section:select', debouncedUpdate);
+    document.addEventListener('shopify:section:deselect', debouncedUpdate);
+    document.addEventListener('shopify:block:select', debouncedUpdate);
+    document.addEventListener('shopify:block:deselect', debouncedUpdate);
+
+    // Handle bfcache and SPA-ish navigations
+    window.addEventListener('pageshow', debouncedUpdate);
+
+    // MutationObserver: if header or its children are replaced, re-apply count
+    const observer = new MutationObserver(debouncedUpdate);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    // Initial run (after DOM is ready)
+    document.addEventListener('DOMContentLoaded', updateAllCompareBadges);
   })();
 </script>
 
