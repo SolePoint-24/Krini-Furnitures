@@ -298,35 +298,24 @@
   }
 
   /* 2. Style the count badge to match your site's style */
-  .header-icon__badge.compare-count {
-    position: absolute;
-    
-    /* Positioned to match your cart badge */
-    top: 20px; 
-    right: -2px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    /* Colors to match your cart badge */
-    background-color: #c0caad; /* Muted olive/green */
-    color: #333333; /* Dark text */
-
-    font-size: 10px;
-    font-weight: bold;
-    line-height: 1;
-
-    min-width: 18px;
-    height: 18px;
-    padding: 2px;
-
-    border-radius: 50%;
-    box-sizing: border-box;
-
-    /* Hide it by default, JS will show it */
-    display: none;
-  }
+.header-icon__badge.compare-count{
+  position: absolute;
+  top: 20px;
+  right: -2px;
+  display: flex;            /* always flex */
+  align-items: center;
+  justify-content: center;
+  background-color: #c0caad;
+  color: #333333;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  min-width: 18px;
+  height: 18px;
+  padding: 2px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
   /* ▲▲▲ End of new styles ▲▲▲ */
 
 {% endstylesheet %}
