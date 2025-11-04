@@ -8,32 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveCompareList(list) {
     localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
-    // --- ▼▼▼ NEW ▼▼▼ ---
-    // Every time we save, update the header count
-    updateCompareCount();
-    // --- ▲▲▲ END NEW ▲▲▲ ---
+    
+    // --- MODIFICATION ---
+    // We no longer call updateCompareCount() here.
+    // The script in header-actions.liquid will handle this.
+    
+    // --- Also, we must trigger the 'cart:updated' event ---
+    // This tells the script in header-actions.liquid to run.
+    document.dispatchEvent(new Event('cart:updated'));
   }
-  
-  // --- ▼▼▼ NEW FUNCTION ▼▼▼ ---
-  /**
-   * Finds the compare count badge in the header and updates it.
-   */
-  function updateCompareCount() {
-    const countElement = document.querySelector('.compare-count');
-    if (countElement) {
-      const compareList = getCompareList();
-      countElement.textContent = compareList.length;
-      
-      // Show or hide the badge if the count is > 0
-      if (compareList.length > 0) {
-        countElement.style.display = 'flex';
-      } else {
-        countElement.style.display = 'none';
-      }
-    }
-  }
-  // --- ▲▲▲ END NEW FUNCTION ▲▲▲ ---
 
+  // --- REMOVED ---
+  // The updateCompareCount() function has been removed from this file.
+  
   // Updates the visual state of a single compare button
   function updateButtonState(button, handle, isAdded) {
     if (isAdded) {
@@ -45,13 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Main Logic ---
 
-  // 1. Initialize button states AND header count on page load
+  // 1. Initialize button states on page load
   const compareButtons = document.querySelectorAll('.button-compare');
   const currentCompareList = getCompareList();
-
-  // --- ▼▼▼ NEW ▼▼▼ ---
-  updateCompareCount(); // Update count as soon as the page loads
-  // --- ▲▲▲ END NEW ▲▲▲ ---
+  
+  // --- REMOVED ---
+  // updateCompareCount() is no longer called on page load from this file.
 
   compareButtons.forEach(button => {
     const handle = button.dataset.productHandle;
@@ -72,13 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!compareList.includes(handle)) {
         // Product not in list, so add it
         compareList.push(handle);
-        saveCompareList(compareList); // This now calls updateCompareCount()
-        updateButtonState(button, handle, true); // Update button to 'added' state
+        saveCompareList(compareList); // This now triggers the event
+        updateButtonState(button, handle, true); 
       } else {
         // Product is already in list, click again to remove (toggle)
         compareList = compareList.filter(h => h !== handle); // Remove from list
-        saveCompareList(compareList); // This now calls updateCompareCount()
-        updateButtonState(button, handle, false); // Update button to original state
+        saveCompareList(compareList); // This now triggers the event
+        updateButtonState(button, handle, false); 
       }
     });
   });
