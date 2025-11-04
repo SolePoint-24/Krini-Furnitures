@@ -49,7 +49,7 @@
 {% stylesheet %}
   /* ... (your existing cart CSS is here) ... */
 
-  /* ▼▼▼ ADD THIS NEW CSS AT THE END (inside the stylesheet tag) ▼▼▼ */
+  /* ▼▼▼ MODIFIED STYLES FOR COMPARE ICON ▼▼▼ */
 
   /* 1. Style the Compare Icon to match other icons */
   .header-icon--compare {
@@ -61,18 +61,23 @@
     height: var(--icon-size-md);
   }
 
-  /* 2. Style the red count badge */
+  /* 2. Style the count badge to match your site's style */
   .header-icon__badge.compare-count {
     position: absolute;
-    top: -5px;   /* Adjust as needed */
-    right: -8px; /* Adjust as needed */
+    
+    /* ▼▼▼ MODIFICATION: Positioned to match your cart badge ▼▼▼ */
+    top: 20px; 
+    right: -2px;
+    /* ▲▲▲ End of Modification ▲▲▲ */
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background-color: #e74c3c; /* Red */
-    color: white;
+    /* ▼▼▼ MODIFICATION: Colors to match your cart badge ▼▼▼ */
+    background-color: #c0caad; /* Muted olive/green */
+    color: #333333; /* Dark text */
+    /* ▲▲▲ End of Modification ▲▲▲ */
 
     font-size: 10px;
     font-weight: bold;
@@ -88,6 +93,7 @@
     /* Hide it by default, JS will show it */
     display: none;
   }
-
+  
   /* ... (your existing header-actions CSS is here) ... */
 {% endstylesheet %}
+
