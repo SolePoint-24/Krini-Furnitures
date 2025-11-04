@@ -4374,15 +4374,6 @@ text-component {
   display: none; 
 }
 
-/* New: Add a checkmark icon */
-.custom-product-card__action-btn.is-added-to-compare::after {
-  content: '✓'; /* Checkmark character */
-  color: #ffffff;
-  font-size: 1.5em; /* Adjust size as needed */
-  line-height: 1; /* Center vertically */
-  display: block;
-}
-
 /* Optional: Tooltip for "Compare products" on hover */
 .custom-product-card__action-btn {
   display: flex;
