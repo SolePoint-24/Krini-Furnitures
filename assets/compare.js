@@ -10,14 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
     
     // --- ▼▼▼ MODIFICATION ▼▼▼ ---
-    // We will trigger a custom event that the script in 'header-actions.liquid'
-    // is already listening for. This avoids the "fight".
-    document.dispatchEvent(new Event('cart:updated'));
+    // We will trigger our OWN custom event.
+    document.dispatchEvent(new Event('compare:updated'));
+    // --- ▲▲▲ END MODIFICATION ▲▲▲ ---
   }
   
   // --- ▼▼▼ REMOVED ▼▼▼ ---
   // The 'updateCompareCount()' function is REMOVED from this file.
-  // It was causing the "flash".
   // --- ▲▲▲ END REMOVED ▲▲▲ ---
 
 
@@ -71,10 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- ▼▼▼ NEW ▼▼▼ ---
+  // --- ▼▼▼ MODIFICATION ▼▼▼ ---
   // Tell the header to update its count ONCE on page load
-  // This is safe because it only happens once.
-  document.dispatchEvent(new Event('cart:updated'));
-  // --- ▲▲▲ END NEW ▲▲▲ ---
+  // using our own custom event.
+  document.dispatchEvent(new Event('compare:updated'));
+  // --- ▲▲▲ END MODIFICATION ▲▲▲ ---
 });
 
