@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const COMPARE_LIST_KEY = 'compareList'; // Define a constant for the key
+  const COMPARE_LIST_KEY = 'compareList';
 
   // --- Helper Functions ---
   function getCompareList() {
@@ -14,10 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateButtonState(button, handle, isAdded) {
     if (isAdded) {
       button.classList.add('is-added-to-compare');
-      button.setAttribute('aria-label', 'Added to compare!');
+      // No need to change aria-label now, as message is a separate element
+      // button.setAttribute('aria-label', 'Added to compare!'); 
     } else {
       button.classList.remove('is-added-to-compare');
-      button.setAttribute('aria-label', 'Compare products'); // Reset to original label
+      // button.setAttribute('aria-label', 'Compare products');
     }
   }
 
@@ -48,17 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
         compareList.push(handle);
         saveCompareList(compareList);
         updateButtonState(button, handle, true); // Update button to 'added' state
-        // Optional: Temporarily show a message
-        // console.log(`${handle} added to compare!`);
-
       } else {
-        // Product is already in list, do nothing or remove it
-        // For this request, we'll just acknowledge it's there or remove it.
-        // Let's make it toggle for better UX: if already added, click again to remove.
+        // Product is already in list, click again to remove (toggle)
         compareList = compareList.filter(h => h !== handle); // Remove from list
         saveCompareList(compareList);
         updateButtonState(button, handle, false); // Update button to original state
-        // console.log(`${handle} removed from compare!`);
       }
     });
   });
