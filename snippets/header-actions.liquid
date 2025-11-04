@@ -336,27 +336,32 @@
   This runs after other scripts to ensure the count is always correct.
 {% endcomment %}
 <script>
-  function updateCompareCountOnHeader() {
-    const countElement = document.querySelector('.compare-count');
-    if (countElement) {
-      const compareList = JSON.parse(localStorage.getItem('compareList')) || [];
-      countElement.textContent = compareList.length;
-      
-      if (compareList.length > 0) {
-        countElement.style.display = 'flex';
-      } else {
-        countElement.style.display = 'none';
+  (function() {
+    function updateCompareCountOnHeader() {
+      const countElement = document.querySelector('.compare-count');
+      if (countElement) {
+        const compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+        countElement.textContent = compareList.length;
+        
+        if (compareList.length > 0) {
+          countElement.style.display = 'flex';
+        } else {
+          countElement.style.display = 'none';
+        }
       }
     }
-  }
-  
-  // Run when the page is loaded
-  document.addEventListener('DOMContentLoaded', updateCompareCountOnHeader);
+    
+    // 1. Run when our compare.js script tells us to
+    document.addEventListener('compare:updated', updateCompareCountOnHeader);
 
-  // Run after a short delay to override any cart scripts
-  setTimeout(updateCompareCountOnHeader, 1000); 
-  
-  // Also run every time the cart is updated (which often refreshes the header)
-  document.addEventListener('cart:updated', updateCompareCountOnHeader);
+    // 2. Run when the cart script *might* be messing with the header
+    // We add a 50ms delay to make sure our script runs LAST and wins the "race".
+    document.addEventListener('cart:updated', () => {
+      setTimeout(updateCompareCountOnHeader, 50);
+    });
+
+    // 3. Run once on page load just in case
+    document.addEventListener('DOMContentLoaded', updateCompareCountOnHeader);
+  })();
 </script>
 
