@@ -4284,132 +4284,109 @@ text-component {
   }
 }
 
-/* Custom Product Card Styles */
-.custom-product-card {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
-/* REMOVED: .custom-product-card:hover rule */
-
-.custom-product-card__image-wrapper {
-  width: 100%;
-  padding-bottom: 100%;
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-}
-.custom-product-card__image {
+/* ==========================================================================
+   1. Button Container (Positioning & Hover)
+   ========================================================================== */
+.custom-product-card__actions {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity 0.3s ease;
-}
-.custom-product-card__image--secondary {
-  opacity: 0;
-}
-/* REMOVED: .custom-product-card:hover image rules */
-
-.custom-product-card__info {
-  padding: 8px;
+  top: 10px; /* Adjusted slightly for smaller button */
+  right: 10px; /* Adjusted slightly for smaller button */
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
+  gap: 6px;
+  
+  /* Hide by default */
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* --- TITLE STYLES (EDIT HERE) --- */
-.custom-product-card__title {
-  font-family: var(--font-body-family);
-  font-size: 18px;       /* <-- Adjust title font size */
-  line-height: 1.4;
-  margin-bottom: 8px;
-  color: #513117;       /* <-- Hardcoded title color */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.8em;
+/* Show the buttons on card hover */
+.custom-product-card:hover .custom-product-card__actions {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-/* --- PRICE STYLES (EDIT HERE) --- */
-.custom-product-card__price {
-  font-family: var(--font-body-family);
-  font-size: 18px;       /* <-- Adjust price font size */
-  font-weight: 400;
+/* ==========================================================================
+   2. Button Default Style (Smaller)
+   ========================================================================== */
+.custom-product-card__action-btn {
+  position: relative; /* For tooltip */
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  color: #513117;       /* <-- Hardcoded price color */
-}
-.custom-product-card__compare-price {
-  text-decoration: line-through;
-  font-size: 0.9em;
-  color: #757575;       /* <-- Hardcoded compare-at price color */
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* Smaller button */
+  height: 32px; /* Smaller button */
+  padding: 0;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* button style for product paage comare button */
+/* Default hover (light gray) */
+.custom-product-card__action-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #c0c0c0;
+}
 
-/* Style for when the item is added to compare */
+/* Default icon (compare arrows) */
+.custom-product-card__action-btn svg {
+  width: 16px; /* Smaller icon */
+  height: 16px; /* Smaller icon */
+  stroke: #333;
+  display: block;
+  transition: stroke 0.2s ease;
+}
+
+/* ==========================================================================
+   3. Button "Added" State (Green checkmark)
+   ========================================================================== */
 .custom-product-card__action-btn.is-added-to-compare {
-  background-color: #4CAF50; /* Green background */
+  background-color: #4CAF50;
   border-color: #4CAF50;
 }
 
+/* Hide the compare arrows icon when added */
 .custom-product-card__action-btn.is-added-to-compare svg {
-  stroke: #ffffff; /* White icon */
-  /* Hide the original compare icon */
-  display: none; 
+  display: none;
 }
 
-/* New: Add a checkmark icon */
-.custom-product-card__action-btn.is-added-to-compare::after {
-  content: '✓'; /* Checkmark character */
-  color: #ffffff;
-  font-size: 1.5em; /* Adjust size as needed */
-  line-height: 1; /* Center vertically */
-  display: block;
-}
+/* ==========================================================================
+   4. Tooltip System (Smaller)
+   ========================================================================== */
 
-/* Optional: Tooltip for "Compare products" on hover */
-.custom-product-card__action-btn {
-  position: relative; /* For absolute positioning of tooltip */
-}
-
+/* --- 4.1 Default Tooltip --- */
+/* Bubble (::before) */
 .custom-product-card__action-btn::before {
-  content: attr(aria-label); /* Get text from aria-label */
+  content: attr(aria-label); /* Reads "Compare" */
   position: absolute;
-  right: calc(100% + 10px); /* Position to the left of the button */
+  right: calc(100% + 8px); /* Tooltip spacing */
   top: 50%;
   transform: translateY(-50%);
-  
   background-color: black;
   color: white;
-  padding: 8px 12px;
+  padding: 4px 8px; /* Smaller padding */
   border-radius: 4px;
   white-space: nowrap;
-  font-size: 0.85em;
-  pointer-events: none; /* Allows clicks to pass through to the button */
+  font-size: 0.75em; /* Smaller font */
+  pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: 11; /* Ensure it's above other elements */
+  z-index: 11;
 }
 
-/* Pointer for the tooltip */
+/* Pointer (::after) */
 .custom-product-card__action-btn::after {
   content: '';
   position: absolute;
-  right: calc(100% + 6px); /* Adjust to align with tooltip */
+  right: calc(100% + 4px); /* Position for smaller pointer */
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
-  width: 8px;
-  height: 8px;
+  width: 6px; /* Smaller pointer */
+  height: 6px; /* Smaller pointer */
   background-color: black;
   pointer-events: none;
   opacity: 0;
@@ -4417,20 +4394,50 @@ text-component {
   z-index: 11;
 }
 
-/* Show tooltip on hover */
+/* Show default tooltip on hover */
 .custom-product-card__action-btn:hover::before,
 .custom-product-card__action-btn:hover::after {
   opacity: 1;
 }
 
-/* Special state for "Added to Compare" text */
+/* --- 4.2 "Added" State Tooltip --- */
+/* Bubble (::before) */
 .custom-product-card__action-btn.is-added-to-compare::before {
-  content: 'Added to compare!';
-  background-color: #4CAF50; /* Green background */
-  right: calc(100% + 10px);
+  content: 'Added!'; /* Shortened message */
+  background-color: #4CAF50;
 }
 
+/* Checkmark (::after) - Overrides the pointer */
 .custom-product-card__action-btn.is-added-to-compare::after {
-  background-color: #4CAF50; /* Green background */
-  right: calc(100% + 6px);
+  content: '✓';
+  color: #ffffff;
+  font-size: 1.2em; /* Smaller checkmark */
+  line-height: 1;
+  display: block;
+  
+  /* Reset pointer styles */
+  position: static;
+  transform: none;
+  width: auto;
+  height: auto;
+  background-color: transparent;
+  opacity: 1; /* Show checkmark */
+}
+
+/* Show "Added" Tooltip on Hover (::after) - Overrides the checkmark */
+.custom-product-card__action-btn.is-added-to-compare:hover::after {
+  content: ''; /* Remove checkmark '✓' */
+  position: absolute; /* Re-apply pointer styles */
+  right: calc(100% + 4px);
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  background-color: #4CAF50; /* Green pointer */
+  opacity: 1;
+}
+
+/* Show "Added" Bubble on hover (::before) */
+.custom-product-card__action-btn.is-added-to-compare:hover::before {
+  opacity: 1;
 }
