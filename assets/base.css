@@ -4474,10 +4474,6 @@ text-component {
 
 .custom-product-card__action-btn.is-added-to-compare + .compare-message {
   opacity: 1;
-  transform: translateX(0); /* Slides into view */
-}
-
-/* Adjust layout when message is visible */
-.custom-product-card__action-btn.is-added-to-compare + .compare-message {
-  margin-top: 5px; /* Space between button and message */
+  transform: translateX(0); 
+  margin-top: 5px; 
 }
