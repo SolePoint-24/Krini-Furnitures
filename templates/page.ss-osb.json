@@ -788,34 +788,17 @@
                     "width": 20
                   },
                   "blocks": {
-                    "text_YJ3p4Q": {
-                      "type": "text",
+                    "custom_liquid_WVP7mq": {
+                      "type": "custom-liquid",
+                      "name": "t:names.custom_liquid",
                       "settings": {
-                        "text": "<p>MATERIAL / THICKNESS (16 MM)PRICE / CBM ($)Partical Board200 TO 250MDF250 TO 300SS-OSB400 TO 425HDF450 TO 500Plywood Medium Calibrated600 +Plywood Good Quality Russian / Malaysian750 TO 900</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
+                        "custom_liquid": "<table style=\"width:100%; border-collapse:collapse; text-align:left;\">\n  <thead>\n    <tr style=\"background-color:#7a9b37; color:#fff;\">\n      <th style=\"padding:8px; border:1px solid #ccc;\">MATERIAL / THICKNESS (16 MM)</th>\n      <th style=\"padding:8px; border:1px solid #ccc;\">PRICE / CBM ($)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td style=\"padding:8px; border:1px solid #ccc;\">Partical Board</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">200 TO 250</td>\n    </tr>\n    <tr>\n      <td style=\"padding:8px; border:1px solid #ccc;\">MDF</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">250 TO 300</td>\n    </tr>\n    <tr style=\"background-color:#f5f5f5;\">\n      <td style=\"padding:8px; border:1px solid #ccc;\">SS-OSB</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">400 TO 425</td>\n    </tr>\n    <tr>\n      <td style=\"padding:8px; border:1px solid #ccc;\">HDF</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">450 TO 500</td>\n    </tr>\n    <tr style=\"background-color:#f5f5f5;\">\n      <td style=\"padding:8px; border:1px solid #ccc;\">Plywood Medium Calibrated</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">600 +</td>\n    </tr>\n    <tr>\n      <td style=\"padding:8px; border:1px solid #ccc;\">Plywood Good Quality Russian / Malaysian</td>\n      <td style=\"padding:8px; border:1px solid #ccc;\">750 TO 900</td>\n    </tr>\n  </tbody>\n</table>"
                       },
                       "blocks": {}
                     }
                   },
                   "block_order": [
-                    "text_YJ3p4Q"
+                    "custom_liquid_WVP7mq"
                   ]
                 }
               },
