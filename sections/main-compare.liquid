@@ -1,0 +1,334 @@
+{% comment %}
+  Section: Product Comparison Table
+  This section is dynamically filled by JavaScript based on
+  product handles stored in localStorage.
+{% endcomment %}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .compare-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: var(--font-body-family);
+  }
+
+  .compare-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  .compare-table {
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    width: max-content; /* Allows table to grow horizontally */
+  }
+
+  .compare-column {
+    display: flex;
+    flex-direction: column;
+    width: 300px; /* Width of each product column */
+    border-right: 1px solid #e0e0e0;
+    flex-shrink: 0;
+  }
+  
+  .compare-column:last-child {
+    border-right: none;
+  }
+
+  /* Label Column (First Column) */
+  .compare-column--labels {
+    width: 200px; /* Width of the labels column */
+    background-color: #f9f9f9;
+    font-weight: 600;
+    position: sticky; /* Sticks the labels on the left */
+    left: 0;
+    z-index: 10;
+    border-right: 1px solid #d0d0d0;
+  }
+
+  .compare-cell {
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 80px;
+  }
+
+  .compare-column:first-child .compare-cell {
+    background-color: #f9f9f9;
+  }
+
+  .compare-cell:last-child {
+    border-bottom: none;
+  }
+  
+  .compare-cell--header {
+    min-height: 180px; /* Taller cells for top block */
+    text-align: center;
+  }
+  
+  .compare-column--labels .compare-cell--header {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .compare-cell--label {
+    justify-content: flex-start;
+    font-size: 1.1em;
+  }
+
+  /* Cell Content Styles */
+  .compare-cell .remove-button {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+  }
+  .compare-cell .remove-button:hover {
+    background: #c0392b;
+  }
+  
+  .compare-cell img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin: 0 auto;
+    border-radius: 4px;
+  }
+  
+  .compare-cell h3 {
+    font-size: 1.1em;
+    margin: 0;
+  }
+  
+  .compare-cell .price {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #513117;
+  }
+  
+  .compare-cell .atc-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+    text-align: center;
+  }
+  .compare-cell .atc-button:hover {
+    background: #45a049;
+  }
+  
+  .compare-cell .availability {
+    font-weight: 600;
+  }
+  .compare-cell .availability.in-stock {
+    color: #27ae60;
+  }
+  .compare-cell .availability.out-of-stock {
+    color: #e74c3c;
+  }
+
+  .compare-cell .description {
+    font-size: 0.9em;
+    line-height: 1.6;
+    max-height: 200px; /* Limit description height */
+    overflow-y: auto;
+  }
+
+  /* Empty/Loading States */
+  .compare-empty-message,
+  .compare-loading-message {
+    text-align: center;
+    font-size: 1.2em;
+    padding: 40px;
+    color: #555;
+  }
+</style>
+
+<div class="compare-page-container page-width">
+  <h1>{{ 'Compare Products' | t }}</h1>
+
+  <div id="compare-scroll-wrapper" class="compare-scroll-wrapper">
+    <div class="compare-loading-message">
+      Loading products...
+    </div>
+    
+    <div id="compare-table" class="compare-table" style="display: none;">
+      <!-- JavaScript will build the table here -->
+    </div>
+  </div>
+  
+  <div id="compare-empty-message" class="compare-empty-message" style="display: none;">
+    You haven't added any products to compare yet.
+    <a href="/collections/all" style="margin-top: 10px; display: block;">Continue Shopping</a>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const COMPARE_LIST_KEY = 'compareList';
+    
+    const tableContainer = document.getElementById('compare-table');
+    const loadingMessage = document.querySelector('.compare-loading-message');
+    const emptyMessage = document.getElementById('compare-empty-message');
+    const scrollWrapper = document.getElementById('compare-scroll-wrapper');
+    
+    const handles = JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
+
+    if (handles.length === 0) {
+      scrollWrapper.style.display = 'none';
+      emptyMessage.style.display = 'block';
+      loadingMessage.style.display = 'none';
+      return;
+    }
+
+    // --- 1. Fetch all product data ---
+    const requests = handles.map(handle => {
+      return fetch(`/products/${handle}.js`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Could not fetch product: ${handle}`);
+          }
+          return response.json();
+        })
+        .catch(error => {
+          console.warn(error);
+          return null; // Return null if a product fetch fails
+        });
+    });
+
+    Promise.all(requests)
+      .then(products => {
+        // Filter out any nulls from failed requests
+        const validProducts = products.filter(p => p !== null);
+        if (validProducts.length > 0) {
+          buildCompareTable(validProducts);
+          tableContainer.style.display = 'flex';
+        } else {
+          scrollWrapper.style.display = 'none';
+          emptyMessage.style.display = 'block';
+        }
+        loadingMessage.style.display = 'none';
+      });
+
+    // --- 2. Build the HTML table ---
+    function buildCompareTable(products) {
+      // Create the Label Column
+      const labelColumn = document.createElement('div');
+      labelColumn.className = 'compare-column compare-column--labels';
+      labelColumn.innerHTML = `
+        <div class="compare-cell compare-cell--header" style="min-height: 80px;"></div>
+        <div class="compare-cell compare-cell--header"></div>
+        <div class="compare-cell compare-cell--header"></div>
+        <div class="compare-cell compare-cell--header"></div>
+        <div class="compare-cell compare-cell--header"></div>
+        <div class="compare-cell compare-cell--label">Availability</div>
+        <div class="compare-cell compare-cell--label">Description</div>
+      `;
+      tableContainer.appendChild(labelColumn);
+
+      // Create a column for each product
+      products.forEach(product => {
+        const productColumn = document.createElement('div');
+        productColumn.className = 'compare-column';
+        productColumn.dataset.handle = product.handle;
+
+        // --- Prepare data ---
+        const price = new Intl.NumberFormat(shop.locale, {
+          style: 'currency',
+          currency: shop.currency
+        }).format(product.price / 100.0);
+        
+        const availability = product.available
+          ? '<span class="availability in-stock">✓ In stock</span>'
+          : '<span class="availability out-of-stock">X Out of stock</span>';
+        
+        // Use first variant for Add to Cart
+        const variantId = product.variants[0].id;
+        
+        productColumn.innerHTML = `
+          <div class="compare-cell" style="min-height: 80px; justify-content: center; align-items: center;">
+            <button class="remove-button" data-handle="${product.handle}">Remove</button>
+          </div>
+          <div class="compare-cell compare-cell--header">
+            <img src="${product.featured_image ? product.featured_image.replace(/(\.[^.]*)$/, '_300x$1') : ''}" alt="${product.title}" loading="lazy">
+          </div>
+          <div class="compare-cell compare-cell--header">
+            <h3>${product.title}</h3>
+          </div>
+          <div class="compare-cell compare-cell--header">
+            <span class="price">${price}</span>
+          </div>
+          <div class="compare-cell compare-cell--header">
+            <a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>
+          </div>
+          <div class="compare-cell">
+            ${availability}
+          </div>
+          <div class="compare-cell">
+            <div class="description">${product.description}</div>
+          </div>
+        `;
+        tableContainer.appendChild(productColumn);
+      });
+      
+      // Add event listeners to the new "Remove" buttons
+      addRemoveListeners();
+    }
+
+    // --- 3. Add "Remove" button logic ---
+    function addRemoveListeners() {
+      tableContainer.querySelectorAll('.remove-button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const handleToRemove = e.target.dataset.handle;
+          
+          // 1. Remove from localStorage
+          let compareList = JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
+          compareList = compareList.filter(h => h !== handleToRemove);
+          localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(compareList));
+          
+          // 2. Remove the column from the page (or just reload)
+          // Easiest way to keep sync is to reload the page.
+          window.location.reload();
+          
+          // Alternative (faster, no reload):
+          // const columnToRemove = tableContainer.querySelector(`.compare-column[data-handle="${handleToRemove}"]`);
+          // if (columnToRemove) {
+          //   columnToRemove.remove();
+          // }
+          // if (compareList.length === 0) {
+          //   scrollWrapper.style.display = 'none';
+          //   emptyMessage.style.display = 'block';
+          // }
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Compare Page",
+  "tag": "section",
+  "class": "compare-page-section",
+  "presets": [
+    {
+      "name": "Compare Page"
+    }
+  ]
+}
+{% endschema %}
