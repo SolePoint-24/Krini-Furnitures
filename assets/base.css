@@ -4451,3 +4451,8 @@ text-component {
   transform: translateX(100%);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+.custom-product-card:hover .custom-product-card__actions {
+  opacity: 1;
+  transform: translateX(0);
+}
