@@ -320,12 +320,58 @@
         "heading": "",
         "text": ""
       }
+    },
+    "image_text_carousel_qrDEAY": {
+      "type": "image-text-carousel",
+      "blocks": {
+        "image_zxKJkp": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1-750x650.jpg"
+          }
+        },
+        "text_item_6dhiRQ": {
+          "type": "text_item",
+          "settings": {
+            "title": "Wall and Roof Construction",
+            "description": "SS-OSB panels are employed in the construction of walls and roofs, particularly in residential and commercial buildings. It offers excellent strength and stability, contributing to the overall structural integrity of the building."
+          }
+        },
+        "text_item_tAPKib": {
+          "type": "text_item",
+          "settings": {
+            "title": "Subflooring",
+            "description": "SS-OSB is commonly used as a subfloor material. It provides a solid and stable base for finished flooring materials such as hardwood, laminate, or carpet."
+          }
+        },
+        "text_item_ffDa6W": {
+          "type": "text_item",
+          "settings": {
+            "title": "Packaging and Crating",
+            "description": "In industrial applications, SS-OSB may be\nused for packaging & crating due to its\nstrength and rigidity."
+          }
+        }
+      },
+      "block_order": [
+        "image_zxKJkp",
+        "text_item_6dhiRQ",
+        "text_item_tAPKib",
+        "text_item_ffDa6W"
+      ],
+      "name": "Image with Text Carousel",
+      "settings": {
+        "image_position": "right",
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "heading": "",
+        "text": ""
+      }
     }
   },
   "order": [
     "main",
     "dynamic_table_dJTmTE",
     "features_grid_3_col_Yx78CY",
-    "image_text_carousel_P8jRwn"
+    "image_text_carousel_P8jRwn",
+    "image_text_carousel_qrDEAY"
   ]
 }
