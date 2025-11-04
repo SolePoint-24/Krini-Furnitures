@@ -266,7 +266,7 @@
         "feature_bhW7w7"
       ],
       "custom_css": [
-        ".features-grid-content-wrapper{padding-top: 0px}"
+        ".features-grid-content-wrapper {padding-top: 0px;}"
       ],
       "name": "Features Grid (3 Column)",
       "settings": {
@@ -295,15 +295,23 @@
         "text_item_g64G3J": {
           "type": "text_item",
           "settings": {
-            "title": "Durability and Quality",
-            "description": "Select hotel and motel furniture is subjected to frequent use, it should be made from high-quality materials that can withstand wear and tear. Consider using materials like solid wood, metal frames, or high-grade plastics for durability."
+            "title": "Soundproofing",
+            "description": "In some applications, SS-OSB may be used as part of a soundproofing system due to its\ndensity and ability to dampen sound."
+          }
+        },
+        "text_item_CJezVW": {
+          "type": "text_item",
+          "settings": {
+            "title": "Sheathing & Roof Decking",
+            "description": "SS-OSB is frequently used as sheathing for walls, roofs, and floors. It provides structural support and serves as a stable base for exterior finishes such as\nsiding or roofing materials."
           }
         }
       },
       "block_order": [
         "image_7jcLkz",
         "text_item_y8PWEh",
-        "text_item_g64G3J"
+        "text_item_g64G3J",
+        "text_item_CJezVW"
       ],
       "name": "Image with Text Carousel",
       "settings": {
