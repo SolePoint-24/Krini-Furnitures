@@ -242,28 +242,21 @@
 
 {% stylesheet %}
   .hero-carousel-section {
-  width: 100%;              /* was: var(--section-width) */
-  margin-left: 0;           /* remove the negative left offset */
-  margin-right: 0;          /* ensure no right overflow either */
-  position: relative;
-  color: #fff;
-  overflow: hidden;         /* hard stop for any horizontal bleed */
-  height: 50vh;
-  min-height: 600px;
-}
+    width: var(--section-width);
+    margin-left: calc(50% - 50vw);
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+    height: 50vh;
+    min-height: 600px;
+  }
 
   .hero-carousel__media-container {
     position: absolute;
     inset: 0;
     z-index: 1;
     background-color: #f0f0f0;
-    overflow: hidden;    
   }
-
-  .hero-carousel__media-container,
-.hero-carousel__content-container {
-  overflow: hidden;
-}
 
   .hero-carousel__media-container::after {
     content: '';
@@ -394,7 +387,7 @@
     backdrop-filter: blur(4px);
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    max-width: calc(100vw - 2rem);
+    max-width: 100%;
   }
 
   .hero-carousel__titles { display: flex; gap: 1.5rem; }
