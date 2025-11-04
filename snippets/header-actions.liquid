@@ -95,5 +95,43 @@
   }
   
   /* ... (your existing header-actions CSS is here) ... */
+  
+  /* ▼▼▼ MODIFICATION: Fix icon wrapping ▼▼▼ */
+  header-actions {
+    display: flex;
+    flex-wrap: nowrap; /* <-- ADDED: Prevents icons from wrapping */
+    gap: var(--gap-md);   /* <-- ADDED: Adds space between icons */
+  
+    @media screen and (max-width: 749px) {
+      justify-self: flex-end;
+    }
+  }
+  /* ▲▲▲ End of Modification ▲▲▲ */
 {% endstylesheet %}
+
+{% comment %} 
+  --- SCRIPT TO FIX DISAPPEARING COUNT ---
+  This runs after other scripts to ensure the count is always correct.
+{% endcomment %}
+<script>
+  function updateCompareCountOnHeader() {
+    const countElement = document.querySelector('.compare-count');
+    if (countElement) {
+      const compareList = JSON.parse(localStorage.getItem('compareList')) || [];
+      countElement.textContent = compareList.length;
+      
+      if (compareList.length > 0) {
+        countElement.style.display = 'flex';
+      } else {
+        countElement.style.display = 'none';
+      }
+    }
+  }
+  
+  // Run after a short delay to override any cart scripts
+  setTimeout(updateCompareCountOnHeader, 1000); 
+  
+  // Also run every time the cart is updated (which often refreshes the header)
+  document.addEventListener('cart:updated', updateCompareCountOnHeader);
+</script>
 
