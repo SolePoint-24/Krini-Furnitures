@@ -242,14 +242,15 @@
 
 {% stylesheet %}
   .hero-carousel-section {
-    width: var(--section-width);
-    margin-left: calc(50% - 50vw);
-    position: relative;
-    color: #fff;
-overflow: hidden;    height: 50vh;
-    min-height: 600px;
-    margin-right: calc(50% - 50vw); 
-  }
+  width: 100%;              /* was: var(--section-width) */
+  margin-left: 0;           /* remove the negative left offset */
+  margin-right: 0;          /* ensure no right overflow either */
+  position: relative;
+  color: #fff;
+  overflow: hidden;         /* hard stop for any horizontal bleed */
+  height: 50vh;
+  min-height: 600px;
+}
 
   .hero-carousel__media-container {
     position: absolute;
