@@ -609,11 +609,184 @@
             "accordion_EA8yff",
             "accordion_7XQVam"
           ]
+        },
+        "group_RGwx4Y": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "accordion_WYYUG7": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_YY9J6i": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Applications of SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_jtkBYQ": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Construction: SS-OSB is used for construction of the entire houses including roofing and<br/>flooring, hotels and motels.</li><li>Roof Decking: SS-OSB is often used as a base material for roofing systems, providing a<br/>sturdy and reliable surface for shingles or other roofing materials.</li><li>Wall Sheathing: SS-OSB panels are commonly used as an exterior wall covering, providing<br/>structural support and insulation for buildings.</li><li>Subflooring: SS-OSB is an excellent choice due to its strength, stability, and moisture<br/>resistance.</li><li>Furniture Construction: SS-OSB can create sturdy and durable furniture, such as<br/>wardrobes, shelves, cabinets, and tables.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_jtkBYQ"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_YY9J6i"
+              ]
+            },
+            "accordion_yagfb8": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_pNB96p": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "The Composition of SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_p9am7P": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>SS-OSB primarily comprises three layers: the surface layers and the core layer.</p><ul><li>The surface layers are made of finer strands and are more tightly<br/>compressed, providing a smooth and even finish.</li><li>The core layer consists of coarser strands and contributes to the<br/>overall strength of the panel.</li><li>The strands are arranged in a crisscross pattern, creating a<br/>structurally stable panel resistant to warping.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_p9am7P"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_pNB96p"
+              ]
+            }
+          },
+          "block_order": [
+            "accordion_WYYUG7",
+            "accordion_yagfb8"
+          ]
         }
       },
       "block_order": [
         "accordion_iU4nEe",
-        "group_HNqzaT"
+        "group_HNqzaT",
+        "group_RGwx4Y"
       ],
       "name": "t:names.custom_section",
       "settings": {
