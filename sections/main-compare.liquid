@@ -34,7 +34,7 @@
   .compare-table td {
     padding: 16px;
     border: 1px solid #e0e0e0;
-    vertical-align: middle; /* Align all content to the top */
+    vertical-align: middle; /* ▼▼▼ MODIFICATION: Default to middle alignment ▼▼▼ */
     height: 1px; /* Allows cells to shrink or grow */
   }
 
@@ -45,7 +45,7 @@
     font-weight: 600;
     position: sticky; /* Sticks the labels on the left */
     left: 0;
-    z-index: 7;
+    z-index: 10;
     text-align: left;
     font-size: 1.1em;
   }
@@ -59,7 +59,7 @@
   /* Make header cells taller */
   .compare-table thead th,
   .compare-table thead td {
-    height: 84px; /* ▼▼▼ MODIFICATION: Reduced height from 180px ▼▼▼ */
+    height: 140px; /* ▼▼▼ MODIFICATION: Reduced height from 180px ▼▼▼ */
     vertical-align: middle;
   }
 
@@ -70,6 +70,14 @@
   }
   
   /* ▲▲▲ End of <table> layout modifications ▲▲▲ */
+  
+  /* ▼▼▼ NEW RULE: Force description row to top-align ▼▼▼ */
+  .compare-table .compare-row--description th,
+  .compare-table .compare-row--description td {
+    vertical-align: top;
+  }
+  /* ▲▲▲ End of New Rule ▲▲▲ */
+
 
   /* ▼▼▼ NEW: Mobile Responsive ▼▼▼ */
   @media (max-width: 768px) {
@@ -311,6 +319,7 @@
 
       // --- Row 7: Description ---
       const rowDescription = document.createElement('tr');
+      rowDescription.className = 'compare-row--description'; /* ▼▼▼ MODIFICATION: Added class for CSS ▼▼▼ */
       rowDescription.innerHTML = '<th class="compare-label-cell">Description</th>'; // Label
       products.forEach(product => {
         const cell = document.createElement('td');
