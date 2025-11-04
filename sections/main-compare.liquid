@@ -71,6 +71,15 @@
   
   /* ▲▲▲ End of <table> layout modifications ▲▲▲ */
 
+  /* ▼▼▼ NEW: Mobile Responsive ▼▼▼ */
+  @media (max-width: 768px) {
+    /* Hide the label column on mobile */
+    .compare-table th.compare-label-cell {
+      display: none;
+    }
+  }
+  /* ▲▲▲ End of New Rule ▲▲▲ */
+
 
   /* Cell Content Styles */
   .compare-cell .remove-button {
@@ -150,6 +159,7 @@
 </style>
 
 <div class="compare-page-container page-width">
+  <h1>{{ 'Compare Products' | t }}</h1>
 
   <div id="compare-scroll-wrapper" class="compare-scroll-wrapper">
     <div class="compare-loading-message">
