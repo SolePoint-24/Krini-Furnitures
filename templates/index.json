@@ -866,7 +866,6 @@
         "text_EC4cP4",
         "group_mmkjPr"
       ],
-      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
@@ -1089,7 +1088,6 @@
       "block_order": [
         "category_Jmh3im"
       ],
-      "disabled": true,
       "name": "FAQ Section",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
