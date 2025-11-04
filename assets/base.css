@@ -4440,6 +4440,10 @@ text-component {
   opacity: 1;
 }
 
+.custom-product-card__action-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #c0c0c0;
+}
 /* Special state for "Added to Compare" text */
 .custom-product-card__action-btn.is-added-to-compare::before {
   content: 'Added to compare!';
