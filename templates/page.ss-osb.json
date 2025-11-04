@@ -500,7 +500,7 @@
                 "accordion_row_NVqePb": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Return policy",
+                    "heading": "How is SS-OSB Made?",
                     "open_by_default": true,
                     "icon": "none",
                     "width": 20
@@ -509,7 +509,7 @@
                     "text_apHipn": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>",
+                        "text": "<p>The manufacturing process of SS-OSB involves several steps:</p><ul><li>Logs are debarked and cut into strands. These strands are oriented in<br/>specific directions to maximize the panel’s strength and performance.</li><li>The oriented strands are mixed with a resin binder and wax to enhance<br/>moisture resistance. The mixture is then spread onto a mat and<br/>compressed under high pressure and heat.</li><li>The SS-OSB panels are cut into desired sizes and undergo quality checks<br/>before use.</li></ul>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
