@@ -437,7 +437,7 @@
                 "accordion_row_kPmWX4": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Return policy",
+                    "heading": "Wildfires Are Getting Worse, So Why Is the U.S. Still Building Homes With Wood?",
                     "open_by_default": true,
                     "icon": "none",
                     "width": 20
@@ -472,90 +472,10 @@
                   "block_order": [
                     "text_MdtCrP"
                   ]
-                },
-                "accordion_row_NVjxyr": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Shipping",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_GhVQFq": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_GhVQFq"
-                  ]
-                },
-                "accordion_row_piizkz": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Manufacturing",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_3qCrqz": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_3qCrqz"
-                  ]
                 }
               },
               "block_order": [
-                "accordion_row_kPmWX4",
-                "accordion_row_NVjxyr",
-                "accordion_row_piizkz"
+                "accordion_row_kPmWX4"
               ]
             },
             "accordion_EA8yff": {
@@ -615,90 +535,10 @@
                   "block_order": [
                     "text_apHipn"
                   ]
-                },
-                "accordion_row_G7qmKk": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Shipping",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_gLme7j": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_gLme7j"
-                  ]
-                },
-                "accordion_row_mMpaJy": {
-                  "type": "_accordion-row",
-                  "settings": {
-                    "heading": "Manufacturing",
-                    "open_by_default": false,
-                    "icon": "none",
-                    "width": 20
-                  },
-                  "blocks": {
-                    "text_nJhJf7": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "rte",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "text_nJhJf7"
-                  ]
                 }
               },
               "block_order": [
-                "accordion_row_NVqePb",
-                "accordion_row_G7qmKk",
-                "accordion_row_mMpaJy"
+                "accordion_row_NVqePb"
               ]
             }
           },
