@@ -210,11 +210,15 @@
   }
 
   /* stylelint-disable-next-line selector-max-specificity */
-  .menu-list:not(:has(.menu-list__list-item:hover)) .menu-list__link--active,
   .menu-list .menu-list__list-item:where(:hover, :focus-within) .menu-list__link,
   .menu-list .menu-list__list-item[slot='overflow'] .menu-list__link[aria-expanded='true'] {
     color: var(--menu-top-level-font-color);
     
+  }
+  .menu-list:not(:has(.menu-list__list-item:hover)) .menu-list__link--active {
+    color: var(--menu-top-level-font-color);
+    background-color: #c3cca6; /* <-- YOUR COLOR */
+    border-radius: 4px;
   }
 
   .overflow-menu::part(list) {
