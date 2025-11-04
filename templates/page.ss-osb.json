@@ -781,12 +781,185 @@
             "accordion_WYYUG7",
             "accordion_yagfb8"
           ]
+        },
+        "group_4bnGk7": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "accordion_aJVbzq": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_xXRhVK": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Advantages of Using SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_DfGgQx": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>Cost-Effective: SS-OSB is generally more affordable than plywood, making it<br/>a cost-effective choice for builders and homeowners.</li><li>Versatility: SS-OSB can be used in many applications, including roofing,<br/>flooring, wall sheathing, and furniture construction.</li><li>High Strength: The oriented strand arrangement gives SS-OSB superior<br/>strength, making it suitable for demanding structural applications.</li><li>Moisture Resistance: With the right treatment and coatings, SS-OSB can<br/>resist moisture, making it suitable for humid environments.</li><li>Sustainability: SS-OSB is made from fast-growing wood species and is often<br/>produced using sustainable forestry practices.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_DfGgQx"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_xXRhVK"
+              ]
+            },
+            "accordion_HP76Dg": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_G3XcgM": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Strength and Durability of SS-OSB",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_4GA7Ht": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<ul><li>One of the key advantages of SS-OSB is its exceptional strength and durability.</li><li>The oriented arrangement of strands gives SS-OSB superior load-bearing<br/>capacity, making it suitable for various structural applications.</li><li>SS-OSB panels also have excellent dimensional stability, meaning they are less<br/>likely to expand or contract due to changes in temperature and humidity.</li><li>Additionally, SS-OSB is highly impact-resistant and can withstand heavy loads<br/>without significant deformation.</li><li>This Board can be used vertically or horizontally but the STRENGTH will<br/>remain the same due to over cross laying of STRANDS.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_4GA7Ht"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_G3XcgM"
+              ]
+            }
+          },
+          "block_order": [
+            "accordion_aJVbzq",
+            "accordion_HP76Dg"
+          ]
         }
       },
       "block_order": [
         "accordion_iU4nEe",
         "group_HNqzaT",
-        "group_RGwx4Y"
+        "group_RGwx4Y",
+        "group_4bnGk7"
       ],
       "name": "t:names.custom_section",
       "settings": {
