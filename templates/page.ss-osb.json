@@ -540,10 +540,74 @@
               "block_order": [
                 "accordion_row_NVqePb"
               ]
+            },
+            "accordion_7XQVam": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "type_preset": "h5",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_89yViC": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "The Composition of SS-OSB",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_UUyLKG": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>SS-OSB primarily comprises three layers: the surface layers and the core layer.</p><ul><li>The surface layers are made of finer strands and are more tightly<br/>compressed, providing a smooth and even finish.</li><li>The core layer consists of coarser strands and contributes to the<br/>overall strength of the panel.</li><li>The strands are arranged in a crisscross pattern, creating a<br/>structurally stable panel resistant to warping.</li></ul>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_UUyLKG"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_89yViC"
+              ]
             }
           },
           "block_order": [
-            "accordion_EA8yff"
+            "accordion_EA8yff",
+            "accordion_7XQVam"
           ]
         }
       },
