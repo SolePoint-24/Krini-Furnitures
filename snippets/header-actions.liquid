@@ -25,11 +25,11 @@
     (function () {
       try {
         var count = (JSON.parse(localStorage.getItem('compareList') || '[]') || []).length;
-        var el = document.currentScript.previousElementSibling; // the <span>
+        var el = document.currentScript.previousElementSibling;
         if (el && el.classList.contains('compare-count')) {
           el.textContent = count;
           el.setAttribute('data-count', String(count));
-          el.setAttribute('data-ready', '1'); // marks “initialized”
+          el.setAttribute('data-ready', '1');
         }
       } catch (e) {}
     })();
