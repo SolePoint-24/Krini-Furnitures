@@ -1071,6 +1071,7 @@
         "text_EC4cP4",
         "group_mmkjPr"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
@@ -1359,18 +1360,15 @@
       "name": "FAQ Section",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "background_color": "",
+        "full_width": true,
         "text_color": "",
         "heading": "Frequently Asked Questions",
         "heading_text_alignment": "center",
-        "container_width": 1000,
         "tab_bg_color": "#eeddc6",
         "heading_font_size": 36,
         "tab_font_size": 16,
         "question_font_size": 18,
-        "answer_font_size": 16,
-        "padding_top": 40,
-        "padding_bottom": 40
+        "answer_font_size": 16
       }
     },
     "section_NhdUhA": {
