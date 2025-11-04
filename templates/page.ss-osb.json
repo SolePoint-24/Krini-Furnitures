@@ -735,7 +735,7 @@
                 "accordion_row_pNB96p": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "The Composition of SS-OSB",
+                    "heading": "Strength and Durability of SS-OSB",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -744,7 +744,7 @@
                     "text_p9am7P": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>SS-OSB primarily comprises three layers: the surface layers and the core layer.</p><ul><li>The surface layers are made of finer strands and are more tightly<br/>compressed, providing a smooth and even finish.</li><li>The core layer consists of coarser strands and contributes to the<br/>overall strength of the panel.</li><li>The strands are arranged in a crisscross pattern, creating a<br/>structurally stable panel resistant to warping.</li></ul>",
+                        "text": "<ul><li>One of the key advantages of SS-OSB is its exceptional strength and durability.</li><li>The oriented arrangement of strands gives SS-OSB superior load-bearing<br/>capacity, making it suitable for various structural applications.</li><li>SS-OSB panels also have excellent dimensional stability, meaning they are less<br/>likely to expand or contract due to changes in temperature and humidity.</li><li>Additionally, SS-OSB is highly impact-resistant and can withstand heavy loads<br/>without significant deformation.</li><li>This Board can be used vertically or horizontally but the STRENGTH will<br/>remain the same due to over cross laying of STRANDS.</li></ul><h1>Comparision</h1>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
