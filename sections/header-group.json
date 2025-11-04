@@ -79,6 +79,9 @@
           "blocks": {}
         }
       },
+      "custom_css": [
+        ".header{z-index: 99}"
+      ],
       "settings": {
         "logo_position": "left",
         "menu_position": "center",
