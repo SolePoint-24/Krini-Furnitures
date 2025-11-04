@@ -4,7 +4,6 @@
   product handles stored in localStorage.
 {% endcomment %}
 
-
 <style>
   .compare-page-container {
     max-width: 1200px;
@@ -60,7 +59,8 @@
     min-height: 80px;
   }
 
-  .compare-column:first-child .compare-cell {
+  /* Apply sticky background to label cells */
+  .compare-column--labels .compare-cell {
     background-color: #f9f9f9;
   }
 
@@ -159,6 +159,7 @@
 </style>
 
 <div class="compare-page-container page-width">
+
   <div id="compare-scroll-wrapper" class="compare-scroll-wrapper">
     <div class="compare-loading-message">
       Loading products...
@@ -179,6 +180,11 @@
   document.addEventListener('DOMContentLoaded', () => {
     const COMPARE_LIST_KEY = 'compareList';
     
+    // --- FIX: Pass Liquid variables safely to JavaScript ---
+    const SHOP_LOCALE = '{{ shop.locale | default: 'en' }}';
+    const SHOP_CURRENCY = {{ shop.currency | json }};
+    // --- End of Fix ---
+
     const tableContainer = document.getElementById('compare-table');
     const loadingMessage = document.querySelector('.compare-loading-message');
     const emptyMessage = document.getElementById('compare-empty-message');
@@ -245,10 +251,12 @@
         productColumn.dataset.handle = product.handle;
 
         // --- Prepare data ---
-        const price = new Intl.NumberFormat(shop.locale, {
+        // --- FIX: Use the JavaScript variables ---
+        const price = new Intl.NumberFormat(SHOP_LOCALE, {
           style: 'currency',
-          currency: shop.currency
+          currency: SHOP_CURRENCY
         }).format(product.price / 100.0);
+        // --- End of Fix ---
         
         const availability = product.available
           ? '<span class="availability in-stock">✓ In stock</span>'
@@ -298,19 +306,8 @@
           compareList = compareList.filter(h => h !== handleToRemove);
           localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(compareList));
           
-          // 2. Remove the column from the page (or just reload)
-          // Easiest way to keep sync is to reload the page.
+          // 2. Easiest way to keep sync is to reload the page.
           window.location.reload();
-          
-          // Alternative (faster, no reload):
-          // const columnToRemove = tableContainer.querySelector(`.compare-column[data-handle="${handleToRemove}"]`);
-          // if (columnToRemove) {
-          //   columnToRemove.remove();
-          // }
-          // if (compareList.length === 0) {
-          //   scrollWrapper.style.display = 'none';
-          //   emptyMessage.style.display = 'block';
-          // }
         });
       });
     }
@@ -329,3 +326,4 @@
   ]
 }
 {% endschema %}
+
