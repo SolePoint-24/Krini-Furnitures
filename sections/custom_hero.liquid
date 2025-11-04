@@ -242,8 +242,8 @@
 
 {% stylesheet %}
   .hero-carousel-section {
-    width: 100%;
-    margin-left: 0;
+    width: var(--section-width);
+    margin-left: calc(50% - 50vw);
     position: relative;
     color: #fff;
     overflow: hidden;
@@ -271,7 +271,6 @@
     opacity: 0;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute; inset: 0; z-index: 1;
-    overflow: hidden;
   }
 
   .full-height-image {
