@@ -4385,16 +4385,15 @@ text-component {
 
 /* Optional: Tooltip for "Compare products" on hover */
 .custom-product-card__action-btn {
-  position: relative; 
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;  /* Smaller button */
-  height: 32px; /* Smaller button */
+  width: 32px;
+  height: 32px;
   padding: 0;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border-radius: 4px; /* Matches your screenshot */
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
