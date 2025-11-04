@@ -4458,13 +4458,17 @@ text-component {
 
 .custom-product-card__actions {
   position: absolute;
-  top: 10px; /* "a little down" */
-  right: 10px; /* "to right" */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
   z-index: 10;
   
-  /* Hide by default */
-  opacity: 0;
-  transform: translateX(100%);
+  display: flex; /* To easily position the message next to the button */
+  flex-direction: column; /* Stacks button and message vertically */
+  align-items: flex-end; /* Aligns them to the right */
+  gap: 5px; /* Space between button and message */
+
+  opacity: 0; /* Hidden by default */
+  transform: translateX(100%); /* Starts off-screen */
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
