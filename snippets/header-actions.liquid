@@ -204,10 +204,11 @@
 
   header-actions {
     display: flex;
-    /* ▼▼▼ ADDED: Make icons stay in a row with space ▼▼▼ */
+    /* ▼▼▼ MODIFICATION: Make icons stay in a row and align center ▼▼▼ */
     flex-wrap: nowrap;
     gap: var(--gap-md);
-    /* ▲▲▲ End of new styles ▲▲▲ */
+    align-items: center; /* This will center them vertically */
+    /* ▲▲▲ End of modification ▲▲▲ */
 
     @media screen and (max-width: 749px) {
       justify-self: flex-end;
