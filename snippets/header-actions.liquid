@@ -342,56 +342,58 @@
     const COMPARE_LIST_KEY = 'compareList';
 
     function getCompareList() {
-      try {
-        return JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
-      } catch (_) {
-        return [];
-      }
+      try { return JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function setBadge(el, count) {
+      const next = String(count);
+      if (el.getAttribute('data-count') === next && el.textContent === next) return;
+      el.textContent = next;
+      el.setAttribute('data-count', next);
+      el.setAttribute('data-ready', '1');
     }
 
     function updateAllCompareBadges() {
-      const compareList = getCompareList();
-      const count = compareList.length;
-      // Update ALL compare badges in case the header exists in multiple places
-      document.querySelectorAll('.compare-count').forEach((el) => {
-        el.textContent = count;
-        el.setAttribute('data-count', String(count));
+      const count = getCompareList().length;
+      document.querySelectorAll('.compare-count').forEach(el => setBadge(el, count));
+    }
+
+    // Batch updates to one per frame
+    let rafScheduled = false;
+    function scheduleUpdate() {
+      if (rafScheduled) return;
+      rafScheduled = true;
+      requestAnimationFrame(() => {
+        rafScheduled = false;
+        updateAllCompareBadges();
       });
     }
 
-    // Debounce utility so we don't spam updates on rapid mutations
-    function debounce(fn, delay) {
-      let t = null;
-      return function () {
-        clearTimeout(t);
-        t = setTimeout(fn, delay);
-      };
+    // Observe only header region
+    const headerRoot =
+      document.querySelector('header-actions') ||
+      document.querySelector('.header__column--right') ||
+      document.querySelector('header');
+    if (headerRoot) {
+      const observer = new MutationObserver(scheduleUpdate);
+      observer.observe(headerRoot, { childList: true, subtree: true });
     }
 
-    const debouncedUpdate = debounce(updateAllCompareBadges, 50);
-
-    // Listen to our custom compare events (from compare.js)
-    document.addEventListener('compare:updated', debouncedUpdate);
-
-    // Listen to common theme/Shopify events that re-render header
-    document.addEventListener('cart:updated', debouncedUpdate);
-    document.addEventListener('shopify:section:load', debouncedUpdate);
-    document.addEventListener('shopify:section:unload', debouncedUpdate);
-    document.addEventListener('shopify:section:reorder', debouncedUpdate);
-    document.addEventListener('shopify:section:select', debouncedUpdate);
-    document.addEventListener('shopify:section:deselect', debouncedUpdate);
-    document.addEventListener('shopify:block:select', debouncedUpdate);
-    document.addEventListener('shopify:block:deselect', debouncedUpdate);
-
-    // Handle bfcache and SPA-ish navigations
-    window.addEventListener('pageshow', debouncedUpdate);
-
-    // MutationObserver: if header or its children are replaced, re-apply count
-    const observer = new MutationObserver(debouncedUpdate);
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-
-    // Initial run (after DOM is ready)
+    // Shopify events
+    const evts = [
+      'compare:updated',
+      'cart:updated',
+      'shopify:section:load',
+      'shopify:section:unload',
+      'shopify:section:reorder',
+      'shopify:section:select',
+      'shopify:section:deselect',
+      'shopify:block:select',
+      'shopify:block:deselect'
+    ];
+    evts.forEach(evt => document.addEventListener(evt, scheduleUpdate));
+    window.addEventListener('pageshow', scheduleUpdate);
     document.addEventListener('DOMContentLoaded', updateAllCompareBadges);
   })();
 </script>
-
