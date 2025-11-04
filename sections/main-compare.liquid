@@ -2,6 +2,8 @@
   Section: Product Comparison Table
   This section is dynamically filled by JavaScript based on
   product handles stored in localStorage.
+  
+  REFACTORED to use a <table> for proper alignment.
 {% endcomment %}
 
 <style>
@@ -20,80 +22,55 @@
     margin-top: 20px;
   }
 
+  /* ▼▼▼ MODIFICATION: Switched to <table> layout ▼▼▼ */
   .compare-table {
-    display: flex;
-    flex-direction: row;
-    min-width: 100%;
-    width: max-content; /* Allows table to grow horizontally */
+    width: 100%;
+    min-width: max-content; /* Allows table to grow horizontally */
+    border-collapse: collapse; /* Clean borders */
+    table-layout: fixed; /* Ensures columns are respected */
   }
 
-  .compare-column {
-    display: flex;
-    flex-direction: column;
-    width: 300px; /* Width of each product column */
-    border-right: 1px solid #e0e0e0;
-    flex-shrink: 0;
-  }
-  
-  .compare-column:last-child {
-    border-right: none;
+  .compare-table th,
+  .compare-table td {
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    vertical-align: top; /* Align all content to the top */
+    height: 1px; /* Allows cells to shrink or grow */
   }
 
-  /* Label Column (First Column) */
-  .compare-column--labels {
+  /* Label Column (First Column, using <th>) */
+  .compare-table th.compare-label-cell {
     width: 200px; /* Width of the labels column */
     background-color: #f9f9f9;
     font-weight: 600;
     position: sticky; /* Sticks the labels on the left */
     left: 0;
     z-index: 10;
-    border-right: 1px solid #d0d0d0;
-  }
-
-  .compare-cell {
-    padding: 16px;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 80px;
-  }
-
-  /* Apply sticky background to label cells */
-  .compare-column--labels .compare-cell {
-    background-color: #f9f9f9;
-    /* ▼▼▼ MODIFICATION: Align labels to the left ▼▼▼ */
-    align-items: flex-start;
     text-align: left;
-    /* ▲▲▲ End of Modification ▲▲▲ */
-  }
-  
-  /* ▼▼▼ NEW RULE: Center-align content in product columns ▼▼▼ */
-  .compare-column:not(.compare-column--labels) .compare-cell {
-    align-items: center;
-    text-align: center;
-  }
-  /* ▲▲▲ End of New Rule ▲▲▲ */
-
-
-  .compare-cell:last-child {
-    border-bottom: none;
-  }
-  
-  .compare-cell--header {
-    min-height: 180px; /* Taller cells for top block */
-    /* text-align: center; -- Removed, handled by new rule */
-  }
-  
-  .compare-column--labels .compare-cell--header {
-    justify-content: center;
-    /* align-items: center; -- Removed, handled by base rule */
-  }
-
-  .compare-cell--label {
-    justify-content: flex-start;
     font-size: 1.1em;
   }
+
+  /* Product Columns (using <td>) */
+  .compare-table td.compare-product-cell {
+    width: 300px; /* Width of each product column */
+    text-align: center;
+  }
+  
+  /* Make header cells taller */
+  .compare-table thead th,
+  .compare-table thead td {
+    height: 180px;
+    vertical-align: middle;
+  }
+
+  /* Specific row heights for remove button */
+  .compare-table tr:first-child th,
+  .compare-table tr:first-child td {
+    height: 80px;
+  }
+  
+  /* ▲▲▲ End of <table> layout modifications ▲▲▲ */
+
 
   /* Cell Content Styles */
   .compare-cell .remove-button {
@@ -156,19 +133,11 @@
   .compare-cell .description {
     font-size: 0.9em;
     line-height: 1.6;
-    /* ▼▼▼ MODIFICATION: Removed scrollbar, align text left ▼▼▼ */
-    /* max-height: 200px; */ 
-    /* overflow-y: auto; */
+    /* ▼▼▼ MODIFICATION: Aligned left, scrollbar removed ▼▼▼ */
     text-align: left; 
+    /* No max-height or overflow */
     /* ▲▲▲ End of Modification ▲▲▲ */
   }
-  
-  /* ▼▼▼ NEW RULE: Align description cell content to the left ▼▼▼ */
-  .compare-column:not(.compare-column--labels) .compare-cell:has(.description) {
-     align-items: flex-start;
-  }
-  /* ▲▲▲ End of New Rule ▲▲▲ */
-
 
   /* Empty/Loading States */
   .compare-empty-message,
@@ -187,9 +156,12 @@
       Loading products...
     </div>
     
-    <div id="compare-table" class="compare-table" style="display: none;">
+    <!-- ▼▼▼ MODIFICATION: Switched from <div> to <table> ▼▼▼ -->
+    <table id="compare-table" class="compare-table" style="display: none;">
       <!-- JavaScript will build the table here -->
-    </div>
+    </table>
+    <!-- ▲▲▲ End of Modification ▲▲▲ -->
+
   </div>
   
   <div id="compare-empty-message" class="compare-empty-message" style="display: none;">
@@ -202,10 +174,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     const COMPARE_LIST_KEY = 'compareList';
     
-    // --- FIX: Pass Liquid variables safely to JavaScript ---
     const SHOP_LOCALE = '{{ shop.locale | default: 'en' }}';
     const SHOP_CURRENCY = {{ shop.currency | json }};
-    // --- End of Fix ---
 
     const tableContainer = document.getElementById('compare-table');
     const loadingMessage = document.querySelector('.compare-loading-message');
@@ -232,17 +202,16 @@
         })
         .catch(error => {
           console.warn(error);
-          return null; // Return null if a product fetch fails
+          return null; 
         });
     });
 
     Promise.all(requests)
       .then(products => {
-        // Filter out any nulls from failed requests
         const validProducts = products.filter(p => p !== null);
         if (validProducts.length > 0) {
           buildCompareTable(validProducts);
-          tableContainer.style.display = 'flex';
+          tableContainer.style.display = 'table'; // Changed from 'flex'
         } else {
           scrollWrapper.style.display = 'none';
           emptyMessage.style.display = 'block';
@@ -250,72 +219,103 @@
         loadingMessage.style.display = 'none';
       });
 
-    // --- 2. Build the HTML table ---
+    // --- 2. Build the HTML table (REFACTORED) ---
     function buildCompareTable(products) {
-      // Create the Label Column
-      const labelColumn = document.createElement('div');
-      labelColumn.className = 'compare-column compare-column--labels';
+      // Create Table Head (thead) for top content
+      const thead = document.createElement('thead');
       
-      /* ▼▼▼ MODIFICATION: Added labels for rows ▼▼▼ */
-      labelColumn.innerHTML = `
-        <div class="compare-cell compare-cell--header" style="min-height: 80px;"></div>
-        <div class="compare-cell compare-cell--header compare-cell--label">Product</div>
-        <div class="compare-cell compare-cell--header compare-cell--label">Title</div>
-        <div class="compare-cell compare-cell--header compare-cell--label">Price</div>
-        <div class="compare-cell compare-cell--header"></div>
-        <div class="compare-cell compare-cell--label">Availability</div>
-        <div class="compare-cell compare-cell--label">Description</div>
-      `;
-      /* ▲▲▲ End of Modification ▲▲▲ */
-      
-      tableContainer.appendChild(labelColumn);
-
-      // Create a column for each product
+      // --- Row 1: Remove Button ---
+      const rowRemove = document.createElement('tr');
+      rowRemove.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
       products.forEach(product => {
-        const productColumn = document.createElement('div');
-        productColumn.className = 'compare-column';
-        productColumn.dataset.handle = product.handle;
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<button class="remove-button" data-handle="${product.handle}">Remove</button>`;
+        rowRemove.appendChild(cell);
+      });
+      thead.appendChild(rowRemove);
 
-        // --- Prepare data ---
-        // --- FIX: Use the JavaScript variables ---
+      // --- Row 2: Image ---
+      const rowImage = document.createElement('tr');
+      rowImage.innerHTML = '<th class="compare-label-cell">Product</th>'; // Label
+      products.forEach(product => {
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<img src="${product.featured_image ? product.featured_image.replace(/(\.[^.]*)$/, '_300x$1') : ''}" alt="${product.title}" loading="lazy">`;
+        rowImage.appendChild(cell);
+      });
+      thead.appendChild(rowImage);
+
+      // --- Row 3: Title ---
+      const rowTitle = document.createElement('tr');
+      rowTitle.innerHTML = '<th class="compare-label-cell">Title</th>'; // Label
+      products.forEach(product => {
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<h3>${product.title}</h3>`;
+        rowTitle.appendChild(cell);
+      });
+      thead.appendChild(rowTitle);
+
+      // --- Row 4: Price ---
+      const rowPrice = document.createElement('tr');
+      rowPrice.innerHTML = '<th class="compare-label-cell">Price</th>'; // Label
+      products.forEach(product => {
         const price = new Intl.NumberFormat(SHOP_LOCALE, {
           style: 'currency',
           currency: SHOP_CURRENCY
         }).format(product.price / 100.0);
-        // --- End of Fix ---
-        
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<span class="price">${price}</span>`;
+        rowPrice.appendChild(cell);
+      });
+      thead.appendChild(rowPrice);
+
+      // --- Row 5: Add to Cart ---
+      const rowATC = document.createElement('tr');
+      rowATC.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
+      products.forEach(product => {
+        const variantId = product.variants[0].id;
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>`;
+        rowATC.appendChild(cell);
+      });
+      thead.appendChild(rowATC);
+
+      // Create Table Body (tbody) for attributes
+      const tbody = document.createElement('tbody');
+
+      // --- Row 6: Availability ---
+      const rowAvailability = document.createElement('tr');
+      rowAvailability.innerHTML = '<th class="compare-label-cell">Availability</th>'; // Label
+      products.forEach(product => {
         const availability = product.available
           ? '<span class="availability in-stock">✓ In stock</span>'
           : '<span class="availability out-of-stock">X Out of stock</span>';
-        
-        // Use first variant for Add to Cart
-        const variantId = product.variants[0].id;
-        
-        productColumn.innerHTML = `
-          <div class="compare-cell" style="min-height: 80px; justify-content: center; align-items: center;">
-            <button class="remove-button" data-handle="${product.handle}">Remove</button>
-          </div>
-          <div class="compare-cell compare-cell--header">
-            <img src="${product.featured_image ? product.featured_image.replace(/(\.[^.]*)$/, '_300x$1') : ''}" alt="${product.title}" loading="lazy">
-          </div>
-          <div class="compare-cell compare-cell--header">
-            <h3>${product.title}</h3>
-          </div>
-          <div class="compare-cell compare-cell--header">
-            <span class="price">${price}</span>
-          </div>
-          <div class="compare-cell compare-cell--header">
-            <a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>
-          </div>
-          <div class="compare-cell">
-            ${availability}
-          </div>
-          <div class="compare-cell">
-            <div class="description">${product.description}</div>
-          </div>
-        `;
-        tableContainer.appendChild(productColumn);
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = availability;
+        rowAvailability.appendChild(cell);
       });
+      tbody.appendChild(rowAvailability);
+
+      // --- Row 7: Description ---
+      const rowDescription = document.createElement('tr');
+      rowDescription.innerHTML = '<th class="compare-label-cell">Description</th>'; // Label
+      products.forEach(product => {
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
+        cell.innerHTML = `<div class="description">${product.description}</div>`;
+        rowDescription.appendChild(cell);
+      });
+      tbody.appendChild(rowDescription);
+      
+      // Append new structure to the table
+      tableContainer.innerHTML = ''; // Clear any old content
+      tableContainer.appendChild(thead);
+      tableContainer.appendChild(tbody);
       
       // Add event listeners to the new "Remove" buttons
       addRemoveListeners();
@@ -327,12 +327,10 @@
         button.addEventListener('click', (e) => {
           const handleToRemove = e.target.dataset.handle;
           
-          // 1. Remove from localStorage
           let compareList = JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
           compareList = compareList.filter(h => h !== handleToRemove);
           localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(compareList));
           
-          // 2. Easiest way to keep sync is to reload the page.
           window.location.reload();
         });
       });
