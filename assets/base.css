@@ -4443,6 +4443,14 @@ text-component {
   transition: stroke 0.2s ease;
 }
 
+.custom-product-card__action-btn.is-added-to-compare .icon-compare {
+  display: none;
+}
+
+.custom-product-card__action-btn.is-added-to-compare .icon-checkmark {
+  display: block;
+  stroke: #ffffff; /* White checkmark */
+}
 
 /* ...and show the checkmark icon in white. */
 .custom-product-card__action-btn.is-added-to-compare {
