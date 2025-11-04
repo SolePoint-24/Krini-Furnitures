@@ -4496,3 +4496,16 @@ text-component {
   display: block;
   stroke: #ffffff; /* White checkmark */
 }
+
+.compare-message {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  padding: 4px 8px; /* Small padding */
+  border-radius: 4px;
+  font-size: 0.75em; /* Small font size */
+  white-space: nowrap;
+  
+  opacity: 0; /* Hidden by default */
+  transform: translateX(100%); /* Starts off-screen to the right */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
