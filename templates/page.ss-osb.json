@@ -406,9 +406,9 @@
                 "text_MdtCrP": {
                   "type": "text",
                   "settings": {
-                    "text": "<ul><li>Cost-effectiveness: Wood is often more affordable than alternative building materials,<br/>such as steel or concrete. This makes it an attractive option for developers and<br/>homeowners looking to keep construction costs down.</li><li>Renewable resource: Wood is a renewable resource, and sustainable non- forestry<br/>practices can ensure a steady supply. Responsible clean environment management can help<br/>offset the environmental impact of using wood for construction.</li><li>Energy efficiency: Wood is a natural insulator, providing good thermal performance.<br/>Wooden structures can be energy-efficient, helping reduce heating and cooling costs.</li><li>Aesthetic appeal: Many people appreciate the natural beauty and warmth of wood,<br/>making it a popular choice for residential construction.</li></ul>",
+                    "text": "<ul><li>Cost-effectiveness: Wood is often more affordable than alternative building materials,<br/>such as steel or concrete. This makes it an attractive option for developers and<br/>homeowners looking to keep construction costs down.</li></ul><p></p><ul><li>Renewable resource: Wood is a renewable resource, and sustainable non- forestry<br/>practices can ensure a steady supply. Responsible clean environment management can help<br/>offset the environmental impact of using wood for construction.</li></ul><p></p><ul><li>Energy efficiency: Wood is a natural insulator, providing good thermal performance.<br/>Wooden structures can be energy-efficient, helping reduce heating and cooling costs.</li></ul><p></p><ul><li>Aesthetic appeal: Many people appreciate the natural beauty and warmth of wood,<br/>making it a popular choice for residential construction.</li></ul>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
