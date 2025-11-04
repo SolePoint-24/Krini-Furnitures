@@ -30,7 +30,44 @@
       {% else %}
         {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg custom-product-card__image' }}
       {% endif %}
-    </div>
+
+      <div class="custom-product-card__actions">
+        <button
+          class="custom-product-card__action-btn"
+          onclick="window.location.href='{{ card_product.url }}#add-to-cart'; return false;"
+          aria-label="Add to Cart"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </button>
+
+        <button
+          class="custom-product-card__action-btn"
+          aria-label="Quick View"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <button
+          class="custom-product-card__action-btn button-compare"
+          data-product-handle="{{ card_product.handle }}"
+          aria-label="Compare"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <polyline points="8 17 3 12 8 7"></polyline>
+            <line x1="21" y1="12" x2="3" y2="12"></line>
+          </svg>
+        </button>
+      </div>
+      </div>
+
     <div class="custom-product-card__info">
       <h3 class="custom-product-card__title">
         {{ card_product.title | escape }}
