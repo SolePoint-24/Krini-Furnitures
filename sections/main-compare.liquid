@@ -344,11 +344,30 @@
         button.addEventListener('click', (e) => {
           const handleToRemove = e.target.dataset.handle;
           
+          // 1. Remove from localStorage
           let compareList = JSON.parse(localStorage.getItem(COMPARE_LIST_KEY)) || [];
           compareList = compareList.filter(h => h !== handleToRemove);
           localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(compareList));
           
-          window.location.reload();
+          // 2. Find the column index of the button clicked
+          const colIndex = e.target.closest('td').cellIndex;
+
+          // 3. Remove that cell from every row in the table
+          tableContainer.querySelectorAll('tr').forEach(row => {
+            if (row.cells[colIndex]) {
+              row.cells[colIndex].remove();
+            }
+          });
+
+          // 4. Trigger the header count update
+          // This event is heard by the script in header-actions.liquid
+          document.dispatchEvent(new Event('compare:updated'));
+
+          // 5. If last item removed, hide table and show empty message
+          if (compareList.length === 0) {
+            scrollWrapper.style.display = 'none';
+            emptyMessage.style.display = 'block';
+          }
         });
       });
     }
