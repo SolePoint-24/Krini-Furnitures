@@ -32,24 +32,46 @@
       {% endif %}
 
       <div class="custom-product-card__actions">
-  
-  <button
-    class="custom-product-card__action-btn button-compare"
-    data-product-handle="{{ card_product.handle }}"
-    aria-label="Compare products" 
-  >
-    <svg class="icon-compare" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="16 17 21 12 16 7"></polyline>
-      <polyline points="8 17 3 12 8 7"></polyline>
-      <line x1="21" y1="12" x2="3" y2="12"></line>
-    </svg>
-    
-    <svg class="icon-checkmark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"></polyline>
-    </svg>
-  </button>
-  
-  <div class="compare-message">Added!</div> </div>
+        <button
+          class="custom-product-card__action-btn button-compare"
+          data-product-handle="{{ card_product.handle }}"
+          aria-label="Compare products"
+        >
+          <svg
+            class="icon-compare"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <polyline points="8 17 3 12 8 7"></polyline>
+            <line x1="21" y1="12" x2="3" y2="12"></line>
+          </svg>
+
+          <svg
+            class="icon-checkmark"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </button>
+
+        <div class="compare-message">Added!</div>
+      </div>
     </div>
 
     <div class="custom-product-card__info">
