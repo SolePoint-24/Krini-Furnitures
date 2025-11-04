@@ -10,12 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem(COMPARE_LIST_KEY, JSON.stringify(list));
     
     // --- MODIFICATION ---
-    // We no longer call updateCompareCount() here.
-    // The script in header-actions.liquid will handle this.
-    
-    // --- Also, we must trigger the 'cart:updated' event ---
-    // This tells the script in header-actions.liquid to run.
-    document.dispatchEvent(new Event('cart:updated'));
+    // We will trigger a *custom* event to avoid conflicts with the cart script.
+    document.dispatchEvent(new Event('compare:updated'));
   }
 
   // --- REMOVED ---
@@ -68,4 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // --- NEW ---
+  // Also trigger an update when the page loads, just in case.
+  // This will be heard by the script in header-actions.liquid.
+  // We run this *after* the initial button setup.
+  document.dispatchEvent(new Event('compare:updated'));
 });
+
