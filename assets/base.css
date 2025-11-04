@@ -4468,3 +4468,11 @@ text-component {
   opacity: 1;
   transform: translateX(0);
 }
+
+.custom-product-card__action-btn svg {
+  width: 16px; /* Smaller icon */
+  height: 16px; /* Smaller icon */
+  stroke: #333;
+  display: block; 
+  transition: stroke 0.2s ease;
+}
