@@ -907,7 +907,7 @@
                 "accordion_row_G3XcgM": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Strength and Durability of SS-OSB",
+                    "heading": "Comparision",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
@@ -916,7 +916,7 @@
                     "text_4GA7Ht": {
                       "type": "text",
                       "settings": {
-                        "text": "<ul><li>One of the key advantages of SS-OSB is its exceptional strength and durability.</li><li>The oriented arrangement of strands gives SS-OSB superior load-bearing<br/>capacity, making it suitable for various structural applications.</li><li>SS-OSB panels also have excellent dimensional stability, meaning they are less<br/>likely to expand or contract due to changes in temperature and humidity.</li><li>Additionally, SS-OSB is highly impact-resistant and can withstand heavy loads<br/>without significant deformation.</li><li>This Board can be used vertically or horizontally but the STRENGTH will<br/>remain the same due to over cross laying of STRANDS.</li></ul>",
+                        "text": "<p><strong>Is SS-OSB stronger than plywood?<br/></strong>SS-OSB is generally stronger than plywood due to its oriented strand<br/>arrangement and high density which enhances its load-bearing capacity.</p><p><strong>Can SS-OSB be used outdoors?<br/></strong>SS-OSB can be used outdoors, but it should be protected from prolonged<br/>exposure to moisture. Coatings or sealants can enhance its moisture resistance.</p><p><strong>Is SS-OSB more affordable than plywood?<br/></strong>The price of SS-OSB is generally similar to plywood, but the quality that of<br/>SS-OSB is far better than the Plywood making it a popular choice for<br/>construction projects.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
