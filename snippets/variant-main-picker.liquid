@@ -189,6 +189,7 @@
       {%- endfor -%}
 
       <script type="application/json">
+        
         {{ product_resource.selected_or_first_available_variant | json }}
       </script>
     </form>
@@ -196,7 +197,7 @@
 {% endunless %}
 
 <script>
-
+console.log("hi")
 </script>
 
 {% stylesheet %}
