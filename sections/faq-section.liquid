@@ -105,16 +105,16 @@
     <div class="faq2__tabs" role="tablist" aria-label="FAQ categories">
       {%- for block in section.blocks -%}
         <button
-          class="faq2__tab"
-          id="tab-{{ block.id }}"
-          role="tab"
-          aria-selected="{{ forloop.first }}"
-          aria-controls="panel-{{ block.id }}"
-          tabindex="{{ forloop.first | default: true | if: true, 0, -1 }}"
-          {{ block.shopify_attributes }}
-        >
-          {{ block.settings.tab_title | default: 'Category' }}
-        </button>
+  class="faq2__tab"
+  id="tab-{{ block.id }}"
+  role="tab"
+  aria-selected="{{ forloop.first }}"
+  aria-controls="panel-{{ block.id }}"
+  tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+  {{ block.shopify_attributes }}
+>
+  {{ block.settings.tab_title | default: 'Category' }}
+</button>
       {%- endfor -%}
     </div>
 
