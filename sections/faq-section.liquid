@@ -1,493 +1,288 @@
 {%- comment -%}
-  This section displays a dynamic FAQ with tabs.
-  
-  !! LAYOUT UPDATED !!
-  - This section now uses the same full-width layout as the 'Dynamic Table'.
-  - The 'full_width' toggle has been added.
-  - The old padding and container_width settings have been removed.
-  - The Color Scheme background is now forced to apply.
+  FAQ with Tabs — Clean Redesign
+  - Consistent text width (no shifting when opening answers)
+  - Smooth accordion animation
+  - Optional "only one open" per category
+  - Mobile-friendly, horizontal-tab scroll
 {%- endcomment -%}
 
 {%- liquid
   assign s = section.settings
-  assign heading_text_alignment = 'text-align: ' | append: s.heading_text_alignment | append: ';'
-
-  # Create an inline style to FORCE the background color from the Color Scheme
+  assign heading_align = 'text-align:' | append: s.heading_align | append: ';'
   assign section_styles = ''
   if s.color_scheme != blank and s.color_scheme.settings.background
-    assign bg_color = s.color_scheme.settings.background 
-    assign section_styles = 'background-color: ' | append: bg_color | append: ';'
+    assign section_styles = section_styles | append: 'background-color:' | append: s.color_scheme.settings.background | append: ';'
   endif
-
-  # Add custom text color if set
-  if s.text_color != 'rgba(0,0,0,0)' and s.text_color != blank
-    assign section_styles = section_styles | append: '--color-text: ' | append: s.text_color | append: ';'
-    assign section_styles = section_styles | append: '--color-border: ' | append: s.text_color | append: ' | color_modify: "alpha", 0.2;'
+  if s.text_color != blank and s.text_color != 'rgba(0,0,0,0)'
+    assign section_styles = section_styles | append: '--faq-text:' | append: s.text_color | append: ';'
   endif
-  
-  # Add custom tab BG color if set
-  if s.tab_bg_color != 'rgba(0,0,0,0)' and s.tab_bg_color != blank
-    assign section_styles = section_styles | append: '--color-tab-background: ' | append: s.tab_bg_color | append: ';'
-  endif
+  assign maxw = s.max_content_width | append: 'px'
 -%}
 
-{%- comment -%}
-  CSS for the section
-{%- endcomment -%}
 {%- style -%}
-  /* ---
-    NEW LAYOUT STYLES
-    Copied from 'Dynamic Table'
-  --- */
-  .faq-tab-section-{{ section.id }} {
-    padding: 50px 0; /* Vertical padding for the section */
-    
-    /* Apply custom colors from settings */
-    background-color: var(--color-background);
-    color: var(--color-text);
-  }
+.faq2-{{ section.id }}{
+  /* scheme + custom color hook */
+  color: var(--faq-text, inherit);
+}
+.faq2{
+  padding: 48px 0;
+}
+.faq2--full { width: 100vw; margin-left: calc((100% - 100vw)/2); }
+.faq2__container{
+  max-width: {{ maxw }};
+  margin: 0 auto;
+  padding: 0 20px;
+}
 
-  /* This class must be here for the full-width toggle */
-  .section--full-width {
-    width: 100vw;
-    margin-left: calc( (100% - 100vw) / 2 );
-  }
+/* Heading */
+.faq2__heading{ margin: 0 0 20px; line-height: 1.15; }
 
-  /* This wrapper centers the content and adds horizontal padding */
-  .faq-content-wrapper {
-    padding: 40px;
-    max-width: 1536px; /* Max width of the content */
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* Tabs */
+.faq2__tabs{
+  display: flex; gap: 10px; overflow-x: auto; padding: 6px 2px 2px; margin: 12px 0 24px;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.faq2__tabs::-webkit-scrollbar{ display:none; }
+.faq2__tab{
+  appearance:none; border:1px solid rgba(0,0,0,.08); background:#eee; color:inherit;
+  padding:10px 16px; border-radius:8px; font-weight:600; opacity:.8; white-space:nowrap; cursor:pointer;
+  transition:opacity .2s, transform .15s;
+}
+.faq2__tab[aria-selected="true"]{ opacity:1; background:#e9dccf; border-color:transparent; }
+.faq2__tab:active{ transform: scale(.98); }
 
-  @media (max-width: 768px) {
-    .faq-tab-section-{{ section.id }} {
-      padding: 30px 0; /* Adjust vertical padding for mobile */
-    }
-    .faq-content-wrapper {
-      padding: 0 20px; /* Adjust horizontal padding for mobile */
-    }
-  }
-  /* --- End of new layout styles --- */
+/* Panels */
+.faq2__panel{ display:none; }
+.faq2__panel.is-active{ display:block; }
 
+/* FAQ item */
+.faq2__item{
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.faq2__summary{
+  list-style:none; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center;
+  padding:18px 0; cursor:pointer;
+}
+.faq2__summary::-webkit-details-marker{ display:none; }
+.faq2__q{ margin:0; font-weight:600; }
+.faq2__icon{ width:20px; height:20px; line-height:0; }
+.faq2__icon svg{ width:20px; height:20px; }
 
-  /* --- Original FAQ Styles --- */
-  .faq-tab-section-{{ section.id }} .section-heading {
-    margin-bottom: 40px;
-    /* font-size removed from here, applied inline */
-  }
+/* Answer (animated) */
+.faq2__answer{
+  display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease;
+}
+.faq2__content{
+  overflow:hidden; padding:0 0 16px;
+}
+.faq2__item[open] .faq2__answer{ grid-template-rows:1fr; }
 
-  .faq-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
+/* Keep consistent text width for both Q & A */
+.faq2__row, .faq2__content { max-width: {{ maxw }}; margin: 0 auto; }
 
-  .faq-tab-button {
-    /* font-size removed from here, applied inline */
-    font-weight: 600;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: none;
-    background-color: var(--color-tab-background, #e0e0e0);
-    color: var(--color-text, #333);
-    opacity: 0.7;
-    border-bottom: none;
-    margin-bottom: -1px;
-    transition: opacity 0.2s ease;
-    border-radius: 5px 5px 0 0;
-  }
+/* Optional subtle hover */
+.faq2__summary:hover .faq2__q{ text-decoration:none; }
 
-  .faq-tab-button:hover {
-    opacity: 1;
-  }
-
-  .faq-tab-button.active {
-    opacity: 1;
-    border-color: transparent;
-  }
-
-  .faq-content-panel {
-    display: none;
-  }
-
-  .faq-content-panel.active {
-    display: block;
-  }
-
-  .faq-item {
-    border-bottom: 1px solid var(--color-border, #e5e5e5);
-  }
-
-  .faq-question {
-    /* font-size removed from here, applied inline */
-    padding: 20px 0;
-    cursor: pointer;
-    list-style: none; /* Removes default triangle */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-  }
-
-  /* Hide native summary marker */
-  .faq-question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-answer {
-    padding-left: 16px; /* Indent answer */
-    /* font-size removed from here, applied inline */
-
-    /* --- Animation --- */
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s ease-out;
-  }
-
-  .faq-answer-content {
-    /* This inner wrapper allows for padding and overflow control */
-    overflow: hidden;
-    padding-bottom: 20px;
-  }
-
-  .faq-item[open] .faq-answer {
-    grid-template-rows: 1fr;
-  }
-
-  /* --- Accordion Icons --- */
-  .faq-item .icon-plus,
-  .faq-item .icon-minus {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    color: var(--color-text, #333);
-  }
-
-  .faq-item .icon-minus {
-    display: none;
-  }
-
-  .faq-item[open] .icon-plus {
-    display: none;
-  }
-
-  .faq-item[open] .icon-minus {
-    display: block;
-  }
+/* Mobile tweaks */
+@media (max-width: 768px){
+  .faq2{ padding: 36px 0; }
+}
 {%- endstyle -%}
 
 <section
-  class="faq-tab-section-{{ section.id }} section {% if s.full_width %}section--full-width{% endif %}"
-  data-section-id="{{ section.id }}"
+  class="faq2 faq2-{{ section.id }} {% if s.full_width %}faq2--full{% endif %}"
   style="{{ section_styles }}"
+  data-allow-multiple="{{ s.allow_multiple }}"
 >
-  <div class="faq-content-wrapper">
+  <div class="faq2__container">
     {%- if s.heading != blank -%}
-      <h2
-        class="section-heading h2"
-        style="{{ heading_text_alignment }} font-size: {{ s.heading_font_size }}px;"
-      >
+      <h2 class="faq2__heading h2" style="{{ heading_align }} font-size: {{ s.heading_size }}px;">
         {{ s.heading | escape }}
       </h2>
     {%- endif -%}
 
-    <div class="faq-tabs">
+    <!-- Tabs -->
+    <div class="faq2__tabs" role="tablist" aria-label="FAQ categories">
       {%- for block in section.blocks -%}
         <button
-          class="faq-tab-button{% if forloop.first %} active{% endif %}"
-          data-tab-target="#faq-panel-{{ block.id }}"
+          class="faq2__tab"
+          id="tab-{{ block.id }}"
+          role="tab"
+          aria-selected="{{ forloop.first }}"
+          aria-controls="panel-{{ block.id }}"
+          tabindex="{{ forloop.first | default: true | if: true, 0, -1 }}"
           {{ block.shopify_attributes }}
-          style="font-size: {{ s.tab_font_size }}px;"
         >
           {{ block.settings.tab_title | default: 'Category' }}
         </button>
       {%- endfor -%}
     </div>
 
-    <div class="faq-content-panels">
-      {%- for block in section.blocks -%}
-        <div
-          id="faq-panel-{{ block.id }}"
-          class="faq-content-panel{% if forloop.first %} active{% endif %}"
-        >
-          {%- for i in (1..15) -%}
-            {%- liquid
-              assign q = 'q' | append: i
-              assign a = 'a' | append: i
-              assign q_value = block.settings[q]
-              assign a_value = block.settings[a]
-            -%}
-            {%- if q_value != blank and a_value != blank -%}
-              <details class="faq-item">
-                <summary class="faq-question" style="font-size: {{ s.question_font_size }}px;">
-                  <p style="margin:0px">{{ q_value }}</p>
-                  <svg
-                    class="icon-plus"
-                    aria-hidden="true"
-                    focusable="false"
-                    role="presentation"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+    <!-- Panels -->
+    {%- for block in section.blocks -%}
+      <div
+        id="panel-{{ block.id }}"
+        class="faq2__panel {% if forloop.first %}is-active{% endif %}"
+        role="tabpanel"
+        aria-labelledby="tab-{{ block.id }}"
+      >
+        {%- for i in (1..15) -%}
+          {%- liquid
+            assign qk = 'q' | append: i
+            assign ak = 'a' | append: i
+            assign q = block.settings[qk]
+            assign a = block.settings[ak]
+          -%}
+          {%- if q != blank and a != blank -%}
+            <details class="faq2__item">
+              <summary class="faq2__summary">
+                <div class="faq2__row">
+                  <p class="faq2__q" style="font-size: {{ s.q_size }}px;">{{ q }}</p>
+                </div>
+                <span class="faq2__icon" aria-hidden="true">
+                  <!-- plus/minus icon pair -->
+                  <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
-                  <svg
-                    class="icon-minus"
-                    aria-hidden="true"
-                    focusable="false"
-                    role="presentation"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
+                  <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
-                </summary>
-                <div class="faq-answer rte" style="font-size: {{ s.answer_font_size }}px;">
-                  <div class="faq-answer-content">
-                    {{ a_value }}
-                  </div>
+                </span>
+              </summary>
+              <div class="faq2__answer">
+                <div class="faq2__content rte" style="font-size: {{ s.a_size }}px;">
+                  {{ a }}
                 </div>
-              </details>
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      {%- endfor -%}
-    </div>
-  </div> </section>
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const sections = document.querySelectorAll('.faq-tab-section');
+document.addEventListener('DOMContentLoaded', () => {
+  const root = document.currentScript.closest('section.faq2');
+  if (!root) return;
 
-    sections.forEach((section) => {
-      const tabButtons = section.querySelectorAll('.faq-tab-button');
-      const contentPanels = section.querySelectorAll('.faq-content-panel');
+  const allowMultiple = root.getAttribute('data-allow-multiple') === 'true';
 
-      tabButtons.forEach((button) => {
-        button.addEventListener('click', function () {
-          const targetId = this.getAttribute('data-tab-target');
-          const targetPanel = section.querySelector(targetId);
+  // Tabs
+  const tabs = Array.from(root.querySelectorAll('.faq2__tab'));
+  const panels = Array.from(root.querySelectorAll('.faq2__panel'));
 
-          // Remove active state from all buttons and panels in this section
-          tabButtons.forEach((btn) => btn.classList.remove('active'));
-          contentPanels.forEach((panel) => panel.classList.remove('active'));
+  function activateTab(tab) {
+    tabs.forEach(t => {
+      const selected = t === tab;
+      t.setAttribute('aria-selected', selected);
+      t.tabIndex = selected ? 0 : -1;
+      const panel = root.querySelector('#' + t.getAttribute('aria-controls'));
+      panel && panel.classList.toggle('is-active', selected);
+    });
+    tab.focus();
+  }
 
-          // Add active state to the clicked button and target panel
-          this.classList.add('active');
-          if (targetPanel) {
-            targetPanel.classList.add('active');
-          }
-        });
+  tabs.forEach(t => {
+    t.addEventListener('click', () => activateTab(t));
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const dir = e.key === 'ArrowRight' ? 1 : -1;
+        const idx = (tabs.indexOf(t) + dir + tabs.length) % tabs.length;
+        activateTab(tabs[idx]);
+      }
+    });
+  });
+
+  // Accordion behaviour (per panel)
+  panels.forEach(panel => {
+    const items = panel.querySelectorAll('.faq2__item');
+    items.forEach(d => {
+      const iconPlus = d.querySelector('.icon-plus');
+      const iconMinus = d.querySelector('.icon-minus');
+
+      d.addEventListener('toggle', () => {
+        // swap icons
+        const open = d.open;
+        if (iconPlus && iconMinus) {
+          iconPlus.style.display = open ? 'none' : '';
+          iconMinus.style.display = open ? '' : 'none';
+        }
+
+        // only one open if not allowed multiple
+        if (open && !allowMultiple) {
+          items.forEach(other => { if (other !== d) other.open = false; });
+        }
       });
     });
   });
+});
 </script>
 
 {% schema %}
 {
-  "name": "FAQ with Tabs",
+  "name": "FAQ with Tabs (Clean)",
   "tag": "section",
-  "class": "section faq-tab-section",
+  "class": "section",
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color Scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Make section full width",
-      "default": true
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "info": "Overrides color scheme text color."
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Frequently Asked Questions"
-    },
-    {
-      "type": "select",
-      "id": "heading_text_alignment",
-      "label": "Heading Alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "header",
-      "content": "Typography & Tab Style"
-    },
-    {
-      "type": "color",
-      "id": "tab_bg_color",
-      "label": "Tab Button Background",
-      "default": "#E0E0E0"
-    },
-    {
-      "type": "range",
-      "id": "heading_font_size",
-      "label": "Heading Font Size",
-      "min": 20,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "tab_font_size",
-      "label": "Tab Font Size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    },
-    {
-      "type": "range",
-      "id": "question_font_size",
-      "label": "Question Font Size",
-      "min": 14,
-      "max": 28,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "answer_font_size",
-      "label": "Answer Font Size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 16
-    }
-    /* REMOVED: 
-      - background_color (now handled by scheme)
-      - container_width
-      - padding_top
-      - padding_bottom 
-    */
+    { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
+    { "type": "checkbox", "id": "full_width", "label": "Make section full width", "default": true },
+    { "type": "color", "id": "text_color", "label": "Text color override" },
+
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "select", "id": "heading_align", "label": "Heading alignment", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ], "default": "center" },
+
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 56, "step": 1, "default": 36, "unit": "px" },
+    { "type": "range", "id": "q_size", "label": "Question size", "min": 14, "max": 28, "step": 1, "default": 18, "unit": "px" },
+    { "type": "range", "id": "a_size", "label": "Answer size", "min": 12, "max": 22, "step": 1, "default": 16, "unit": "px" },
+
+    { "type": "range", "id": "max_content_width", "label": "Text max width", "min": 560, "max": 1200, "step": 10, "default": 900, "unit": "px",
+      "info": "Keeps questions & answers the same width to avoid layout shifts." },
+
+    { "type": "checkbox", "id": "allow_multiple", "label": "Allow multiple answers open in a category", "default": false }
   ],
   "blocks": [
     {
       "type": "category",
-      "name": "FAQ Category",
-      "limit": 5,
+      "name": "FAQ category",
+      "limit": 8,
       "settings": [
-        {
-          "type": "text",
-          "id": "tab_title",
-          "label": "Tab Title",
-          "default": "Orders"
-        },
+        { "type": "text", "id": "tab_title", "label": "Tab title", "default": "Orders" },
+
         { "type": "header", "content": "Question 1" },
-        {
-          "type": "text",
-          "id": "q1",
-          "label": "Question",
-          "default": "What is my order status?"
-        },
-        {
-          "type": "richtext",
-          "id": "a1",
-          "label": "Answer",
-          "default": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>"
-        },
+        { "type": "text", "id": "q1", "label": "Question", "default": "What is my order status?" },
+        { "type": "richtext", "id": "a1", "label": "Answer", "default": "<p>Log in to your account and open the 'My Orders' page to see live status.</p>" },
+
         { "type": "header", "content": "Question 2" },
-        {
-          "type": "text",
-          "id": "q2",
-          "label": "Question",
-          "default": "Can I modify my order?"
-        },
-        {
-          "type": "richtext",
-          "id": "a2",
-          "label": "Answer",
-          "default": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>"
-        },
+        { "type": "text", "id": "q2", "label": "Question" },
+        { "type": "richtext", "id": "a2", "label": "Answer" },
+
         { "type": "header", "content": "Question 3" },
         { "type": "text", "id": "q3", "label": "Question" },
         { "type": "richtext", "id": "a3", "label": "Answer" },
+
         { "type": "header", "content": "Question 4" },
         { "type": "text", "id": "q4", "label": "Question" },
         { "type": "richtext", "id": "a4", "label": "Answer" },
+
         { "type": "header", "content": "Question 5" },
         { "type": "text", "id": "q5", "label": "Question" },
-        { "type": "richtext", "id": "a5", "label": "Answer" },
-        { "type": "header", "content": "Question 6" },
-        { "type": "text", "id": "q6", "label": "Question" },
-        { "type": "richtext", "id": "a6", "label": "Answer" },
-        { "type": "header", "content": "Question 7" },
-        { "type": "text", "id": "q7", "label": "Question" },
-        { "type": "richtext", "id": "a7", "label": "Answer" },
-        { "type": "header", "content": "Question 8" },
-        { "type": "text", "id": "q8", "label": "Question" },
-        { "type": "richtext", "id": "a8", "label": "Answer" },
-        { "type": "header", "content": "Question 9" },
-        { "type": "text", "id": "q9", "label": "Question" },
-        { "type": "richtext", "id": "a9", "label": "Answer" },
-        { "type": "header", "content": "Question 10" },
-        { "type": "text", "id": "q10", "label": "Question" },
-        { "type": "richtext", "id": "a10", "label": "Answer" },
-        { "type": "header", "content": "Question 11" },
-        { "type": "text", "id": "q11", "label": "Question" },
-        { "type": "richtext", "id": "a11", "label": "Answer" },
-        { "type": "header", "content": "Question 12" },
-        { "type": "text", "id": "q12", "label": "Question" },
-        { "type": "richtext", "id": "a12", "label": "Answer" },
-        { "type": "header", "content": "Question 13" },
-        { "type": "text", "id": "q13", "label": "Question" },
-        { "type": "richtext", "id": "a13", "label": "Answer" },
-        { "type": "header", "content": "Question 14" },
-        { "type": "text", "id": "q14", "label": "Question" },
-        { "type": "richtext", "id": "a14", "label": "Answer" },
-        { "type": "header", "content": "Question 15" },
-        { "type": "text", "id": "q15", "label": "Question" },
-        { "type": "richtext", "id": "a15", "label": "Answer" }
+        { "type": "richtext", "id": "a5", "label": "Answer" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ with Tabs",
+      "name": "FAQ with Tabs (Clean)",
       "blocks": [
-        {
-          "type": "category"
-        },
-        {
-          "type": "category",
-          "settings": {
-            "tab_title": "Shipping"
-          }
-        }
+        { "type": "category" },
+        { "type": "category", "settings": { "tab_title": "Shipping" } }
       ]
     }
   ]
