@@ -91,9 +91,25 @@
                 {% if variant_style == 'swatch' %}
                   {% liquid
                     assign variant_info_entry = metaobjects.variant_information.values | where: 'display_key', product_option_value.value | first
+                  %}
 
-                    assign custom_swatch_image = variant_info_entry.image.value
+                  {% comment %} --- 2. ADD YOUR DEBUG SCRIPT HERE --- {% endcomment %}
+                  <script>
+                    console.log(
+                      '[DEBUG] Trying to match:', '{{ product_option_value.value }}',
+                      '[DEBUG] Found metaobject entry:', {{ variant_info_entry | json }}
+                    );
+                  </script>
+                  {% comment %} --- END DEBUG SCRIPT --- {% endcomment %}
 
+                  {% liquid
+                    assign custom_swatch_image = null
+                    if variant_info_entry and variant_info_entry.image
+                      assign custom_swatch_image = variant_info_entry.image.value
+                    endif
+
+                    if custom_swatch_image == blank
+                      assign featured_media = product_option_value.variant.featured_media
 
                       # If the variant has no featured media, and we have a combined listing product, then fall back to
                       # using the featured media of the child product that is linked to this option value.
@@ -102,6 +118,7 @@
                       endif
 
                       assign custom_swatch_image = featured_media
+                    endif
                   %}
                   <script>
                     console.log(
