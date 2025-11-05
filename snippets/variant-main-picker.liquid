@@ -91,9 +91,24 @@
                 {% if variant_style == 'swatch' %}
                   {% liquid
                     assign variant_info_entry = metaobjects.variant_information.values | where: 'display_key', product_option_value.value | first
+                  %}
 
-                    assign custom_swatch_image = variant_info_entry.image.value
+                  {% comment %} --- 2. THIS SCRIPT WILL RUN NOW --- {% endcomment %}
+                  <script>
+                    console.log(
+                      '[DEBUG] Trying to match:', '{{ product_option_value.value }}',
+                      '[DEBUG] Found metaobject entry:', {{ variant_info_entry | json }}
+                    );
+                  </script>
 
+                  {% liquid
+                    assign custom_swatch_image = null
+                    if variant_info_entry and variant_info_entry.image
+                      assign custom_swatch_image = variant_info_entry.image.value
+                    endif
+
+                    if custom_swatch_image == blank
+                      assign featured_media = product_option_value.variant.featured_media
 
                       # If the variant has no featured media, and we have a combined listing product, then fall back to
                       # using the featured media of the child product that is linked to this option value.
@@ -102,17 +117,19 @@
                       endif
 
                       assign custom_swatch_image = featured_media
+                    endif
                   %}
-                  <script>
-                    console.log(
-                      'Found metaobject entry:', {{ variant_info_entry | json }}
-                    );
-                  </script>
+
                   {% render 'swatch',
                     swatch: product_option_value.swatch,
                     variant_image: custom_swatch_image,
                     mode: 'unscaled'
                   %}
+
+                  {% comment %}
+                    This text was in your original code, but it will show the variant name *next* to the swatch.
+                    You may want to delete this line if you only want the image.
+                  {% endcomment %}
                   <span class="variant-option__button-label__text">{{ product_option_value | escape }}</span>
                 {% endif %}
                 {% render 'strikethrough-variant', product_option: product_option_value %}
