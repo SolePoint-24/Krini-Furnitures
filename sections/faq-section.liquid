@@ -20,73 +20,80 @@
 -%}
 
 {%- style -%}
-.faq2-{{ section.id }}{
-  /* scheme + custom color hook */
-  color: var(--faq-text, inherit);
-}
-.faq2{
-  padding: 48px 0;
-}
-.faq2--full { width: 100vw; margin-left: calc((100% - 100vw)/2); }
-.faq2__container{
-  max-width: {{ maxw }};
-  margin: 0 auto;
-  padding: 0 20px;
-}
+  .faq2-{{ section.id }}{
+    /* scheme + custom color hook */
+    color: var(--faq-text, inherit);
+  }
+  .faq2{
+    padding: 48px 0;
+  }
+  .faq2--full { width: 100vw; margin-left: calc((100% - 100vw)/2); }
+  .faq2__container{
+    max-width: {{ maxw }};
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-/* Heading */
-.faq2__heading{ margin: 0 0 20px; line-height: 1.15; }
+  /* Heading */
+  .faq2__heading{ margin: 0 0 20px; line-height: 1.15; }
 
-/* Tabs */
-.faq2__tabs{
-  display: flex; gap: 10px; overflow-x: auto; padding: 6px 2px 2px; margin: 12px 0 24px;
-  -ms-overflow-style: none; scrollbar-width: none;
-}
-.faq2__tabs::-webkit-scrollbar{ display:none; }
-.faq2__tab{
-  appearance:none; border:1px solid rgba(0,0,0,.08); background:#eee; color:inherit;
-  padding:10px 16px; border-radius:8px; font-weight:600; opacity:.8; white-space:nowrap; cursor:pointer;
-  transition:opacity .2s, transform .15s;
-}
-.faq2__tab[aria-selected="true"]{ opacity:1; background:#e9dccf; border-color:transparent; }
-.faq2__tab:active{ transform: scale(.98); }
+  /* Tabs */
 
-/* Panels */
-.faq2__panel{ display:none; }
-.faq2__panel.is-active{ display:block; }
-
-/* FAQ item */
-.faq2__item{
-  border-bottom: 1px solid rgba(0,0,0,.08);
+  .faq2__tabs,
+.faq-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.faq2__summary{
-  list-style:none; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center;
-  padding:18px 0; cursor:pointer;
-}
-.faq2__summary::-webkit-details-marker{ display:none; }
-.faq2__q{ margin:0; font-weight:600; }
-.faq2__icon{ width:20px; height:20px; line-height:0; }
-.faq2__icon svg{ width:20px; height:20px; }
+  .faq2__tabs{
+    display: flex; gap: 10px; overflow-x: auto; padding: 6px 2px 2px; margin: 12px 0 24px;
+    -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .faq2__tabs::-webkit-scrollbar{ display:none; }
+  .faq2__tab{
+    appearance:none; border:1px solid rgba(0,0,0,.08); background:#eee; color:inherit;
+    padding:10px 16px; border-radius:8px; font-weight:600; opacity:.8; white-space:nowrap; cursor:pointer;
+    transition:opacity .2s, transform .15s;
+  }
+  .faq2__tab[aria-selected="true"]{ opacity:1; background:#e9dccf; border-color:transparent; }
+  .faq2__tab:active{ transform: scale(.98); }
 
-/* Answer (animated) */
-.faq2__answer{
-  display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease;
-}
-.faq2__content{
-  overflow:hidden; padding:0 0 16px;
-}
-.faq2__item[open] .faq2__answer{ grid-template-rows:1fr; }
+  /* Panels */
+  .faq2__panel{ display:none; }
+  .faq2__panel.is-active{ display:block; }
 
-/* Keep consistent text width for both Q & A */
-.faq2__row, .faq2__content { max-width: {{ maxw }}; margin: 0 auto; }
+  /* FAQ item */
+  .faq2__item{
+    border-bottom: 1px solid rgba(0,0,0,.08);
+  }
+  .faq2__summary{
+    list-style:none; display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center;
+    padding:18px 0; cursor:pointer;
+  }
+  .faq2__summary::-webkit-details-marker{ display:none; }
+  .faq2__q{ margin:0; font-weight:600; }
+  .faq2__icon{ width:20px; height:20px; line-height:0; }
+  .faq2__icon svg{ width:20px; height:20px; }
 
-/* Optional subtle hover */
-.faq2__summary:hover .faq2__q{ text-decoration:none; }
+  /* Answer (animated) */
+  .faq2__answer{
+    display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease;
+  }
+  .faq2__content{
+    overflow:hidden; padding:0 0 16px;
+  }
+  .faq2__item[open] .faq2__answer{ grid-template-rows:1fr; }
 
-/* Mobile tweaks */
-@media (max-width: 768px){
-  .faq2{ padding: 36px 0; }
-}
+  /* Keep consistent text width for both Q & A */
+  .faq2__row, .faq2__content { max-width: {{ maxw }}; margin: 0 auto; }
+
+  /* Optional subtle hover */
+  .faq2__summary:hover .faq2__q{ text-decoration:none; }
+
+  /* Mobile tweaks */
+  @media (max-width: 768px){
+    .faq2{ padding: 36px 0; }
+  }
 {%- endstyle -%}
 
 <section
@@ -105,16 +112,16 @@
     <div class="faq2__tabs" role="tablist" aria-label="FAQ categories">
       {%- for block in section.blocks -%}
         <button
-  class="faq2__tab"
-  id="tab-{{ block.id }}"
-  role="tab"
-  aria-selected="{{ forloop.first }}"
-  aria-controls="panel-{{ block.id }}"
-  tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
-  {{ block.shopify_attributes }}
->
-  {{ block.settings.tab_title | default: 'Category' }}
-</button>
+          class="faq2__tab"
+          id="tab-{{ block.id }}"
+          role="tab"
+          aria-selected="{{ forloop.first }}"
+          aria-controls="panel-{{ block.id }}"
+          tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          {{ block.settings.tab_title | default: 'Category' }}
+        </button>
       {%- endfor -%}
     </div>
 
@@ -141,10 +148,27 @@
                 </div>
                 <span class="faq2__icon" aria-hidden="true">
                   <!-- plus/minus icon pair -->
-                  <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg
+                    class="icon-plus"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
                     <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
-                  <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                  <svg
+                    class="icon-minus"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    style="display:none"
+                  >
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
                 </span>
@@ -163,62 +187,64 @@
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const root = document.currentScript.closest('section.faq2');
-  if (!root) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.currentScript.closest('section.faq2');
+    if (!root) return;
 
-  const allowMultiple = root.getAttribute('data-allow-multiple') === 'true';
+    const allowMultiple = root.getAttribute('data-allow-multiple') === 'true';
 
-  // Tabs
-  const tabs = Array.from(root.querySelectorAll('.faq2__tab'));
-  const panels = Array.from(root.querySelectorAll('.faq2__panel'));
+    // Tabs
+    const tabs = Array.from(root.querySelectorAll('.faq2__tab'));
+    const panels = Array.from(root.querySelectorAll('.faq2__panel'));
 
-  function activateTab(tab) {
-    tabs.forEach(t => {
-      const selected = t === tab;
-      t.setAttribute('aria-selected', selected);
-      t.tabIndex = selected ? 0 : -1;
-      const panel = root.querySelector('#' + t.getAttribute('aria-controls'));
-      panel && panel.classList.toggle('is-active', selected);
-    });
-    tab.focus();
-  }
+    function activateTab(tab) {
+      tabs.forEach((t) => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', selected);
+        t.tabIndex = selected ? 0 : -1;
+        const panel = root.querySelector('#' + t.getAttribute('aria-controls'));
+        panel && panel.classList.toggle('is-active', selected);
+      });
+      tab.focus();
+    }
 
-  tabs.forEach(t => {
-    t.addEventListener('click', () => activateTab(t));
-    t.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        e.preventDefault();
-        const dir = e.key === 'ArrowRight' ? 1 : -1;
-        const idx = (tabs.indexOf(t) + dir + tabs.length) % tabs.length;
-        activateTab(tabs[idx]);
-      }
-    });
-  });
-
-  // Accordion behaviour (per panel)
-  panels.forEach(panel => {
-    const items = panel.querySelectorAll('.faq2__item');
-    items.forEach(d => {
-      const iconPlus = d.querySelector('.icon-plus');
-      const iconMinus = d.querySelector('.icon-minus');
-
-      d.addEventListener('toggle', () => {
-        // swap icons
-        const open = d.open;
-        if (iconPlus && iconMinus) {
-          iconPlus.style.display = open ? 'none' : '';
-          iconMinus.style.display = open ? '' : 'none';
-        }
-
-        // only one open if not allowed multiple
-        if (open && !allowMultiple) {
-          items.forEach(other => { if (other !== d) other.open = false; });
+    tabs.forEach((t) => {
+      t.addEventListener('click', () => activateTab(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const dir = e.key === 'ArrowRight' ? 1 : -1;
+          const idx = (tabs.indexOf(t) + dir + tabs.length) % tabs.length;
+          activateTab(tabs[idx]);
         }
       });
     });
+
+    // Accordion behaviour (per panel)
+    panels.forEach((panel) => {
+      const items = panel.querySelectorAll('.faq2__item');
+      items.forEach((d) => {
+        const iconPlus = d.querySelector('.icon-plus');
+        const iconMinus = d.querySelector('.icon-minus');
+
+        d.addEventListener('toggle', () => {
+          // swap icons
+          const open = d.open;
+          if (iconPlus && iconMinus) {
+            iconPlus.style.display = open ? 'none' : '';
+            iconMinus.style.display = open ? '' : 'none';
+          }
+
+          // only one open if not allowed multiple
+          if (open && !allowMultiple) {
+            items.forEach((other) => {
+              if (other !== d) other.open = false;
+            });
+          }
+        });
+      });
+    });
   });
-});
 </script>
 
 {% schema %}
@@ -232,20 +258,67 @@ document.addEventListener('DOMContentLoaded', () => {
     { "type": "color", "id": "text_color", "label": "Text color override" },
 
     { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
-    { "type": "select", "id": "heading_align", "label": "Heading alignment", "options": [
-      { "value": "left", "label": "Left" },
-      { "value": "center", "label": "Center" },
-      { "value": "right", "label": "Right" }
-    ], "default": "center" },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
 
-    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 56, "step": 1, "default": 36, "unit": "px" },
-    { "type": "range", "id": "q_size", "label": "Question size", "min": 14, "max": 28, "step": 1, "default": 18, "unit": "px" },
-    { "type": "range", "id": "a_size", "label": "Answer size", "min": 12, "max": 22, "step": 1, "default": 16, "unit": "px" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 56,
+      "step": 1,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "q_size",
+      "label": "Question size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "a_size",
+      "label": "Answer size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
 
-    { "type": "range", "id": "max_content_width", "label": "Text max width", "min": 560, "max": 1200, "step": 10, "default": 900, "unit": "px",
-      "info": "Keeps questions & answers the same width to avoid layout shifts." },
+    {
+      "type": "range",
+      "id": "max_content_width",
+      "label": "Text max width",
+      "min": 560,
+      "max": 1200,
+      "step": 10,
+      "default": 900,
+      "unit": "px",
+      "info": "Keeps questions & answers the same width to avoid layout shifts."
+    },
 
-    { "type": "checkbox", "id": "allow_multiple", "label": "Allow multiple answers open in a category", "default": false }
+    {
+      "type": "checkbox",
+      "id": "allow_multiple",
+      "label": "Allow multiple answers open in a category",
+      "default": false
+    }
   ],
   "blocks": [
     {
@@ -257,7 +330,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         { "type": "header", "content": "Question 1" },
         { "type": "text", "id": "q1", "label": "Question", "default": "What is my order status?" },
-        { "type": "richtext", "id": "a1", "label": "Answer", "default": "<p>Log in to your account and open the 'My Orders' page to see live status.</p>" },
+        {
+          "type": "richtext",
+          "id": "a1",
+          "label": "Answer",
+          "default": "<p>Log in to your account and open the 'My Orders' page to see live status.</p>"
+        },
 
         { "type": "header", "content": "Question 2" },
         { "type": "text", "id": "q2", "label": "Question" },
@@ -280,10 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
   "presets": [
     {
       "name": "FAQ with Tabs (Clean)",
-      "blocks": [
-        { "type": "category" },
-        { "type": "category", "settings": { "tab_title": "Shipping" } }
-      ]
+      "blocks": [{ "type": "category" }, { "type": "category", "settings": { "tab_title": "Shipping" } }]
     }
   ]
 }
