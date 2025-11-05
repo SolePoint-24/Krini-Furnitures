@@ -90,21 +90,28 @@
                 >
                 {% if variant_style == 'swatch' %}
                   {% liquid
-                    assign featured_media = product_option_value.variant.featured_media
+                    assign variant_info_entry = shop.metaobjects.variant_information.values | where: 'display_key', product_option_value.value | first
 
-                    # If the variant has no featured media, and we have a combined listing product, then fall back to
-                    # using the featured media of the child product that is linked to this option value.
-                    if featured_media == blank and product_option_value.product_url
-                      assign featured_media = product_option_value.variant.product.featured_media
+                    assign custom_swatch_image = variant_info_entry.image.value
+
+                    if custom_swatch_image == blank
+                      assign featured_media = product_option_value.variant.featured_media
+
+                      # If the variant has no featured media, and we have a combined listing product, then fall back to
+                      # using the featured media of the child product that is linked to this option value.
+                      if featured_media == blank and product_option_value.product_url
+                        assign featured_media = product_option_value.variant.product.featured_media
+                      endif
+
+                      assign custom_swatch_image = featured_media
                     endif
                   %}
 
                   {% render 'swatch',
                     swatch: product_option_value.swatch,
-                    variant_image: featured_media,
+                    variant_image: custom_swatch_image,
                     mode: 'unscaled'
                   %}
-                {% else %}
                   <span class="variant-option__button-label__text">{{ product_option_value | escape }}</span>
                 {% endif %}
                 {% render 'strikethrough-variant', product_option: product_option_value %}
