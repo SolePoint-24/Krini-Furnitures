@@ -91,7 +91,7 @@
                 {% if variant_style == 'swatch' %}
                   {% liquid
                     assign variant_info_entry = metaobjects.variant_information.values | where: 'display_key', product_option_value.value | first
-                    assign custom_swatch_image = variant_info_entry.image.value
+
                     assign custom_swatch_image = variant_info_entry.image.value
 
                     if custom_swatch_image == blank
@@ -107,6 +107,17 @@
                     endif
                   %}
 
+                  <div style="background: #f0f0f0; border: 2px solid red; padding: 10px; z-index: 9999; position: relative;">
+                    <p><strong>--- DEBUGGING INFO ---</strong></p>
+                    <p>
+                      Metaobjects loading: <strong>{{ shop.metaobjects.variant_information.values.size }}</strong>
+                    </p>
+                    <p>
+                      Trying to match variant value: <strong>'{{ product_option_value.value }}'</strong>
+                    </p>
+                    <p>Found metaobject entry:</p>
+                    <pre>{{ variant_info_entry | json }}</pre>
+                  </div>
                   {% render 'swatch',
                     swatch: product_option_value.swatch,
                     variant_image: custom_swatch_image,
