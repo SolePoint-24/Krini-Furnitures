@@ -323,7 +323,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>SS-OSB Strength</h3>",
+                "text": "<h2>SS-OSB Strength</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
