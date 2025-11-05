@@ -89,29 +89,42 @@
                   {% endif %}
                 >
                 {% if variant_style == 'swatch' %}
-                  {% liquid
-                    assign variant_info_entry = shop.metaobjects.variant_information.values | where: 'display_key', product_option_value.value | first
+  {% liquid
+    # 1) Start with the default fallback (variant media)
+    assign featured_media = product_option_value.variant.featured_media
+    if featured_media == blank and product_option_value.product_url
+      assign featured_media = product_option_value.variant.product.featured_media
+    endif
 
-                    assign custom_swatch_image = variant_info_entry.image.value
+    # 2) Try to match a metaobject entry by display_key == option value (case/space tolerant)
+    assign vi_match = nil
+    assign opt_text = product_option_value | downcase | strip
+  %}
 
-                    if custom_swatch_image == blank
-                      assign featured_media = product_option_value.variant.featured_media
+  {% for entry in variant_info_entries %}
+    {% if entry.display_key and entry.display_key != blank %}
+      {% assign entry_key = entry.display_key | downcase | strip %}
+      {% if entry_key == opt_text %}
+        {% assign vi_match = entry %}
+        {% break %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
 
-                      # If the variant has no featured media, and we have a combined listing product, then fall back to
-                      # using the featured media of the child product that is linked to this option value.
-                      if featured_media == blank and product_option_value.product_url
-                        assign featured_media = product_option_value.variant.product.featured_media
-                      endif
+  {% liquid
+    # 3) Prefer metaobject image when available
+    assign resolved_image = featured_media
+    if vi_match and vi_match.image
+      assign resolved_image = vi_match.image
+    endif
+  %}
 
-                      assign custom_swatch_image = featured_media
-                    endif
-                  %}
-
-                  {% render 'swatch',
-                    swatch: product_option_value.swatch,
-                    variant_image: custom_swatch_image,
-                    mode: 'unscaled'
-                  %}
+  {% render 'swatch',
+    swatch: product_option_value.swatch,
+    variant_image: resolved_image,
+    mode: 'unscaled'
+  %}
+{% else %}
                   <span class="variant-option__button-label__text">{{ product_option_value | escape }}</span>
                 {% endif %}
                 {% render 'strikethrough-variant', product_option: product_option_value %}
