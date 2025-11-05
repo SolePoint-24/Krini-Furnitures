@@ -152,6 +152,8 @@
     /* This inner wrapper allows for padding and overflow control */
     overflow: hidden;
     padding-bottom: 20px;
+    white-space: normal;
+    overflow-wrap: break-word;
   }
 
   .faq-item[open] .faq-answer {
@@ -224,7 +226,7 @@
             {%- if q_value != blank and a_value != blank -%}
               <details class="faq-item">
                 <summary class="faq-question" style="font-size: {{ s.question_font_size }}px;">
-                  <span>{{ q_value }}</span>
+                  <p style="margin:0px">{{ q_value }}</p>
                   <svg
                     class="icon-plus"
                     aria-hidden="true"
