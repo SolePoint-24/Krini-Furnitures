@@ -1143,7 +1143,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                    "text": "<p>Edge banding</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1226,7 +1226,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                    "text": "<p>Lacquer, painting and PU</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1309,7 +1309,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                    "text": "<p>Melamine coating, Veneer, Melamine decorative paper</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1336,13 +1336,265 @@
                 "icon_mMVmqQ",
                 "text_A3dCfC"
               ]
+            },
+            "group_3cU4GV": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_d9fY3r": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "price_tag",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_zJnChx": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Glass, High gloss laminate, Acrylic</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_d9fY3r",
+                "text_zJnChx"
+              ]
+            },
+            "group_Kknmwa": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_n6DbEb": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "price_tag",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_7jk4Bf": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Can use all kinds of joineries like Mini fix, Dowel, Right Angle/ Left</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_n6DbEb",
+                "text_7jk4Bf"
+              ]
+            },
+            "group_Ur7eDa": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_XG4UhB": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "price_tag",
+                    "width": 24,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_N4prmE": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>Angle Connectors, Hinges, Screw joint, etc.</p>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_XG4UhB",
+                "text_N4prmE"
+              ]
             }
           },
           "block_order": [
             "text_McjPNn",
             "group_7hT9ji",
             "group_dNF4TG",
-            "group_eDbDHk"
+            "group_eDbDHk",
+            "group_3cU4GV",
+            "group_Kknmwa",
+            "group_Ur7eDa"
           ]
         }
       },
