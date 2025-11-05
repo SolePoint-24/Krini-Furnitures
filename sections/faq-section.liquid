@@ -110,7 +110,9 @@
     border-color: transparent;
   }
 
-  .faq-content-panel { --faq-measure: 70ch; }  
+  .faq-content-panel {
+    display: none;
+  }
 
   .faq-content-panel.active {
     display: block;
@@ -120,18 +122,13 @@
     border-bottom: 1px solid var(--color-border, #e5e5e5);
   }
 
-  .faq-question p {
-  flex: 1 1 auto;
-  max-width: var(--faq-measure);
-}
-
   .faq-question {
     /* font-size removed from here, applied inline */
     padding: 20px 0;
     cursor: pointer;
     list-style: none; /* Removes default triangle */
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     gap: 16px;
   }
@@ -155,8 +152,6 @@
     /* This inner wrapper allows for padding and overflow control */
     overflow: hidden;
     padding-bottom: 20px;
-      max-width: var(--faq-measure);
-
   }
 
   .faq-item[open] .faq-answer {
@@ -168,8 +163,7 @@
   .faq-item .icon-minus {
     width: 20px;
     height: 20px;
-    flex: 0 0 20px;                                     /* don’t let the icon grow/shrink */
-  margin-left: auto;
+    flex-shrink: 0;
     color: var(--color-text, #333);
   }
 
