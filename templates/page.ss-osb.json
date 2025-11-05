@@ -266,7 +266,7 @@
         "feature_bhW7w7"
       ],
       "custom_css": [
-        ".features-grid-content-wrapper {padding-top: 0px;}"
+        ".features-grid-content-wrapper {padding-top: 0px; padding-bottom: 0px}"
       ],
       "name": "Features Grid (3 Column)",
       "settings": {
