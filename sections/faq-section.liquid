@@ -119,6 +119,7 @@
   .faq-item {
     border-bottom: 1px solid var(--color-border, #e5e5e5);
   }
+
   .faq-question p {
   flex: 1 1 auto;
   max-width: var(--faq-measure);
@@ -154,6 +155,8 @@
     /* This inner wrapper allows for padding and overflow control */
     overflow: hidden;
     padding-bottom: 20px;
+      max-width: var(--faq-measure);
+
   }
 
   .faq-item[open] .faq-answer {
@@ -165,7 +168,8 @@
   .faq-item .icon-minus {
     width: 20px;
     height: 20px;
-    flex-shrink: 0;
+    flex: 0 0 20px;                                     /* don’t let the icon grow/shrink */
+  margin-left: auto;
     color: var(--color-text, #333);
   }
 
