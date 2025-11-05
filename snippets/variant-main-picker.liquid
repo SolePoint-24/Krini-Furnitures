@@ -196,6 +196,31 @@
 {% endunless %}
 
 {% stylesheet %}
+
+.swatch {
+  /* This makes your metaobject image cover the circle */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Adds a subtle border to separate them */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+  /* You can adjust the size if you want */
+  width: 40px;
+  height: 40px;
+}
+
+/* This adds a nice ring to the selected swatch */
+.variant-option__button-label:has(:checked) .swatch {
+  outline: 2px solid var(--color-foreground);
+  outline-offset: 2px;
+}
+
+/* This styles the unavailable (sold-out) swatches */
+.variant-option__button-label:has([data-option-available='false']) .swatch {
+  opacity: 0.5;
+}
   .variant-picker {
     width: 100%;
   }
