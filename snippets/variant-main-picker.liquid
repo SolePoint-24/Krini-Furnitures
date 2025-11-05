@@ -94,8 +94,6 @@
 
                     assign custom_swatch_image = variant_info_entry.image.value
 
-                    if custom_swatch_image == blank
-                      assign featured_media = product_option_value.variant.featured_media
 
                       # If the variant has no featured media, and we have a combined listing product, then fall back to
                       # using the featured media of the child product that is linked to this option value.
@@ -104,7 +102,6 @@
                       endif
 
                       assign custom_swatch_image = featured_media
-                    endif
                   %}
                   <script>
                     console.log(
