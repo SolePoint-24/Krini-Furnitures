@@ -12,7 +12,7 @@
 
   # ✅ 1) Metaobject lookup override if variant_key exists
   if resolved_image == blank and variant_key
-    assign vi_matches = shop.metaobjects.variant_information.values | where: "display_key", variant_key
+    assign vi_matches = metaobjects.variant_information.values | where: "display_key", variant_key
     assign vi_match = vi_matches.first
     if vi_match and vi_match.image
       assign resolved_image = vi_match.image
