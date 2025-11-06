@@ -254,7 +254,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h3>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</h3>",
+            "text": "<h3>Experience how Krini transforms design concepts into reality. From sketches and CAD plans to the final installation — our furniture brings precision, balance, and sophistication to every project.</h3>",
             "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
