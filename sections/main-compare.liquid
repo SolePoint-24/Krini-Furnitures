@@ -2,7 +2,7 @@
   Section: Product Comparison Table
   This section is dynamically filled by JavaScript based on
   product handles stored in localStorage.
-  
+
   REFACTORED to use a <table> for proper alignment.
 {% endcomment %}
 
@@ -55,7 +55,7 @@
     width: 300px; /* Width of each product column */
     text-align: center;
   }
-  
+
   /* Make header cells taller */
   .compare-table thead th,
   .compare-table thead td {
@@ -68,9 +68,9 @@
   .compare-table tr:first-child td {
     height: 80px;
   }
-  
+
   /* ▲▲▲ End of <table> layout modifications ▲▲▲ */
-  
+
   /* ▼▼▼ NEW RULE: Force description row to top-align ▼▼▼ */
   .compare-table .compare-row--description th,
   .compare-table .compare-row--description td {
@@ -102,7 +102,7 @@
   .compare-cell .remove-button:hover {
     background: #c0392b;
   }
-  
+
   .compare-cell img {
     width: 100%;
     height: auto;
@@ -110,18 +110,18 @@
     margin: 0 auto;
     border-radius: 4px;
   }
-  
+
   .compare-cell h3 {
     font-size: 1.1em;
     margin: 0;
   }
-  
+
   .compare-cell .price {
     font-size: 1.2em;
     font-weight: 600;
     color: #513117;
   }
-  
+
   .compare-cell .atc-button {
     background: #4CAF50;
     color: white;
@@ -136,7 +136,7 @@
   .compare-cell .atc-button:hover {
     background: #45a049;
   }
-  
+
   .compare-cell .availability {
     font-weight: 600;
   }
@@ -151,7 +151,7 @@
     font-size: 0.9em;
     line-height: 1.6;
     /* ▼▼▼ MODIFICATION: Aligned left, scrollbar removed ▼▼▼ */
-    text-align: left; 
+    text-align: left;
     /* No max-height or overflow */
     /* ▲▲▲ End of Modification ▲▲▲ */
   }
@@ -168,21 +168,18 @@
 
 <div class="compare-page-container page-width">
   <div id="compare-scroll-wrapper" class="compare-scroll-wrapper">
-    <div class="compare-loading-message">
-      Loading products...
-    </div>
-    
+    <div class="compare-loading-message">Loading products...</div>
+
     <!-- ▼▼▼ MODIFICATION: Switched from <div> to <table> ▼▼▼ -->
     <table id="compare-table" class="compare-table" style="display: none;">
       <!-- JavaScript will build the table here -->
     </table>
     <!-- ▲▲▲ End of Modification ▲▲▲ -->
-
   </div>
-  
+
   <div id="compare-empty-message" class="compare-empty-message" style="display: none;">
     You haven't added any products to compare yet.
-    <a href={{ routes.all_products_collection_url }} style="margin-top: 10px; display: block;">Continue Shopping</a>
+    <a href="{{ routes.all_products_collection_url }}" style="margin-top: 10px; display: block;">Continue Shopping</a>
   </div>
 </div>
 
@@ -288,17 +285,26 @@
       });
       thead.appendChild(rowPrice);
 
+      
       // --- Row 5: Add to Cart ---
-      const rowATC = document.createElement('tr');
-      rowATC.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
-      products.forEach(product => {
-        const variantId = product.variants[0].id;
-        const cell = document.createElement('td');
-        cell.className = 'compare-product-cell compare-cell';
-        cell.innerHTML = `<a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>`;
-        rowATC.appendChild(cell);
-      });
-      thead.appendChild(rowATC);
+   const rowATC = document.createElement('tr');
+   rowATC.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
+   products.forEach(product => {
+    const variantId = product.variants[0].id;
+    const cell = document.createElement('td');
+    cell.className = 'compare-product-cell compare-cell';
+
+    // ▼▼▼ MODIFICATION ▼▼▼
+    // Check if the product is available before creating the button
+    const buttonHtml = product.available
+     ? `<a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>`
+     : ''; // Render an empty string if not available
+    // ▲▲▲ END MODIFICATION ▲▲▲
+    
+    cell.innerHTML = buttonHtml;
+    rowATC.appendChild(cell);
+   });
+   thead.appendChild(rowATC);
 
       // Create Table Body (tbody) for attributes
       const tbody = document.createElement('tbody');
@@ -386,4 +392,3 @@
   ]
 }
 {% endschema %}
-
