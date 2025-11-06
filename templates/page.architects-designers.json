@@ -389,15 +389,15 @@
             "icon_border_width": 2,
             "arrow_size": 10,
             "background_color": "#f3efe7",
-            "title_color": "#000000",
-            "subtitle_color": "#000000",
-            "icon_background": "#ffffff",
-            "icon_border_color": "#000000",
-            "icon_color": "#000000",
-            "number_color": "#000000",
-            "step_title_color": "#000000",
-            "step_description_color": "#000000",
-            "arrow_color": "#000000"
+            "title_color": "#513117",
+            "subtitle_color": "#513117",
+            "icon_background": "#eeddc6",
+            "icon_border_color": "#513117",
+            "icon_color": "#513117",
+            "number_color": "#513117",
+            "step_title_color": "#513117",
+            "step_description_color": "#513117",
+            "arrow_color": "#513117"
           },
           "blocks": {}
         }
