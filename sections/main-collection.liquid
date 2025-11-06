@@ -145,38 +145,44 @@
 
   /* STICKY FILTERS */
 
-  @media screen and (min-width: 750px) {
+ @media screen and (min-width: 750px) {
+
     /*
-     * This targets the vertical filter block when it's active.
+     * 1. Make the ENTIRE filter block sticky.
+     * This includes the "Filters" title.
     */
     .collection-wrapper:has(.facets--vertical) .facets-block-wrapper--vertical:not(.hidden) {
-      /* 1. Make the filter block sticky */
       position: sticky;
-
-      /*
-        2. Set top position. This is the space from the top of the viewport.
-           If you have a sticky header, you'll want this value to be
-           your header's height + some margin (e.g., 20px).
-           You may need to adjust this '20px' value.
-      */
-      top: 20px;
-
-      /* 3. Align the grid item to the top (very important for grid + sticky) */
       align-self: start;
 
       /*
-        4. If the filter list itself is taller than the screen,
-           make it scrollable internally.
-           (100vh = 100% viewport height. 40px = 20px top + 20px bottom margin)
-           You may also need to adjust this calculation based on your 'top' value.
+       * Set top position. Adjust this '20px' value to be
+       * your sticky header's height + a small margin.
       */
-      max-height: calc(100vh - 40px);
+      top: 20px;
+    }
+
+    /*
+     * 2. Make the INNER list of filters scrollable.
+     * This targets the container that holds "Availability", "Price", etc.
+    */
+    .facets-block-wrapper--vertical .facets-container {
+      /*
+       * This calculates the max height.
+       * 100vh = full screen height
+       * - 90px = a new value to account for your 'top' value (20px),
+       * a bottom margin (20px), and the "Filters" title (approx 50px).
+       *
+       * *** You may need to adjust the '90px' value ***
+       * - If the list is too long, make 90px larger (e.g., 120px).
+       * - If the list is too short, make 90px smaller (e.g., 70px).
+      */
+      max-height: calc(100vh - 90px);
       overflow-y: auto;
     }
 
     /*
-     * This ensures the main product grid (the scrolling part)
-     * also aligns to the top, matching the sticky filters.
+     * 3. Ensure the main product grid also aligns to the top.
     */
     .collection-wrapper:has(.facets--vertical) .main-collection-grid {
       align-self: start;
