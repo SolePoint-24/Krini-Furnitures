@@ -1,141 +1,166 @@
 {% comment %}
-  This section displays business address information and a Google Map in a two-column layout.
-  It includes settings for address text and repeatable blocks for social media links.
+  This section displays business address information and a Google Map.
+  It uses the same wrapper logic as the FAQ section for full-width control.
 {% endcomment %}
 
-<div class="map-section color-{{ section.settings.color_scheme }}">
-  <div class="map-section__grid">
-    <div class="map-section__content">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="map-section__heading h2_style_2 title-wrapper title-wrapper--no-top-margin">
-          {{ section.settings.heading | escape }}
-        </h2>
-      {%- endif -%}
+{%- liquid
+  assign s = section.settings
+  assign section_styles = ''
 
-      <hr class="map-section__divider">
+  if s.color_scheme != blank and s.color_scheme.settings.background
+    assign section_styles = section_styles | append: 'background-color:' | append: s.color_scheme.settings.background | append: ';'
+  endif
+  if s.color_scheme != blank and s.color_scheme.settings.text
+    assign section_styles = section_styles | append: 'color:' | append: s.color_scheme.settings.text | append: ';'
+  endif
 
-      {%- if section.settings.subheading != blank -%}
-        <h3 class="map-section__subheading">{{ section.settings.subheading | escape }}</h3>
-      {%- endif -%}
+  assign maxw = s.max_content_width | append: 'px'
+-%}
 
-      {%- if section.settings.address != blank -%}
-        <div class="map-section__address rte">
-          {{ section.settings.address }}
-        </div>
-      {%- endif -%}
+<section
+  class="map-section map-section-{{ section.id }} {% if s.full_width %}map-section--full{% endif %}"
+  style="{{ section_styles }}"
+>
+  <div class="map-section__container">
+    <div class="map-section__grid">
+      <div class="map-section__content">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="map-section__heading h2_style_2 title-wrapper title-wrapper--no-top-margin">
+            {{ section.settings.heading | escape }}
+          </h2>
+        {%- endif -%}
 
-      <hr class="map-section__divider">
+        <hr class="map-section__divider" />
 
-      {%- if section.settings.email != blank -%}
-        <p class="map-section__contact">
-          <strong>Email:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
-        </p>
-      {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <h3 class="map-section__subheading">{{ section.settings.subheading | escape }}</h3>
+        {%- endif -%}
 
-      {%- if section.settings.phone_1 != blank -%}
-        <p class="map-section__contact">
-          {{ section.settings.phone_1 }}
-        </p>
-      {%- endif -%}
+        {%- if section.settings.address != blank -%}
+          <div class="map-section__address rte">
+            {{ section.settings.address }}
+          </div>
+        {%- endif -%}
 
-      {%- if section.settings.phone_2 != blank -%}
-        <p class="map-section__contact">
-          {{ section.settings.phone_2 }}
-        </p>
-      {%- endif -%}
+        <hr class="map-section__divider" />
 
-      {%- if section.blocks.size > 0 -%}
-        <div class="map-section__socials">
-          {%- for block in section.blocks -%}
-            <a
-              href="{{ block.settings.link }}"
-              class="map-section__social-link"
-              target="_blank"
-              rel="noopener"
-              aria-label="Follow us on {{ block.settings.platform | capitalize }}"
-            >
-              {%- liquid
-                assign platform = block.settings.platform
-                case platform
-                  when 'facebook'
-                    echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>'
+        {%- if section.settings.email != blank -%}
+          <p class="map-section__contact">
+            <strong>Email:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+          </p>
+        {%- endif -%}
 
-                  when 'instagram'
-                    echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>'
+        {%- if section.settings.phone_1 != blank -%}
+          <p class="map-section__contact">
+            {{ section.settings.phone_1 }}
+          </p>
+        {%- endif -%}
 
-                  when 'linkedin'
-                    echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>'
+        {%- if section.settings.phone_2 != blank -%}
+          <p class="map-section__contact">
+            {{ section.settings.phone_2 }}
+          </p>
+        {%- endif -%}
 
-                  when 'whatsapp'
-                    echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>'
+        {%- if section.blocks.size > 0 -%}
+          <div class="map-section__socials">
+            {%- for block in section.blocks -%}
+              <a
+                href="{{ block.settings.link }}"
+                class="map-section__social-link"
+                target="_blank"
+                rel="noopener"
+                aria-label="Follow us on {{ block.settings.platform | capitalize }}"
+              >
+                {%- liquid
+                  assign platform = block.settings.platform
+                  case platform
+                    when 'facebook'
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg>'
+                    when 'instagram'
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>'
+                    when 'linkedin'
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>'
+                    when 'whatsapp'
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>'
+                    when 'x'
+                      echo '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 50 50"><path d="M 6.9199219 6 L 21.136719 26.726562 L 6.2285156 44 L 9.40625 44 L 22.544922 28.777344 L 32.986328 44 L 43 44 L 28.123047 22.3125 L 42.203125 6 L 39.027344 6 L 26.716797 20.261719 L 16.933594 6 L 6.9199219 6 z"></path></svg>'
+                    when 'youtube'
+                      echo '<svg fill="currentColor" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-271 311.2 256 179.8" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M-59.1,311.2h-167.8c0,0-44.1,0-44.1,44.1v91.5c0,0,0,44.1,44.1,44.1h167.8c0,0,44.1,0,44.1-44.1v-91.5 C-15,355.3-15,311.2-59.1,311.2z M-177.1,450.3v-98.5l83.8,49.3L-177.1,450.3z"></path> </g></svg>'
+                  endcase
+                -%}
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
 
-                  when 'x'
-                    echo '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 50 50"><path d="M 6.9199219 6 L 21.136719 26.726562 L 6.2285156 44 L 9.40625 44 L 22.544922 28.777344 L 32.986328 44 L 43 44 L 28.123047 22.3125 L 42.203125 6 L 39.027344 6 L 26.716797 20.261719 L 16.933594 6 L 6.9199219 6 z"></path></svg>'
-
-                  when 'youtube'
-                    echo '<svg fill="#000000" height="16" width="16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-271 311.2 256 179.8" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M-59.1,311.2h-167.8c0,0-44.1,0-44.1,44.1v91.5c0,0,0,44.1,44.1,44.1h167.8c0,0,44.1,0,44.1-44.1v-91.5 C-15,355.3-15,311.2-59.1,311.2z M-177.1,450.3v-98.5l83.8,49.3L-177.1,450.3z"></path> </g></svg>'
-                endcase
-              -%}
-            </a>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-    </div>
-
-    <div class="map-section__map-wrapper">
-      {%- if section.settings.map_embed_code != blank -%}
-        {%- liquid
-          assign map_src = section.settings.map_embed_code | split: 'src="' | last | split: '"' | first
-        -%}
-        <iframe
-          src="{{ map_src }}"
-          class="map-section__iframe"
-          frameborder="0"
-          scrolling="no"
-          allowfullscreen
-          loading="lazy"
-          aria-label="{{ section.settings.heading | escape | default: 'Map' }}"
-        >
-        </iframe>
-      {%- else -%}
-        <div class="map-section__placeholder">
-          {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-          <p>Please add a Google Maps embed code in the section settings.</p>
-        </div>
-      {%- endif -%}
+      <div class="map-section__map-wrapper">
+        {%- if section.settings.map_embed_code != blank -%}
+          {%- liquid
+            assign map_src = section.settings.map_embed_code | split: 'src="' | last | split: '"' | first
+          -%}
+          <iframe
+            src="{{ map_src }}"
+            class="map-section__iframe"
+            frameborder="0"
+            scrolling="no"
+            allowfullscreen
+            loading="lazy"
+            aria-label="{{ section.settings.heading | escape | default: 'Map' }}"
+          >
+          </iframe>
+        {%- else -%}
+          <div class="map-section__placeholder">
+            {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            <p>Please add a Google Maps embed code in the section settings.</p>
+          </div>
+        {%- endif -%}
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-{%- style -%} 
+{%- style -%}
   .map-section {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-
+  
   /* This part applies the colors */
-  .map-section.color-background-1 {
-    background-color: var(--color-background-1);
-    color: var(--color-text-1);
+  .map-section-{{ section.id }} {
+    background-color: {{ s.color_scheme.settings.background | default: 'transparent' }};
+    color: {{ s.color_scheme.settings.text | default: 'inherit' }};
   }
-  .map-section.color-background-2 {
-    background-color: var(--color-background-2);
-    color: var(--color-text-2);
+  .map-section-{{ section.id }} a {
+    color: {{ s.color_scheme.settings.link | default: 'inherit' }};
   }
-  .map-section.color-inverse {
-    background-color: var(--color-inverse-background);
-    color: var(--color-inverse-text);
-  }
-  /* Add more .color-scheme-name rules if your theme has them */
 
-  /* NEW */
+  /*
+  NEW CONTAINER STYLES
+  Copied from your faq2__container logic
+  */
+  .map-section__container {
+    max-width: {{ maxw }};
+    margin: 0 auto;
+    padding: 0 20px; /* This is the padding you want to remove */
+  }
+
+  /*
+  NEW FULL WIDTH LOGIC
+  This removes the padding and max-width when "full_width" is checked
+  */
+  .map-section--full .map-section__container {
+    max-width: none;
+    padding: 0;
+  }
+  
   .map-section__divider {
     border: 0;
     border-top: 1px solid currentColor; /* Uses the scheme's text color */
     opacity: 0.15;
     margin: 1.5rem 0; /* Adds vertical spacing */
   }
-
 
   .map-section__grid {
     display: grid;
@@ -148,6 +173,13 @@
     .map-section__grid {
       /* Creates two columns, the second being 1.5x the first */
       grid-template-columns: 1fr 1.5fr;
+    }
+
+    /* Fix for full width: make map content align with grid */
+    .map-section--full .map-section__grid {
+       grid-template-columns: 1fr 1.5fr;
+       /* You might want to add padding back *inside* the content column */
+       /* For example: .map-section--full .map-section__content { padding-left: 20px; } */
     }
   }
 
@@ -209,7 +241,7 @@
     align-items: center;
     height: 100%;
     min-height: 400px;
-    background-color: #f7f7f7;
+    background-color: #f7f7ff;
     border: 1px dashed #ccc;
   }
 {%- endstyle -%}
@@ -225,6 +257,24 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Make section full width",
+      "default": false,
+      "info": "Removes the horizontal padding."
+    },
+    {
+      "type": "range",
+      "id": "max_content_width",
+      "label": "Content max width",
+      "min": 700,
+      "max": 1400,
+      "step": 20,
+      "default": 1100,
+      "unit": "px",
+      "info": "Only applies if 'Make section full width' is unchecked."
     },
     {
       "type": "header",
