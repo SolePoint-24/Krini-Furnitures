@@ -3,9 +3,8 @@
   It includes settings for address text and repeatable blocks for social media links.
 {% endcomment %}
 
-<div class="map-section color-{{ section.settings.color_scheme }}">
-  <div class="">
-    <div class="map-section__grid ">
+
+    <div class="map-section__grid map-section color-{{ section.settings.color_scheme }}">
       <div class="map-section__content">
         {%- if section.settings.heading != blank -%}
           <h2 class="map-section__heading h2_style_2 title-wrapper title-wrapper--no-top-margin">
@@ -106,8 +105,7 @@
         {%- endif -%}
       </div>
     </div>
-  </div>
-</div>
+
 
 {%- style -%}
   .map-section {
