@@ -62,7 +62,7 @@
         </span>
       </label>
 
-      <label class="column-options__option">
+      {% comment %} <label class="column-options__option">
         <input
           type="radio"
           name="grid"
@@ -75,7 +75,7 @@
         <span class="column-picker column-picker--zoom-out">
           {{- 'icon-grid-dense.svg' | inline_asset_content -}}
         </span>
-      </label>
+      </label> {% endcomment %}
     {% endif %}
   </fieldset>
 </div>
