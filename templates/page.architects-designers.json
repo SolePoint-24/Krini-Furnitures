@@ -546,7 +546,7 @@
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/badge-check.svg",
+                    "image_upload": "shopify://shop_images/design-thinking.png",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
@@ -653,7 +653,7 @@
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/badge-check.svg",
+                    "image_upload": "shopify://shop_images/reliability.png",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
@@ -760,7 +760,7 @@
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/badge-check.svg",
+                    "image_upload": "shopify://shop_images/premium-quality.png",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
@@ -867,7 +867,7 @@
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/badge-check.svg",
+                    "image_upload": "shopify://shop_images/international.png",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
