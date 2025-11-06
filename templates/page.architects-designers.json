@@ -85,10 +85,37 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "text_iEa4K6": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Partner with Krini to deliver custom, space-saving, and premium furniture solutions for residential, commercial, and hospitality projects — in India and across the world.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "text_UYrtDT"
+        "text_UYrtDT",
+        "text_iEa4K6"
       ],
       "name": "t:names.custom_section",
       "settings": {
