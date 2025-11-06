@@ -217,8 +217,8 @@
         "image_bhJUf4": {
           "type": "image",
           "name": "t:names.image",
-          "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/world-map.png",
             "link": "",
             "image_ratio": "landscape",
             "width": "fill",
