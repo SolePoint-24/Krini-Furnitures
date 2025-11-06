@@ -195,7 +195,7 @@
             "text": "<h3>From compact apartments in India to global hotels in the USA — and beyond, Krini delivers everywhere.</h3>",
             "width": "100%",
             "max_width": "none",
-            "alignment": "left",
+            "alignment": "center",
             "type_preset": "h3",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
