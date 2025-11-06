@@ -610,7 +610,7 @@
                 "text_Y4XNkN"
               ]
             },
-            "group_CgcdUD": {
+            "group_m9FRdY": {
               "type": "group",
               "settings": {
                 "content_direction": "column",
@@ -649,21 +649,46 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "icon_Ciym6y": {
+                "icon_zHN9VF": {
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/customization.svg",
+                    "image_upload": "shopify://shop_images/badge-check.svg",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
                   },
                   "blocks": {}
                 },
-                "text_aLCnQY": {
+                "text_XMPpRf": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Customization available.</p>",
+                    "text": "<p>Reliable Manufacturing</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_aDcxye": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Scalable production capacity for projects of any size</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -687,11 +712,12 @@
                 }
               },
               "block_order": [
-                "icon_Ciym6y",
-                "text_aLCnQY"
+                "icon_zHN9VF",
+                "text_XMPpRf",
+                "text_aDcxye"
               ]
             },
-            "group_NQ9gx4": {
+            "group_QhHAnh": {
               "type": "group",
               "settings": {
                 "content_direction": "column",
@@ -730,102 +756,46 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "icon_xrmYmt": {
-                  "type": "icon",
-                  "settings": {
-                    "icon": "eye",
-                    "image_upload": "shopify://shop_images/house.svg",
-                    "width": 56,
-                    "link": "",
-                    "open_in_new_tab": false
-                  },
-                  "blocks": {}
-                },
-                "text_YAHtd3": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Smart space-saving solutions.</p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "center",
-                    "type_preset": "custom",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1.125rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon_xrmYmt",
-                "text_YAHtd3"
-              ]
-            },
-            "group_3DhfdA": {
-              "type": "group",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "center",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 16,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "link": "",
-                "open_in_new_tab": false,
-                "placeholder": "",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "icon_LCRRFM": {
+                "icon_HAwBwA": {
                   "type": "icon",
                   "settings": {
                     "icon": "none",
-                    "image_upload": "shopify://shop_images/globe.svg",
+                    "image_upload": "shopify://shop_images/badge-check.svg",
                     "width": 56,
                     "link": "",
                     "open_in_new_tab": false
                   },
                   "blocks": {}
                 },
-                "text_dDTtrH": {
+                "text_4xUMmc": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Serving both homeowners & global businesses.</p>",
+                    "text": "<p>Premium Quality</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_CqaaJ6": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Built to last with superior materials and<br/>craftsmanship.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "center",
@@ -849,16 +819,124 @@
                 }
               },
               "block_order": [
-                "icon_LCRRFM",
-                "text_dDTtrH"
+                "icon_HAwBwA",
+                "text_4xUMmc",
+                "text_CqaaJ6"
+              ]
+            },
+            "group_V9QH99": {
+              "type": "group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "center",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 16,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "icon_HcwnVT": {
+                  "type": "icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/badge-check.svg",
+                    "width": 56,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_q4R4t9": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Global Experience</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_TXdqmN": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Successfully delivered projects in India, USA and beyond.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "center",
+                    "type_preset": "custom",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1.125rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_HcwnVT",
+                "text_q4R4t9",
+                "text_TXdqmN"
               ]
             }
           },
           "block_order": [
             "group_k7KQqB",
-            "group_CgcdUD",
-            "group_NQ9gx4",
-            "group_3DhfdA"
+            "group_m9FRdY",
+            "group_QhHAnh",
+            "group_V9QH99"
           ]
         }
       },
