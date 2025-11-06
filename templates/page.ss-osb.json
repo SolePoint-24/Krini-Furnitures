@@ -270,7 +270,7 @@
       ],
       "name": "Features Grid (3 Column)",
       "settings": {
-        "color_scheme": "scheme-134f0419-00d1-4578-a802-5b55b668f844",
+        "color_scheme": "scheme-6",
         "full_width": true,
         "heading": "",
         "heading_text_alignment": "center"
@@ -1603,7 +1603,7 @@
       "name": "Image with Text Carousel",
       "settings": {
         "image_position": "left",
-        "color_scheme": "scheme-134f0419-00d1-4578-a802-5b55b668f844",
+        "color_scheme": "scheme-6",
         "heading": "",
         "text": ""
       }
@@ -2116,7 +2116,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "color_scheme": "scheme-6",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
