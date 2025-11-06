@@ -142,6 +142,46 @@
       margin-inline-end: calc(-1 * max(var(--padding-xs), var(--padding-inline-end)));
     }
   }
+
+  /* STICKY FILTERS */
+
+  @media screen and (min-width: 750px) {
+    /*
+     * This targets the vertical filter block when it's active.
+    */
+    .collection-wrapper:has(.facets--vertical) .facets-block-wrapper--vertical:not(.hidden) {
+      /* 1. Make the filter block sticky */
+      position: sticky;
+
+      /*
+        2. Set top position. This is the space from the top of the viewport.
+           If you have a sticky header, you'll want this value to be
+           your header's height + some margin (e.g., 20px).
+           You may need to adjust this '20px' value.
+      */
+      top: 20px;
+
+      /* 3. Align the grid item to the top (very important for grid + sticky) */
+      align-self: start;
+
+      /*
+        4. If the filter list itself is taller than the screen,
+           make it scrollable internally.
+           (100vh = 100% viewport height. 40px = 20px top + 20px bottom margin)
+           You may also need to adjust this calculation based on your 'top' value.
+      */
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+
+    /*
+     * This ensures the main product grid (the scrolling part)
+     * also aligns to the top, matching the sticky filters.
+    */
+    .collection-wrapper:has(.facets--vertical) .main-collection-grid {
+      align-self: start;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
