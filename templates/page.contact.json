@@ -99,6 +99,9 @@
         "text_dWXrnm",
         "contact_form_jWxXkm"
       ],
+      "custom_css": [
+        ".submit-button{align-self: center}"
+      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
