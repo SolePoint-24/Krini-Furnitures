@@ -210,41 +210,13 @@
             "button_aVy6FL",
             "button_e8yMNL"
           ]
-        },
-        "ai_gen_block_67d2d31_eADBny": {
-          "type": "ai_gen_block_67d2d31",
-          "name": "Before and after image",
-          "disabled": true,
-          "settings": {
-            "max_width": 1000,
-            "aspect_ratio": 65,
-            "border_radius": 8,
-            "slider_width": 4,
-            "slider_color": "#ffffff",
-            "handle_size": 60,
-            "handle_color": "#ffffff",
-            "handle_border_color": "#000000",
-            "handle_border_width": 2,
-            "arrow_color": "#000000",
-            "show_labels": true,
-            "before_label": "Before",
-            "after_label": "After",
-            "label_font_size": 14,
-            "label_bg_color": "#000000",
-            "label_text_color": "#ffffff",
-            "label_border_radius": 4,
-            "label_position_vertical": 20,
-            "label_position_horizontal": 20
-          },
-          "blocks": {}
         }
       },
       "block_order": [
         "text_UYrtDT",
         "text_iEa4K6",
         "image_FWtheK",
-        "group_bHxAre",
-        "ai_gen_block_67d2d31_eADBny"
+        "group_bHxAre"
       ],
       "name": "t:names.custom_section",
       "settings": {
@@ -303,10 +275,37 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "ai_gen_block_67d2d31_bYfG38": {
+          "type": "ai_gen_block_67d2d31",
+          "name": "Before and after image",
+          "settings": {
+            "max_width": 1000,
+            "aspect_ratio": 65,
+            "border_radius": 8,
+            "slider_width": 4,
+            "slider_color": "#ffffff",
+            "handle_size": 60,
+            "handle_color": "#ffffff",
+            "handle_border_color": "#000000",
+            "handle_border_width": 2,
+            "arrow_color": "#000000",
+            "show_labels": true,
+            "before_label": "Before",
+            "after_label": "After",
+            "label_font_size": 14,
+            "label_bg_color": "#000000",
+            "label_text_color": "#ffffff",
+            "label_border_radius": 4,
+            "label_position_vertical": 20,
+            "label_position_horizontal": 20
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "text_gppGNb"
+        "text_gppGNb",
+        "ai_gen_block_67d2d31_bYfG38"
       ],
       "name": "t:names.custom_section",
       "settings": {
@@ -317,7 +316,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "flex-start",
-        "gap": 12,
+        "gap": 40,
         "section_width": "page-width",
         "section_height": "small",
         "section_height_custom": 50,
