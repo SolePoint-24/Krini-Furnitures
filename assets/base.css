@@ -4468,3 +4468,23 @@ text-component {
   transform: translateX(0); 
   margin-top: 5px; 
 }
+
+/* HEADER STYLES */
+
+.menu-list__link--active {
+  /* Example: Make the text bold */
+  font-weight: 700;
+  
+  /* Example: Add an underline */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* * You could also just style the span inside 
+ * if you don't want the whole link area styled
+ */
+.menu-list__link--active .menu-list__link-title {
+   /* Example: Add a bottom border */
+   border-bottom: 2px solid currentColor;
+}

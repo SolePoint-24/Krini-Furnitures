@@ -112,6 +112,29 @@
           },
           "blocks": {}
         },
+        "image_FWtheK": {
+          "type": "image",
+          "name": "t:names.image",
+          "settings": {
+            "image": "shopify://shop_images/designer-sketching.png",
+            "link": "",
+            "image_ratio": "landscape",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 12,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "group_bHxAre": {
           "type": "group",
           "name": "t:names.group",
@@ -188,29 +211,6 @@
             "button_e8yMNL"
           ]
         },
-        "image_FWtheK": {
-          "type": "image",
-          "name": "t:names.image",
-          "settings": {
-            "image": "shopify://shop_images/designer-sketching.png",
-            "link": "",
-            "image_ratio": "landscape",
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 12,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
         "ai_gen_block_67d2d31_eADBny": {
           "type": "ai_gen_block_67d2d31",
           "name": "Before and after image",
@@ -242,8 +242,8 @@
       "block_order": [
         "text_UYrtDT",
         "text_iEa4K6",
-        "group_bHxAre",
         "image_FWtheK",
+        "group_bHxAre",
         "ai_gen_block_67d2d31_eADBny"
       ],
       "name": "t:names.custom_section",
