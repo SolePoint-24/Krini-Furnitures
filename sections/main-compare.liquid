@@ -137,6 +137,17 @@
     background: #45a049;
   }
 
+  .atc-button.disabled {
+    background: #b0b0b0; /* Grey background */
+    cursor: not-allowed;
+    pointer-events: none; /* Disables click events on the <a> tag */
+  }
+ 
+ /* Override the hover effect for the disabled button */
+ .atc-button.disabled:hover {
+    background: #b0b0b0; 
+  }
+
   .compare-cell .availability {
     font-weight: 600;
   }
@@ -287,24 +298,24 @@
 
       
       // --- Row 5: Add to Cart ---
-   const rowATC = document.createElement('tr');
-   rowATC.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
-   products.forEach(product => {
-    const variantId = product.variants[0].id;
-    const cell = document.createElement('td');
-    cell.className = 'compare-product-cell compare-cell';
+      const rowATC = document.createElement('tr');
+      rowATC.appendChild(document.createElement('th')).className = 'compare-label-cell'; // Empty label
+      products.forEach(product => {
+        const variantId = product.variants[0].id;
+        const cell = document.createElement('td');
+        cell.className = 'compare-product-cell compare-cell';
 
-    // ▼▼▼ MODIFICATION ▼▼▼
-    // Check if the product is available before creating the button
-    const buttonHtml = product.available
-     ? `<a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>`
-     : ''; // Render an empty string if not available
-    // ▲▲▲ END MODIFICATION ▲▲▲
-    
-    cell.innerHTML = buttonHtml;
-    rowATC.appendChild(cell);
-   });
-   thead.appendChild(rowATC);
+        // ▼▼▼ MODIFICATION ▼▼▼
+        // Check availability to create either a live button or a disabled one
+        const buttonHtml = product.available
+        ? `<a href="/cart/add?id=${variantId}" class="atc-button">Add to Cart</a>`
+        : `<a class="atc-button disabled">Out of Stock</a>`; // Added 'disabled' class and changed text
+        // ▲▲▲ END MODIFICATION ▲▲▲
+        
+        cell.innerHTML = buttonHtml;
+        rowATC.appendChild(cell);
+      });
+      thead.appendChild(rowATC);
 
       // Create Table Body (tbody) for attributes
       const tbody = document.createElement('tbody');
