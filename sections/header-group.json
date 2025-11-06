@@ -80,7 +80,7 @@
         }
       },
       "custom_css": [
-        ".header {z-index: 99;}"
+        ".header {z-index: 999;}"
       ],
       "settings": {
         "logo_position": "left",
@@ -102,7 +102,7 @@
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 0,
-        "color_scheme_top": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "color_scheme_top": "scheme-1",
         "color_scheme_bottom": "",
         "color_scheme_transparent": "scheme-7",
         "enable_transparent_header_home": false,
