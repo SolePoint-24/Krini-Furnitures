@@ -301,11 +301,27 @@
             "label_position_horizontal": 20
           },
           "blocks": {}
+        },
+        "button_dAdVfe": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "View Full Portfolio",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "text_gppGNb",
-        "ai_gen_block_67d2d31_bYfG38"
+        "ai_gen_block_67d2d31_bYfG38",
+        "button_dAdVfe"
       ],
       "name": "t:names.custom_section",
       "settings": {
