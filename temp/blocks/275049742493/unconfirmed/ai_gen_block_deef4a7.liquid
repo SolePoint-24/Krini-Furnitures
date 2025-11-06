@@ -1,6 +1,915 @@
+{% doc %}
+  @prompt
+    so what i want to make is that iw ant to make a block that will contain the world map and then i can add some country pin to that map like india usa Canada each country will have different pin color i can add countries pin from the admin how ever i like i want to do something liek that and also make the map beautyful like  user will love looking at that map this map will showcase where we export our products , i think the map is not showing a world map its not the looking good the map pins and all are fine but the map is looking very very bad can we make it look like actual map ? like actual world map 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-world-map-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-world-map-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.map_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-world-map-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-world-map-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 12px;
+  }
+
+  .ai-world-map-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    margin: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ai-world-map-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    background: {{ block.settings.ocean_color }};
+    border-radius: {{ block.settings.map_border_radius }}px;
+    padding: 40px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .ai-world-map-svg-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-world-map-svg-{{ ai_gen_id }} path {
+    fill: {{ block.settings.land_color }};
+    stroke: {{ block.settings.border_color }};
+    stroke-width: 0.3;
+    transition: fill 0.3s ease;
+  }
+
+  .ai-world-map-svg-{{ ai_gen_id }} path:hover {
+    fill: {{ block.settings.land_hover_color }};
+  }
+
+  .ai-world-map-pins-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .ai-world-map-pin-{{ ai_gen_id }} {
+    position: absolute;
+    pointer-events: all;
+    cursor: pointer;
+    transform: translate(-50%, -100%);
+    z-index: 10;
+  }
+
+  .ai-world-map-pin-marker-{{ ai_gen_id }} {
+    width: {{ block.settings.pin_size }}px;
+    height: {{ block.settings.pin_size }}px;
+    position: relative;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  .ai-world-map-pin-pulse-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+
+  .ai-world-map-pin-tooltip-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: {{ block.settings.tooltip_background }};
+    color: {{ block.settings.tooltip_text_color }};
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+  }
+
+  .ai-world-map-pin-tooltip-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: {{ block.settings.tooltip_background }};
+  }
+
+  .ai-world-map-pin-{{ ai_gen_id }}:hover .ai-world-map-pin-tooltip-{{ ai_gen_id }} {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .ai-world-map-legend-{{ ai_gen_id }} {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .ai-world-map-legend-title-{{ ai_gen_id }} {
+    font-size: 16px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    margin-bottom: 15px;
+  }
+
+  .ai-world-map-legend-items-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .ai-world-map-legend-item-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ai-world-map-legend-color-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  .ai-world-map-legend-label-{{ ai_gen_id }} {
+    font-size: 14px;
+    color: {{ block.settings.description_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-world-map-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.6 }}px 15px;
+    }
+
+    .ai-world-map-title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-world-map-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+
+    .ai-world-map-wrapper-{{ ai_gen_id }} {
+      padding: 20px 10px;
+    }
+
+    .ai-world-map-pin-marker-{{ ai_gen_id }} {
+      width: {{ block.settings.pin_size | times: 0.8 }}px;
+      height: {{ block.settings.pin_size | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<world-map-{{ ai_gen_id }} class="ai-world-map-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-world-map-container-{{ ai_gen_id }}">
+    {% if block.settings.title != blank or block.settings.description != blank %}
+      <div class="ai-world-map-header-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-world-map-title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.description != blank %}
+          <p class="ai-world-map-description-{{ ai_gen_id }}">{{ block.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-world-map-wrapper-{{ ai_gen_id }}">
+      <svg class="ai-world-map-svg-{{ ai_gen_id }}" viewBox="0 0 2000 1001" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 1262.8 302.8 L 1265.5 305.5 L 1268.2 308.2 L 1270.9 310.9 L 1273.6 313.6 L 1276.3 316.3 L 1279 319 L 1281.7 321.7 L 1284.4 324.4 L 1287.1 327.1 L 1289.8 329.8 L 1292.5 332.5 L 1295.2 335.2 L 1297.9 337.9 L 1300.6 340.6 L 1303.3 343.3 L 1306 346 L 1308.7 348.7 L 1311.4 351.4 L 1314.1 354.1 L 1316.8 356.8 L 1319.5 359.5 L 1322.2 362.2 L 1324.9 364.9 L 1327.6 367.6 L 1330.3 370.3 L 1333 373 L 1335.7 375.7 L 1338.4 378.4 L 1341.1 381.1 L 1343.8 383.8 L 1346.5 386.5 L 1349.2 389.2 L 1351.9 391.9 L 1354.6 394.6 L 1357.3 397.3 L 1360 400 L 1362.7 402.7 L 1365.4 405.4 L 1368.1 408.1 L 1370.8 410.8 L 1373.5 413.5 L 1376.2 416.2 L 1378.9 418.9 L 1381.6 421.6 L 1384.3 424.3 L 1387 427 L 1389.7 429.7 L 1392.4 432.4 L 1395.1 435.1 L 1397.8 437.8 L 1400.5 440.5 L 1403.2 443.2 L 1405.9 445.9 L 1408.6 448.6 L 1411.3 451.3 L 1414 454 L 1416.7 456.7 L 1419.4 459.4 L 1422.1 462.1 L 1424.8 464.8 L 1427.5 467.5 L 1430.2 470.2 L 1432.9 472.9 L 1435.6 475.6 L 1438.3 478.3 L 1441 481 L 1443.7 483.7 L 1446.4 486.4 L 1449.1 489.1 L 1451.8 491.8 L 1454.5 494.5 L 1457.2 497.2 L 1459.9 499.9 L 1462.6 502.6 L 1465.3 505.3 L 1468 508 L 1470.7 510.7 L 1473.4 513.4 L 1476.1 516.1 L 1478.8 518.8 L 1481.5 521.5 L 1484.2 524.2 L 1486.9 526.9 L 1489.6 529.6 L 1492.3 532.3 L 1495 535 L 1497.7 537.7 L 1500.4 540.4 L 1503.1 543.1 L 1505.8 545.8 L 1508.5 548.5 L 1511.2 551.2 L 1513.9 553.9 L 1516.6 556.6 L 1519.3 559.3 L 1522 562 L 1524.7 564.7 L 1527.4 567.4 L 1530.1 570.1 L 1532.8 572.8 L 1535.5 575.5 L 1538.2 578.2 L 1540.9 580.9 L 1543.6 583.6 L 1546.3 586.3 L 1549 589 L 1551.7 591.7 L 1554.4 594.4 L 1557.1 597.1 L 1559.8 599.8 L 1562.5 602.5 L 1565.2 605.2 L 1567.9 607.9 L 1570.6 610.6 L 1573.3 613.3 L 1576 616 L 1578.7 618.7 L 1581.4 621.4 L 1584.1 624.1 L 1586.8 626.8 L 1589.5 629.5 L 1592.2 632.2 L 1594.9 634.9 L 1597.6 637.6 L 1600.3 640.3 L 1603 643 L 1605.7 645.7 L 1608.4 648.4 L 1611.1 651.1 L 1613.8 653.8 L 1616.5 656.5 L 1619.2 659.2 L 1621.9 661.9 L 1624.6 664.6 L 1627.3 667.3 L 1630 670 Z"/>
+        <path d="M 398.5 245.2 L 401.2 247.9 L 403.9 250.6 L 406.6 253.3 L 409.3 256 L 412 258.7 L 414.7 261.4 L 417.4 264.1 L 420.1 266.8 L 422.8 269.5 L 425.5 272.2 L 428.2 274.9 L 430.9 277.6 L 433.6 280.3 L 436.3 283 L 439 285.7 L 441.7 288.4 L 444.4 291.1 L 447.1 293.8 L 449.8 296.5 L 452.5 299.2 L 455.2 301.9 L 457.9 304.6 L 460.6 307.3 L 463.3 310 L 466 312.7 L 468.7 315.4 L 471.4 318.1 L 474.1 320.8 L 476.8 323.5 L 479.5 326.2 L 482.2 328.9 L 484.9 331.6 L 487.6 334.3 L 490.3 337 L 493 339.7 L 495.7 342.4 L 498.4 345.1 L 501.1 347.8 L 503.8 350.5 L 506.5 353.2 L 509.2 355.9 L 511.9 358.6 L 514.6 361.3 L 517.3 364 L 520 366.7 L 522.7 369.4 L 525.4 372.1 L 528.1 374.8 L 530.8 377.5 L 533.5 380.2 L 536.2 382.9 L 538.9 385.6 L 541.6 388.3 L 544.3 391 L 547 393.7 L 549.7 396.4 L 552.4 399.1 L 555.1 401.8 L 557.8 404.5 L 560.5 407.2 L 563.2 409.9 L 565.9 412.6 L 568.6 415.3 L 571.3 418 L 574 420.7 L 576.7 423.4 L 579.4 426.1 L 582.1 428.8 L 584.8 431.5 L 587.5 434.2 L 590.2 436.9 L 592.9 439.6 L 595.6 442.3 L 598.3 445 L 601 447.7 L 603.7 450.4 L 606.4 453.1 L 609.1 455.8 L 611.8 458.5 L 614.5 461.2 L 617.2 463.9 L 619.9 466.6 L 622.6 469.3 L 625.3 472 L 628 474.7 L 630.7 477.4 L 633.4 480.1 L 636.1 482.8 L 638.8 485.5 L 641.5 488.2 L 644.2 490.9 L 646.9 493.6 L 649.6 496.3 L 652.3 499 L 655 501.7 L 657.7 504.4 L 660.4 507.1 L 663.1 509.8 L 665.8 512.5 L 668.5 515.2 L 671.2 517.9 L 673.9 520.6 L 676.6 523.3 L 679.3 526 L 682 528.7 L 684.7 531.4 L 687.4 534.1 L 690.1 536.8 L 692.8 539.5 L 695.5 542.2 L 698.2 544.9 L 700.9 547.6 L 703.6 550.3 L 706.3 553 L 709 555.7 L 711.7 558.4 L 714.4 561.1 L 717.1 563.8 L 719.8 566.5 L 722.5 569.2 L 725.2 571.9 L 727.9 574.6 L 730.6 577.3 L 733.3 580 Z"/>
+        <path d="M 1630 670 L 1632.7 672.7 L 1635.4 675.4 L 1638.1 678.1 L 1640.8 680.8 L 1643.5 683.5 L 1646.2 686.2 L 1648.9 688.9 L 1651.6 691.6 L 1654.3 694.3 L 1657 697 L 1659.7 699.7 L 1662.4 702.4 L 1665.1 705.1 L 1667.8 707.8 L 1670.5 710.5 L 1673.2 713.2 L 1675.9 715.9 L 1678.6 718.6 L 1681.3 721.3 L 1684 724 L 1686.7 726.7 L 1689.4 729.4 L 1692.1 732.1 L 1694.8 734.8 L 1697.5 737.5 L 1700.2 740.2 L 1702.9 742.9 L 1705.6 745.6 L 1708.3 748.3 L 1711 751 L 1713.7 753.7 L 1716.4 756.4 L 1719.1 759.1 L 1721.8 761.8 L 1724.5 764.5 L 1727.2 767.2 L 1729.9 769.9 L 1732.6 772.6 L 1735.3 775.3 L 1738 778 Z"/>
+        <path d="M 733.3 580 L 736 582.7 L 738.7 585.4 L 741.4 588.1 L 744.1 590.8 L 746.8 593.5 L 749.5 596.2 L 752.2 598.9 L 754.9 601.6 L 757.6 604.3 L 760.3 607 L 763 609.7 L 765.7 612.4 L 768.4 615.1 L 771.1 617.8 L 773.8 620.5 L 776.5 623.2 L 779.2 625.9 L 781.9 628.6 L 784.6 631.3 L 787.3 634 L 790 636.7 L 792.7 639.4 L 795.4 642.1 L 798.1 644.8 L 800.8 647.5 L 803.5 650.2 L 806.2 652.9 L 808.9 655.6 L 811.6 658.3 L 814.3 661 L 817 663.7 L 819.7 666.4 L 822.4 669.1 L 825.1 671.8 L 827.8 674.5 L 830.5 677.2 L 833.2 679.9 L 835.9 682.6 L 838.6 685.3 L 841.3 688 L 844 690.7 L 846.7 693.4 L 849.4 696.1 L 852.1 698.8 L 854.8 701.5 L 857.5 704.2 L 860.2 706.9 L 862.9 709.6 L 865.6 712.3 L 868.3 715 L 871 717.7 L 873.7 720.4 L 876.4 723.1 L 879.1 725.8 L 881.8 728.5 L 884.5 731.2 L 887.2 733.9 L 889.9 736.6 L 892.6 739.3 L 895.3 742 L 898 744.7 L 900.7 747.4 L 903.4 750.1 L 906.1 752.8 L 908.8 755.5 L 911.5 758.2 L 914.2 760.9 L 916.9 763.6 L 919.6 766.3 L 922.3 769 L 925 771.7 L 927.7 774.4 L 930.4 777.1 L 933.1 779.8 L 935.8 782.5 L 938.5 785.2 L 941.2 787.9 L 943.9 790.6 L 946.6 793.3 L 949.3 796 L 952 798.7 L 954.7 801.4 L 957.4 804.1 L 960.1 806.8 L 962.8 809.5 L 965.5 812.2 L 968.2 814.9 L 970.9 817.6 L 973.6 820.3 L 976.3 823 L 979 825.7 L 981.7 828.4 L 984.4 831.1 L 987.1 833.8 L 989.8 836.5 L 992.5 839.2 L 995.2 841.9 L 997.9 844.6 L 1000.6 847.3 L 1003.3 850 Z"/>
+        <path d="M 1738 778 L 1740.7 780.7 L 1743.4 783.4 L 1746.1 786.1 L 1748.8 788.8 L 1751.5 791.5 L 1754.2 794.2 L 1756.9 796.9 L 1759.6 799.6 L 1762.3 802.3 L 1765 805 L 1767.7 807.7 L 1770.4 810.4 L 1773.1 813.1 L 1775.8 815.8 L 1778.5 818.5 L 1781.2 821.2 L 1783.9 823.9 L 1786.6 826.6 L 1789.3 829.3 L 1792 832 Z"/>
+        <path d="M 1003.3 850 L 1006 852.7 L 1008.7 855.4 L 1011.4 858.1 L 1014.1 860.8 L 1016.8 863.5 L 1019.5 866.2 L 1022.2 868.9 L 1024.9 871.6 L 1027.6 874.3 L 1030.3 877 L 1033 879.7 L 1035.7 882.4 L 1038.4 885.1 L 1041.1 887.8 L 1043.8 890.5 L 1046.5 893.2 L 1049.2 895.9 L 1051.9 898.6 L 1054.6 901.3 L 1057.3 904 L 1060 906.7 L 1062.7 909.4 L 1065.4 912.1 L 1068.1 914.8 L 1070.8 917.5 L 1073.5 920.2 L 1076.2 922.9 L 1078.9 925.6 L 1081.6 928.3 L 1084.3 931 L 1087 933.7 L 1089.7 936.4 L 1092.4 939.1 L 1095.1 941.8 L 1097.8 944.5 L 1100.5 947.2 L 1103.2 949.9 L 1105.9 952.6 L 1108.6 955.3 L 1111.3 958 L 1114 960.7 L 1116.7 963.4 L 1119.4 966.1 L 1122.1 968.8 L 1124.8 971.5 L 1127.5 974.2 L 1130.2 976.9 L 1132.9 979.6 L 1135.6 982.3 L 1138.3 985 Z"/>
+        <path d="M 1792 832 L 1794.7 834.7 L 1797.4 837.4 L 1800.1 840.1 L 1802.8 842.8 L 1805.5 845.5 L 1808.2 848.2 L 1810.9 850.9 L 1813.6 853.6 L 1816.3 856.3 L 1819 859 L 1821.7 861.7 L 1824.4 864.4 L 1827.1 867.1 L 1829.8 869.8 L 1832.5 872.5 L 1835.2 875.2 L 1837.9 877.9 L 1840.6 880.6 L 1843.3 883.3 L 1846 886 L 1848.7 888.7 L 1851.4 891.4 L 1854.1 894.1 L 1856.8 896.8 L 1859.5 899.5 L 1862.2 902.2 L 1864.9 904.9 L 1867.6 907.6 L 1870.3 910.3 L 1873 913 L 1875.7 915.7 L 1878.4 918.4 L 1881.1 921.1 L 1883.8 923.8 L 1886.5 926.5 L 1889.2 929.2 L 1891.9 931.9 L 1894.6 934.6 L 1897.3 937.3 L 1900 940 Z"/>
+        <path d="M 1138.3 985 L 1141 987.7 L 1143.7 990.4 L 1146.4 993.1 L 1149.1 995.8 L 1151.8 998.5 L 1154.5 1001.2 L 1157.2 1003.9 L 1159.9 1006.6 L 1162.6 1009.3 L 1165.3 1012 L 1168 1014.7 L 1170.7 1017.4 L 1173.4 1020.1 L 1176.1 1022.8 L 1178.8 1025.5 L 1181.5 1028.2 L 1184.2 1030.9 L 1186.9 1033.6 L 1189.6 1036.3 L 1192.3 1039 L 1195 1041.7 L 1197.7 1044.4 L 1200.4 1047.1 L 1203.1 1049.8 L 1205.8 1052.5 L 1208.5 1055.2 L 1211.2 1057.9 L 1213.9 1060.6 L 1216.6 1063.3 L 1219.3 1066 L 1222 1068.7 L 1224.7 1071.4 L 1227.4 1074.1 L 1230.1 1076.8 L 1232.8 1079.5 L 1235.5 1082.2 L 1238.2 1084.9 L 1240.9 1087.6 L 1243.6 1090.3 L 1246.3 1093 L 1249 1095.7 L 1251.7 1098.4 L 1254.4 1101.1 L 1257.1 1103.8 L 1259.8 1106.5 L 1262.5 1109.2 L 1265.2 1111.9 L 1267.9 1114.6 L 1270.6 1117.3 L 1273.3 1120 Z"/>
+        <path d="M 200 200 L 205 195 L 210 200 L 215 195 L 220 200 L 225 205 L 230 200 L 235 205 L 240 210 L 245 205 L 250 210 L 255 215 L 260 210 L 265 215 L 270 220 L 275 215 L 280 220 L 285 225 L 290 220 L 295 225 L 300 230 L 305 225 L 310 230 L 315 235 L 320 230 L 325 235 L 330 240 L 335 235 L 340 240 L 345 245 L 350 240 L 355 245 L 360 250 L 365 245 L 370 250 L 375 255 L 380 250 L 385 255 L 390 260 L 395 255 L 400 260 Z"/>
+        <path d="M 1900 940 L 1902.7 942.7 L 1905.4 945.4 L 1908.1 948.1 L 1910.8 950.8 L 1913.5 953.5 L 1916.2 956.2 L 1918.9 958.9 L 1921.6 961.6 L 1924.3 964.3 L 1927 967 L 1929.7 969.7 L 1932.4 972.4 L 1935.1 975.1 L 1937.8 977.8 L 1940.5 980.5 L 1943.2 983.2 L 1945.9 985.9 L 1948.6 988.6 L 1951.3 991.3 L 1954 994 L 1956.7 996.7 L 1959.4 999.4 L 1962.1 1002.1 L 1964.8 1004.8 L 1967.5 1007.5 L 1970.2 1010.2 L 1972.9 1012.9 L 1975.6 1015.6 L 1978.3 1018.3 L 1981 1021 Z"/>
+        <path d="M 1273.3 1120 L 1276 1122.7 L 1278.7 1125.4 L 1281.4 1128.1 L 1284.1 1130.8 L 1286.8 1133.5 L 1289.5 1136.2 L 1292.2 1138.9 L 1294.9 1141.6 L 1297.6 1144.3 L 1300.3 1147 L 1303 1149.7 L 1305.7 1152.4 L 1308.4 1155.1 L 1311.1 1157.8 L 1313.8 1160.5 L 1316.5 1163.2 L 1319.2 1165.9 L 1321.9 1168.6 L 1324.6 1171.3 L 1327.3 1174 L 1330 1176.7 L 1332.7 1179.4 L 1335.4 1182.1 L 1338.1 1184.8 L 1340.8 1187.5 L 1343.5 1190.2 L 1346.2 1192.9 L 1348.9 1195.6 L 1351.6 1198.3 L 1354.3 1201 Z"/>
+        <path d="M 100 400 L 105 395 L 110 400 L 115 395 L 120 400 L 125 405 L 130 400 L 135 405 L 140 410 L 145 405 L 150 410 L 155 415 L 160 410 L 165 415 L 170 420 L 175 415 L 180 420 L 185 425 L 190 420 L 195 425 L 200 430 L 205 425 L 210 430 L 215 435 L 220 430 L 225 435 L 230 440 L 235 435 L 240 440 L 245 445 L 250 440 L 255 445 L 260 450 L 265 445 L 270 450 L 275 455 L 280 450 L 285 455 L 290 460 L 295 455 L 300 460 Z"/>
+        <path d="M 1981 1021 L 1983.7 1023.7 L 1986.4 1026.4 L 1989.1 1029.1 L 1991.8 1031.8 L 1994.5 1034.5 L 1997.2 1037.2 L 1999.9 1039.9 L 2002.6 1042.6 L 2005.3 1045.3 L 2008 1048 Z"/>
+        <path d="M 1354.3 1201 L 1357 1203.7 L 1359.7 1206.4 L 1362.4 1209.1 L 1365.1 1211.8 L 1367.8 1214.5 L 1370.5 1217.2 L 1373.2 1219.9 L 1375.9 1222.6 L 1378.6 1225.3 L 1381.3 1228 L 1384 1230.7 L 1386.7 1233.4 L 1389.4 1236.1 L 1392.1 1238.8 L 1394.8 1241.5 L 1397.5 1244.2 L 1400.2 1246.9 L 1402.9 1249.6 L 1405.6 1252.3 L 1408.3 1255 L 1411 1257.7 L 1413.7 1260.4 L 1416.4 1263.1 L 1419.1 1265.8 L 1421.8 1268.5 L 1424.5 1271.2 L 1427.2 1273.9 L 1429.9 1276.6 L 1432.6 1279.3 L 1435.3 1282 Z"/>
+        <path d="M 50 600 L 55 595 L 60 600 L 65 595 L 70 600 L 75 605 L 80 600 L 85 605 L 90 610 L 95 605 L 100 610 L 105 615 L 110 610 L 115 615 L 120 620 L 125 615 L 130 620 L 135 625 L 140 620 L 145 625 L 150 630 L 155 625 L 160 630 L 165 635 L 170 630 L 175 635 L 180 640 L 185 635 L 190 640 L 195 645 L 200 640 L 205 645 L 210 650 L 215 645 L 220 650 L 225 655 L 230 650 L 235 655 L 240 660 L 245 655 L 250 660 Z"/>
+      </svg>
+
+      <div class="ai-world-map-pins-{{ ai_gen_id }}">
+        {% for i in (1..10) %}
+          {% liquid
+            assign country_key = 'country_' | append: i
+            assign country_name_key = 'country_' | append: i | append: '_name'
+            assign country_x_key = 'country_' | append: i | append: '_x'
+            assign country_y_key = 'country_' | append: i | append: '_y'
+            assign country_color_key = 'country_' | append: i | append: '_color'
+
+            assign country_enabled = block.settings[country_key]
+            assign country_name = block.settings[country_name_key]
+            assign country_x = block.settings[country_x_key]
+            assign country_y = block.settings[country_y_key]
+            assign country_color = block.settings[country_color_key]
+          %}
+
+          {% if country_enabled and country_name != blank %}
+            <div
+              class="ai-world-map-pin-{{ ai_gen_id }}"
+              style="left: {{ country_x }}%; top: {{ country_y }}%;"
+              data-country="{{ country_name }}"
+            >
+              <div class="ai-world-map-pin-marker-{{ ai_gen_id }}">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="{{ country_color }}"/>
+                </svg>
+                <div class="ai-world-map-pin-pulse-{{ ai_gen_id }}" style="background-color: {{ country_color }};"></div>
+              </div>
+              <div class="ai-world-map-pin-tooltip-{{ ai_gen_id }}">
+                {{ country_name }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if block.settings.show_legend %}
+      <div class="ai-world-map-legend-{{ ai_gen_id }}">
+        <div class="ai-world-map-legend-title-{{ ai_gen_id }}">Export Destinations</div>
+        <div class="ai-world-map-legend-items-{{ ai_gen_id }}">
+          {% for i in (1..10) %}
+            {% liquid
+              assign country_key = 'country_' | append: i
+              assign country_name_key = 'country_' | append: i | append: '_name'
+              assign country_color_key = 'country_' | append: i | append: '_color'
+
+              assign country_enabled = block.settings[country_key]
+              assign country_name = block.settings[country_name_key]
+              assign country_color = block.settings[country_color_key]
+            %}
+
+            {% if country_enabled and country_name != blank %}
+              <div class="ai-world-map-legend-item-{{ ai_gen_id }}">
+                <div class="ai-world-map-legend-color-{{ ai_gen_id }}" style="background-color: {{ country_color }};"></div>
+                <div class="ai-world-map-legend-label-{{ ai_gen_id }}">{{ country_name }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</world-map-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class WorldMap{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.initMap();
+      }
+
+      initMap() {
+        const pins = this.querySelectorAll('.ai-world-map-pin-{{ ai_gen_id }}');
+        
+        pins.forEach(pin => {
+          const pulse = pin.querySelector('.ai-world-map-pin-pulse-{{ ai_gen_id }}');
+          if (pulse) {
+            this.animatePulse(pulse);
+          }
+        });
+      }
+
+      animatePulse(element) {
+        let scale = 1;
+        let growing = true;
+        
+        setInterval(() => {
+          if (growing) {
+            scale += 0.02;
+            if (scale >= 1.5) growing = false;
+          } else {
+            scale -= 0.02;
+            if (scale <= 1) growing = true;
+          }
+          
+          element.style.transform = 'translate(-50%, -50%) scale(' + scale + ')';
+          element.style.opacity = (1.6 - scale) * 0.6;
+        }, 50);
+      }
+    }
+
+    customElements.define('world-map-{{ ai_gen_id }}', WorldMap{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "World export map",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Global Reach"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We proudly export our premium furniture to countries around the world"
+    },
+    {
+      "type": "header",
+      "content": "Map style"
+    },
+    {
+      "type": "range",
+      "id": "map_max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 100,
+      "unit": "px",
+      "label": "Maximum width",
+      "default": 1200
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5f3ef"
+    },
+    {
+      "type": "color",
+      "id": "ocean_color",
+      "label": "Ocean color",
+      "default": "#a8d5e2"
+    },
+    {
+      "type": "color",
+      "id": "land_color",
+      "label": "Land color",
+      "default": "#d4cfc4"
+    },
+    {
+      "type": "color",
+      "id": "land_hover_color",
+      "label": "Land hover color",
+      "default": "#c3bfb5"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "map_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Pin style"
+    },
+    {
+      "type": "range",
+      "id": "pin_size",
+      "min": 20,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Pin size",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "tooltip_background",
+      "label": "Tooltip background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tooltip_text_color",
+      "label": "Tooltip text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Legend"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_legend",
+      "label": "Show legend",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Country 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_1",
+      "label": "Enable country 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_1_name",
+      "label": "Country name",
+      "default": "India"
+    },
+    {
+      "type": "range",
+      "id": "country_1_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 65
+    },
+    {
+      "type": "range",
+      "id": "country_1_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 45
+    },
+    {
+      "type": "color",
+      "id": "country_1_color",
+      "label": "Pin color",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "header",
+      "content": "Country 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_2",
+      "label": "Enable country 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_2_name",
+      "label": "Country name",
+      "default": "USA"
+    },
+    {
+      "type": "range",
+      "id": "country_2_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "country_2_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 35
+    },
+    {
+      "type": "color",
+      "id": "country_2_color",
+      "label": "Pin color",
+      "default": "#a04637"
+    },
+    {
+      "type": "header",
+      "content": "Country 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_3",
+      "label": "Enable country 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_3_name",
+      "label": "Country name",
+      "default": "Canada"
+    },
+    {
+      "type": "range",
+      "id": "country_3_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "country_3_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 25
+    },
+    {
+      "type": "color",
+      "id": "country_3_color",
+      "label": "Pin color",
+      "default": "#a57f59"
+    },
+    {
+      "type": "header",
+      "content": "Country 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_4",
+      "label": "Enable country 4",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_4_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_4_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_4_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_4_color",
+      "label": "Pin color",
+      "default": "#68807e"
+    },
+    {
+      "type": "header",
+      "content": "Country 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_5",
+      "label": "Enable country 5",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_5_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_5_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_5_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_5_color",
+      "label": "Pin color",
+      "default": "#fdc656"
+    },
+    {
+      "type": "header",
+      "content": "Country 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_6",
+      "label": "Enable country 6",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_6_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_6_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_6_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_6_color",
+      "label": "Pin color",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "header",
+      "content": "Country 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_7",
+      "label": "Enable country 7",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_7_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_7_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_7_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_7_color",
+      "label": "Pin color",
+      "default": "#a04637"
+    },
+    {
+      "type": "header",
+      "content": "Country 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_8",
+      "label": "Enable country 8",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_8_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_8_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_8_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_8_color",
+      "label": "Pin color",
+      "default": "#a57f59"
+    },
+    {
+      "type": "header",
+      "content": "Country 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_9",
+      "label": "Enable country 9",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_9_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_9_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_9_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_9_color",
+      "label": "Pin color",
+      "default": "#68807e"
+    },
+    {
+      "type": "header",
+      "content": "Country 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_10",
+      "label": "Enable country 10",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_10_name",
+      "label": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_10_x",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Horizontal position",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "country_10_y",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Vertical position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "country_10_color",
+      "label": "Pin color",
+      "default": "#fdc656"
+    }
+  ],
+  "presets": [
+    {
+      "name": "World export map"
+    }
+  ]
+}
 {% endschema %}
