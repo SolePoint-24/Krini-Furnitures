@@ -30,9 +30,9 @@
             "show_labels": true,
             "before_label": "Before",
             "after_label": "After",
-            "label_font_size": 14,
-            "label_bg_color": "#000000",
-            "label_text_color": "#ffffff",
+            "label_font_size": 12,
+            "label_bg_color": "#c3cca6",
+            "label_text_color": "#000000",
             "label_border_radius": 4,
             "label_position_vertical": 20,
             "label_position_horizontal": 20
