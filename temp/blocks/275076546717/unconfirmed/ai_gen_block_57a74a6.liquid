@@ -1,6 +1,593 @@
+{% doc %}
+  @prompt
+    generate a visually stunning section for a luxury furniture brand here are the requirements 
+    
+    *(Use grid or 4-column layout with visuals)*
+    
+    * **Custom-Built Furniture** – Designed to match each project’s aesthetic and purpose.
+    * **Bulk Order Capability** – Perfect for residential and commercial developments.
+    * **Space-Saving Solutions** – Smart, compact designs ideal for modern apartments.
+    * **Hospitality-Grade Furniture** – Durable, stylish, and engineered for hotels, resorts, and motels.
+    
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-luxury-features-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-luxury-features__container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-luxury-features__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-luxury-features__title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  .ai-luxury-features__subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .ai-luxury-features__grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-top: {{ block.settings.grid_top_spacing }}px;
+  }
+
+  .ai-luxury-features__card-{{ ai_gen_id }} {
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-luxury-features__card-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, {{ block.settings.accent_color_1 }}, {{ block.settings.accent_color_2 }});
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-luxury-features__card-{{ ai_gen_id }}:hover::before {
+    opacity: 1;
+  }
+
+  .ai-luxury-features__card-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-luxury-features__icon-wrapper-{{ ai_gen_id }} {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    margin: 0 auto {{ block.settings.icon_spacing }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, {{ block.settings.icon_bg_color_1 }}, {{ block.settings.icon_bg_color_2 }});
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .ai-luxury-features__icon-{{ ai_gen_id }} {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+
+  .ai-luxury-features__icon-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-luxury-features__icon-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-luxury-features__card-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_title_size }}px;
+    color: {{ block.settings.card_title_color }};
+    margin: 0 0 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .ai-luxury-features__card-description-{{ ai_gen_id }} {
+    font-size: {{ block.settings.card_description_size }}px;
+    color: {{ block.settings.card_description_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .ai-luxury-features__grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: {{ block.settings.grid_gap | times: 0.8 }}px;
+    }
+
+    .ai-luxury-features__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-luxury-features__grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.6 }}px;
+    }
+
+    .ai-luxury-features__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.6 }}px;
+    }
+
+    .ai-luxury-features__subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+
+    .ai-luxury-features__card-{{ ai_gen_id }} {
+      padding: {{ block.settings.card_padding | times: 0.8 }}px;
+    }
+
+    .ai-luxury-features-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-luxury-features-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-luxury-features__container-{{ ai_gen_id }}">
+    {% if block.settings.show_header %}
+      <div class="ai-luxury-features__header-{{ ai_gen_id }}">
+        {% if block.settings.title != blank %}
+          <h2 class="ai-luxury-features__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <div class="ai-luxury-features__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-luxury-features__grid-{{ ai_gen_id }}">
+      {% for i in (1..4) %}
+        {% liquid
+          assign feature_enabled_key = 'feature_' | append: i | append: '_enabled'
+          assign feature_icon_key = 'feature_' | append: i | append: '_icon'
+          assign feature_title_key = 'feature_' | append: i | append: '_title'
+          assign feature_description_key = 'feature_' | append: i | append: '_description'
+
+          assign feature_enabled = block.settings[feature_enabled_key]
+          assign feature_icon = block.settings[feature_icon_key]
+          assign feature_title = block.settings[feature_title_key]
+          assign feature_description = block.settings[feature_description_key]
+        %}
+
+        {% if feature_enabled %}
+          <div class="ai-luxury-features__card-{{ ai_gen_id }}">
+            <div class="ai-luxury-features__icon-wrapper-{{ ai_gen_id }}">
+              {% if feature_icon != blank %}
+                <img
+                  src="{{ feature_icon | image_url: width: 200 }}"
+                  alt="{{ feature_title | escape }}"
+                  class="ai-luxury-features__icon-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="200"
+                  height="200"
+                >
+              {% else %}
+                <div class="ai-luxury-features__icon-placeholder-{{ ai_gen_id }}">
+                  {{ 'image' | placeholder_svg_tag }}
+                </div>
+              {% endif %}
+            </div>
+
+            {% if feature_title != blank %}
+              <h3 class="ai-luxury-features__card-title-{{ ai_gen_id }}">{{ feature_title }}</h3>
+            {% endif %}
+
+            {% if feature_description != blank %}
+              <div class="ai-luxury-features__card-description-{{ ai_gen_id }}">{{ feature_description }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Luxury furniture features",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Crafted for Architects & Designers"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Elevate your projects with bespoke furniture solutions designed for luxury living"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#513117"
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Header bottom spacing",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f3efe7"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "grid_top_spacing",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid top spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "accent_color_1",
+      "label": "Accent gradient start",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "color",
+      "id": "accent_color_2",
+      "label": "Accent gradient end",
+      "default": "#a57f59"
+    },
+    {
+      "type": "header",
+      "content": "Icon style"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon bottom spacing",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color_1",
+      "label": "Background gradient start",
+      "default": "#f3efe7"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color_2",
+      "label": "Background gradient end",
+      "default": "#eeddc6"
+    },
+    {
+      "type": "header",
+      "content": "Card text"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Title color",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "card_description_color",
+      "label": "Description color",
+      "default": "#513117"
+    },
+    {
+      "type": "header",
+      "content": "Feature 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_1_enabled",
+      "label": "Enable feature 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_1_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_1_title",
+      "label": "Title",
+      "default": "Custom-Built Furniture"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_1_description",
+      "label": "Description",
+      "default": "Designed to match each project's aesthetic and purpose with precision craftsmanship."
+    },
+    {
+      "type": "header",
+      "content": "Feature 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_2_enabled",
+      "label": "Enable feature 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_2_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_2_title",
+      "label": "Title",
+      "default": "Bulk Order Capability"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_2_description",
+      "label": "Description",
+      "default": "Perfect for residential and commercial developments with scalable production."
+    },
+    {
+      "type": "header",
+      "content": "Feature 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_3_enabled",
+      "label": "Enable feature 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_3_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_3_title",
+      "label": "Title",
+      "default": "Space-Saving Solutions"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_3_description",
+      "label": "Description",
+      "default": "Smart, compact designs ideal for modern apartments and urban living spaces."
+    },
+    {
+      "type": "header",
+      "content": "Feature 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_4_enabled",
+      "label": "Enable feature 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "feature_4_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "feature_4_title",
+      "label": "Title",
+      "default": "Hospitality-Grade Furniture"
+    },
+    {
+      "type": "textarea",
+      "id": "feature_4_description",
+      "label": "Description",
+      "default": "Durable, stylish, and engineered for hotels, resorts, and motels."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury furniture features"
+    }
+  ]
+}
 {% endschema %}
