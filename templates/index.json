@@ -895,6 +895,47 @@
         "padding-block-end": 20
       }
     },
+    "multi_collection_showcase_HA674p": {
+      "type": "multi-collection-showcase",
+      "blocks": {
+        "collection_hkfWJR": {
+          "type": "collection",
+          "settings": {
+            "collection": "residential-installs"
+          }
+        },
+        "collection_7HGDKW": {
+          "type": "collection",
+          "settings": {
+            "collection": "hotel-projects"
+          }
+        },
+        "collection_gnkYxj": {
+          "type": "collection",
+          "settings": {
+            "collection": "designer-collaborations"
+          }
+        }
+      },
+      "block_order": [
+        "collection_hkfWJR",
+        "collection_7HGDKW",
+        "collection_gnkYxj"
+      ],
+      "name": "Multi-Collection Viewer",
+      "settings": {
+        "heading": "Featured Collections",
+        "description": "<p>Check out our curated collections. Find what you're looking for.</p>",
+        "button_label": "View All",
+        "button_link": "",
+        "heading_font_class": "h2",
+        "heading_color": "#121212",
+        "description_font_class": "body-text-sm",
+        "description_color": "#333333",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "product_list_EDUBdR": {
       "type": "product-list",
       "blocks": {
@@ -984,47 +1025,6 @@
         "padding-block-end": 40
       }
     },
-    "multi_collection_showcase_HA674p": {
-      "type": "multi-collection-showcase",
-      "blocks": {
-        "collection_hkfWJR": {
-          "type": "collection",
-          "settings": {
-            "collection": "residential-installs"
-          }
-        },
-        "collection_7HGDKW": {
-          "type": "collection",
-          "settings": {
-            "collection": "hotel-projects"
-          }
-        },
-        "collection_gnkYxj": {
-          "type": "collection",
-          "settings": {
-            "collection": "designer-collaborations"
-          }
-        }
-      },
-      "block_order": [
-        "collection_hkfWJR",
-        "collection_7HGDKW",
-        "collection_gnkYxj"
-      ],
-      "name": "Multi-Collection Viewer",
-      "settings": {
-        "heading": "Featured Collections",
-        "description": "<p>Check out our curated collections. Find what you're looking for.</p>",
-        "button_label": "View All",
-        "button_link": "",
-        "heading_font_class": "h2",
-        "heading_color": "#121212",
-        "description_font_class": "body-text-sm",
-        "description_color": "#333333",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
     "custom_image_banner_kzPVVU": {
       "type": "custom-image-banner",
       "name": "Image Banner",
@@ -1041,45 +1041,8 @@
         "button_1_link": "shopify://collections",
         "button_1_is_secondary": false,
         "button_2_label": "Get A Business Quote",
-        "button_2_link": "#",
+        "button_2_link": "/hotel-and-motel-furniture#shopify-section-template--19781163778205__blocks_R7YBjf",
         "button_2_is_secondary": false
-      }
-    },
-    "faq_section_a9fqKK": {
-      "type": "faq-section",
-      "blocks": {
-        "category_Jmh3im": {
-          "type": "category",
-          "settings": {
-            "tab_title": "Orders",
-            "q1": "What is my order status?",
-            "a1": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>",
-            "q2": "Can I modify my order?",
-            "a2": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>",
-            "q3": "",
-            "a3": "",
-            "q4": "",
-            "a4": "",
-            "q5": "",
-            "a5": ""
-          }
-        }
-      },
-      "block_order": [
-        "category_Jmh3im"
-      ],
-      "name": "FAQ Section",
-      "settings": {
-        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "full_width": true,
-        "text_color": "",
-        "heading": "Frequently Asked Questions",
-        "heading_align": "center",
-        "heading_size": 36,
-        "q_size": 18,
-        "a_size": 16,
-        "max_content_width": 900,
-        "allow_multiple": false
       }
     },
     "1762417435a057e2e1": {
@@ -1121,6 +1084,43 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "faq_section_a9fqKK": {
+      "type": "faq-section",
+      "blocks": {
+        "category_Jmh3im": {
+          "type": "category",
+          "settings": {
+            "tab_title": "Orders",
+            "q1": "What is my order status?",
+            "a1": "<p>You can check your order status by logging into your account and visiting the 'My Orders' page.</p>",
+            "q2": "Can I modify my order?",
+            "a2": "<p>Once an order is placed, it cannot be modified. You can, however, cancel your order within 24 hours and place a new one.</p>",
+            "q3": "",
+            "a3": "",
+            "q4": "",
+            "a4": "",
+            "q5": "",
+            "a5": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_Jmh3im"
+      ],
+      "name": "FAQ Section",
+      "settings": {
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "full_width": true,
+        "text_color": "",
+        "heading": "Frequently Asked Questions",
+        "heading_align": "center",
+        "heading_size": 36,
+        "q_size": 18,
+        "a_size": 16,
+        "max_content_width": 900,
+        "allow_multiple": false
       }
     },
     "section_NhdUhA": {
@@ -1248,11 +1248,11 @@
     "section_JPYAKP",
     "collection_links_yTMyPx",
     "section_DHbwpb",
-    "product_list_EDUBdR",
     "multi_collection_showcase_HA674p",
+    "product_list_EDUBdR",
     "custom_image_banner_kzPVVU",
-    "faq_section_a9fqKK",
     "1762417435a057e2e1",
+    "faq_section_a9fqKK",
     "section_NhdUhA"
   ]
 }
