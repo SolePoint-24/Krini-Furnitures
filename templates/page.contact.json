@@ -78,6 +78,7 @@
       "blocks": {
         "ai_gen_block_deef4a7_TciGpx": {
           "type": "ai_gen_block_deef4a7",
+          "disabled": true,
           "settings": {
             "title": "Our Global Reach",
             "description": "We proudly export our premium furniture to countries around the world",
