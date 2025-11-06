@@ -92,7 +92,7 @@
           "settings": {
             "text": "<p>Partner with Krini to deliver custom, space-saving, and premium furniture solutions for residential, commercial, and hospitality projects — in India and across the world.</p>",
             "width": "fit-content",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
