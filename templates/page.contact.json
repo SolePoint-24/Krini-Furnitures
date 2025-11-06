@@ -43,6 +43,7 @@
       "block_order": [
         "ai_gen_block_67d2d31_fUifWf"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
