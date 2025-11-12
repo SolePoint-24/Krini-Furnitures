@@ -489,14 +489,14 @@
           
           if (!response.ok) {
             // 2. Log if the network request itself fails
-            console.error(`Network error: Failed to fetch data for video ${videoId}. Status: ${response.status}`);
+           
             return;
           }
 
           const data = await response.json();
 
           // 3. Log the full data we received (so you can inspect it)
-          console.log(`Received data for ${videoId}:`, data);
+         
 
           if (data && data.title) {
             // 4. Log the title if we find it
