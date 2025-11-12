@@ -438,23 +438,8 @@
         });
       }
 
-      /**
-       * MODIFIED: This function now also fetches video titles.
-       */
       setupThumbnails() {
         this.thumbnails.forEach((thumbnail) => {
-          const videoId = thumbnail.getAttribute('data-video');
-          const collectionId = thumbnail.getAttribute('data-collection');
-          const titleElement = thumbnail.querySelector('.ai-video-gallery-thumb-title-{{ ai_gen_id }}');
-
-          // --- NEW: Fetch Title ---
-          if (videoId && titleElement) {
-            // Keep the default "Video X" text for now, but request the real title
-            this.fetchYouTubeTitle(videoId, titleElement);
-          }
-          // --- END NEW ---
-
-          // This is the original click listener, it stays the same
           thumbnail.addEventListener('click', () => {
             const videoId = thumbnail.getAttribute('data-video');
             const collectionId = thumbnail.getAttribute('data-collection');
@@ -474,46 +459,6 @@
             }
           });
         });
-      }
-
-      /**
-       * NEW FUNCTION: Fetches a video title from YouTube's oEmbed endpoint.
-       * This uses a technique called JSONP to avoid server errors.
-       */
-      fetchYouTubeTitle(videoId, titleElement) {
-        // Create a unique function name for the JSONP callback
-        const callbackName = 'youtubeCallback_' + videoId + '_' + Math.floor(Math.random() * 100000);
-
-        // Define the function on the global window object
-        window[callbackName] = (data) => {
-          if (data && data.title) {
-            titleElement.textContent = data.title; // Update the text!
-          } else {
-            // If it fails (e.g., private video), it just keeps the "Video 1" text
-            console.warn(`Could not fetch title for video: ${videoId}`);
-          }
-
-          // Clean up: remove the script tag and the global function
-          document.body.removeChild(script);
-          delete window[callbackName];
-        };
-
-        // Create a script tag to make the request
-        const script = document.createElement('script');
-        script.src = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json&callback=${callbackName}`;
-        
-        script.onerror = () => {
-          // Handle network errors
-          console.error(`Failed to load YouTube oEmbed script for video: ${videoId}`);
-          // Clean up on error as well
-          if (document.body.contains(script)) {
-            document.body.removeChild(script);
-          }
-          delete window[callbackName];
-        };
-
-        // Add the script tag to the page to trigger the request
-        document.body.appendChild(script);
       }
     }
 
