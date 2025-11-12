@@ -447,9 +447,8 @@
           const collectionId = thumbnail.getAttribute('data-collection');
           const titleElement = thumbnail.querySelector('.ai-video-gallery-thumb-title-{{ ai_gen_id }}');
 
-          // --- NEW: Fetch Title ---
+          // --- NEW: Fetch Title using a more robust method ---
           if (videoId && titleElement) {
-            // Keep the default "Video X" text for now, but request the real title
             this.fetchYouTubeTitle(videoId, titleElement);
           }
           // --- END NEW ---
@@ -477,43 +476,40 @@
       }
 
       /**
-       * NEW FUNCTION: Fetches a video title from YouTube's oEmbed endpoint.
-       * This uses a technique called JSONP to avoid server errors.
+       * NEW ROBUST FUNCTION: Fetches a video title using fetch() and noembed.com
+       * This is more reliable than JSONP and includes console logs.
        */
-      fetchYouTubeTitle(videoId, titleElement) {
-        // Create a unique function name for the JSONP callback
-        const callbackName = 'youtubeCallback_' + videoId + '_' + Math.floor(Math.random() * 100000);
+      async fetchYouTubeTitle(videoId, titleElement) {
+        // 1. Log that we are starting the attempt (as you requested)
+        console.log(`Attempting to fetch title for video ID: ${videoId}`);
 
-        // Define the function on the global window object
-        window[callbackName] = (data) => {
+        try {
+          // We use noembed.com, a service that gets embed info without security errors
+          const response = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+          
+          if (!response.ok) {
+            // 2. Log if the network request itself fails
+            console.error(`Network error: Failed to fetch data for video ${videoId}. Status: ${response.status}`);
+            return;
+          }
+
+          const data = await response.json();
+
+          // 3. Log the full data we received (so you can inspect it)
+          console.log(`Received data for ${videoId}:`, data);
+
           if (data && data.title) {
+            // 4. Log the title if we find it
+            console.log(`Successfully found title for ${videoId}: ${data.title}`);
             titleElement.textContent = data.title; // Update the text!
           } else {
-            // If it fails (e.g., private video), it just keeps the "Video 1" text
-            console.warn(`Could not fetch title for video: ${videoId}`);
+            // 5. Log a warning if the data came back but had no title
+            console.warn(`Response received for ${videoId}, but no title was found.`);
           }
-
-          // Clean up: remove the script tag and the global function
-          document.body.removeChild(script);
-          delete window[callbackName];
-        };
-
-        // Create a script tag to make the request
-        const script = document.createElement('script');
-        script.src = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json&callback=${callbackName}`;
-        
-        script.onerror = () => {
-          // Handle network errors
-          console.error(`Failed to load YouTube oEmbed script for video: ${videoId}`);
-          // Clean up on error as well
-          if (document.body.contains(script)) {
-            document.body.removeChild(script);
-          }
-          delete window[callbackName];
-        };
-
-        // Add the script tag to the page to trigger the request
-        document.body.appendChild(script);
+        } catch (error) {
+          // 6. Log any other errors (e.g., if you are offline)
+          console.error(`Error fetching YouTube title for ${videoId}:`, error);
+        }
       }
     }
 
