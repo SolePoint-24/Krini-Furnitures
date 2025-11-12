@@ -33,10 +33,10 @@
   }
 
   .ai-work-with-list-{{ ai_gen_id }} {
-    display: flex;
-    flex-direction: row;
+    display: grid; /* <-- CHANGED */
+    /* Use the new schema setting for columns */
+    grid-template-columns: repeat({{ block.settings.grid_columns }}, 1fr); /* <-- CHANGED */
     gap: {{ block.settings.card_gap }}px;
-    flex-wrap: wrap;
   }
 
   .ai-work-with-item-{{ ai_gen_id }} {
