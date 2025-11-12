@@ -500,15 +500,15 @@
 
           if (data && data.title) {
             // 4. Log the title if we find it
-            console.log(`Successfully found title for ${videoId}: ${data.title}`);
+           
             titleElement.textContent = data.title; // Update the text!
           } else {
             // 5. Log a warning if the data came back but had no title
-            console.warn(`Response received for ${videoId}, but no title was found.`);
+            
           }
         } catch (error) {
           // 6. Log any other errors (e.g., if you are offline)
-          console.error(`Error fetching YouTube title for ${videoId}:`, error);
+          
         }
       }
     }
