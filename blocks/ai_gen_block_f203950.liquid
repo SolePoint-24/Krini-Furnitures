@@ -278,7 +278,7 @@
     {% endif %}
 
     {% assign has_collections = false %}
-    {% for i in (1..5) %}
+    {% for i in (1..10) %}
       {% assign collection_key = 'collection_' | append: i %}
       {% assign collection = block.settings[collection_key] %}
       {% if collection != blank %}
