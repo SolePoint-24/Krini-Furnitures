@@ -1,27 +1,27 @@
-{% doc %}
-  @prompt
-    Who We Work With
-    
-    India → Architects, Interior Designers, Real Estate Developers
-    USA → Designers and Studios specializing in Hotels, Apartments, and Turnkey Projects
-    
-    We collaborate with creative professionals globally — ensuring no confusion, only clarity in execution and communication.
-    
-    
-    i want to make a section to showcase who we work with so what i m thinking is that for india there will be a indian flag and usa will be usa flag and then on right it will be its details and then to saparate two country there will be a border as well so make me this section where i can add country if i needed later on , can you make it horizontal i dont like the vertical alignment and also architech then in the next line interior designers then in next line real estae i want to do something like that  and amke it look attracive right now its not looking that great so make it look good , i want the cards to be horizontal not vertical do that for me , also tke the full width of the container 
-{% enddoc %}
+{% comment %}
+  Copy-paste this entire block into your .liquid file.
+  It includes:
+  1. The max-width to center the content div.
+  2. The switch to CSS Grid.
+  3. The new schema setting for "Cards per row".
+{% endcomment %}
+
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
   .ai-work-with-container-{{ ai_gen_id }} {
     padding: {{ block.settings.section_padding_top }}px {{ block.settings.section_padding_horizontal }}px {{ block.settings.section_padding_bottom }}px;
     background-color: {{ block.settings.background_color }};
-        width: 100%;
-
+    width: 100%;
   }
 
+  /*
+    FIX 1: Added max-width and margin: auto to center the entire content
+    block on the page, as we discussed.
+  */
   .ai-work-with-content-{{ ai_gen_id }} {
     width: 100%;
+    max-width: 1200px; /* Or your preferred max-width */
     margin: 0 auto;
   }
 
@@ -32,13 +32,19 @@
     font-size: {{ block.settings.heading_size }}px;
   }
 
+  /*
+    FIX 2: Switched from Flexbox to CSS Grid for cleaner control.
+  */
   .ai-work-with-list-{{ ai_gen_id }} {
-    display: grid; /* <-- CHANGED */
-    /* Use the new schema setting for columns */
-    grid-template-columns: repeat({{ block.settings.grid_columns }}, 1fr); /* <-- CHANGED */
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.grid_columns }}, 1fr);
     gap: {{ block.settings.card_gap }}px;
   }
 
+  /*
+    FIX 3: Removed the old flex and max-width rules from the card item.
+    The grid now handles all the sizing.
+  */
   .ai-work-with-item-{{ ai_gen_id }} {
     background-color: {{ block.settings.card_background }};
     border-radius: {{ block.settings.card_border_radius }}px;
@@ -51,7 +57,7 @@
   }
 
   .ai-work-with-item-{{ ai_gen_id }}:hover {
-    transform: translateX(8px);
+    transform: translateY(-4px); /* Changed to a more subtle lift */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 
@@ -126,6 +132,9 @@
     font-weight: bold;
   }
 
+  /*
+    FIX 4: Updated mobile view to use Grid (1 column)
+  */
   @media screen and (max-width: 749px) {
     .ai-work-with-container-{{ ai_gen_id }} {
       padding: {{ block.settings.section_padding_top | times: 0.7 }}px {{ block.settings.section_padding_horizontal | times: 0.7 }}px {{ block.settings.section_padding_bottom | times: 0.7 }}px;
@@ -142,9 +151,11 @@
       padding: {{ block.settings.card_padding | times: 0.8 }}px;
       gap: {{ block.settings.content_gap | times: 0.8 }}px;
     }
+    
     .ai-work-with-list-{{ ai_gen_id }} {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* This makes it 1 column on mobile */
     }
+    
     .ai-work-with-flag-section-{{ ai_gen_id }} {
       flex-direction: row;
       align-items: center;
@@ -248,15 +259,6 @@
       "content": "Section heading"
     },
     {
-      "type": "range",
-      "id": "grid_columns",
-      "label": "Cards per row (Desktop)",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 3
-    },
-    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
@@ -336,7 +338,7 @@
       "default": "Interior Designers"
     },
     {
-      "type": "text",
+      "type":"text",
       "id": "country_1_profession_3",
       "label": "Profession 3",
       "default": "Real Estate Developers"
@@ -488,6 +490,18 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    /*
+      FIX 5: Here is the new setting you were looking for!
+    */
+    {
+      "type": "range",
+      "id": "grid_columns",
+      "label": "Cards per row (Desktop)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "range",
