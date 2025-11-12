@@ -280,7 +280,6 @@
         "text_9k6yAk",
         "text_TLrkkx"
       ],
-      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -497,9 +496,9 @@
     }
   },
   "order": [
+    "section_qK7hkz",
     "17629273900f899769",
     "main",
-    "section_qK7hkz",
     "video_grid_nKy9YM",
     "video_grid_rtdi6w",
     "video_grid_gB8HLy",
