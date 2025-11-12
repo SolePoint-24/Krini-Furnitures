@@ -286,6 +286,7 @@
             "country_5_profession_1": "",
             "country_5_profession_2": "",
             "country_5_profession_3": "",
+            "grid_columns": 2,
             "card_gap": 24,
             "content_gap": 40,
             "card_background": "#ffffff",
