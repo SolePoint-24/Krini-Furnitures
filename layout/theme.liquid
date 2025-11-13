@@ -75,18 +75,14 @@
     <script src="{{ 'compare.js' | asset_url }}" defer></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        // 1. Find all elements that are a Shopify section
-        //    (They almost always have the class 'shopify-section')
+
         const allSections = document.querySelectorAll('.shopify-section');
 
-        // 2. Loop through each section and give it the 'data-aos' attribute
         allSections.forEach(function (section) {
-          // You can change 'fade-up' to 'fade-in', 'zoom-in', etc.
           section.setAttribute('data-aos', 'fade-up');
           section.setAttribute('data-aos-duration', '600'); // Optional: set duration
         });
 
-        // 3. NOW initialize AOS, after all attributes are set
         AOS.init();
       });
     </script>
