@@ -70,7 +70,8 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag: 'defer' }}
+{{ 'aos.js' | asset_url | script_tag: 'defer' }}
     <script src="{{ 'compare.js' | asset_url }}" defer="defer"></script>
     {% comment %} <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
