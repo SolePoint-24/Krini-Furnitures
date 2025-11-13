@@ -568,6 +568,7 @@
           "block_order": []
         }
       },
+      "disabled": true,
       "name": "t:names.collection_links_spotlight",
       "settings": {
         "collection_list": [
