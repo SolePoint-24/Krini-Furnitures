@@ -757,7 +757,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".header__row {height: 90px; box-shadow: 0px 4px 20px gray;}"
+      "body {background-color: #ffffff;}"
     ]
   }
 }
