@@ -25,7 +25,7 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
   class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} spacing-style"
-  style="{% render 'spacing-style', settings: section.settings %}"
+  style="{% render 'spacing-style', settings: section.settings %}" data-aos="fade-up"
 >
   <collection-links-component
     layout="{{ section.settings.layout }}"
