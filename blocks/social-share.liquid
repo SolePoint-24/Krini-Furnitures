@@ -5,7 +5,6 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign product_url = product.url 
   assign product_title = product.title | url_encode
   assign absolute_product_url = shop.url | append: product.url
 -%}
@@ -38,7 +37,7 @@
 
   {%- if block.settings.share_X -%}
     <a
-      href="https://x.com/intent/post?text={{ product_title }}&url={{ product_url }}"
+      href="https://x.com/intent/post?text={{ product_title }}&url={{ absolute_product_url }}"
       class="social-sharing-link"
       target="_blank"
       rel="noopener"
@@ -53,7 +52,7 @@
   {%- if block.settings.share_pinterest -%}
     {%- assign product_image = product.featured_image | image_url: width: 1024 -%}
     <a
-      href="https://pinterest.com/pin/create/button/?url={{ product_url }}&media={{ product_image }}&description={{ product_title }}"
+      href="https://pinterest.com/pin/create/button/?url={{ absolute_product_url }}&media={{ product_image }}&description={{ product_title }}"
       class="social-sharing-link"
       target="_blank"
       rel="noopener"
@@ -74,7 +73,7 @@
 
   {%- if block.settings.share_whatsapp -%}
     <a
-      href="https://wa.me/?text={{ product_title | append: '%20' | append: product_url }}"
+      href="https://wa.me/?text={{ product_title | append: '%20' | append: absolute_product_url }}"
       class="social-sharing-link"
       target="_blank"
       rel="noopener"
@@ -95,7 +94,7 @@
 
   {%- if block.settings.share_linkedin -%}
     <a
-      href="https://www.linkedin.com/shareArticle?mini=true&url={{ product_url }}&title={{ product_title }}"
+      href="https://www.linkedin.com/shareArticle?mini=true&url={{ absolute_product_url }}&title={{ product_title }}"
       class="social-sharing-link"
       target="_blank"
       rel="noopener"
