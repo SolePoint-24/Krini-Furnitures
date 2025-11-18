@@ -137,6 +137,7 @@
       "block_order": [
         "ai_gen_block_2d3fa22_aGai8h"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
