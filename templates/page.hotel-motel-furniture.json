@@ -149,7 +149,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Hotel & Motel Project Inquiry",
-            "link": "shopify://collections/all",
+            "link": "/pages/hotel-and-motel-furniture#shopify-section-template--19781163778205__blocks_R7YBjf",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
