@@ -358,7 +358,7 @@
           "type": "ai_gen_block_3c5098b",
           "settings": {
             "heading": "Who We Work With",
-            "subheading": "We proudly serve clients across the globe",
+            "subheading": "",
             "heading_size": 36,
             "subheading_size": 16,
             "card_width": 220,
@@ -382,7 +382,7 @@
             "nav_button_background": "#ffffff",
             "nav_button_hover_background": "#f5f5f5",
             "nav_button_color": "#000000",
-            "background_color": "#f5f3ef",
+            "background_color": "#ffffff",
             "heading_color": "#000000",
             "text_color": "#666666",
             "section_padding_top": 60,
