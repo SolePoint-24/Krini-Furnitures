@@ -1,6 +1,1020 @@
+{% doc %}
+  @prompt
+    so i want to make a section that will display who we work with and in that section it will be many countries like  india usa canada mexico and many more so what i m thing is that we make a carousal so make thee carousal beautiful and it will be like card carousal that will showcase countries  just a countries flag and its title name just this tow things so make me one , i want you to make a card like carousal like the active tab will be a little up lifted and other will have a little less opacity and also in your currant code the slider is going out of the screen on right side so fix that   i think the layout is broken too so fic thst as well , still the layout is not good right now fix that asap like the right arrow is not there at all so fix that and also the the title is not center aligned at all and in mobile the title just disappered , the card which is active is not centered so fix that too  same for the mobile as well like the active card should always be on the center of the section so it looks good and even if its last then loop the carousal again , ok almost done but then the loop ends and back to start the inia hets 2 time animation can we fix that like it goes inactive then again it goes active so fix that one last thing , if i m in t=india active then the last left slide is also india fi this why the order is changes when loop starts again
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-country-carousel-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ai-country-carousel__container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ai-country-carousel__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+  }
+
+  .ai-country-carousel__heading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+
+  .ai-country-carousel__subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.text_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-country-carousel__wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-country-carousel__track-container-{{ ai_gen_id }} {
+    overflow: hidden;
+    padding: 30px 0 40px;
+    width: 100%;
+  }
+
+  .ai-country-carousel__track-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.card_gap }}px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .ai-country-carousel__card-{{ ai_gen_id }} {
+    flex: 0 0 {{ block.settings.card_width }}px;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    padding: {{ block.settings.card_padding }}px;
+    text-align: center;
+    box-shadow: {{ block.settings.card_shadow_horizontal }}px {{ block.settings.card_shadow_vertical }}px {{ block.settings.card_shadow_blur }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | divided_by: 100.0 }});
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: {{ block.settings.card_border_width }}px solid {{ block.settings.card_border_color }};
+    opacity: {{ block.settings.inactive_card_opacity | divided_by: 100.0 }};
+    transform: translateY(0) scale(0.95);
+  }
+
+  .ai-country-carousel__card-{{ ai_gen_id }}.active {
+    opacity: 1;
+    transform: translateY(-{{ block.settings.active_card_lift }}px) scale(1);
+    box-shadow: {{ block.settings.card_shadow_horizontal }}px {{ block.settings.card_shadow_vertical | plus: 8 }}px {{ block.settings.card_shadow_blur | plus: 12 }}px rgba(0, 0, 0, {{ block.settings.card_shadow_opacity | divided_by: 100.0 | times: 1.8 }});
+    z-index: 2;
+  }
+
+  .ai-country-carousel__flag-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: {{ block.settings.flag_height }}px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: {{ block.settings.flag_border_radius }}px;
+  }
+
+  .ai-country-carousel__flag-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-country-carousel__flag-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: {{ block.settings.flag_border_radius }}px;
+  }
+
+  .ai-country-carousel__flag-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-country-carousel__country-name-{{ ai_gen_id }} {
+    font-size: {{ block.settings.country_name_size }}px;
+    font-weight: {{ block.settings.country_name_weight }};
+    color: {{ block.settings.country_name_color }};
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .ai-country-carousel__nav-button-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: {{ block.settings.nav_button_background }};
+    color: {{ block.settings.nav_button_color }};
+    border: 2px solid {{ block.settings.card_border_color }};
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-country-carousel__nav-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.nav_button_hover_background }};
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .ai-country-carousel__nav-button--prev-{{ ai_gen_id }} {
+    left: -25px;
+  }
+
+  .ai-country-carousel__nav-button--next-{{ ai_gen_id }} {
+    right: -25px;
+  }
+
+  .ai-country-carousel__nav-button-{{ ai_gen_id }} svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ai-country-carousel__dots-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+
+  .ai-country-carousel__dot-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: {{ block.settings.card_border_color }};
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  .ai-country-carousel__dot-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.heading_color }};
+    transform: scale(1.3);
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-country-carousel__nav-button--prev-{{ ai_gen_id }} {
+      left: -15px;
+    }
+
+    .ai-country-carousel__nav-button--next-{{ ai_gen_id }} {
+      right: -15px;
+    }
+
+    .ai-country-carousel__card-{{ ai_gen_id }} {
+      flex: 0 0 {{ block.settings.card_width | times: 0.85 }}px;
+    }
+
+    .ai-country-carousel__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.75 }}px;
+    }
+
+    .ai-country-carousel__subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.9 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-country-carousel-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.7 }}px 15px {{ block.settings.section_padding_bottom | times: 0.7 }}px;
+    }
+
+    .ai-country-carousel__header-{{ ai_gen_id }} {
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    .ai-country-carousel__nav-button-{{ ai_gen_id }} {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ai-country-carousel__nav-button--prev-{{ ai_gen_id }} {
+      left: -10px;
+    }
+
+    .ai-country-carousel__nav-button--next-{{ ai_gen_id }} {
+      right: -10px;
+    }
+
+    .ai-country-carousel__nav-button-{{ ai_gen_id }} svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .ai-country-carousel__card-{{ ai_gen_id }} {
+      flex: 0 0 {{ block.settings.card_width | times: 0.7 }}px;
+    }
+
+    .ai-country-carousel__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.6 }}px;
+    }
+
+    .ai-country-carousel__subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.85 }}px;
+    }
+  }
+{% endstyle %}
+
+<country-carousel-{{ ai_gen_id }} class="ai-country-carousel-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-country-carousel__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank or block.settings.subheading != blank %}
+      <div class="ai-country-carousel__header-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-country-carousel__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.subheading != blank %}
+          <p class="ai-country-carousel__subheading-{{ ai_gen_id }}">{{ block.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-country-carousel__wrapper-{{ ai_gen_id }}">
+      <button
+        class="ai-country-carousel__nav-button-{{ ai_gen_id }} ai-country-carousel__nav-button--prev-{{ ai_gen_id }}"
+        aria-label="Previous countries"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <div class="ai-country-carousel__track-container-{{ ai_gen_id }}">
+        <div class="ai-country-carousel__track-{{ ai_gen_id }}">
+          {% for i in (1..10) %}
+            {% liquid
+              assign country_enabled_key = 'country_' | append: i | append: '_enabled'
+              assign country_name_key = 'country_' | append: i | append: '_name'
+              assign country_flag_key = 'country_' | append: i | append: '_flag'
+
+              assign country_enabled = block.settings[country_enabled_key]
+              assign country_name = block.settings[country_name_key]
+              assign country_flag = block.settings[country_flag_key]
+            %}
+
+            {% if country_enabled %}
+              <div class="ai-country-carousel__card-{{ ai_gen_id }}" data-index="{{ forloop.index0 }}">
+                <div class="ai-country-carousel__flag-wrapper-{{ ai_gen_id }}">
+                  {% if country_flag != blank %}
+                    <img
+                      src="{{ country_flag | image_url: width: 400 }}"
+                      alt="{{ country_name | escape }}"
+                      class="ai-country-carousel__flag-{{ ai_gen_id }}"
+                      loading="lazy"
+                      width="400"
+                      height="{{ block.settings.flag_height }}"
+                    >
+                  {% else %}
+                    <div class="ai-country-carousel__flag-placeholder-{{ ai_gen_id }}">
+                      {{ 'image' | placeholder_svg_tag }}
+                    </div>
+                  {% endif %}
+                </div>
+                {% if country_name != blank %}
+                  <h3 class="ai-country-carousel__country-name-{{ ai_gen_id }}">{{ country_name }}</h3>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <button
+        class="ai-country-carousel__nav-button-{{ ai_gen_id }} ai-country-carousel__nav-button--next-{{ ai_gen_id }}"
+        aria-label="Next countries"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ai-country-carousel__dots-{{ ai_gen_id }}"></div>
+  </div>
+</country-carousel-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CountryCarousel{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.track = this.querySelector('.ai-country-carousel__track-{{ ai_gen_id }}');
+        this.trackContainer = this.querySelector('.ai-country-carousel__track-container-{{ ai_gen_id }}');
+        this.prevButton = this.querySelector('.ai-country-carousel__nav-button--prev-{{ ai_gen_id }}');
+        this.nextButton = this.querySelector('.ai-country-carousel__nav-button--next-{{ ai_gen_id }}');
+        this.dotsContainer = this.querySelector('.ai-country-carousel__dots-{{ ai_gen_id }}');
+        this.originalCards = Array.from(this.querySelectorAll('.ai-country-carousel__card-{{ ai_gen_id }}'));
+        this.currentIndex = 0;
+        this.cardWidth = {{ block.settings.card_width }};
+        this.cardGap = {{ block.settings.card_gap }};
+        this.isTransitioning = false;
+      }
+
+      connectedCallback() {
+        if (this.originalCards.length === 0) return;
+        
+        this.cloneCards();
+        this.setupEventListeners();
+        this.createDots();
+        this.updateCarousel(false);
+        
+        window.addEventListener('resize', () => {
+          this.updateCarousel(false);
+        });
+      }
+
+      cloneCards() {
+        this.originalCards.forEach(card => {
+          const cloneBefore = card.cloneNode(true);
+          const cloneAfter = card.cloneNode(true);
+          this.track.insertBefore(cloneBefore, this.track.firstChild);
+          this.track.appendChild(cloneAfter);
+        });
+        
+        this.allCards = Array.from(this.track.querySelectorAll('.ai-country-carousel__card-{{ ai_gen_id }}'));
+        this.currentIndex = this.originalCards.length;
+      }
+
+      getCurrentCardWidth() {
+        const width = window.innerWidth;
+        if (width < 750) return this.cardWidth * 0.7;
+        if (width < 990) return this.cardWidth * 0.85;
+        return this.cardWidth;
+      }
+
+      setupEventListeners() {
+        this.prevButton.addEventListener('click', () => this.navigate('prev'));
+        this.nextButton.addEventListener('click', () => this.navigate('next'));
+        
+        this.track.addEventListener('transitionend', (e) => {
+          if (e.propertyName === 'transform') {
+            this.handleInfiniteLoop();
+          }
+        });
+      }
+
+      navigate(direction) {
+        if (this.isTransitioning) return;
+        
+        this.isTransitioning = true;
+        
+        if (direction === 'next') {
+          this.currentIndex++;
+        } else {
+          this.currentIndex--;
+        }
+        
+        this.updateCarousel(true);
+      }
+
+      handleInfiniteLoop() {
+        let needsReset = false;
+        let newIndex = this.currentIndex;
+
+        if (this.currentIndex >= this.originalCards.length * 2) {
+          newIndex = this.originalCards.length;
+          needsReset = true;
+        } else if (this.currentIndex < this.originalCards.length) {
+          newIndex = this.originalCards.length * 2 - 1;
+          needsReset = true;
+        }
+
+        if (needsReset) {
+          this.track.style.transition = 'none';
+          this.currentIndex = newIndex;
+          this.updateCarouselPosition();
+          this.updateActiveStates();
+          
+          setTimeout(() => {
+            this.track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            this.isTransitioning = false;
+          }, 50);
+        } else {
+          this.isTransitioning = false;
+        }
+        
+        this.updateDots();
+      }
+
+      updateCarousel(animate) {
+        this.updateActiveStates();
+        this.updateCarouselPosition();
+        this.updateDots();
+      }
+
+      updateActiveStates() {
+        this.allCards.forEach((card, index) => {
+          if (index === this.currentIndex) {
+            card.classList.add('active');
+          } else {
+            card.classList.remove('active');
+          }
+        });
+      }
+
+      getActualIndex(index) {
+        return ((index - this.originalCards.length) % this.originalCards.length + this.originalCards.length) % this.originalCards.length;
+      }
+
+      updateCarouselPosition() {
+        const currentCardWidth = this.getCurrentCardWidth();
+        const containerWidth = this.trackContainer.offsetWidth;
+        const centerOffset = (containerWidth - currentCardWidth) / 2;
+        const offset = -(this.currentIndex * (currentCardWidth + this.cardGap)) + centerOffset;
+        this.track.style.transform = 'translateX(' + offset + 'px)';
+      }
+
+      createDots() {
+        this.dotsContainer.innerHTML = '';
+        
+        for (let i = 0; i < this.originalCards.length; i++) {
+          const dot = document.createElement('button');
+          dot.className = 'ai-country-carousel__dot-{{ ai_gen_id }}';
+          dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+          dot.addEventListener('click', () => {
+            if (this.isTransitioning) return;
+            this.isTransitioning = true;
+            this.currentIndex = this.originalCards.length + i;
+            this.updateCarousel(true);
+            setTimeout(() => {
+              this.isTransitioning = false;
+            }, 500);
+          });
+          this.dotsContainer.appendChild(dot);
+        }
+      }
+
+      updateDots() {
+        const dots = this.dotsContainer.querySelectorAll('.ai-country-carousel__dot-{{ ai_gen_id }}');
+        const actualIndex = this.getActualIndex(this.currentIndex);
+        
+        dots.forEach((dot, index) => {
+          if (index === actualIndex) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('country-carousel-{{ ai_gen_id }}', CountryCarousel{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Country carousel",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Who We Work With"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We proudly serve clients across the globe"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Subheading size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 150,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Card width",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap between cards",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Card border width",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "header",
+      "content": "Active card effect"
+    },
+    {
+      "type": "range",
+      "id": "active_card_lift",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Active card lift",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "inactive_card_opacity",
+      "min": 30,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Inactive card opacity",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Card shadow"
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_horizontal",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Horizontal offset",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_vertical",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Vertical offset",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_blur",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Blur",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Opacity",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Flag style"
+    },
+    {
+      "type": "range",
+      "id": "flag_height",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Flag height",
+      "default": 140
+    },
+    {
+      "type": "range",
+      "id": "flag_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Flag border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Country name"
+    },
+    {
+      "type": "range",
+      "id": "country_name_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Font size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "country_name_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi-bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "color",
+      "id": "country_name_color",
+      "label": "Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Navigation buttons"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_hover_background",
+      "label": "Hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "nav_button_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Section colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5f3ef"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Country 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_1_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_1_name",
+      "label": "Country name",
+      "default": "India"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_1_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_2_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_2_name",
+      "label": "Country name",
+      "default": "United States"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_2_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_3_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_3_name",
+      "label": "Country name",
+      "default": "Canada"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_3_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_4_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_4_name",
+      "label": "Country name",
+      "default": "Mexico"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_4_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_5_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_5_name",
+      "label": "Country name",
+      "default": "United Kingdom"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_5_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_6_enabled",
+      "label": "Enable",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "country_6_name",
+      "label": "Country name",
+      "default": "Australia"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_6_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_7_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_7_name",
+      "label": "Country name"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_7_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_8_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_8_name",
+      "label": "Country name"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_8_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_9_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_9_name",
+      "label": "Country name"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_9_flag",
+      "label": "Flag image"
+    },
+    {
+      "type": "header",
+      "content": "Country 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "country_10_enabled",
+      "label": "Enable",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "country_10_name",
+      "label": "Country name"
+    },
+    {
+      "type": "image_picker",
+      "id": "country_10_flag",
+      "label": "Flag image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Country carousel"
+    }
+  ]
+}
 {% endschema %}
