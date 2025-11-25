@@ -1,5 +1,3 @@
-
-
 {% assign block_settings = block.settings %}
 
 {%- if block_settings.zoom -%}
@@ -8,7 +6,10 @@
     type="module"
   ></script>
 {%- endif -%}
+
+{%- comment -%} Import Hover Zoom Script {%- endcomment -%}
 <script src="{{ 'hover-zoom.js' | asset_url }}" type="module"></script>
+
 {%- liquid
   assign selected_product = closest.product
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
@@ -304,10 +305,22 @@
         -%}
         {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
           <div class="product-media-constraint-wrapper">
-            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {% if media.media_type == 'image' %}
+              <hover-zoom class="hover-zoom-wrapper">
+                {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              </hover-zoom>
+            {% else %}
+               {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {% endif %}
           </div>
         {% else %}
-          {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+          {% if media.media_type == 'image' %}
+            <hover-zoom class="hover-zoom-wrapper">
+              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            </hover-zoom>
+          {% else %}
+            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+          {% endif %}
         {% endif %}
       {% endcapture %}
       {% capture class %}
@@ -410,10 +423,22 @@
           -%}
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div class="product-media-constraint-wrapper">
-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              {% if media.media_type == 'image' %}
+                <hover-zoom class="hover-zoom-wrapper">
+                  {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+                </hover-zoom>
+              {% else %}
+                 {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              {% endif %}
             </div>
           {% else %}
-            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {% if media.media_type == 'image' %}
+              <hover-zoom class="hover-zoom-wrapper">
+                 {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              </hover-zoom>
+            {% else %}
+               {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {% endif %}
           {% endif %}
         </li>
       {% endfor %}
@@ -578,6 +603,25 @@
     min-width: inherit;
     display: inherit;
     flex: inherit;
+  }
+
+  /* Custom Hover Zoom Styles */
+  hover-zoom {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: zoom-in;
+    position: relative;
+    border-radius: var(--media-radius, 0px);
+  }
+  
+  hover-zoom img {
+    width: 100%;
+    height: 100%;
+    object-fit: inherit;
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, transform-origin;
   }
 
   @media screen and (max-width: 749px) {
