@@ -204,11 +204,11 @@
       "scheme-5": {
         "settings": {
           "background": "#f5f3ef",
-          "foreground_heading": "#a04637",
-          "foreground": "#000000",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#ffffff",
-          "primary_hover": "#acacac",
-          "border": "#666666",
+          "primary_hover": "#f5f5f5",
+          "border": "#ffffff",
           "shadow": "#000000",
           "primary_button_background": "#ffffff",
           "primary_button_text": "#000000",
