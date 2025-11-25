@@ -70,7 +70,12 @@
   }
 
   .collection-tile__link {
-    display: block;
+    /* KEY CHANGE: Use Flexbox for perfect centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers vertically */
+    align-items: center;     /* Centers horizontally */
+    
     /* Use variables from color pickers */
     background-color: var(--tile-bg-color);
     color: var(--tile-text-color);
@@ -79,6 +84,7 @@
     text-align: center;
     text-decoration: none;
     height: 100%;
+    min-height: 200px; /* Added min-height to ensure vertical centering is visible */
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
@@ -89,7 +95,7 @@
 
   .collection-tile__title {
     font-size: 1.75rem; /* 28px */
-    font-weight: 600;
+    font-weight: 400; /* Unbold */
     margin: 0 0 0.5rem 0;
     color: inherit; /* Inherit color from parent link */
   }
