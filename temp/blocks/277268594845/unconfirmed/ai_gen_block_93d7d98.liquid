@@ -1,6 +1,445 @@
+{% doc %}
+  @prompt
+    ok so now i want to make a section where i can link my collection and it will display as tile now i wnt you to make me this section its a simple section it will be in 3 x 2 grid and just make it look beautiful and also select the color as well that it will attract to any user and also its a furniture store so make a section like that 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-grid-{{ ai_gen_id }} {
+    padding: {{ block.settings.section_padding_top }}px 0 {{ block.settings.section_padding_bottom }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-collection-grid-container-{{ ai_gen_id }} {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-collection-grid-heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .ai-collection-grid-title-{{ ai_gen_id }} {
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 15px;
+    font-family: var(--font-heading-family);
+  }
+
+  .ai-collection-grid-subtitle-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  .ai-collection-grid-wrapper-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+  }
+
+  .ai-collection-tile-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ block.settings.tile_border_radius }}px;
+    aspect-ratio: 1;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .ai-collection-tile-{{ ai_gen_id }}:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .ai-collection-tile-link-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .ai-collection-tile-image-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: {{ block.settings.tile_placeholder_bg }};
+  }
+
+  .ai-collection-tile-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .ai-collection-tile-{{ ai_gen_id }}:hover .ai-collection-tile-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-collection-tile-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, {{ block.settings.tile_placeholder_bg }} 0%, {{ block.settings.tile_placeholder_gradient }} 100%);
+  }
+
+  .ai-collection-tile-placeholder-{{ ai_gen_id }} svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-collection-tile-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, {{ block.settings.overlay_color }}, transparent);
+    padding: 30px 25px;
+    transition: padding 0.4s ease;
+  }
+
+  .ai-collection-tile-{{ ai_gen_id }}:hover .ai-collection-tile-overlay-{{ ai_gen_id }} {
+    padding: 35px 25px;
+  }
+
+  .ai-collection-tile-title-{{ ai_gen_id }} {
+    color: {{ block.settings.tile_text_color }};
+    font-size: {{ block.settings.tile_title_size }}px;
+    margin: 0 0 8px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-collection-tile-{{ ai_gen_id }}:hover .ai-collection-tile-title-{{ ai_gen_id }} {
+    transform: translateX(5px);
+  }
+
+  .ai-collection-tile-count-{{ ai_gen_id }} {
+    color: {{ block.settings.tile_text_color }};
+    font-size: {{ block.settings.tile_count_size }}px;
+    margin: 0;
+    opacity: 0.9;
+  }
+
+  .ai-collection-tile-empty-state-{{ ai_gen_id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: {{ block.settings.tile_text_color }};
+    font-size: 14px;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-collection-grid-wrapper-{{ ai_gen_id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ai-collection-grid-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-collection-tile-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.tile_title_size }}px * 0.85);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-collection-grid-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding_top | times: 0.6 }}px 0 {{ block.settings.section_padding_bottom | times: 0.6 }}px;
+    }
+
+    .ai-collection-grid-wrapper-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: {{ block.settings.grid_gap | times: 0.7 }}px;
+    }
+
+    .ai-collection-grid-heading-{{ ai_gen_id }} {
+      margin-bottom: 30px;
+    }
+
+    .ai-collection-tile-overlay-{{ ai_gen_id }} {
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-collection-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-collection-grid-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank or block.settings.subtitle != blank %}
+      <div class="ai-collection-grid-heading-{{ ai_gen_id }}">
+        {% if block.settings.heading != blank %}
+          <h2 class="ai-collection-grid-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+        {% endif %}
+        {% if block.settings.subtitle != blank %}
+          <p class="ai-collection-grid-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="ai-collection-grid-wrapper-{{ ai_gen_id }}">
+      {% for i in (1..6) %}
+        {% liquid
+          assign collection_key = 'collection_' | append: i
+          assign collection = block.settings[collection_key]
+        %}
+
+        <div class="ai-collection-tile-{{ ai_gen_id }}">
+          {% if collection != blank %}
+            <a href="{{ collection.url }}" class="ai-collection-tile-link-{{ ai_gen_id }}">
+              <div class="ai-collection-tile-image-wrapper-{{ ai_gen_id }}">
+                {% if collection.featured_image %}
+                  <img
+                    src="{{ collection.featured_image | image_url: width: 800 }}"
+                    alt="{{ collection.featured_image.alt | escape }}"
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                    class="ai-collection-tile-image-{{ ai_gen_id }}"
+                  >
+                {% else %}
+                  <div class="ai-collection-tile-placeholder-{{ ai_gen_id }}">
+                    {{ 'collection-1' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+              <div class="ai-collection-tile-overlay-{{ ai_gen_id }}">
+                <h3 class="ai-collection-tile-title-{{ ai_gen_id }}">{{ collection.title }}</h3>
+                <p class="ai-collection-tile-count-{{ ai_gen_id }}">
+                  {{ collection.products_count }}
+                  {% if collection.products_count == 1 %}
+                    item
+                  {% else %}
+                    items
+                  {% endif %}
+                </p>
+              </div>
+            </a>
+          {% else %}
+            <div class="ai-collection-tile-link-{{ ai_gen_id }}">
+              <div class="ai-collection-tile-image-wrapper-{{ ai_gen_id }}">
+                <div class="ai-collection-tile-placeholder-{{ ai_gen_id }}">
+                  {{ 'collection-1' | placeholder_svg_tag }}
+                </div>
+              </div>
+              <div class="ai-collection-tile-empty-state-{{ ai_gen_id }}">
+                Select collection {{ i }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Collection grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Discover our curated furniture collections"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    },
+    {
+      "type": "collection",
+      "id": "collection_3",
+      "label": "Collection 3"
+    },
+    {
+      "type": "collection",
+      "id": "collection_4",
+      "label": "Collection 4"
+    },
+    {
+      "type": "collection",
+      "id": "collection_5",
+      "label": "Collection 5"
+    },
+    {
+      "type": "collection",
+      "id": "collection_6",
+      "label": "Collection 6"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Grid gap",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "tile_border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Tile border radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 10,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#f5f3ef"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "tile_text_color",
+      "label": "Tile text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Tile overlay",
+      "default": "rgba(81, 49, 23, 0.85)"
+    },
+    {
+      "type": "color",
+      "id": "tile_placeholder_bg",
+      "label": "Placeholder start",
+      "default": "#eeddc6"
+    },
+    {
+      "type": "color",
+      "id": "tile_placeholder_gradient",
+      "label": "Placeholder end",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "header",
+      "content": "Tile typography"
+    },
+    {
+      "type": "range",
+      "id": "tile_title_size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Title size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tile_count_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Count size",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection grid"
+    }
+  ]
+}
 {% endschema %}
