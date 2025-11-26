@@ -31,8 +31,7 @@
           "settings": {
             "collection": "bed-frames",
             "custom_nav_title": "Slide",
-            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
-            "image_tablet": "shopify://shop_images/hero-banner-krini.jpg",
+            "image_desktop": "shopify://shop_images/7.jpg",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
