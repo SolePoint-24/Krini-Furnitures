@@ -255,33 +255,57 @@
 
       setupButtons() {
         const buttons = this.querySelectorAll('[data-catalog-button]');
-        // Fallback to blank if setting is empty, but we use the user provided default in schema
         const targetSection = '{{ block.settings.redirect_url }}';
 
         buttons.forEach((button) => {
           button.addEventListener('click', (event) => {
-            event.preventDefault(); // Stop standard link behavior
+            event.preventDefault(); // Stop the link from opening normally
             
             const pdfUrl = button.getAttribute('data-pdf-url');
+            const buttonText = button.innerText;
 
-            // 1. ACTION: Trigger Download
             if (pdfUrl) {
-              const link = document.createElement('a');
-              link.href = pdfUrl;
-              // Setting download attribute forces download instead of opening in tab
-              link.download = pdfUrl.split('/').pop() || 'catalog.pdf'; 
-              link.target = '_blank';
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-            }
+              // We use 'fetch' to grab the raw file data
+              fetch(pdfUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                  // Create a temporary link to the 'blob' (local data)
+                  // This tricks the browser into thinking the file is on your own site
+                  const blobUrl = window.URL.createObjectURL(blob);
+                  const link = document.createElement('a');
+                  link.href = blobUrl;
+                  
+                  // Clean up the filename (remove the ?v=1234 stuff)
+                  const cleanFileName = pdfUrl.split('/').pop().split('?')[0];
+                  link.download = cleanFileName || 'catalog.pdf'; 
+                  
+                  document.body.appendChild(link);
+                  link.click(); // Trigger the download
+                  
+                  // Clean up
+                  document.body.removeChild(link);
+                  window.URL.revokeObjectURL(blobUrl);
 
-            // 2. ACTION: Redirect/Scroll to section
-            if (targetSection) {
-              // Slight delay to allow the download thread to start
-              setTimeout(() => {
+                  // REDIRECT: Once download starts, go to the anchor link
+                  if (targetSection) {
+                    setTimeout(() => {
+                      window.location.href = targetSection;
+                    }, 1000); // Wait 1 second to ensure download started
+                  }
+                })
+                .catch(err => {
+                  console.error('Download failed, falling back to open', err);
+                  // Fallback: If fetch fails (rare), just open it
+                  window.open(pdfUrl, '_blank');
+                  if (targetSection) {
+                    window.location.href = targetSection;
+                  }
+                });
+            } else {
+              // If no PDF, just redirect
+              if (targetSection) {
                 window.location.href = targetSection;
-              }, 500);
+              }
             }
           });
         });
