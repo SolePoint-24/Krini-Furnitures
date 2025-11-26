@@ -20,7 +20,7 @@
             "button_text": "Get Catalog",
             "modal_heading": "Download Catalog",
             "modal_description": "Please fill out the form below to receive your catalog download link.",
-            "pdf_url": "",
+            "pdf_url": "https://www.eks-intec.com/wp-content/uploads/2025/01/Sample-pdf.pdf",
             "download_text": "After submitting the form, you can download the catalog:",
             "download_btn_label": "Download PDF",
             "padding": 40,
@@ -49,7 +49,6 @@
       "block_order": [
         "ai_gen_block_8e907c8_nCgkfn"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -112,7 +111,7 @@
             "input_border_color": "#e6e6e6",
             "input_border_radius": 8,
             "success_color": "#008060",
-            "error_color": "#D82C0D"
+            "error_color": "#d82c0d"
           },
           "blocks": {}
         }
@@ -120,6 +119,7 @@
       "block_order": [
         "ai_gen_block_4281d09_w7iij8"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
