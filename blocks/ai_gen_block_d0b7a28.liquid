@@ -255,60 +255,77 @@
 
       setupButtons() {
         const buttons = this.querySelectorAll('[data-catalog-button]');
-        const targetSection = '{{ block.settings.redirect_url }}';
+        // This is the URL from your settings
+        const targetUrl = '{{ block.settings.redirect_url }}';
+        
+        // SETTING: How much space (in pixels) to leave at the top for your header
+        const headerOffset = 150; 
 
         buttons.forEach((button) => {
           button.addEventListener('click', (event) => {
-            event.preventDefault(); // Stop the link from opening normally
+            event.preventDefault(); 
             
             const pdfUrl = button.getAttribute('data-pdf-url');
-            const buttonText = button.innerText;
 
+            // --- PART 1: DOWNLOAD THE FILE ---
             if (pdfUrl) {
-              // We use 'fetch' to grab the raw file data
               fetch(pdfUrl)
                 .then(response => response.blob())
                 .then(blob => {
-                  // Create a temporary link to the 'blob' (local data)
-                  // This tricks the browser into thinking the file is on your own site
                   const blobUrl = window.URL.createObjectURL(blob);
                   const link = document.createElement('a');
                   link.href = blobUrl;
-                  
-                  // Clean up the filename (remove the ?v=1234 stuff)
                   const cleanFileName = pdfUrl.split('/').pop().split('?')[0];
                   link.download = cleanFileName || 'catalog.pdf'; 
-                  
                   document.body.appendChild(link);
-                  link.click(); // Trigger the download
-                  
-                  // Clean up
+                  link.click();
                   document.body.removeChild(link);
                   window.URL.revokeObjectURL(blobUrl);
 
-                  // REDIRECT: Once download starts, go to the anchor link
-                  if (targetSection) {
-                    setTimeout(() => {
-                      window.location.href = targetSection;
-                    }, 1000); // Wait 1 second to ensure download started
-                  }
+                  // Trigger the scroll/redirect after download starts
+                  this.handleRedirect(targetUrl, headerOffset);
                 })
                 .catch(err => {
-                  console.error('Download failed, falling back to open', err);
-                  // Fallback: If fetch fails (rare), just open it
+                  console.error('Download failed, falling back', err);
                   window.open(pdfUrl, '_blank');
-                  if (targetSection) {
-                    window.location.href = targetSection;
-                  }
+                  this.handleRedirect(targetUrl, headerOffset);
                 });
             } else {
-              // If no PDF, just redirect
-              if (targetSection) {
-                window.location.href = targetSection;
-              }
+              // No PDF, just scroll
+              this.handleRedirect(targetUrl, headerOffset);
             }
           });
         });
+      }
+
+      // --- PART 2: SMART SCROLL FUNCTION ---
+      handleRedirect(url, offset) {
+        if (!url) return;
+
+        setTimeout(() => {
+          // 1. Extract the ID from the URL (everything after #)
+          let targetId = null;
+          if (url.includes('#')) {
+            targetId = url.split('#')[1];
+          }
+
+          // 2. Try to find that element on the CURRENT page
+          const targetElement = targetId ? document.getElementById(targetId) : null;
+
+          if (targetElement) {
+            // ELEMENT FOUND: Calculate position manually to add padding
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+      
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          } else {
+            // ELEMENT NOT FOUND: It might be on a different page, do a normal redirect
+            window.location.href = url;
+          }
+        }, 800); // 0.8s delay to ensure download dialog has appeared
       }
     }
 
