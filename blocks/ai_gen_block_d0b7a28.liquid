@@ -1,7 +1,3 @@
-{% doc %}
-  @prompt
-    ok so now make me a table that will  contain my catelogs list of catelog adn it will be like first col will be title secod relese third will be a button so first col will have title what ever i want second col will contain date so i can add any date and the third button will do two things first /pages/catalog#shopify-section-template--19972561567901__17641396334eaafa77it will redirect me to here and dowanload the pdf on click as well s otwo thing it will do so make me this sction make it look good as well , make the col take equla space right they are not taking equla space 
-{% enddoc %}
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
@@ -10,6 +6,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
+    box-sizing: border-box;
   }
 
   .ai-catalog-table__heading-{{ ai_gen_id }} {
@@ -25,11 +22,12 @@
     box-shadow: {{ block.settings.table_shadow }};
   }
 
+  /* Fixed layout ensures columns are exactly equal regardless of content length */
   .ai-catalog-table__table-{{ ai_gen_id }} {
     width: 100%;
     border-collapse: collapse;
     background-color: {{ block.settings.table_background }};
-    table-layout: fixed;
+    table-layout: fixed; 
   }
 
   .ai-catalog-table__header-{{ ai_gen_id }} {
@@ -43,7 +41,9 @@
     color: {{ block.settings.header_text_color }};
     font-size: {{ block.settings.header_font_size }}px;
     border-bottom: 2px solid {{ block.settings.border_color }};
-    width: 33.33%;
+    width: 33.3333%; /* Force Equal Width */
+    box-sizing: border-box;
+    vertical-align: middle;
   }
 
   .ai-catalog-table__row-{{ ai_gen_id }} {
@@ -59,7 +59,10 @@
     border-bottom: 1px solid {{ block.settings.border_color }};
     color: {{ block.settings.text_color }};
     font-size: {{ block.settings.text_size }}px;
-    width: 33.33%;
+    width: 33.3333%; /* Force Equal Width */
+    box-sizing: border-box;
+    vertical-align: middle;
+    word-wrap: break-word; /* Prevents long text from breaking layout */
   }
 
   .ai-catalog-table__title-{{ ai_gen_id }} {
@@ -73,6 +76,7 @@
   .ai-catalog-table__button-{{ ai_gen_id }} {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 12px 24px;
     background-color: {{ block.settings.button_background }};
@@ -83,6 +87,8 @@
     font-weight: 500;
     transition: all 0.3s ease;
     cursor: pointer;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .ai-catalog-table__button-{{ ai_gen_id }}:hover {
@@ -95,6 +101,7 @@
   .ai-catalog-table__button-icon-{{ ai_gen_id }} {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
   }
 
   .ai-catalog-table__empty-state-{{ ai_gen_id }} {
@@ -105,6 +112,11 @@
   }
 
   @media screen and (max-width: 749px) {
+    /* On mobile, we might want to allow scrolling instead of squishing */
+    .ai-catalog-table__table-{{ ai_gen_id }} {
+        min-width: 600px; 
+    }
+    
     .ai-catalog-table__heading-{{ ai_gen_id }} {
       font-size: {{ block.settings.heading_size | times: 0.7 }}px;
       margin-bottom: 24px;
@@ -189,7 +201,7 @@
                 <td class="ai-catalog-table__cell-{{ ai_gen_id }}">
                   {% if catalog_pdf != blank %}
                     <a
-                      href="{{ catalog_pdf }}"
+                      href="#"
                       class="ai-catalog-table__button-{{ ai_gen_id }}"
                       data-catalog-button
                       data-pdf-url="{{ catalog_pdf }}"
@@ -243,27 +255,33 @@
 
       setupButtons() {
         const buttons = this.querySelectorAll('[data-catalog-button]');
+        // Fallback to blank if setting is empty, but we use the user provided default in schema
         const targetSection = '{{ block.settings.redirect_url }}';
 
         buttons.forEach((button) => {
           button.addEventListener('click', (event) => {
-            event.preventDefault();
+            event.preventDefault(); // Stop standard link behavior
+            
             const pdfUrl = button.getAttribute('data-pdf-url');
 
+            // 1. ACTION: Trigger Download
             if (pdfUrl) {
               const link = document.createElement('a');
               link.href = pdfUrl;
-              link.download = '';
+              // Setting download attribute forces download instead of opening in tab
+              link.download = pdfUrl.split('/').pop() || 'catalog.pdf'; 
               link.target = '_blank';
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
             }
 
+            // 2. ACTION: Redirect/Scroll to section
             if (targetSection) {
+              // Slight delay to allow the download thread to start
               setTimeout(() => {
                 window.location.href = targetSection;
-              }, 300);
+              }, 500);
             }
           });
         });
@@ -316,6 +334,23 @@
       "id": "column_3_header",
       "label": "Column 3 header",
       "default": "Download"
+    },
+    {
+      "type": "header",
+      "content": "Button settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View & Download"
+    },
+    {
+      "type": "text",
+      "id": "redirect_url",
+      "label": "Redirect URL after download",
+      "info": "Paste the full URL including the # anchor here",
+      "default": "/pages/catalog#shopify-section-template--19972561567901__17641396334eaafa77"
     },
     {
       "type": "header",
@@ -391,196 +426,6 @@
       "type": "url",
       "id": "catalog_3_pdf",
       "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 4"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_4_enabled",
-      "label": "Enable catalog 4",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_4_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_4_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_4_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 5"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_5_enabled",
-      "label": "Enable catalog 5",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_5_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_5_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_5_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 6"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_6_enabled",
-      "label": "Enable catalog 6",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_6_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_6_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_6_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 7"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_7_enabled",
-      "label": "Enable catalog 7",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_7_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_7_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_7_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 8"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_8_enabled",
-      "label": "Enable catalog 8",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_8_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_8_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_8_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 9"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_9_enabled",
-      "label": "Enable catalog 9",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_9_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_9_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_9_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Catalog 10"
-    },
-    {
-      "type": "checkbox",
-      "id": "catalog_10_enabled",
-      "label": "Enable catalog 10",
-      "default": false
-    },
-    {
-      "type": "text",
-      "id": "catalog_10_title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "catalog_10_date",
-      "label": "Release date"
-    },
-    {
-      "type": "url",
-      "id": "catalog_10_pdf",
-      "label": "PDF file URL"
-    },
-    {
-      "type": "header",
-      "content": "Button settings"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "View & Download"
-    },
-    {
-      "type": "url",
-      "id": "redirect_url",
-      "label": "Redirect URL after download"
     },
     {
       "type": "header",
