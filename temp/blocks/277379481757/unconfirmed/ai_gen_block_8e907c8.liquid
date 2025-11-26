@@ -1,6 +1,656 @@
+{% doc %}
+  @prompt
+    ok so now what i want to make is that i have a catalog pdf that user can downlaod but first of all if ther user clicks on that downloadble pdf then it will redirect them to shopify form app and i will create the from from the app so dont worry all that from will ask for name email mobile no and compny name No field cumpolsory and there will be a button to submit and there will be a button to download the pdf as well so how to make this form will be from shopify form if you can make that from make it and if you can tell me to connect the form from form id 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-catalog-download-{{ ai_gen_id }} {
+    padding: {{ block.settings.padding }}px;
+    text-align: center;
+  }
+
+  .ai-catalog-download__content-{{ ai_gen_id }} {
+    max-width: {{ block.settings.content_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-catalog-download__heading-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    margin: 0 0 16px;
+  }
+
+  .ai-catalog-download__description-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    margin: 0 0 24px;
+  }
+
+  .ai-catalog-download__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    border: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .ai-catalog-download__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+    color: {{ block.settings.button_hover_text_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-catalog-download__button-icon-{{ ai_gen_id }} {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ai-catalog-download__modal-{{ ai_gen_id }} {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .ai-catalog-download__modal-{{ ai_gen_id }}.active {
+    display: flex;
+  }
+
+  .ai-catalog-download__modal-content-{{ ai_gen_id }} {
+    background-color: {{ block.settings.modal_bg_color }};
+    border-radius: {{ block.settings.modal_radius }}px;
+    max-width: {{ block.settings.modal_width }}px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 40px;
+  }
+
+  .ai-catalog-download__modal-close-{{ ai_gen_id }} {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: {{ block.settings.text_color }};
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .ai-catalog-download__modal-close-{{ ai_gen_id }}:hover {
+    opacity: 1;
+  }
+
+  .ai-catalog-download__modal-heading-{{ ai_gen_id }} {
+    color: {{ block.settings.heading_color }};
+    font-size: 28px;
+    margin: 0 0 12px;
+  }
+
+  .ai-catalog-download__modal-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 16px;
+    margin: 0 0 24px;
+  }
+
+  .ai-catalog-download__form-container-{{ ai_gen_id }} {
+    margin-bottom: 24px;
+  }
+
+  .ai-catalog-download__form-placeholder-{{ ai_gen_id }} {
+    padding: 40px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    text-align: center;
+    color: #666;
+  }
+
+  .ai-catalog-download__form-placeholder-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #333;
+  }
+
+  .ai-catalog-download__form-placeholder-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    margin: 0 0 8px;
+  }
+
+  .ai-catalog-download__form-placeholder-steps-{{ ai_gen_id }} {
+    text-align: left;
+    max-width: 400px;
+    margin: 20px auto 0;
+  }
+
+  .ai-catalog-download__form-placeholder-step-{{ ai_gen_id }} {
+    font-size: 13px;
+    margin: 8px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+  }
+
+  .ai-catalog-download__download-section-{{ ai_gen_id }} {
+    padding-top: 24px;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .ai-catalog-download__download-text-{{ ai_gen_id }} {
+    color: {{ block.settings.text_color }};
+    font-size: 14px;
+    margin: 0 0 16px;
+  }
+
+  .ai-catalog-download__download-button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background-color: {{ block.settings.download_btn_bg }};
+    color: {{ block.settings.download_btn_text }};
+    border: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .ai-catalog-download__download-button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.download_btn_hover_bg }};
+    color: {{ block.settings.download_btn_hover_text }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-catalog-download__modal-content-{{ ai_gen_id }} {
+      padding: 24px;
+    }
+
+    .ai-catalog-download__modal-heading-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+
+    .ai-catalog-download__button-{{ ai_gen_id }} {
+      padding: 14px 24px;
+    }
+  }
+{% endstyle %}
+
+<catalog-download-{{ ai_gen_id }}
+  class="ai-catalog-download-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-catalog-download__content-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-catalog-download__heading-{{ ai_gen_id }}">
+        {{ block.settings.heading }}
+      </h2>
+    {% endif %}
+
+    {% if block.settings.description != blank %}
+      <div class="ai-catalog-download__description-{{ ai_gen_id }}">
+        {{ block.settings.description }}
+      </div>
+    {% endif %}
+
+    <button
+      class="ai-catalog-download__button-{{ ai_gen_id }}"
+      data-modal-trigger
+      aria-label="{{ block.settings.button_text }}"
+    >
+      <svg
+        class="ai-catalog-download__button-icon-{{ ai_gen_id }}"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      {{ block.settings.button_text }}
+    </button>
+  </div>
+
+  <div
+    class="ai-catalog-download__modal-{{ ai_gen_id }}"
+    data-modal
+    aria-hidden="true"
+  >
+    <div class="ai-catalog-download__modal-content-{{ ai_gen_id }}">
+      <button
+        class="ai-catalog-download__modal-close-{{ ai_gen_id }}"
+        data-modal-close
+        aria-label="Close"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h3 class="ai-catalog-download__modal-heading-{{ ai_gen_id }}">
+        {{ block.settings.modal_heading }}
+      </h3>
+
+      <p class="ai-catalog-download__modal-text-{{ ai_gen_id }}">
+        {{ block.settings.modal_description }}
+      </p>
+
+      <div class="ai-catalog-download__form-container-{{ ai_gen_id }}">
+        {% if block.settings.form_id != blank %}
+          {% render 'form', id: block.settings.form_id %}
+        {% else %}
+          <div class="ai-catalog-download__form-placeholder-{{ ai_gen_id }}">
+            <div class="ai-catalog-download__form-placeholder-title-{{ ai_gen_id }}">
+              Shopify Form Not Connected
+            </div>
+            <p class="ai-catalog-download__form-placeholder-text-{{ ai_gen_id }}">
+              To connect your Shopify Form:
+            </p>
+            <div class="ai-catalog-download__form-placeholder-steps-{{ ai_gen_id }}">
+              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
+                Go to your Shopify admin and install the Shopify Forms app
+              </div>
+              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
+                Create a new form with fields: Name, Email, Mobile, Company Name
+              </div>
+              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
+                Copy the Form ID from the Shopify Forms app
+              </div>
+              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
+                Paste the Form ID in the "Shopify Form ID" setting below
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="ai-catalog-download__download-section-{{ ai_gen_id }}">
+        <p class="ai-catalog-download__download-text-{{ ai_gen_id }}">
+          {{ block.settings.download_text }}
+        </p>
+        {% if block.settings.pdf_url != blank %}
+          <a
+            href="{{ block.settings.pdf_url }}"
+            class="ai-catalog-download__download-button-{{ ai_gen_id }}"
+            download
+            target="_blank"
+          >
+            <svg
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="12" y1="18" x2="12" y2="12"></line>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+            {{ block.settings.download_btn_label }}
+          </a>
+        {% else %}
+          <div class="ai-catalog-download__form-placeholder-{{ ai_gen_id }}">
+            <p class="ai-catalog-download__form-placeholder-text-{{ ai_gen_id }}">
+              Please add your PDF URL in the block settings
+            </p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</catalog-download-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CatalogDownload{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.modal = this.querySelector('[data-modal]');
+        this.modalTrigger = this.querySelector('[data-modal-trigger]');
+        this.modalClose = this.querySelector('[data-modal-close]');
+
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        if (this.modalTrigger) {
+          this.modalTrigger.addEventListener('click', () => {
+            this.openModal();
+          });
+        }
+
+        if (this.modalClose) {
+          this.modalClose.addEventListener('click', () => {
+            this.closeModal();
+          });
+        }
+
+        if (this.modal) {
+          this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+              this.closeModal();
+            }
+          });
+        }
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+            this.closeModal();
+          }
+        });
+      }
+
+      openModal() {
+        this.modal.classList.add('active');
+        this.modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeModal() {
+        this.modal.classList.remove('active');
+        this.modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    }
+
+    customElements.define('catalog-download-{{ ai_gen_id }}', CatalogDownload{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Catalog download form",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>Download Our Catalog</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Get instant access to our complete product catalog. Fill out the form to download.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Get Catalog"
+    },
+    {
+      "type": "header",
+      "content": "Modal content"
+    },
+    {
+      "type": "text",
+      "id": "modal_heading",
+      "label": "Modal heading",
+      "default": "Download Catalog"
+    },
+    {
+      "type": "textarea",
+      "id": "modal_description",
+      "label": "Modal description",
+      "default": "Please fill out the form below to receive your catalog download link."
+    },
+    {
+      "type": "header",
+      "content": "Shopify Form"
+    },
+    {
+      "type": "text",
+      "id": "form_id",
+      "label": "Shopify Form ID",
+      "info": "Create a form in Shopify Forms app, then paste the Form ID here"
+    },
+    {
+      "type": "header",
+      "content": "PDF download"
+    },
+    {
+      "type": "url",
+      "id": "pdf_url",
+      "label": "PDF URL"
+    },
+    {
+      "type": "text",
+      "id": "download_text",
+      "label": "Download section text",
+      "default": "After submitting the form, you can download the catalog:"
+    },
+    {
+      "type": "text",
+      "id": "download_btn_label",
+      "label": "Download button label",
+      "default": "Download PDF"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content width",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "modal_width",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Modal width",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "modal_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Modal border radius",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button text size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "modal_bg_color",
+      "label": "Modal background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Download button style"
+    },
+    {
+      "type": "color",
+      "id": "download_btn_bg",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "download_btn_text",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "download_btn_hover_bg",
+      "label": "Hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "download_btn_hover_text",
+      "label": "Hover text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Catalog download form"
+    }
+  ]
+}
 {% endschema %}
