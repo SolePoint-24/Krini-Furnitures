@@ -21,27 +21,21 @@
             "modal_heading": "Download Catalog",
             "modal_description": "Please fill out the form below to receive your catalog download link.",
             "pdf_url": "https://www.eks-intec.com/wp-content/uploads/2025/01/Sample-pdf.pdf",
-            "download_text": "After submitting the form, you can download the catalog:",
-            "download_btn_label": "Download PDF",
-            "padding": 40,
-            "content_width": 800,
-            "modal_width": 600,
-            "modal_radius": 12,
-            "heading_size": 36,
-            "text_size": 16,
-            "button_text_size": 16,
             "heading_color": "#000000",
             "text_color": "#666666",
             "modal_bg_color": "#ffffff",
             "button_bg_color": "#c3cca6",
             "button_text_color": "#000000",
-            "button_hover_bg_color": "#000000",
-            "button_hover_text_color": "#ffffff",
-            "button_radius": 8,
             "download_btn_bg": "#000000",
             "download_btn_text": "#ffffff",
-            "download_btn_hover_bg": "#333333",
-            "download_btn_hover_text": "#ffffff"
+            "padding": 40,
+            "content_width": 800,
+            "modal_width": 600,
+            "modal_radius": 12,
+            "button_radius": 8,
+            "heading_size": 36,
+            "text_size": 16,
+            "button_text_size": 16
           },
           "blocks": {}
         }
@@ -77,56 +71,54 @@
         "padding-block-end": 100
       }
     },
-    "17641355137b8fcb2e": {
+    "1764137359eadae275": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_4281d09_w7iij8": {
-          "type": "ai_gen_block_4281d09",
+        "ai_gen_block_4d7d37c_FNhLny": {
+          "type": "ai_gen_block_4d7d37c",
           "settings": {
-            "heading": "<p>Download Our Catalog</p>",
-            "description": "<p>Get instant access to our complete product catalog. Fill out the form or download directly.</p>",
-            "primary_button_text": "Get Catalog",
-            "secondary_button_text": "Download Now",
-            "catalog_pdf_url": "https://www.eks-intec.com/wp-content/uploads/2025/01/Sample-pdf.pdf",
-            "dialog_heading": "Get Your Catalog",
-            "dialog_subtext": "Fill in your details to receive updates, or skip to download directly.",
-            "success_message": "Thank you! Your catalog is downloading now.",
-            "background_color": "#f5f3ef",
-            "text_color": "#000000",
-            "heading_size": 48,
-            "description_size": 16,
-            "primary_button_color": "#c3cca6",
-            "primary_button_text_color": "#000000",
-            "primary_button_hover_color": "#000000",
-            "secondary_button_color": "#ffffff",
-            "secondary_button_text_color": "#000000",
-            "secondary_button_border_color": "#000000",
-            "secondary_button_hover_color": "#f5f5f5",
+            "section_heading": "Download Our Catalog",
+            "heading_size": 32,
+            "heading_color": "#000000",
+            "section_padding": 40,
+            "section_bg_color": "#f5f3ef",
+            "button_text": "Get Catalog",
+            "button_font_size": 16,
             "button_border_radius": 8,
-            "dialog_background_color": "#ffffff",
-            "dialog_text_color": "#000000",
-            "dialog_border_radius": 16,
-            "input_background_color": "#ffffff",
-            "input_text_color": "#000000",
-            "input_border_color": "#e6e6e6",
+            "button_bg_color": "#c3cca6",
+            "button_text_color": "#000000",
+            "button_hover_bg_color": "#000000",
+            "button_hover_text_color": "#ffffff",
+            "modal_heading": "Download Our Catalog",
+            "modal_heading_size": 24,
+            "modal_description": "<p>Get instant access to our latest catalog. Optionally share your details to receive updates and exclusive offers.</p>",
+            "pdf_url": "",
+            "submit_button_text": "Submit & Download Catalog",
+            "direct_download_text": "Download Catalog Directly",
+            "download_button_text": "Download Your Catalog",
+            "success_message": "<p>✅ Thank you! Your information has been submitted successfully.</p>",
+            "modal_max_width": 600,
+            "modal_border_radius": 12,
+            "modal_bg_color": "#ffffff",
+            "modal_text_color": "#000000",
+            "modal_border_color": "#e6e6e6",
             "input_border_radius": 8,
-            "success_color": "#008060",
-            "error_color": "#d82c0d"
+            "input_bg_color": "#ffffff",
+            "input_border_color": "#e6e6e6"
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_4281d09_w7iij8"
+        "ai_gen_block_4d7d37c_FNhLny"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 12,
         "section_width": "page-width",
@@ -199,7 +191,7 @@
   },
   "order": [
     "1764134048e516eba7",
-    "17641355137b8fcb2e",
+    "1764137359eadae275",
     "main"
   ]
 }
