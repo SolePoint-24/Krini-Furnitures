@@ -20,6 +20,7 @@
             "button_text": "Get Catalog",
             "modal_heading": "Download Catalog",
             "modal_description": "Please fill out the form below to receive your catalog download link.",
+            "app_form_html": "",
             "pdf_url": "https://www.eks-intec.com/wp-content/uploads/2025/01/Sample-pdf.pdf",
             "heading_color": "#000000",
             "text_color": "#666666",
@@ -69,75 +70,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 100,
         "padding-block-end": 100
-      }
-    },
-    "1764137359eadae275": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_4d7d37c_FNhLny": {
-          "type": "ai_gen_block_4d7d37c",
-          "settings": {
-            "section_heading": "Download Our Catalog",
-            "heading_size": 32,
-            "heading_color": "#000000",
-            "section_padding": 40,
-            "section_bg_color": "#f5f3ef",
-            "button_text": "Get Catalog",
-            "button_font_size": 16,
-            "button_border_radius": 8,
-            "button_bg_color": "#c3cca6",
-            "button_text_color": "#000000",
-            "button_hover_bg_color": "#000000",
-            "button_hover_text_color": "#ffffff",
-            "modal_heading": "Download Our Catalog",
-            "modal_heading_size": 24,
-            "modal_description": "<p>Get instant access to our latest catalog. Optionally share your details to receive updates and exclusive offers.</p>",
-            "pdf_url": "",
-            "submit_button_text": "Submit & Download Catalog",
-            "direct_download_text": "Download Catalog Directly",
-            "download_button_text": "Download Your Catalog",
-            "success_message": "<p>✅ Thank you! Your information has been submitted successfully.</p>",
-            "modal_max_width": 600,
-            "modal_border_radius": 12,
-            "modal_bg_color": "#ffffff",
-            "modal_text_color": "#000000",
-            "modal_border_color": "#e6e6e6",
-            "input_border_radius": 8,
-            "input_bg_color": "#ffffff",
-            "input_border_color": "#e6e6e6"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_4d7d37c_FNhLny"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
       }
     },
     "main": {
@@ -191,7 +123,6 @@
   },
   "order": [
     "1764134048e516eba7",
-    "1764137359eadae275",
     "main"
   ]
 }
