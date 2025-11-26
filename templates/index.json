@@ -45,8 +45,7 @@
           "settings": {
             "collection": "wall-bed-frames",
             "custom_nav_title": "Wall Frames",
-            "image_desktop": "shopify://shop_images/hero-banner-krini.jpg",
-            "image_tablet": "shopify://shop_images/hero-banner-krini.jpg",
+            "image_desktop": "shopify://shop_images/14_crop.jpg",
             "title": "Your Collection Title",
             "subtitle": "<p>Tell a story about this collection.</p>",
             "button_label": "",
