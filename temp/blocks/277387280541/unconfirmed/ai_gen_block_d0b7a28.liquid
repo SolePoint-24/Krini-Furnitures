@@ -1,6 +1,758 @@
+{% doc %}
+  @prompt
+    ok so now make me a table that will  contain my catelogs list of catelog adn it will be like first col will be title secod relese third will be a button so first col will have title what ever i want second col will contain date so i can add any date and the third button will do two things first /pages/catalog#shopify-section-template--19972561567901__17641396334eaafa77it will redirect me to here and dowanload the pdf on click as well s otwo thing it will do so make me this sction make it look good as well , make the col take equla space right they are not taking equla space 
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-catalog-table-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .ai-catalog-table__heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+  }
+
+  .ai-catalog-table__wrapper-{{ ai_gen_id }} {
+    overflow-x: auto;
+    border-radius: {{ block.settings.table_border_radius }}px;
+    box-shadow: {{ block.settings.table_shadow }};
+  }
+
+  .ai-catalog-table__table-{{ ai_gen_id }} {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: {{ block.settings.table_background }};
+    table-layout: fixed;
+  }
+
+  .ai-catalog-table__header-{{ ai_gen_id }} {
+    background-color: {{ block.settings.header_background }};
+  }
+
+  .ai-catalog-table__header-cell-{{ ai_gen_id }} {
+    padding: 20px;
+    text-align: left;
+    font-weight: 600;
+    color: {{ block.settings.header_text_color }};
+    font-size: {{ block.settings.header_font_size }}px;
+    border-bottom: 2px solid {{ block.settings.border_color }};
+    width: 33.33%;
+  }
+
+  .ai-catalog-table__row-{{ ai_gen_id }} {
+    transition: background-color 0.2s ease;
+  }
+
+  .ai-catalog-table__row-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.row_hover_background }};
+  }
+
+  .ai-catalog-table__cell-{{ ai_gen_id }} {
+    padding: 20px;
+    border-bottom: 1px solid {{ block.settings.border_color }};
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.text_size }}px;
+    width: 33.33%;
+  }
+
+  .ai-catalog-table__title-{{ ai_gen_id }} {
+    font-weight: 500;
+  }
+
+  .ai-catalog-table__date-{{ ai_gen_id }} {
+    color: {{ block.settings.date_color }};
+  }
+
+  .ai-catalog-table__button-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.button_background }};
+    color: {{ block.settings.button_text_color }};
+    border: {{ block.settings.button_border_width }}px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .ai-catalog-table__button-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_background }};
+    color: {{ block.settings.button_hover_text_color }};
+    border-color: {{ block.settings.button_hover_border_color }};
+    transform: translateY(-2px);
+  }
+
+  .ai-catalog-table__button-icon-{{ ai_gen_id }} {
+    width: 18px;
+    height: 18px;
+  }
+
+  .ai-catalog-table__empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 60px 20px;
+    color: {{ block.settings.text_color }};
+    font-style: italic;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-catalog-table__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.7 }}px;
+      margin-bottom: 24px;
+    }
+
+    .ai-catalog-table__header-cell-{{ ai_gen_id }},
+    .ai-catalog-table__cell-{{ ai_gen_id }} {
+      padding: 12px;
+      font-size: {{ block.settings.text_size | minus: 2 }}px;
+    }
+
+    .ai-catalog-table__button-{{ ai_gen_id }} {
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+  }
+{% endstyle %}
+
+<catalog-table-{{ ai_gen_id }}
+  class="ai-catalog-table-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.table_heading != blank %}
+    <h2 class="ai-catalog-table__heading-{{ ai_gen_id }}">{{ block.settings.table_heading }}</h2>
+  {% endif %}
+
+  <div class="ai-catalog-table__wrapper-{{ ai_gen_id }}">
+    <table class="ai-catalog-table__table-{{ ai_gen_id }}">
+      <thead class="ai-catalog-table__header-{{ ai_gen_id }}">
+        <tr>
+          <th class="ai-catalog-table__header-cell-{{ ai_gen_id }}">{{ block.settings.column_1_header }}</th>
+          <th class="ai-catalog-table__header-cell-{{ ai_gen_id }}">{{ block.settings.column_2_header }}</th>
+          <th class="ai-catalog-table__header-cell-{{ ai_gen_id }}">{{ block.settings.column_3_header }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% liquid
+          assign has_catalog = false
+          for i in (1..10)
+            assign title_key = 'catalog_' | append: i | append: '_title'
+            assign date_key = 'catalog_' | append: i | append: '_date'
+            assign pdf_key = 'catalog_' | append: i | append: '_pdf'
+            assign enabled_key = 'catalog_' | append: i | append: '_enabled'
+
+            assign catalog_title = block.settings[title_key]
+            assign catalog_date = block.settings[date_key]
+            assign catalog_pdf = block.settings[pdf_key]
+            assign catalog_enabled = block.settings[enabled_key]
+
+            if catalog_enabled and catalog_title != blank
+              assign has_catalog = true
+            endif
+          endfor
+        %}
+
+        {% if has_catalog %}
+          {% for i in (1..10) %}
+            {% liquid
+              assign title_key = 'catalog_' | append: i | append: '_title'
+              assign date_key = 'catalog_' | append: i | append: '_date'
+              assign pdf_key = 'catalog_' | append: i | append: '_pdf'
+              assign enabled_key = 'catalog_' | append: i | append: '_enabled'
+
+              assign catalog_title = block.settings[title_key]
+              assign catalog_date = block.settings[date_key]
+              assign catalog_pdf = block.settings[pdf_key]
+              assign catalog_enabled = block.settings[enabled_key]
+            %}
+
+            {% if catalog_enabled and catalog_title != blank %}
+              <tr class="ai-catalog-table__row-{{ ai_gen_id }}">
+                <td class="ai-catalog-table__cell-{{ ai_gen_id }} ai-catalog-table__title-{{ ai_gen_id }}">
+                  {{ catalog_title }}
+                </td>
+                <td class="ai-catalog-table__cell-{{ ai_gen_id }} ai-catalog-table__date-{{ ai_gen_id }}">
+                  {% if catalog_date != blank %}
+                    {{ catalog_date }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+                <td class="ai-catalog-table__cell-{{ ai_gen_id }}">
+                  {% if catalog_pdf != blank %}
+                    <a
+                      href="{{ catalog_pdf }}"
+                      class="ai-catalog-table__button-{{ ai_gen_id }}"
+                      data-catalog-button
+                      data-pdf-url="{{ catalog_pdf }}"
+                      aria-label="View and download {{ catalog_title }}"
+                    >
+                      <svg
+                        class="ai-catalog-table__button-icon-{{ ai_gen_id }}"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                      </svg>
+                      {{ block.settings.button_text }}
+                    </a>
+                  {% else %}
+                    <span style="color: #999; font-style: italic;">No PDF available</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="3" class="ai-catalog-table__empty-state-{{ ai_gen_id }}">
+              No catalogs added yet. Add your first catalog using the settings panel.
+            </td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</catalog-table-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CatalogTable{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.setupButtons();
+      }
+
+      setupButtons() {
+        const buttons = this.querySelectorAll('[data-catalog-button]');
+        const targetSection = '{{ block.settings.redirect_url }}';
+
+        buttons.forEach((button) => {
+          button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const pdfUrl = button.getAttribute('data-pdf-url');
+
+            if (pdfUrl) {
+              const link = document.createElement('a');
+              link.href = pdfUrl;
+              link.download = '';
+              link.target = '_blank';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+
+            if (targetSection) {
+              setTimeout(() => {
+                window.location.href = targetSection;
+              }, 300);
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('catalog-table-{{ ai_gen_id }}', CatalogTable{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Catalog table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Table settings"
+    },
+    {
+      "type": "text",
+      "id": "table_heading",
+      "label": "Table heading",
+      "default": "Our Catalogs"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 36
+    },
+    {
+      "type": "text",
+      "id": "column_1_header",
+      "label": "Column 1 header",
+      "default": "Catalog Title"
+    },
+    {
+      "type": "text",
+      "id": "column_2_header",
+      "label": "Column 2 header",
+      "default": "Release Date"
+    },
+    {
+      "type": "text",
+      "id": "column_3_header",
+      "label": "Column 3 header",
+      "default": "Download"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_1_enabled",
+      "label": "Enable catalog 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "catalog_1_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_1_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_1_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_2_enabled",
+      "label": "Enable catalog 2",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_2_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_2_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_2_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_3_enabled",
+      "label": "Enable catalog 3",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_3_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_3_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_3_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_4_enabled",
+      "label": "Enable catalog 4",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_4_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_4_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_4_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_5_enabled",
+      "label": "Enable catalog 5",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_5_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_5_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_5_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_6_enabled",
+      "label": "Enable catalog 6",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_6_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_6_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_6_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 7"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_7_enabled",
+      "label": "Enable catalog 7",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_7_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_7_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_7_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 8"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_8_enabled",
+      "label": "Enable catalog 8",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_8_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_8_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_8_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 9"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_9_enabled",
+      "label": "Enable catalog 9",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_9_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_9_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_9_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Catalog 10"
+    },
+    {
+      "type": "checkbox",
+      "id": "catalog_10_enabled",
+      "label": "Enable catalog 10",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "catalog_10_title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "catalog_10_date",
+      "label": "Release date"
+    },
+    {
+      "type": "url",
+      "id": "catalog_10_pdf",
+      "label": "PDF file URL"
+    },
+    {
+      "type": "header",
+      "content": "Button settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View & Download"
+    },
+    {
+      "type": "url",
+      "id": "redirect_url",
+      "label": "Redirect URL after download"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "table_background",
+      "label": "Table background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_background",
+      "label": "Header background",
+      "default": "#f3efe7"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header text color",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#513117"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e6e6e6"
+    },
+    {
+      "type": "color",
+      "id": "row_hover_background",
+      "label": "Row hover background",
+      "default": "#fafafa"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#c3cca6"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button hover background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button hover border color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "table_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Table border radius",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "table_shadow",
+      "label": "Table shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0 2px 8px rgba(0,0,0,0.1)",
+          "label": "Light"
+        },
+        {
+          "value": "0 4px 12px rgba(0,0,0,0.15)",
+          "label": "Medium"
+        },
+        {
+          "value": "0 8px 24px rgba(0,0,0,0.2)",
+          "label": "Heavy"
+        }
+      ],
+      "default": "0 2px 8px rgba(0,0,0,0.1)"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Header font size",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Button border width",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "Catalog table"
+    }
+  ]
+}
 {% endschema %}
