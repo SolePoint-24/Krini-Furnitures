@@ -1,4 +1,3 @@
-
 {% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
 
 {% style %}
@@ -113,48 +112,40 @@
     margin-bottom: 24px;
   }
 
-  .ai-catalog-download__form-placeholder-{{ ai_gen_id }} {
-    padding: 40px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    text-align: center;
-    color: #666;
+  /* NEW STYLES FOR THE FORM INPUTS */
+  .ai-catalog-form-field {
+    margin-bottom: 12px;
   }
-
-  .ai-catalog-download__form-placeholder-title-{{ ai_gen_id }} {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 12px;
-    color: #333;
-  }
-
-  .ai-catalog-download__form-placeholder-text-{{ ai_gen_id }} {
+  
+  .ai-catalog-form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
     font-size: 14px;
-    margin: 0 0 8px;
+    color: #333;
+    background-color: #fff;
   }
 
-  .ai-catalog-download__form-placeholder-steps-{{ ai_gen_id }} {
-    text-align: left;
-    max-width: 400px;
-    margin: 20px auto 0;
+  .ai-catalog-form-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 10px;
   }
-
-  .ai-catalog-download__form-placeholder-step-{{ ai_gen_id }} {
-    font-size: 13px;
-    margin: 8px 0;
-    padding-left: 20px;
-    position: relative;
-  }
-
-  .ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}::before {
-    content: "→";
-    position: absolute;
-    left: 0;
+  .ai-catalog-form-submit:hover {
+    background-color: #555;
   }
 
   .ai-catalog-download__download-section-{{ ai_gen_id }} {
     padding-top: 24px;
     border-top: 1px solid #e6e6e6;
+    text-align: center;
   }
 
   .ai-catalog-download__download-text-{{ ai_gen_id }} {
@@ -275,32 +266,52 @@
       </p>
 
       <div class="ai-catalog-download__form-container-{{ ai_gen_id }}">
-        {% if block.settings.form_id != blank %}
-          {% render 'form', id: block.settings.form_id %}
-        {% else %}
-          <div class="ai-catalog-download__form-placeholder-{{ ai_gen_id }}">
-            <div class="ai-catalog-download__form-placeholder-title-{{ ai_gen_id }}">
-              Shopify Form Not Connected
+        <!-- Replaced the broken snippet with a native Shopify contact form -->
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <p style="color: green; margin-bottom: 10px;">Thank you! You can download the catalog below.</p>
+          {% elsif form.errors %}
+            <div style="color: red; margin-bottom: 10px;">
+              {{ form.errors | default_errors }}
             </div>
-            <p class="ai-catalog-download__form-placeholder-text-{{ ai_gen_id }}">
-              To connect your Shopify Form:
-            </p>
-            <div class="ai-catalog-download__form-placeholder-steps-{{ ai_gen_id }}">
-              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
-                Go to your Shopify admin and install the Shopify Forms app
-              </div>
-              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
-                Create a new form with fields: Name, Email, Mobile, Company Name
-              </div>
-              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
-                Copy the Form ID from the Shopify Forms app
-              </div>
-              <div class="ai-catalog-download__form-placeholder-step-{{ ai_gen_id }}">
-                Paste the Form ID in the "Shopify Form ID" setting below
-              </div>
-            </div>
+          {% endif %}
+
+          <div class="ai-catalog-form-field">
+            <input type="text" 
+                   name="contact[name]" 
+                   id="ContactFormName-{{ ai_gen_id }}" 
+                   class="ai-catalog-form-input" 
+                   placeholder="Name">
           </div>
-        {% endif %}
+          
+          <div class="ai-catalog-form-field">
+            <input type="email" 
+                   name="contact[email]" 
+                   id="ContactFormEmail-{{ ai_gen_id }}" 
+                   class="ai-catalog-form-input" 
+                   placeholder="Email">
+          </div>
+
+          <div class="ai-catalog-form-field">
+            <input type="tel" 
+                   name="contact[phone]" 
+                   id="ContactFormPhone-{{ ai_gen_id }}" 
+                   class="ai-catalog-form-input" 
+                   placeholder="Mobile">
+          </div>
+
+          <div class="ai-catalog-form-field">
+            <input type="text" 
+                   name="contact[company]" 
+                   id="ContactFormCompany-{{ ai_gen_id }}" 
+                   class="ai-catalog-form-input" 
+                   placeholder="Company Name">
+          </div>
+
+          <button type="submit" class="ai-catalog-form-submit">
+            Send Information (Optional)
+          </button>
+        {% endform %}
       </div>
 
       <div class="ai-catalog-download__download-section-{{ ai_gen_id }}">
@@ -333,10 +344,8 @@
             {{ block.settings.download_btn_label }}
           </a>
         {% else %}
-          <div class="ai-catalog-download__form-placeholder-{{ ai_gen_id }}">
-            <p class="ai-catalog-download__form-placeholder-text-{{ ai_gen_id }}">
-              Please add your PDF URL in the block settings
-            </p>
+          <div style="padding: 10px; background: #f0f0f0; color: #666; border-radius: 4px;">
+            Please add your PDF URL in the block settings
           </div>
         {% endif %}
       </div>
@@ -357,6 +366,11 @@
         this.modalClose = this.querySelector('[data-modal-close]');
 
         this.setupEventListeners();
+        
+        // Check if form was posted successfully to keep modal open
+        if(window.location.href.indexOf('contact_posted=true') > -1) {
+             this.openModal();
+        }
       }
 
       setupEventListeners() {
@@ -444,17 +458,7 @@
       "type": "textarea",
       "id": "modal_description",
       "label": "Modal description",
-      "default": "Please fill out the form below to receive your catalog download link."
-    },
-    {
-      "type": "header",
-      "content": "Shopify Form"
-    },
-    {
-      "type": "text",
-      "id": "form_id",
-      "label": "Shopify Form ID",
-      "info": "Create a form in Shopify Forms app, then paste the Form ID here"
+      "default": "Please fill out the form below (optional) to receive your catalog download link."
     },
     {
       "type": "header",
@@ -469,7 +473,7 @@
       "type": "text",
       "id": "download_text",
       "label": "Download section text",
-      "default": "After submitting the form, you can download the catalog:"
+      "default": "You can download the catalog here:"
     },
     {
       "type": "text",
