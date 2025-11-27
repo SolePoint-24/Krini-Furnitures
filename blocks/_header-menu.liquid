@@ -589,38 +589,35 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
-  /* 1. Make the parent List Item the anchor point */
-  .menu-list__list-item {
-    position: relative;
-  }
+  /* ---------------------------------------------------- */
+  /* UPDATED DROPDOWN STYLES (Stronger Overrides)        */
+  /* ---------------------------------------------------- */
 
-  /* 2. Style the Dropdown Container */
+  /* 1. Container: The Floating Box */
   .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu {
     width: max-content;
-    min-width: 220px;
-    max-width: 350px;
+    min-width: 200px;         /* Can be smaller now */
+    max-width: 300px;
     
     /* Position */
     left: 0;
     top: 100%;
     
-    /* Colors & Aesthetics */
-    background-color: #f3efe7 !important; /* User requested BG */
+    /* Colors */
+    background-color: #f3efe7 !important;
     border-radius: 12px;
     margin-top: 15px;
-    padding: 12px;
+    padding: 15px !important; /* Fixed padding around the whole list */
     
-    box-shadow: 0 10px 30px rgba(81, 49, 23, 0.1), 0 1px 3px rgba(81, 49, 23, 0.05); /* Slight brown tint to shadow */
+    /* Shadow */
+    box-shadow: 0 10px 30px rgba(81, 49, 23, 0.1), 0 1px 3px rgba(81, 49, 23, 0.05);
     border: 1px solid rgba(81, 49, 23, 0.1);
     
-    /* Alignment Fixes */
+    /* Force Left Alignment on the container itself */
     text-align: left !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important; /* Forces items to left */
   }
 
-  /* 3. The Little Triangle/Arrow on top */
+  /* 2. Triangle Arrow */
   .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu::before {
     content: '';
     position: absolute;
@@ -628,41 +625,59 @@
     left: 20px;
     width: 12px;
     height: 12px;
-    background-color: #f3efe7 !important; /* Match BG color */
+    background-color: #f3efe7 !important;
     transform: rotate(45deg);
     border-top: 1px solid rgba(81, 49, 23, 0.1);
     border-left: 1px solid rgba(81, 49, 23, 0.1);
     z-index: 2;
   }
 
-  /* 4. Force Content layout */
-  .menu-list__submenu .mega-menu__content-list,
-  .menu-list__submenu .mega-menu__list, 
-  .menu-list__submenu .menu-list__submenu-inner {
+  /* 3. CRITICAL: Kill the internal Shopify Grid and Page Width constraints */
+  .menu-list__submenu .mega-menu__grid,
+  .menu-list__submenu .mega-menu__content,
+  .menu-list__submenu .section,
+  .menu-list__submenu .section--page-width {
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important; /* Critical for left align */
     gap: 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-shadow: none !important; /* Remove any internal shadows */
   }
 
-  /* 5. Style the Links (Text Color & Align) */
+  /* 4. Reset the columns to be full width rows */
+  .menu-list__submenu .mega-menu__column {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  /* 5. Style the Links */
   .menu-list__submenu .mega-menu__link {
-    color: #513117 !important; /* User requested Text Color */
-    font-weight: 500;          /* Optional: makes text slightly bolder */
-    padding: 10px 12px;
+    color: #513117 !important;
+    font-weight: 500;
+    padding: 8px 12px !important; /* Clean padding */
+    margin: 0 !important;
     width: 100%;
     display: block;
     text-align: left !important;
     text-decoration: none;
+    background: transparent;
     transition: background-color 0.2s ease;
+    line-height: 1.2;
   }
 
-  /* Hover effect for links */
+  /* Hover effect */
   .menu-list__submenu .mega-menu__link:hover {
-    background-color: rgba(81, 49, 23, 0.08); /* Darker brown tint on hover */
+    background-color: rgba(81, 49, 23, 0.08);
     color: #513117 !important;
+    border-radius: 6px;
   }
 {% endstylesheet %}
 
