@@ -1070,10 +1070,10 @@ ul[product-grid-view='zoom-out'] .card-gallery > img {
 }
 
 [product-grid-view='zoom-out'] {
-  --product-grid-columns-desktop: repeat(
-    10,
-    minmax(clamp(50px, calc(100% - 9 * var(--product-grid-gap)) / 10, 80px), 1fr)
-  );
+  --product-grid-columns-desktop: repeat(4, 1fr) !important;
+
+  /* 2. Force the actual grid property directly (bypassing variables) */
+  grid-template-columns: repeat(4, 1fr) !important;
 }
 
 .product-grid-view-zoom-out--details {
