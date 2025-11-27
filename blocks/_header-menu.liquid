@@ -589,73 +589,80 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+  /* 1. Make the parent List Item the anchor point */
   .menu-list__list-item {
     position: relative;
   }
 
-  /* 2. Style the Dropdown to look like a floating card */
+  /* 2. Style the Dropdown Container */
   .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu {
-    width: max-content;       /* Only as wide as the content needs */
-    min-width: 220px;         /* Minimum width so it looks substantial */
-    max-width: 350px;         /* Prevent it from getting too wide */
+    width: max-content;
+    min-width: 220px;
+    max-width: 350px;
     
-    /* Positioning */
-    left: 0;                  /* Align to left edge of parent text */
-    /* Optional: Use this instead of left:0 if you want it perfectly centered: 
-       left: 50%; transform: translateX(-50%); 
-    */
-    top: 100%;                /* Push to bottom of parent */
+    /* Position */
+    left: 0;
+    top: 100%;
     
-    /* aesthetics */
-    border-radius: 12px;      /* Rounded corners */
-    margin-top: 15px;         /* Gap between text and box */
-    padding: 12px;            /* Inner spacing */
-    background-color: var(--color-background);
+    /* Colors & Aesthetics */
+    background-color: #f3efe7 !important; /* User requested BG */
+    border-radius: 12px;
+    margin-top: 15px;
+    padding: 12px;
     
-    /* Modern Shadow for "Floating" effect */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px rgba(81, 49, 23, 0.1), 0 1px 3px rgba(81, 49, 23, 0.05); /* Slight brown tint to shadow */
+    border: 1px solid rgba(81, 49, 23, 0.1);
+    
+    /* Alignment Fixes */
+    text-align: left !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Forces items to left */
   }
 
-  /* 3. Handle the arrow/triangle on top (Optional aesthetic touch) */
+  /* 3. The Little Triangle/Arrow on top */
   .menu-list__list-item:where(:not([slot='overflow'])) > .menu-list__submenu::before {
     content: '';
     position: absolute;
     top: -6px;
-    left: 20px; /* Adjust if using centered alignment */
+    left: 20px;
     width: 12px;
     height: 12px;
-    background-color: var(--color-background);
+    background-color: #f3efe7 !important; /* Match BG color */
     transform: rotate(45deg);
-    border-top: 1px solid rgba(0,0,0,0.05);
-    border-left: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(81, 49, 23, 0.1);
+    border-left: 1px solid rgba(81, 49, 23, 0.1);
     z-index: 2;
   }
 
-  /* 4. Force the internal content to stack vertically (List style) */
+  /* 4. Force Content layout */
   .menu-list__submenu .mega-menu__content-list,
   .menu-list__submenu .mega-menu__list, 
   .menu-list__submenu .menu-list__submenu-inner {
     display: flex !important;
     flex-direction: column !important;
-    gap: 5px !important;
-    grid-template-columns: 1fr !important; /* Override any grid systems */
+    align-items: flex-start !important; /* Critical for left align */
+    gap: 0 !important;
     padding: 0 !important;
     width: 100% !important;
   }
 
-  /* 5. Style the individual links inside */
+  /* 5. Style the Links (Text Color & Align) */
   .menu-list__submenu .mega-menu__link {
-    padding: 8px 12px;
-    border-radius: 6px;
+    color: #513117 !important; /* User requested Text Color */
+    font-weight: 500;          /* Optional: makes text slightly bolder */
+    padding: 10px 12px;
     width: 100%;
     display: block;
+    text-align: left !important;
+    text-decoration: none;
     transition: background-color 0.2s ease;
   }
 
+  /* Hover effect for links */
   .menu-list__submenu .mega-menu__link:hover {
-    background-color: rgba(0, 0, 0, 0.03); /* Subtle hover effect */
-    color: var(--color-foreground);
+    background-color: rgba(81, 49, 23, 0.08); /* Darker brown tint on hover */
+    color: #513117 !important;
   }
 {% endstylesheet %}
 
