@@ -75,12 +75,19 @@
     <script src="{{ 'compare.js' | asset_url }}" defer></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-
+        
         const allSections = document.querySelectorAll('.shopify-section');
 
         allSections.forEach(function (section) {
-          section.setAttribute('data-aos', 'fade-up');
-          section.setAttribute('data-aos-duration', '1000'); // Optional: set duration
+          // CHECK: Is this section inside the header group?
+          // We use .closest() to see if the section is a child of #header-group
+          const isHeader = section.closest('#header-group');
+
+          // Only add animation if it is NOT a header
+          if (!isHeader) {
+            section.setAttribute('data-aos', 'fade-up');
+            section.setAttribute('data-aos-duration', '1000'); 
+          }
         });
 
         AOS.init();
