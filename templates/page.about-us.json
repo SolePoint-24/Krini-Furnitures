@@ -62,7 +62,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/latest-small-bedroom-interior-design-modern-indian-storage-ideas.png",
+        "image_1": "shopify://shop_images/Dining_Area.jpg",
         "media_type_2": "image",
         "link": "",
         "open_in_new_tab": false,
@@ -461,7 +461,7 @@
             "heading_color": "#513117",
             "subtitle_color": "#513117",
             "tile_text_color": "#ffffff",
-            "overlay_color": "rgba(81, 49, 23, 0.85)",
+            "overlay_color": "#513117d9",
             "tile_placeholder_bg": "#eeddc6",
             "tile_placeholder_gradient": "#c3cca6",
             "tile_title_size": 24,
