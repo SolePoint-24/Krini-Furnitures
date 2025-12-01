@@ -653,7 +653,7 @@
                   "type": "button",
                   "settings": {
                     "label": "Request Quote",
-                    "link": "/pages/architects-and-designers#shopify-section-template--19857273880733__1763556337395b98e0",
+                    "link": "shopify://pages/request-a-quote",
                     "open_in_new_tab": false,
                     "style_class": "button",
                     "width": "fit-content",
