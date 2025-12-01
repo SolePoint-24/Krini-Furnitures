@@ -1023,7 +1023,7 @@
                   "type": "button",
                   "settings": {
                     "label": "Request Quote",
-                    "link": "shopify://collections/all",
+                    "link": "shopify://pages/request-a-quote",
                     "open_in_new_tab": false,
                     "style_class": "button",
                     "width": "fit-content",
