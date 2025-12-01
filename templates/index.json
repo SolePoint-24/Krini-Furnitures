@@ -1022,7 +1022,7 @@
                 "button_JhHTRm": {
                   "type": "button",
                   "settings": {
-                    "label": "Request Quote",
+                    "label": "Request a Quote",
                     "link": "shopify://pages/request-a-quote",
                     "open_in_new_tab": false,
                     "style_class": "button",
