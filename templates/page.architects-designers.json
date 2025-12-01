@@ -1382,7 +1382,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Partner With Us",
-                "link": "shopify://collections/all",
+                "link": "shopify://pages/partner-with-us",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
