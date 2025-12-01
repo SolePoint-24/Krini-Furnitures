@@ -602,7 +602,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>LESS IS ALWAYS MORE</h2>",
+            "text": "<h2>Redefining Modern Furniture in India</h2>",
             "width": "100%",
             "max_width": "none",
             "alignment": "center",
@@ -655,7 +655,6 @@
         "text_CyenJj",
         "text_m4ig7N"
       ],
-      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
@@ -3386,11 +3385,11 @@
     "hero_QaAFgP",
     "section_aPAY3V",
     "section_CQdPLk",
+    "section_8hDccJ",
     "collection_tiles_grid_jRffKA",
     "176407140506ba0995",
     "multi_collection_showcase_PN8Hza",
     "features_grid_FXbkWw",
-    "section_8hDccJ",
     "section_BarAtL",
     "section_H8mzfJ",
     "section_34AWMi",
