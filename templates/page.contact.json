@@ -451,7 +451,7 @@
                   "type": "button",
                   "settings": {
                     "label": "Set up a Meeting",
-                    "link": "shopify://collections/all",
+                    "link": "tel:+918591489667",
                     "open_in_new_tab": false,
                     "style_class": "button",
                     "width": "fit-content",
