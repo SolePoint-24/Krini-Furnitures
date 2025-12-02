@@ -1879,10 +1879,37 @@
               },
               "blocks": {}
             },
+            "text_Y4XbDK": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<p>Partner with Krini — where creativity becomes reality.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "button_kjTJwp": {
               "type": "button",
+              "disabled": true,
               "settings": {
-                "label": "Shop now",
+                "label": "Partner with Krini",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button",
@@ -1897,6 +1924,7 @@
           "block_order": [
             "text_BX6YUa",
             "text_4jFr4b",
+            "text_Y4XbDK",
             "button_kjTJwp"
           ]
         }
