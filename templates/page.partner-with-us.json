@@ -173,6 +173,88 @@
         "padding-block-end": 48
       }
     },
+    "section_dDEw8i": {
+      "type": "section",
+      "blocks": {
+        "ai_gen_block_5352c55_NRWQrN": {
+          "type": "ai_gen_block_5352c55",
+          "settings": {
+            "title": "How We Partner With You",
+            "subtitle": "",
+            "display_style": "numbers",
+            "step_1_title": "Understand",
+            "step_1_description": "We learn the story behind your project — its purpose, style, scale, and challenges.",
+            "step_1_icon": "search",
+            "step_2_title": "Curate",
+            "step_2_description": "Our team suggests suitable designs, materials, finishes, or fully custom solutions.",
+            "step_2_icon": "heart",
+            "step_3_title": "Build",
+            "step_3_description": "Your vision moves into production with precision, care, and continuous updates.",
+            "step_3_icon": "cart",
+            "step_4_title": "Deliver & Install",
+            "step_4_description": "Every piece arrives thoughtfully packed, quality-checked, and ready to elevate the space.",
+            "step_4_icon": "package",
+            "step_5_title": "Grow Together",
+            "step_5_description": "We maintain long-term relationships, offering support for future expansions, new developments, and ongoing collaborations.",
+            "step_5_icon": "star",
+            "max_width": 1200,
+            "section_padding": 60,
+            "header_spacing": 40,
+            "step_gap": 30,
+            "title_size": 36,
+            "subtitle_size": 16,
+            "step_title_size": 16,
+            "step_description_size": 14,
+            "icon_size": 70,
+            "number_size": 24,
+            "icon_border_width": 2,
+            "arrow_size": 10,
+            "background_color": "#ffffff",
+            "title_color": "#513117",
+            "subtitle_color": "#513117",
+            "icon_background": "#eeddc6",
+            "icon_border_color": "#513117",
+            "icon_color": "#513117",
+            "number_color": "#513117",
+            "step_title_color": "#513117",
+            "step_description_color": "#513117",
+            "arrow_color": "#513117"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_5352c55_NRWQrN"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-6",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "section_WgcDhD": {
       "type": "section",
       "blocks": {
@@ -711,94 +793,12 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
-    },
-    "section_dDEw8i": {
-      "type": "section",
-      "blocks": {
-        "ai_gen_block_5352c55_NRWQrN": {
-          "type": "ai_gen_block_5352c55",
-          "settings": {
-            "title": "Collaboration Process",
-            "subtitle": "Follow these simple steps",
-            "display_style": "numbers",
-            "step_1_title": "Share your",
-            "step_1_description": "project requirements",
-            "step_1_icon": "search",
-            "step_2_title": "Co-create design concepts",
-            "step_2_description": "with our design team",
-            "step_2_icon": "heart",
-            "step_3_title": "Prototype & approve",
-            "step_3_description": "materials and finishes",
-            "step_3_icon": "cart",
-            "step_4_title": "Production & delivery",
-            "step_4_description": "with on-time coordination",
-            "step_4_icon": "package",
-            "step_5_title": "Ongoing partnership support",
-            "step_5_description": "for future collaborations",
-            "step_5_icon": "star",
-            "max_width": 1200,
-            "section_padding": 60,
-            "header_spacing": 40,
-            "step_gap": 30,
-            "title_size": 36,
-            "subtitle_size": 16,
-            "step_title_size": 16,
-            "step_description_size": 14,
-            "icon_size": 70,
-            "number_size": 24,
-            "icon_border_width": 2,
-            "arrow_size": 10,
-            "background_color": "#ffffff",
-            "title_color": "#513117",
-            "subtitle_color": "#513117",
-            "icon_background": "#eeddc6",
-            "icon_border_color": "#513117",
-            "icon_color": "#513117",
-            "number_color": "#513117",
-            "step_title_color": "#513117",
-            "step_description_color": "#513117",
-            "arrow_color": "#513117"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_5352c55_NRWQrN"
-      ],
-      "name": "t:names.custom_section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "small",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
     }
   },
   "order": [
     "main",
     "section_fNHyXm",
-    "section_WgcDhD",
-    "section_dDEw8i"
+    "section_dDEw8i",
+    "section_WgcDhD"
   ]
 }
