@@ -16,11 +16,37 @@
           "type": "text",
           "name": "Title",
           "settings": {
-            "text": "<h1>{{ closest.page.title }}</h1>",
+            "text": "<p>Request a Quote for Custom Furniture | Krini</p>",
             "width": "100%",
             "max_width": "normal",
-            "alignment": "left",
+            "alignment": "center",
             "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_GzUpMQ": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Looking for premium hotel furniture, modular room setups, or space-saving custom furniture? </p><p>Fill in the form to receive a <strong>fast and accurate project quotation</strong> from Krini’s expert team. </p><p>We specialize in <strong>hospitality furniture, commercial interiors, bulk furniture orders</strong>, and <strong>custom-made designs</strong> delivered across <strong>Pan-India and internationally</strong>. </p><p>Send us your project details, upload reference files, and share your preferred timeline. Our team will provide a <strong>personalized estimate</strong> and design recommendations within <strong>24–48 hours</strong>.</p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -46,9 +72,9 @@
       },
       "block_order": [
         "heading",
+        "text_GzUpMQ",
         "page-content"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
