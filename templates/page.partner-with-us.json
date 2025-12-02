@@ -173,6 +173,54 @@
         "padding-block-end": 48
       }
     },
+    "features_grid_f6X3nP": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_jY9pbU": {
+          "type": "feature",
+          "settings": {
+            "title": "Design That Works in the Real World",
+            "text": "<p>We blend aesthetics with engineering — ensuring every piece is functional, durable, and project-ready.</p>"
+          }
+        },
+        "feature_Vg9tzr": {
+          "type": "feature",
+          "settings": {
+            "title": "Manufacturing You Can Depend On",
+            "text": "<p>With advanced machinery, skilled craftsmen, and strict QC, we deliver<br/>consistency across single units or large-scale orders.</p>"
+          }
+        },
+        "feature_7AFVBF": {
+          "type": "feature",
+          "settings": {
+            "title": "Honest Timelines & Transparent Execution",
+            "text": "<p>We commit to clear scheduling, reliable<br/>delivery, and open communication at every stage.</p>"
+          }
+        },
+        "feature_zd4meN": {
+          "type": "feature",
+          "settings": {
+            "title": "Solutions, Not Just Products",
+            "text": "<p>From space-saving concepts to hospitality grade solutions, we provide ideas, insights, and support tailored to your project's needs.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_jY9pbU",
+        "feature_Vg9tzr",
+        "feature_7AFVBF",
+        "feature_zd4meN"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "color_scheme": "",
+        "full_width": false,
+        "heading": "What Makes Krini a Valuable Partner?",
+        "heading_text_alignment": "center",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "section_x7BNDa": {
       "type": "section",
       "blocks": {
@@ -1157,6 +1205,7 @@
   "order": [
     "main",
     "section_fNHyXm",
+    "features_grid_f6X3nP",
     "section_x7BNDa",
     "section_dDEw8i",
     "section_WgcDhD"
