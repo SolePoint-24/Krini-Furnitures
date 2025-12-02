@@ -909,6 +909,60 @@
         "padding-block-end": 40
       }
     },
+    "features_grid_aUdaJn": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_4JMDCi": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/established.png",
+            "title": "Quality& Craftsmanship",
+            "text": "<p>We use premium materials, skilled craftsmanship, and strict quality checks to ensure durability you can trust.</p>"
+          }
+        },
+        "feature_C6f8fR": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/reputation.png",
+            "title": "Customer-Centric Approach",
+            "text": "<p>Your comfort, preferences, and satisfaction guide everything we do — from the first consultation to the final installation.</p>"
+          }
+        },
+        "feature_4nPcpP": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/integration.png",
+            "title": "Integrity",
+            "text": "<p>Transparent processes, honest communication, and long-term trust are at the heart of our brand.</p>"
+          }
+        },
+        "feature_YMtYqg": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/support.png",
+            "title": "Teamwork",
+            "text": "<p>Teamwork is the foundation of all that we have achieved so far. We empower our teams to take fast and well informed decisions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_4JMDCi",
+        "feature_C6f8fR",
+        "feature_4nPcpP",
+        "feature_YMtYqg"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "full_width": true,
+        "heading": "The Krini Furniture Promise",
+        "heading_text_alignment": "center",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "collection_tiles_grid_jRffKA": {
       "type": "collection-tiles-grid",
       "blocks": {
@@ -3630,6 +3684,7 @@
     "section_8hDccJ",
     "section_34AWMi",
     "section_mdtRWM",
+    "features_grid_aUdaJn",
     "collection_tiles_grid_jRffKA",
     "176407140506ba0995",
     "multi_collection_showcase_PN8Hza",
