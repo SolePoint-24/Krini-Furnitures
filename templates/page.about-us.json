@@ -477,6 +477,176 @@
         "padding-block-end": 48
       }
     },
+    "features_grid_aUdaJn": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_4JMDCi": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/target_1.svg",
+            "title": "Our Mission",
+            "text": "<p>To design and manufacture furniture that elevates everyday living by blending contemporary design, functional innovation, and exceptional build quality all while providing a seamless, customer-first experience.<br/><br/></p>"
+          }
+        },
+        "feature_C6f8fR": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/vision_1.svg",
+            "title": "Our Vision",
+            "text": "<p>To become one of India’s most reliable and design-driven furniture brands, recognized for delivering sustainable, stylish, and high-performance furniture for homes, offices, and commercial spaces.<br/><br/></p>"
+          }
+        },
+        "feature_4nPcpP": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/integration.png",
+            "title": "Integrity",
+            "text": "<p>Transparent processes, honest communication, and long-term trust are at the heart of our brand.</p>"
+          }
+        },
+        "feature_YMtYqg": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/support.png",
+            "title": "Teamwork",
+            "text": "<p>Teamwork is the foundation of all that we have achieved so far. We empower our teams to take fast and well informed decisions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_4JMDCi",
+        "feature_C6f8fR",
+        "feature_4nPcpP",
+        "feature_YMtYqg"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "full_width": true,
+        "heading": "",
+        "heading_text_alignment": "center",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "section_hm8ftj": {
+      "type": "section",
+      "blocks": {
+        "text_pGGt6p": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h2>The Krini Furniture Promise</h2>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_eadGf7": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<p>We don’t just make furniture — <strong>we design experiences that bring your vision to life.</strong></p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "h4",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "text_RCkdMR": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Whether you’re building a new home, upgrading your office, or designing a commercial project, Krini Furniture is committed to delivering furniture that reflects your style and stands strong for years to come.</p>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_pGGt6p",
+        "text_eadGf7",
+        "text_RCkdMR"
+      ],
+      "name": "t:names.rich_text_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-8",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
     "section_34AWMi": {
       "type": "section",
       "blocks": {
@@ -909,60 +1079,6 @@
         "gradient_direction": "to top",
         "padding-block-start": 40,
         "padding-block-end": 40
-      }
-    },
-    "features_grid_aUdaJn": {
-      "type": "features-grid",
-      "blocks": {
-        "feature_4JMDCi": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/target_1.svg",
-            "title": "Our Mission",
-            "text": "<p>To design and manufacture furniture that elevates everyday living by blending contemporary design, functional innovation, and exceptional build quality all while providing a seamless, customer-first experience.<br/><br/></p>"
-          }
-        },
-        "feature_C6f8fR": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/vision_1.svg",
-            "title": "Our Vision",
-            "text": "<p>To become one of India’s most reliable and design-driven furniture brands, recognized for delivering sustainable, stylish, and high-performance furniture for homes, offices, and commercial spaces.<br/><br/></p>"
-          }
-        },
-        "feature_4nPcpP": {
-          "type": "feature",
-          "disabled": true,
-          "settings": {
-            "icon": "shopify://shop_images/integration.png",
-            "title": "Integrity",
-            "text": "<p>Transparent processes, honest communication, and long-term trust are at the heart of our brand.</p>"
-          }
-        },
-        "feature_YMtYqg": {
-          "type": "feature",
-          "disabled": true,
-          "settings": {
-            "icon": "shopify://shop_images/support.png",
-            "title": "Teamwork",
-            "text": "<p>Teamwork is the foundation of all that we have achieved so far. We empower our teams to take fast and well informed decisions.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "feature_4JMDCi",
-        "feature_C6f8fR",
-        "feature_4nPcpP",
-        "feature_YMtYqg"
-      ],
-      "name": "Features Grid",
-      "settings": {
-        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
-        "full_width": true,
-        "heading": "",
-        "heading_text_alignment": "center",
-        "padding_top": 40,
-        "padding_bottom": 40
       }
     },
     "collection_tiles_grid_jRffKA": {
@@ -3684,9 +3800,10 @@
     "section_aPAY3V",
     "section_CQdPLk",
     "section_8hDccJ",
+    "features_grid_aUdaJn",
+    "section_hm8ftj",
     "section_34AWMi",
     "section_mdtRWM",
-    "features_grid_aUdaJn",
     "collection_tiles_grid_jRffKA",
     "176407140506ba0995",
     "multi_collection_showcase_PN8Hza",
