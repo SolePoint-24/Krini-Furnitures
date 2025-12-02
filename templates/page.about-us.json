@@ -664,6 +664,7 @@
         "group_pR4C44",
         "group_EFrFcf"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -880,6 +881,7 @@
         "group_iBhnYf",
         "group_CBeWn7"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
@@ -915,17 +917,17 @@
         "feature_4JMDCi": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/established.png",
-            "title": "Quality& Craftsmanship",
-            "text": "<p>We use premium materials, skilled craftsmanship, and strict quality checks to ensure durability you can trust.</p>"
+            "icon": "shopify://shop_images/target_1.svg",
+            "title": "Our Mission",
+            "text": "<p>To design and manufacture furniture that elevates everyday living by blending contemporary design, functional innovation, and exceptional build quality all while providing a seamless, customer-first experience.<br/><br/></p>"
           }
         },
         "feature_C6f8fR": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/reputation.png",
-            "title": "Customer-Centric Approach",
-            "text": "<p>Your comfort, preferences, and satisfaction guide everything we do — from the first consultation to the final installation.</p>"
+            "icon": "shopify://shop_images/vision_1.svg",
+            "title": "Our Vision",
+            "text": "<p>To become one of India’s most reliable and design-driven furniture brands, recognized for delivering sustainable, stylish, and high-performance furniture for homes, offices, and commercial spaces.<br/><br/></p>"
           }
         },
         "feature_4nPcpP": {
