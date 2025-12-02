@@ -2394,7 +2394,7 @@
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
             "width": "custom",
-            "custom_width": 40,
+            "custom_width": 20,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -2425,7 +2425,7 @@
               "type": "image",
               "name": "t:names.image",
               "settings": {
-                "image": "shopify://shop_images/rating.webp",
+                "image": "shopify://shop_images/goal.svg",
                 "link": "",
                 "image_ratio": "adapt",
                 "width": "fill",
@@ -2493,7 +2493,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>5-star rating</h3>",
+                "text": "<p>Our Mission</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -2531,7 +2531,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>Awarded a 5-star rating by the State Pollution Control Board for our unwavering commitment to environmental stewardship.<br/></p>",
+                "text": "<p>To design and manufacture furniture that elevates everyday living by blending contemporary design, functional innovation, and exceptional build quality all while providing a seamless, customer-first experience.</p>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -2565,7 +2565,6 @@
         "group_pR4C44",
         "group_EFrFcf"
       ],
-      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "row",
