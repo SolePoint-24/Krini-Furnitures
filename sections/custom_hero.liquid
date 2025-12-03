@@ -1,6 +1,19 @@
 {% comment %}
-  Hero Carousel - Supports Desktop & Mobile Videos
+  Hero Carousel - Adjustable Height + Video Support
 {% endcomment %}
+
+{%- style -%}
+  #Hero-{{ section.id }} {
+    height: {{ section.settings.mobile_height }}vh;
+    min-height: 500px;
+  }
+  @media screen and (min-width: 768px) {
+    #Hero-{{ section.id }} {
+      height: {{ section.settings.desktop_height }}vh;
+      min-height: 600px;
+    }
+  }
+{%- endstyle -%}
 
 <div
   id="Hero-{{ section.id }}"
@@ -271,8 +284,7 @@
     position: relative;
     color: #fff;
     overflow: hidden;
-    height: 50vh;
-    min-height: 600px;
+    /* Height is now handled by the dynamic style tag at the top of the file */
   }
 
   .hero-carousel__media-container {
@@ -311,7 +323,6 @@
     display: block;
   }
 
-  /* KEY FIX: Center the video so it crops evenly */
   .video-center {
     object-position: center center;
   }
@@ -507,6 +518,30 @@
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Height"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
     },
     {
       "type": "header",
