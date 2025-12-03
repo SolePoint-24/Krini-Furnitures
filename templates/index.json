@@ -18,11 +18,11 @@
             "collection": "",
             "custom_nav_title": "Krini",
             "video": "shopify://files/videos/KRINI Website Video.mp4",
-            "title": "Your Collection Title",
-            "subtitle": "<p>Tell a story about this collection.</p>",
-            "button_label": "Shop Now",
+            "title": "",
+            "subtitle": "",
+            "button_label": "",
             "button_link": "",
-            "button_2_label": "Learn More",
+            "button_2_label": "",
             "button_2_link": ""
           }
         },
