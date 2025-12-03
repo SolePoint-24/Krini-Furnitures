@@ -1110,8 +1110,8 @@
           "type": "ai_gen_block_67d2d31",
           "name": "Before and after image",
           "settings": {
-            "before_image": "shopify://shop_images/after-image.png",
-            "after_image": "shopify://shop_images/before-image.png",
+            "before_image": "shopify://shop_images/after_1.jpg",
+            "after_image": "shopify://shop_images/before_1.jpg",
             "max_width": 1000,
             "aspect_ratio": 65,
             "border_radius": 8,
