@@ -1,7 +1,5 @@
 {% comment %}
-  This section creates a full-screen hero banner with an interactive collection carousel.
-  - Supports Images AND Videos.
-  - Video takes priority if uploaded.
+  Hero Carousel - Supports Desktop & Mobile Videos
 {% endcomment %}
 
 <div
@@ -22,22 +20,42 @@
         {%- assign image_mobile = block.settings.image_mobile | default: image_tablet -%}
         
         {%- assign video = block.settings.video -%}
+        {%- assign video_mobile = block.settings.video_mobile -%}
 
         <div
           class="hero-carousel__media-item{% if forloop.first %} is-active{% endif %}"
           data-collection-handle="{{ collection.handle | default: block.id }}"
         >
-          {% comment %} --- VIDEO LOGIC START --- {% endcomment %}
+          {% comment %} --- VIDEO LOGIC --- {% endcomment %}
           {% if video != blank %}
-            {{ video | video_tag: 
-              image_size: '2000x', 
-              autoplay: true, 
-              loop: true, 
-              muted: true, 
-              controls: false, 
-              class: 'full-height-image' 
-            }}
-          {% comment %} --- VIDEO LOGIC END (If no video, run Image logic) --- {% endcomment %}
+            
+            {% comment %} Desktop Video {% endcomment %}
+            <div class="hero-media-wrapper {% if video_mobile != blank %}hide-on-mobile{% endif %}">
+              {{ video | video_tag: 
+                image_size: '2000x', 
+                autoplay: true, 
+                loop: true, 
+                muted: true, 
+                controls: false, 
+                class: 'full-height-image video-center' 
+              }}
+            </div>
+
+            {% comment %} Mobile Video (Only renders if uploaded) {% endcomment %}
+            {% if video_mobile != blank %}
+              <div class="hero-media-wrapper hide-on-desktop">
+                {{ video_mobile | video_tag: 
+                  image_size: '1000x', 
+                  autoplay: true, 
+                  loop: true, 
+                  muted: true, 
+                  controls: false, 
+                  class: 'full-height-image video-center' 
+                }}
+              </div>
+            {% endif %}
+
+          {% comment %} --- IMAGE LOGIC (Fallback) --- {% endcomment %}
           {% elsif image_desktop != blank %}
             {%- assign loading_attr = 'lazy' -%}
             {%- assign fetch_priority_attr = 'auto' -%}
@@ -47,14 +65,8 @@
             {%- endif -%}
 
             <picture>
-              <source
-                media="(min-width: 1024px)"
-                srcset="{{ image_desktop | image_url: width: 3840 }}"
-              >
-              <source
-                media="(min-width: 768px)"
-                srcset="{{ image_tablet | image_url: width: 2048 }}"
-              >
+              <source media="(min-width: 1024px)" srcset="{{ image_desktop | image_url: width: 3840 }}">
+              <source media="(min-width: 768px)" srcset="{{ image_tablet | image_url: width: 2048 }}">
               <img
                 src="{{ image_mobile | image_url: width: 1534 }}"
                 alt="{{ image_desktop.alt | default: collection.title | escape }}"
@@ -285,6 +297,13 @@
     position: absolute; inset: 0; z-index: 1;
   }
 
+  .hero-media-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
   .full-height-image {
     height: 100%;
     width: 100%;
@@ -292,11 +311,15 @@
     display: block;
   }
 
+  /* KEY FIX: Center the video so it crops evenly */
+  .video-center {
+    object-position: center center;
+  }
+
   .hero-carousel__media-item.is-active {
     opacity: 1; z-index: 2;
   }
 
-  /* UPDATED CSS SELECTOR FOR VIDEO */
   .hero-carousel__media-item picture,
   .hero-carousel__media-item img,
   .hero-carousel__media-item video {
@@ -434,6 +457,9 @@
   .hero-carousel__play-pause.is-paused .icon-pause { display: none; }
 
   @media screen and (max-width: 768px) {
+    /* HIDE DESKTOP VIDEO ON MOBILE */
+    .hide-on-mobile { display: none !important; }
+    
     .hero-carousel__media-container::after { background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%); }
 
     .hero-carousel__main-title { font-size: 2.2rem; }
@@ -462,6 +488,11 @@
     .hero-carousel__titles::-webkit-scrollbar {
       display: none;
     }
+  }
+
+  @media screen and (min-width: 769px) {
+    /* HIDE MOBILE VIDEO ON DESKTOP */
+    .hide-on-desktop { display: none !important; }
   }
 {% endstylesheet %}
 
@@ -523,8 +554,14 @@
         {
           "type": "video",
           "id": "video",
-          "label": "Background Video",
-          "info": "Upload a Shopify-hosted video. If selected, this replaces the images."
+          "label": "Desktop Video (Landscape)",
+          "info": "Replaces images on desktop."
+        },
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "Mobile Video (Portrait)",
+          "info": "Optional. Highly recommended to prevent cropping on phones."
         },
         {
           "type": "image_picker",
