@@ -12,6 +12,20 @@
     "custom_hero_gKtgPw": {
       "type": "custom_hero",
       "blocks": {
+        "collection_slide_Gc8ejJ": {
+          "type": "collection_slide",
+          "settings": {
+            "collection": "",
+            "custom_nav_title": "Krini",
+            "video": "shopify://files/videos/KRINI Website Video.mp4",
+            "title": "Your Collection Title",
+            "subtitle": "<p>Tell a story about this collection.</p>",
+            "button_label": "Shop Now",
+            "button_link": "",
+            "button_2_label": "Learn More",
+            "button_2_link": ""
+          }
+        },
         "collection_slide_d6rxeE": {
           "type": "collection_slide",
           "settings": {
@@ -56,6 +70,7 @@
         }
       },
       "block_order": [
+        "collection_slide_Gc8ejJ",
         "collection_slide_d6rxeE",
         "collection_slide_xX6KKP",
         "collection_slide_ARaXEU"
