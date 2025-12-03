@@ -1,5 +1,5 @@
 {% comment %}
-  Hero Carousel - Adjustable Height + Video Support + Auto-Scrolling Nav
+  Hero Carousel - Single Title View Mode
 {% endcomment %}
 
 {%- style -%}
@@ -41,8 +41,6 @@
         >
           {% comment %} --- VIDEO LOGIC --- {% endcomment %}
           {% if video != blank %}
-            
-            {% comment %} Desktop Video {% endcomment %}
             <div class="hero-media-wrapper {% if video_mobile != blank %}hide-on-mobile{% endif %}">
               {{ video | video_tag: 
                 image_size: '2000x', 
@@ -53,8 +51,6 @@
                 class: 'full-height-image video-center' 
               }}
             </div>
-
-            {% comment %} Mobile Video {% endcomment %}
             {% if video_mobile != blank %}
               <div class="hero-media-wrapper hide-on-desktop">
                 {{ video_mobile | video_tag: 
@@ -67,8 +63,6 @@
                 }}
               </div>
             {% endif %}
-
-          {% comment %} --- IMAGE LOGIC --- {% endcomment %}
           {% elsif image_desktop != blank %}
             {%- assign loading_attr = 'lazy' -%}
             {%- assign fetch_priority_attr = 'auto' -%}
@@ -173,7 +167,7 @@
       
       if (!this.nav) return; 
 
-      this.titlesContainer = this.section.querySelector('.hero-carousel__titles'); // NEW: Select the container
+      this.titlesContainer = this.section.querySelector('.hero-carousel__titles');
       this.links = this.section.querySelectorAll('.hero-carousel__title-link');
       this.images = this.section.querySelectorAll('.hero-carousel__media-item');
       this.contents = this.section.querySelectorAll('.hero-carousel__content-inner');
@@ -196,6 +190,11 @@
         });
       });
 
+      // Recalculate position on window resize
+      window.addEventListener('resize', () => {
+        this.scrollNavToActive(this.currentIndex);
+      });
+
       if (this.autoplay) {
         this.playPauseButton.addEventListener('click', this.togglePlayPause.bind(this));
         this.section.addEventListener('mouseenter', () => this.pause());
@@ -204,6 +203,9 @@
       } else {
         this.playPauseButton.style.display = 'none';
       }
+      
+      // Initialize position
+      this.scrollNavToActive(0);
     }
 
     goTo(index) {
@@ -220,24 +222,15 @@
 
       this.currentIndex = index;
 
-      // --- NEW FIX: SCROLL ACTIVE TITLE INTO VIEW ---
       this.scrollNavToActive(index);
     }
 
-    // New helper method to center the active text
     scrollNavToActive(index) {
-      const activeLink = this.links[index];
-      if (activeLink && this.titlesContainer) {
-        // Calculate the center position
+      if (this.titlesContainer) {
+        // Simple logic: Container width * Index = exact scroll position
         const containerWidth = this.titlesContainer.offsetWidth;
-        const linkLeft = activeLink.offsetLeft;
-        const linkWidth = activeLink.offsetWidth;
-        
-        // Target scroll position = link's left position - half screen + half link width
-        const scrollPosition = linkLeft - (containerWidth / 2) + (linkWidth / 2);
-
         this.titlesContainer.scrollTo({
-          left: scrollPosition,
+          left: containerWidth * index,
           behavior: 'smooth'
         });
       }
@@ -458,19 +451,38 @@
     backdrop-filter: blur(4px);
     padding: 0.5rem 1rem;
     border-radius: 5px;
-    max-width: 100%;
+    
+    /* FIX: Force nav to a manageable width on all screens so texts don't get too wide */
+    width: 100%;
+    max-width: 600px; 
   }
 
-  .hero-carousel__titles { display: flex; gap: 1.5rem; }
+  .hero-carousel__titles { 
+    display: flex; 
+    gap: 0; /* No gap needed as items are 100% width */
+    flex: 1; /* Take up all space between arrows */
+    overflow: hidden; /* Hide the neighbor titles */
+    scroll-behavior: smooth; /* Native smooth scroll support */
+  }
+  
   .hero-carousel__title-link {
     color: #fff; text-decoration: none; font-size: 1rem; opacity: 0.6;
     position: relative; transition: opacity 0.3s; padding-bottom: 5px;
     white-space: nowrap;
+    
+    /* FIX: KEY CHANGE - Force single item view */
+    flex: 0 0 100%; /* Each title takes 100% of the container width */
+    text-align: center; /* Center the text within that 100% width */
+    display: flex; align-items: center; justify-content: center; /* Ensure vertical centering too */
   }
+  
   .hero-carousel__title-link:hover, .hero-carousel__title-link.is-active { opacity: 1; }
+  
+  /* Underline animation centered */
   .hero-carousel__title-link.is-active::after {
-    content: ''; position: absolute; bottom: 0; left: 0;
-    width: 100%; height: 1px; background-color: #fff;
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 50%; /* Make underline shorter than full width for better look */
+    height: 1px; background-color: #fff;
   }
 
   .hero-carousel__arrow, .hero-carousel__play-pause {
@@ -478,6 +490,7 @@
     color: #fff; opacity: 0.7; transition: opacity 0.3s;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    z-index: 2; /* Ensure arrows sit above text layer */
   }
   .hero-carousel__arrow svg, .hero-carousel__play-pause svg {
     width: 20px; height: 20px;
@@ -490,7 +503,6 @@
   .hero-carousel__play-pause.is-paused .icon-pause { display: none; }
 
   @media screen and (max-width: 768px) {
-    /* HIDE DESKTOP VIDEO ON MOBILE */
     .hide-on-mobile { display: none !important; }
     
     .hero-carousel__media-container::after { background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%); }
@@ -504,27 +516,21 @@
       width: 100%; justify-content: center; padding: 0 1rem;
     }
     .hero-carousel__nav {
-      max-width: 400px; justify-content: center;
+      max-width: 90%; /* On mobile, let it take most of width */
+      justify-content: space-between;
       background: none; backdrop-filter: none;
       padding: 0; border-radius: 0;
-      width: 100%;
     }
     .hero-carousel__arrow, .hero-carousel__title-link, .hero-carousel__play-pause { color: #fff; }
     .hero-carousel__title-link.is-active::after { background-color: #fff; }
 
-    .hero-carousel__titles {
-      flex: 1;
-      overflow-x: auto;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    /* Hide scrollbars explicitly for mobile cleanliness */
     .hero-carousel__titles::-webkit-scrollbar {
       display: none;
     }
   }
 
   @media screen and (min-width: 769px) {
-    /* HIDE MOBILE VIDEO ON DESKTOP */
     .hide-on-desktop { display: none !important; }
   }
 {% endstylesheet %}
