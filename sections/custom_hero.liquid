@@ -1,8 +1,7 @@
 {% comment %}
   This section creates a full-screen hero banner with an interactive collection carousel.
-  - Each slide has a unique background image and a customizable content block.
-  - The content block includes a title, subtitle, and up to two buttons.
-  - The carousel supports autoplay with play/pause controls positioned at the bottom-center.
+  - Supports Images AND Videos.
+  - Video takes priority if uploaded.
 {% endcomment %}
 
 <div
@@ -21,12 +20,25 @@
         {%- assign image_desktop = block.settings.image_desktop | default: fallback_image -%}
         {%- assign image_tablet = block.settings.image_tablet | default: image_desktop -%}
         {%- assign image_mobile = block.settings.image_mobile | default: image_tablet -%}
+        
+        {%- assign video = block.settings.video -%}
 
         <div
           class="hero-carousel__media-item{% if forloop.first %} is-active{% endif %}"
           data-collection-handle="{{ collection.handle | default: block.id }}"
         >
-          {% if image_desktop != blank %}
+          {% comment %} --- VIDEO LOGIC START --- {% endcomment %}
+          {% if video != blank %}
+            {{ video | video_tag: 
+              image_size: '2000x', 
+              autoplay: true, 
+              loop: true, 
+              muted: true, 
+              controls: false, 
+              class: 'full-height-image' 
+            }}
+          {% comment %} --- VIDEO LOGIC END (If no video, run Image logic) --- {% endcomment %}
+          {% elsif image_desktop != blank %}
             {%- assign loading_attr = 'lazy' -%}
             {%- assign fetch_priority_attr = 'auto' -%}
             {%- if forloop.first -%}
@@ -134,7 +146,7 @@
       this.section = section;
       this.nav = this.section.querySelector('.hero-carousel__nav-wrapper');
       
-      if (!this.nav) return; // If only one slide, do nothing more.
+      if (!this.nav) return; 
 
       this.links = this.section.querySelectorAll('.hero-carousel__title-link');
       this.images = this.section.querySelectorAll('.hero-carousel__media-item');
@@ -284,8 +296,10 @@
     opacity: 1; z-index: 2;
   }
 
+  /* UPDATED CSS SELECTOR FOR VIDEO */
   .hero-carousel__media-item picture,
-  .hero-carousel__media-item img {
+  .hero-carousel__media-item img,
+  .hero-carousel__media-item video {
     display: block; width: 100%; height: 100%;
   }
 
@@ -501,6 +515,16 @@
           "label": "Custom Navigation Title",
           "default": "Slide",
           "info": "Used as the navigation title if no collection is selected."
+        },
+        {
+          "type": "header",
+          "content": "Media"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Background Video",
+          "info": "Upload a Shopify-hosted video. If selected, this replaces the images."
         },
         {
           "type": "image_picker",
