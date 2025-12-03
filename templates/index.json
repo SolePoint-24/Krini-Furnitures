@@ -78,7 +78,7 @@
       "name": "Hero Carousel",
       "settings": {
         "color_scheme": "",
-        "desktop_height": 80,
+        "desktop_height": 85,
         "mobile_height": 80,
         "autoplay": true,
         "autoplay_speed": 5000
