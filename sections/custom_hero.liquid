@@ -1,5 +1,5 @@
 {% comment %}
-  Hero Carousel - Adjustable Height + Video Support
+  Hero Carousel - Adjustable Height + Video Support + Auto-Scrolling Nav
 {% endcomment %}
 
 {%- style -%}
@@ -54,7 +54,7 @@
               }}
             </div>
 
-            {% comment %} Mobile Video (Only renders if uploaded) {% endcomment %}
+            {% comment %} Mobile Video {% endcomment %}
             {% if video_mobile != blank %}
               <div class="hero-media-wrapper hide-on-desktop">
                 {{ video_mobile | video_tag: 
@@ -68,7 +68,7 @@
               </div>
             {% endif %}
 
-          {% comment %} --- IMAGE LOGIC (Fallback) --- {% endcomment %}
+          {% comment %} --- IMAGE LOGIC --- {% endcomment %}
           {% elsif image_desktop != blank %}
             {%- assign loading_attr = 'lazy' -%}
             {%- assign fetch_priority_attr = 'auto' -%}
@@ -173,6 +173,7 @@
       
       if (!this.nav) return; 
 
+      this.titlesContainer = this.section.querySelector('.hero-carousel__titles'); // NEW: Select the container
       this.links = this.section.querySelectorAll('.hero-carousel__title-link');
       this.images = this.section.querySelectorAll('.hero-carousel__media-item');
       this.contents = this.section.querySelectorAll('.hero-carousel__content-inner');
@@ -218,6 +219,28 @@
       this.contents[index].classList.add('is-active');
 
       this.currentIndex = index;
+
+      // --- NEW FIX: SCROLL ACTIVE TITLE INTO VIEW ---
+      this.scrollNavToActive(index);
+    }
+
+    // New helper method to center the active text
+    scrollNavToActive(index) {
+      const activeLink = this.links[index];
+      if (activeLink && this.titlesContainer) {
+        // Calculate the center position
+        const containerWidth = this.titlesContainer.offsetWidth;
+        const linkLeft = activeLink.offsetLeft;
+        const linkWidth = activeLink.offsetWidth;
+        
+        // Target scroll position = link's left position - half screen + half link width
+        const scrollPosition = linkLeft - (containerWidth / 2) + (linkWidth / 2);
+
+        this.titlesContainer.scrollTo({
+          left: scrollPosition,
+          behavior: 'smooth'
+        });
+      }
     }
 
     next() {
@@ -284,7 +307,6 @@
     position: relative;
     color: #fff;
     overflow: hidden;
-    /* Height is now handled by the dynamic style tag at the top of the file */
   }
 
   .hero-carousel__media-container {
