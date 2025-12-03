@@ -28,6 +28,7 @@
         },
         "collection_slide_d6rxeE": {
           "type": "collection_slide",
+          "disabled": true,
           "settings": {
             "collection": "wall-mounted-folding-tables",
             "custom_nav_title": "Krini",
@@ -42,6 +43,7 @@
         },
         "collection_slide_xX6KKP": {
           "type": "collection_slide",
+          "disabled": true,
           "settings": {
             "collection": "bed-frames",
             "custom_nav_title": "Slide",
@@ -56,6 +58,7 @@
         },
         "collection_slide_ARaXEU": {
           "type": "collection_slide",
+          "disabled": true,
           "settings": {
             "collection": "wall-bed-frames",
             "custom_nav_title": "Wall Frames",
