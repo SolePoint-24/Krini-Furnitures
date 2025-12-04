@@ -156,20 +156,22 @@
     padding: 5px 0; /* Add spacing for mobile links */
   }
 
- .footer__menu-list a {
+.footer__menu-list a {
   text-decoration: none;
   color: inherit;
-  font-size: 1rem; /* Adjusted size */
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 500;
-   transition: font-weight .4s ease-in-out;
- }
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;              /* keep constant */
+  position: relative;            /* for underline */
+  padding-bottom: 2px;
+}
 
- .footer__menu-list a:hover {
-  font-weight: 700
-
- }
+/* remove font-weight change */
+.footer__menu-list a:hover {
+  /* no font-weight change here anymore */
+  opacity: 0.8;
+}
  /* --- NEW ACCORDION STYLES END --- */
 
  .copyright-banner {
