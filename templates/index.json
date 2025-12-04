@@ -1225,6 +1225,7 @@
       "block_order": [
         "category_Jmh3im"
       ],
+      "disabled": true,
       "name": "FAQ Section",
       "settings": {
         "color_scheme": "scheme-1",
