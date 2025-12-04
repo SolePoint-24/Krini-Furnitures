@@ -31,7 +31,7 @@
         {%- assign image_desktop = block.settings.image_desktop | default: fallback_image -%}
         {%- assign image_tablet = block.settings.image_tablet | default: image_desktop -%}
         {%- assign image_mobile = block.settings.image_mobile | default: image_tablet -%}
-        
+
         {%- assign video = block.settings.video -%}
         {%- assign video_mobile = block.settings.video_mobile -%}
 
@@ -41,34 +41,37 @@
         >
           {% comment %} --- VIDEO LOGIC --- {% endcomment %}
           {% if video != blank %}
-            
             {% comment %} Desktop Video {% endcomment %}
             <div class="hero-media-wrapper {% if video_mobile != blank %}hide-on-mobile{% endif %}">
-              {{ video | video_tag: 
-                image_size: '2000x', 
-                autoplay: true, 
-                loop: true, 
-                muted: true, 
-                controls: false, 
-                class: 'full-height-image video-center' 
+              {{
+                video
+                | video_tag:
+                  image_size: '2000x',
+                  autoplay: true,
+                  loop: true,
+                  muted: true,
+                  controls: false,
+                  class: 'full-height-image video-center'
               }}
             </div>
 
             {% comment %} Mobile Video {% endcomment %}
             {% if video_mobile != blank %}
               <div class="hero-media-wrapper hide-on-desktop">
-                {{ video_mobile | video_tag: 
-                  image_size: '1000x', 
-                  autoplay: true, 
-                  loop: true, 
-                  muted: true, 
-                  controls: false, 
-                  class: 'full-height-image video-center' 
+                {{
+                  video_mobile
+                  | video_tag:
+                    image_size: '1000x',
+                    autoplay: true,
+                    loop: true,
+                    muted: true,
+                    controls: false,
+                    class: 'full-height-image video-center'
                 }}
               </div>
             {% endif %}
 
-          {% comment %} --- IMAGE LOGIC --- {% endcomment %}
+            {% comment %} --- IMAGE LOGIC --- {% endcomment %}
           {% elsif image_desktop != blank %}
             {%- assign loading_attr = 'lazy' -%}
             {%- assign fetch_priority_attr = 'auto' -%}
@@ -113,16 +116,22 @@
             {%- if block.settings.subtitle != blank -%}
               <div class="hero-carousel__subtitle">{{ block.settings.subtitle }}</div>
             {%- endif -%}
-            
+
             {%- if block.settings.button_label != blank or block.settings.button_2_label != blank -%}
               <div class="hero-carousel__button-group">
                 {%- if block.settings.button_label != blank -%}
-                  <a href="{{ block.settings.button_link | default: collection.url }}" class="button hero-carousel__button">
+                  <a
+                    href="{{ block.settings.button_link | default: collection.url }}"
+                    class="button hero-carousel__button"
+                  >
                     {{ block.settings.button_label | escape }}
                   </a>
                 {%- endif -%}
-                 {%- if block.settings.button_2_label != blank -%}
-                  <a href="{{ block.settings.button_2_link }}" class="button hero-carousel__button hero-carousel__button--secondary">
+                {%- if block.settings.button_2_label != blank -%}
+                  <a
+                    href="{{ block.settings.button_2_link }}"
+                    class="button hero-carousel__button hero-carousel__button--secondary"
+                  >
                     {{ block.settings.button_2_label | escape }}
                   </a>
                 {%- endif -%}
@@ -139,7 +148,19 @@
     <div class="hero-carousel__nav-wrapper">
       <div class="hero-carousel__nav">
         <button type="button" class="hero-carousel__arrow hero-carousel__arrow--prev" aria-label="Previous slide">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 18-6-6 6-6"/> </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
         </button>
         <div class="hero-carousel__titles">
           {%- for block in collection_slides -%}
@@ -154,11 +175,49 @@
           {%- endfor -%}
         </div>
         <button type="button" class="hero-carousel__arrow hero-carousel__arrow--next" aria-label="Next slide">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m9 18 6-6-6-6"/> </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m9 18 6-6-6-6"/>
+          </svg>
         </button>
         <button type="button" class="hero-carousel__play-pause" aria-label="Pause autoplay">
-          <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M6 4h4v16H6z"/><path d="M14 4h4v16h-4z"/> </svg>
-          <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <polygon points="6 3 20 12 6 21 6 3"/> </svg>
+          <svg
+            class="icon-pause"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M6 4h4v16H6z"/><path d="M14 4h4v16h-4z"/>
+          </svg>
+          <svg
+            class="icon-play"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polygon points="6 3 20 12 6 21 6 3"/>
+          </svg>
         </button>
       </div>
     </div>
@@ -170,8 +229,8 @@
     constructor(section) {
       this.section = section;
       this.nav = this.section.querySelector('.hero-carousel__nav-wrapper');
-      
-      if (!this.nav) return; 
+
+      if (!this.nav) return;
 
       this.titlesContainer = this.section.querySelector('.hero-carousel__titles'); // NEW: Select the container
       this.links = this.section.querySelectorAll('.hero-carousel__title-link');
@@ -232,13 +291,13 @@
         const containerWidth = this.titlesContainer.offsetWidth;
         const linkLeft = activeLink.offsetLeft;
         const linkWidth = activeLink.offsetWidth;
-        
+
         // Target scroll position = link's left position - half screen + half link width
-        const scrollPosition = linkLeft - (containerWidth / 2) + (linkWidth / 2);
+        const scrollPosition = linkLeft - containerWidth / 2 + linkWidth / 2;
 
         this.titlesContainer.scrollTo({
           left: scrollPosition,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     }
@@ -386,7 +445,7 @@
     opacity: 1;
     pointer-events: auto;
   }
-  
+
   .hero-carousel__text-content {
     text-align: center;
     max-width: 650px;
@@ -400,7 +459,7 @@
     margin: 0 0 1rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
-  
+
   .hero-carousel__subtitle {
     font-size: 1.2rem;
     line-height: 1.5;
@@ -436,7 +495,7 @@
     background-color: transparent;
     border: 1px solid #fff;
   }
-  
+
   .hero-carousel__button--secondary:hover {
     background-color: #fff;
     color: #000;
@@ -492,7 +551,7 @@
   @media screen and (max-width: 768px) {
     /* HIDE DESKTOP VIDEO ON MOBILE */
     .hide-on-mobile { display: none !important; }
-    
+
     .hero-carousel__media-container::after { background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%); }
 
     .hero-carousel__main-title { font-size: 2.2rem; }
@@ -528,9 +587,9 @@
     .hide-on-desktop { display: none !important; }
   }
   .hero-carousel__media-item video.full-height-image {
-    object-fit: contain;
-    object-position: center center;
-    background-color: transparent; /* or #fff if you prefer white bars */
+        object-fit: contain;
+            object-position: center center;
+                background-color: transparent; /* or #fff if you prefer white bars */
   }
 {% endstylesheet %}
 
