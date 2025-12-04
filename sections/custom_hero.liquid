@@ -587,10 +587,11 @@
     .hide-on-desktop { display: none !important; }
   }
   .hero-carousel__media-item video.full-height-image {
-        object-fit: contain;
-            object-position: center center;
-                background-color: transparent; /* or #fff if you prefer white bars */
-  }
+  object-fit: contain !important;
+  object-position: center;
+  background-color: transparent;
+  backdrop-filter: blur(20px) brightness(0.7);
+}
 {% endstylesheet %}
 
 {% schema %}
