@@ -1,11 +1,12 @@
-{% comment %}
-  Hero Carousel - Adjustable Height + Video Support + Auto-Scrolling Nav
-{% endcomment %}
+{%- comment -%}
+  Hero Carousel - Adjustable Height + Video Support + Auto-Scrolling Nav + Mobile Video Auto-Resize
+{%- endcomment -%}
 
 {%- style -%}
   #Hero-{{ section.id }} {
     height: {{ section.settings.mobile_height }}vh;
     min-height: 500px;
+    transition: height 0.3s ease-out; /* Smooth resizing transition */
   }
   @media screen and (min-width: 768px) {
     #Hero-{{ section.id }} {
@@ -35,9 +36,23 @@
         {%- assign video = block.settings.video -%}
         {%- assign video_mobile = block.settings.video_mobile -%}
 
+        {%- comment -%} Calculate aspect ratio for mobile resizing logic {%- endcomment -%}
+        {%- assign mobile_aspect_ratio = 0 -%}
+        {%- assign has_mobile_video = false -%}
+
+        {%- if video_mobile != blank -%}
+          {%- assign has_mobile_video = true -%}
+          {%- assign mobile_aspect_ratio = video_mobile.aspect_ratio -%}
+        {%- elsif video != blank -%}
+          {%- assign has_mobile_video = true -%}
+          {%- assign mobile_aspect_ratio = video.aspect_ratio -%}
+        {%- endif -%}
+
         <div
           class="hero-carousel__media-item{% if forloop.first %} is-active{% endif %}"
           data-collection-handle="{{ collection.handle | default: block.id }}"
+          data-has-mobile-video="{{ has_mobile_video }}"
+          data-mobile-aspect-ratio="{{ mobile_aspect_ratio }}"
         >
           {% comment %} --- VIDEO LOGIC --- {% endcomment %}
           {% if video != blank %}
@@ -232,7 +247,7 @@
 
       if (!this.nav) return;
 
-      this.titlesContainer = this.section.querySelector('.hero-carousel__titles'); // NEW: Select the container
+      this.titlesContainer = this.section.querySelector('.hero-carousel__titles');
       this.links = this.section.querySelectorAll('.hero-carousel__title-link');
       this.images = this.section.querySelectorAll('.hero-carousel__media-item');
       this.contents = this.section.querySelectorAll('.hero-carousel__content-inner');
@@ -263,6 +278,41 @@
       } else {
         this.playPauseButton.style.display = 'none';
       }
+
+      // --- NEW: Resize Listener ---
+      window.addEventListener('resize', () => {
+        this.updateHeight(this.currentIndex);
+      });
+
+      // --- NEW: Initial Height Check ---
+      this.updateHeight(this.currentIndex);
+    }
+
+    // --- NEW: Dynamic Height Logic ---
+    updateHeight(index) {
+      // Logic applies ONLY to Mobile (< 768px)
+      if (window.innerWidth >= 768) {
+        this.section.style.height = ''; // Reset to CSS default
+        this.section.style.minHeight = ''; 
+        return;
+      }
+
+      const currentSlide = this.images[index];
+      const hasVideo = currentSlide.getAttribute('data-has-mobile-video') === 'true';
+      const aspectRatio = parseFloat(currentSlide.getAttribute('data-mobile-aspect-ratio'));
+
+      if (hasVideo && aspectRatio && !isNaN(aspectRatio)) {
+        // Calculate height: Section Width / Aspect Ratio
+        const newHeight = this.section.offsetWidth / aspectRatio;
+        
+        // Force height in pixels to eliminate black bars
+        this.section.style.height = `${newHeight}px`;
+        this.section.style.minHeight = '0px'; 
+      } else {
+        // Image slide: Revert to VH settings from CSS
+        this.section.style.height = '';
+        this.section.style.minHeight = '';
+      }
     }
 
     goTo(index) {
@@ -279,20 +329,18 @@
 
       this.currentIndex = index;
 
-      // --- NEW FIX: SCROLL ACTIVE TITLE INTO VIEW ---
       this.scrollNavToActive(index);
+      
+      // --- NEW: Recalculate height on slide change ---
+      this.updateHeight(index);
     }
 
-    // New helper method to center the active text
     scrollNavToActive(index) {
       const activeLink = this.links[index];
       if (activeLink && this.titlesContainer) {
-        // Calculate the center position
         const containerWidth = this.titlesContainer.offsetWidth;
         const linkLeft = activeLink.offsetLeft;
         const linkWidth = activeLink.offsetWidth;
-
-        // Target scroll position = link's left position - half screen + half link width
         const scrollPosition = linkLeft - containerWidth / 2 + linkWidth / 2;
 
         this.titlesContainer.scrollTo({
