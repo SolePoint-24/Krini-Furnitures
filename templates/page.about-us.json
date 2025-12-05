@@ -1225,27 +1225,20 @@
     "multi_collection_showcase_PN8Hza": {
       "type": "multi-collection-showcase",
       "blocks": {
-        "collection_aBNGYj": {
-          "type": "collection",
-          "settings": {
-            "collection": "residential-installs"
-          }
-        },
         "collection_B4yBAb": {
           "type": "collection",
           "settings": {
-            "collection": "hotel-projects"
+            "collection": "smart-saving"
           }
         },
         "collection_YbxJ4Y": {
           "type": "collection",
           "settings": {
-            "collection": "designer-collaborations"
+            "collection": "wall-beds"
           }
         }
       },
       "block_order": [
-        "collection_aBNGYj",
         "collection_B4yBAb",
         "collection_YbxJ4Y"
       ],
