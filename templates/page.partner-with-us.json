@@ -9,6 +9,72 @@
  */
 {
   "sections": {
+    "1765358664cbe8f16e": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1e3d4c1_M7JqPV": {
+          "type": "ai_gen_block_1e3d4c1",
+          "settings": {
+            "heading": "Who Partners With Us",
+            "heading_alignment": "center",
+            "section_padding_top": 50,
+            "section_padding_bottom": 50,
+            "background_color": "#f5f3ef",
+            "card_1_title": "Hotels, Resorts & Boutique Stays",
+            "card_2_title": "Architects & Interior Designers",
+            "card_3_title": "Real Estate Developers",
+            "card_4_title": "Café & Restaurant Owners",
+            "card_5_title": "Workspace & Commercial Developers",
+            "card_6_title": "Homeowners building personalized luxury homes",
+            "card_7_title": "International distributors seeking premium Indian-made furniture",
+            "card_gap": 20,
+            "card_padding": 30,
+            "card_border_radius": 12,
+            "card_border_width": 1,
+            "card_background": "#ffffff",
+            "card_border_color": "#e6e6e6",
+            "heading_size": 36,
+            "card_title_size": 22,
+            "heading_color": "#000000",
+            "card_title_color": "#000000",
+            "nav_button_background": "#ffffff",
+            "nav_button_hover_background": "#f5f5f5",
+            "nav_button_icon_color": "#000000"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1e3d4c1_M7JqPV"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "main": {
       "type": "main-page",
       "blocks": {
@@ -1964,6 +2030,7 @@
     }
   },
   "order": [
+    "1765358664cbe8f16e",
     "main",
     "section_fNHyXm",
     "features_grid_f6X3nP",
