@@ -762,7 +762,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "body {background-color: #ffffff;}"
+      "body {background-color: #f3efe7;}"
     ]
   }
 }
