@@ -1243,6 +1243,9 @@
         "collection_B4yBAb",
         "collection_YbxJ4Y"
       ],
+      "custom_css": [
+        "#multi-collection-viewer-template--19781506891933__multi_collection_showcase_PN8Hza {background-color: #f3efe7 !important;}"
+      ],
       "name": "Multi-Collection Viewer",
       "settings": {
         "heading": "Featured Collections",
