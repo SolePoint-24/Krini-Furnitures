@@ -1141,6 +1141,7 @@
         "collection_tile_wJhiw4",
         "collection_tile_NmTWYN"
       ],
+      "disabled": true,
       "name": "Collection Tiles Grid",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
