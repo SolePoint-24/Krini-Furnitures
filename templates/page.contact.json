@@ -973,7 +973,8 @@
       ],
       "custom_css": [
         ".submit-button {align-self: center;}",
-        ".contact-form__input {border: var(--style-border-width-inputs) solid rgb(195 204 166);}"
+        ".contact-form__input {border: var(--style-border-width-inputs) solid rgb(195 204 166);}",
+        ".text-block h2 {color: #513117;}"
       ],
       "settings": {
         "content_direction": "column",
