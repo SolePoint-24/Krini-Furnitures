@@ -942,7 +942,7 @@
             "width_mobile": "custom",
             "custom_width_mobile": 100,
             "inherit_color_scheme": true,
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-6",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -972,7 +972,8 @@
         "contact_form_jWxXkm"
       ],
       "custom_css": [
-        ".submit-button {align-self: center;}"
+        ".submit-button {align-self: center;}",
+        ".contact-form__input {border: var(--style-border-width-inputs) solid rgb(195 204 166);}"
       ],
       "settings": {
         "content_direction": "column",
