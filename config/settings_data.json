@@ -762,7 +762,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "body {background-color: #f3efe7;}"
+      "body {background-color: #f3efe7;}",
+      ".details-content{font-family: poppins;}"
     ]
   }
 }
