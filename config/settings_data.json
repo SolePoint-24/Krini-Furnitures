@@ -763,7 +763,7 @@
   "platform_customizations": {
     "custom_css": [
       "body {background-color: #f3efe7;}",
-      "/* Apply Poppins to product description on product pages */.product__description,.product__description *,.product-single__description,.product-single__description *,.product__info-container .rte,.product__info-container .rte * {font-family: 'Poppins', sans-serif !important;}"
+      ".product__description,.product__description *,.product-single__description,.product-single__description *,.product__info-container .rte,.product__info-container .rte *,.product__info-container .accordion,.product__info-container .accordion *,.product__info-container details,.product__info-container details *,.product__info-container .collapsible-content,.product__info-container .collapsible-content *,.product__info-container .collapsible__content,.product__info-container .collapsible__content *,.product__info-container [class*=\"description\"],.product__info-container [class*=\"description\"] *,.product__info-container [class*=\"accordion\"],.product__info-container [class*=\"accordion\"] * {font-family: 'Poppins', sans-serif !important;}"
     ]
   }
 }
