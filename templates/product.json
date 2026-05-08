@@ -933,7 +933,7 @@
         }
       },
       "custom_css": [
-        ".details-content {line-height: 26px; font-family: var(--font-paragraph--family) !important;}"
+        ".details-content {line-height: 26px; }"
       ],
       "settings": {
         "content_width": "content-center-aligned",
