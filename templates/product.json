@@ -251,7 +251,7 @@
                         "width": "100%",
                         "max_width": "none",
                         "alignment": "left",
-                        "type_preset": "rte",
+                        "type_preset": "custom",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
                         "line_height": "normal",
@@ -933,7 +933,7 @@
         }
       },
       "custom_css": [
-        ".details-content {line-height: 26px; }"
+        ".details-content {line-height: 26px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
