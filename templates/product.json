@@ -214,6 +214,10 @@
               },
               "block_order": []
             },
+            "razorpay_cod_magic_checkout_affordability_block_FmyUdW": {
+              "type": "shopify://apps/razorpay-cod-magic-checkout/blocks/affordability-block/c13c688d-5c45-4054-b95f-1edd63faa705",
+              "settings": {}
+            },
             "product_description_LfDYCg": {
               "type": "product-description",
               "name": "t:names.product_description",
@@ -952,6 +956,7 @@
             "text_jFPm3H",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "razorpay_cod_magic_checkout_affordability_block_FmyUdW",
             "product_description_LfDYCg",
             "accordion_g8EVVp",
             "group_X39hBc",
