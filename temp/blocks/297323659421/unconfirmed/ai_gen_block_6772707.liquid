@@ -1,6 +1,421 @@
+{% doc %}
+  @prompt
+    Create a world map presence section for Krini Furniture. Use a static world map SVG or image as the background (beige/tan colored flat world map with clearly visible continents). Place classic drop pin markers on the map at these specific locations: India (right side), USA (left-center), and Middle East (center). Each marker should be a dark colored map pin icon. Above the map, show a bold heading like 'From compact apartments in India to global hotels in the USA — and beyond, Krini delivers everywhere.' Below the map, add a short paragraph about Krini's global craftsmanship. Light cream background, clean furniture brand aesthetic.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-world-map-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.section_padding }}px 20px;
+  }
+
+  .ai-world-map-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: {{ block.settings.desktop_width_percent }}%;
+  }
+
+  .ai-world-map-heading-{{ ai_gen_id }} {
+    text-align: center;
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    line-height: 1.3;
+    padding: 0 20px;
+  }
+
+  .ai-world-map-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    margin: 0 auto {{ block.settings.map_spacing }}px;
+  }
+
+  .ai-world-map-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-world-map-pins-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ai-world-map-pin-{{ ai_gen_id }} {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-world-map-pin-{{ ai_gen_id }}:hover {
+    transform: translate(-50%, -100%) scale(1.1);
+  }
+
+  .ai-world-map-pin-{{ ai_gen_id }} svg {
+    width: {{ block.settings.pin_size }}px;
+    height: {{ block.settings.pin_size }}px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  .ai-world-map-pin-india-{{ ai_gen_id }} {
+    top: {{ block.settings.india_y }}%;
+    left: {{ block.settings.india_x }}%;
+  }
+
+  .ai-world-map-pin-usa-{{ ai_gen_id }} {
+    top: {{ block.settings.usa_y }}%;
+    left: {{ block.settings.usa_x }}%;
+  }
+
+  .ai-world-map-pin-middle-east-{{ ai_gen_id }} {
+    top: {{ block.settings.middle_east_y }}%;
+    left: {{ block.settings.middle_east_x }}%;
+  }
+
+  .ai-world-map-description-{{ ai_gen_id }} {
+    text-align: center;
+    color: {{ block.settings.text_color }};
+    font-size: {{ block.settings.description_size }}px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-world-map-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.6 }}px;
+    }
+
+    .ai-world-map-pin-{{ ai_gen_id }} svg {
+      width: {{ block.settings.pin_size | times: 0.7 }}px;
+      height: {{ block.settings.pin_size | times: 0.7 }}px;
+    }
+
+    .ai-world-map-description-{{ ai_gen_id }} {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+{% endstyle %}
+
+<world-map-presence-{{ ai_gen_id }} class="ai-world-map-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-world-map-container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-world-map-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-world-map-wrapper-{{ ai_gen_id }}">
+      {% if block.settings.map_image %}
+        <img
+          src="{{ block.settings.map_image | image_url: width: 1200 }}"
+          alt="World map showing Krini Furniture global presence"
+          loading="lazy"
+          width="{{ block.settings.map_image.width }}"
+          height="{{ block.settings.map_image.height }}"
+          class="ai-world-map-image-{{ ai_gen_id }}"
+        >
+      {% else %}
+        <svg class="ai-world-map-image-{{ ai_gen_id }}" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="600" fill="#e8dcc8"/>
+          <path d="M200,150 Q250,120 300,150 L320,180 Q310,200 280,210 L250,200 Q220,180 200,150 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M150,250 Q180,230 220,240 L240,270 Q230,290 200,300 L170,290 Q150,270 150,250 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M350,200 Q400,180 450,200 L480,240 Q470,270 430,290 L390,280 Q360,250 350,200 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M500,180 Q560,160 620,180 L650,220 Q640,250 600,270 L560,260 Q520,230 500,180 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M700,200 Q750,180 800,200 L830,240 Q820,270 780,290 L740,280 Q710,250 700,200 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M850,220 Q900,200 950,220 L980,260 Q970,290 930,310 L890,300 Q860,270 850,220 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M200,350 Q250,330 300,350 L330,390 Q320,420 280,440 L240,430 Q210,400 200,350 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M400,320 Q460,300 520,320 L550,360 Q540,390 500,410 L460,400 Q420,370 400,320 Z" fill="#c9b89a" opacity="0.7"/>
+          <path d="M600,340 Q660,320 720,340 L750,380 Q740,410 700,430 L660,420 Q620,390 600,340 Z" fill="#c9b89a" opacity="0.7"/>
+          <text x="600" y="300" font-size="14" fill="#8b7355" text-anchor="middle" opacity="0.5">Upload a world map image</text>
+        </svg>
+      {% endif %}
+
+      <div class="ai-world-map-pins-{{ ai_gen_id }}">
+        {% if block.settings.show_india_pin %}
+          <div class="ai-world-map-pin-{{ ai_gen_id }} ai-world-map-pin-india-{{ ai_gen_id }}" data-location="India">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{{ block.settings.pin_color }}">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_usa_pin %}
+          <div class="ai-world-map-pin-{{ ai_gen_id }} ai-world-map-pin-usa-{{ ai_gen_id }}" data-location="USA">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{{ block.settings.pin_color }}">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_middle_east_pin %}
+          <div class="ai-world-map-pin-{{ ai_gen_id }} ai-world-map-pin-middle-east-{{ ai_gen_id }}" data-location="Middle East">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="{{ block.settings.pin_color }}">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if block.settings.description != blank %}
+      <div class="ai-world-map-description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+    {% endif %}
+  </div>
+</world-map-presence-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class WorldMapPresence{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.pins = this.querySelectorAll('.ai-world-map-pin-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.pins.forEach((pin) => {
+          pin.addEventListener('mouseenter', function() {
+            const location = this.getAttribute('data-location');
+            this.setAttribute('title', location);
+          });
+        });
+      }
+    }
+
+    customElements.define('world-map-presence-{{ ai_gen_id }}', WorldMapPresence{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "World map presence",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "<p>From compact apartments in India to global hotels in the USA — and beyond, Krini delivers everywhere.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>With expert craftsmanship and a commitment to quality, Krini Furniture brings timeless design to homes, hotels, and commercial spaces across continents. Our global reach ensures that wherever you are, exceptional furniture is within reach.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "World map image"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Pin locations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_india_pin",
+      "label": "Show India pin",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "india_x",
+      "label": "India horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "india_y",
+      "label": "India vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "checkbox",
+      "id": "show_usa_pin",
+      "label": "Show USA pin",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "usa_x",
+      "label": "USA horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "usa_y",
+      "label": "USA vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 35
+    },
+    {
+      "type": "checkbox",
+      "id": "show_middle_east_pin",
+      "label": "Show Middle East pin",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "middle_east_x",
+      "label": "Middle East horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "middle_east_y",
+      "label": "Middle East vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 42
+    },
+    {
+      "type": "header",
+      "content": "Pin style"
+    },
+    {
+      "type": "range",
+      "id": "pin_size",
+      "label": "Pin size",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "color",
+      "id": "pin_color",
+      "label": "Pin color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f5f3ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#2c2c2c"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Heading bottom spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "map_spacing",
+      "label": "Map bottom spacing",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "World map presence"
+    }
+  ]
+}
 {% endschema %}
