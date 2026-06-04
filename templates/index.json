@@ -646,6 +646,40 @@
         "padding-block-end": 40
       }
     },
+    "multi_collection_showcase_HA674p": {
+      "type": "multi-collection-showcase",
+      "blocks": {
+        "collection_hkfWJR": {
+          "type": "collection",
+          "settings": {
+            "collection": "smart-saving"
+          }
+        },
+        "collection_7HGDKW": {
+          "type": "collection",
+          "settings": {
+            "collection": "wall-beds"
+          }
+        }
+      },
+      "block_order": [
+        "collection_hkfWJR",
+        "collection_7HGDKW"
+      ],
+      "name": "Multi-Collection Viewer",
+      "settings": {
+        "heading": "Featured Collections",
+        "description": "<p>Check out our curated collections. Find what you're looking for.</p>",
+        "button_label": "View All",
+        "button_link": "",
+        "heading_font_class": "h2",
+        "heading_color": "#121212",
+        "description_font_class": "body-text-sm",
+        "description_color": "#333333",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "collection_links_yTMyPx": {
       "type": "collection-links",
       "blocks": {
@@ -1101,40 +1135,6 @@
         "padding-block-end": 0
       }
     },
-    "multi_collection_showcase_HA674p": {
-      "type": "multi-collection-showcase",
-      "blocks": {
-        "collection_hkfWJR": {
-          "type": "collection",
-          "settings": {
-            "collection": "smart-saving"
-          }
-        },
-        "collection_7HGDKW": {
-          "type": "collection",
-          "settings": {
-            "collection": "wall-beds"
-          }
-        }
-      },
-      "block_order": [
-        "collection_hkfWJR",
-        "collection_7HGDKW"
-      ],
-      "name": "Multi-Collection Viewer",
-      "settings": {
-        "heading": "Featured Collections",
-        "description": "<p>Check out our curated collections. Find what you're looking for.</p>",
-        "button_label": "View All",
-        "button_link": "",
-        "heading_font_class": "h2",
-        "heading_color": "#121212",
-        "description_font_class": "body-text-sm",
-        "description_color": "#333333",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
     "custom_image_banner_kzPVVU": {
       "type": "custom-image-banner",
       "name": "Image Banner",
@@ -1358,10 +1358,10 @@
     "custom_hero_gKtgPw",
     "17634522735523af36",
     "section_JPYAKP",
+    "multi_collection_showcase_HA674p",
     "collection_links_yTMyPx",
     "product_list_EDUBdR",
     "section_DHbwpb",
-    "multi_collection_showcase_HA674p",
     "custom_image_banner_kzPVVU",
     "1762417435a057e2e1",
     "faq_section_a9fqKK",
