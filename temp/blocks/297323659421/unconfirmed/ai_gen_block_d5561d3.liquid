@@ -1,6 +1,473 @@
+{% doc %}
+  @prompt
+    Create an interactive world map section that highlights the regions where Krini Furniture operates, including India, USA, and Middle East. The map should display location markers or highlighted regions with location names labeled on them. The design should be visually appealing, matching a furniture brand aesthetic, with a clean and modern look. Include a section heading like "Our Presence" above the map. The location names should be clearly visible on or near their respective regions on the map.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-world-map-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-world-map__container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ai-world-map__heading-{{ ai_gen_id }} {
+    text-align: {{ block.settings.heading_alignment }};
+    color: {{ block.settings.heading_color }};
+    font-size: {{ block.settings.heading_size }}px;
+    margin: 0 0 {{ block.settings.heading_spacing }}px;
+  }
+
+  .ai-world-map__svg-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-world-map__svg-{{ ai_gen_id }} {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .ai-world-map__region-{{ ai_gen_id }} {
+    fill: {{ block.settings.region_color }};
+    stroke: {{ block.settings.region_border_color }};
+    stroke-width: 1;
+    transition: fill 0.3s ease;
+  }
+
+  .ai-world-map__region-{{ ai_gen_id }}.active {
+    fill: {{ block.settings.region_active_color }};
+  }
+
+  .ai-world-map__region-{{ ai_gen_id }}:hover {
+    fill: {{ block.settings.region_hover_color }};
+  }
+
+  .ai-world-map__marker-{{ ai_gen_id }} {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
+  .ai-world-map__marker-dot-{{ ai_gen_id }} {
+    width: {{ block.settings.marker_size }}px;
+    height: {{ block.settings.marker_size }}px;
+    background-color: {{ block.settings.marker_color }};
+    border: 2px solid {{ block.settings.marker_border_color }};
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-world-map__marker-dot-{{ ai_gen_id }}:hover {
+    transform: scale(1.2);
+  }
+
+  .ai-world-map__marker-pulse-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: {{ block.settings.marker_size }}px;
+    height: {{ block.settings.marker_size }}px;
+    background-color: {{ block.settings.marker_color }};
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: ai-world-map-pulse-{{ ai_gen_id }} 2s infinite;
+  }
+
+  @keyframes ai-world-map-pulse-{{ ai_gen_id }} {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0;
+    }
+  }
+
+  .ai-world-map__label-{{ ai_gen_id }} {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: {{ block.settings.label_background_color }};
+    color: {{ block.settings.label_text_color }};
+    padding: 6px 12px;
+    border-radius: {{ block.settings.label_border_radius }}px;
+    font-size: {{ block.settings.label_font_size }}px;
+    white-space: nowrap;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-world-map__heading-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-world-map__marker-dot-{{ ai_gen_id }} {
+      width: calc({{ block.settings.marker_size }}px * 0.8);
+      height: calc({{ block.settings.marker_size }}px * 0.8);
+    }
+
+    .ai-world-map__label-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.label_font_size }}px * 0.9);
+    }
+  }
+{% endstyle %}
+
+<world-map-{{ ai_gen_id }} class="ai-world-map-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-world-map__container-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h2 class="ai-world-map__heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="ai-world-map__svg-wrapper-{{ ai_gen_id }}">
+      <svg class="ai-world-map__svg-{{ ai_gen_id }}" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+        <path class="ai-world-map__region-{{ ai_gen_id }} {% if block.settings.show_india %}active{% endif %}" d="M680,220 L690,215 L695,220 L700,230 L705,240 L710,250 L708,260 L705,265 L700,268 L695,270 L690,268 L685,265 L682,260 L680,250 L678,240 L680,230 Z" data-region="india"/>
+        
+        <path class="ai-world-map__region-{{ ai_gen_id }} {% if block.settings.show_usa %}active{% endif %}" d="M150,180 L180,175 L210,180 L240,185 L260,190 L280,200 L290,210 L295,220 L290,230 L280,235 L260,240 L240,242 L220,240 L200,235 L180,230 L160,220 L150,210 L145,200 Z" data-region="usa"/>
+        
+        <path class="ai-world-map__region-{{ ai_gen_id }} {% if block.settings.show_middle_east %}active{% endif %}" d="M550,220 L565,215 L580,218 L590,225 L595,235 L592,245 L585,252 L575,255 L565,253 L555,248 L548,240 L545,230 Z" data-region="middle-east"/>
+        
+        <g opacity="0.3">
+          <path class="ai-world-map__region-{{ ai_gen_id }}" d="M320,150 L380,145 L420,155 L450,170 L470,190 L480,210 L475,230 L460,245 L440,255 L410,260 L380,258 L350,250 L325,235 L310,215 L305,195 L310,175 Z"/>
+          <path class="ai-world-map__region-{{ ai_gen_id }}" d="M750,180 L800,175 L840,185 L870,200 L885,220 L880,240 L860,255 L830,265 L800,268 L770,265 L745,255 L730,240 L725,220 L730,200 Z"/>
+          <path class="ai-world-map__region-{{ ai_gen_id }}" d="M100,280 L140,275 L170,285 L190,300 L200,320 L195,340 L180,355 L155,365 L130,368 L105,360 L85,345 L75,325 L75,305 L85,290 Z"/>
+          <path class="ai-world-map__region-{{ ai_gen_id }}" d="M350,300 L390,295 L420,305 L440,320 L450,340 L445,360 L425,375 L400,382 L370,380 L345,370 L330,355 L325,335 L330,315 Z"/>
+          <path class="ai-world-map__region-{{ ai_gen_id }}" d="M620,300 L660,295 L690,305 L710,320 L720,340 L715,360 L695,375 L670,382 L640,380 L615,370 L600,355 L595,335 L600,315 Z"/>
+        </g>
+      </svg>
+
+      {% if block.settings.show_india %}
+        <div class="ai-world-map__marker-{{ ai_gen_id }}" style="top: 48%; left: 69%;" data-location="india">
+          <div class="ai-world-map__marker-pulse-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__marker-dot-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__label-{{ ai_gen_id }}">{{ block.settings.india_label }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_usa %}
+        <div class="ai-world-map__marker-{{ ai_gen_id }}" style="top: 42%; left: 21%;" data-location="usa">
+          <div class="ai-world-map__marker-pulse-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__marker-dot-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__label-{{ ai_gen_id }}">{{ block.settings.usa_label }}</div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.show_middle_east %}
+        <div class="ai-world-map__marker-{{ ai_gen_id }}" style="top: 46%; left: 57%;" data-location="middle-east">
+          <div class="ai-world-map__marker-pulse-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__marker-dot-{{ ai_gen_id }}"></div>
+          <div class="ai-world-map__label-{{ ai_gen_id }}">{{ block.settings.middle_east_label }}</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</world-map-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class WorldMap{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.markers = this.querySelectorAll('.ai-world-map__marker-{{ ai_gen_id }}');
+        this.regions = this.querySelectorAll('.ai-world-map__region-{{ ai_gen_id }}');
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.markers.forEach((marker) => {
+          const location = marker.getAttribute('data-location');
+          const region = this.querySelector(`[data-region="${location}"]`);
+
+          marker.addEventListener('mouseenter', () => {
+            if (region) {
+              region.style.fill = '{{ block.settings.region_hover_color }}';
+            }
+          });
+
+          marker.addEventListener('mouseleave', () => {
+            if (region && region.classList.contains('active')) {
+              region.style.fill = '{{ block.settings.region_active_color }}';
+            } else if (region) {
+              region.style.fill = '{{ block.settings.region_color }}';
+            }
+          });
+        });
+
+        this.regions.forEach((region) => {
+          region.addEventListener('mouseenter', () => {
+            const regionName = region.getAttribute('data-region');
+            const marker = this.querySelector(`[data-location="${regionName}"]`);
+            if (marker) {
+              const dot = marker.querySelector('.ai-world-map__marker-dot-{{ ai_gen_id }}');
+              if (dot) {
+                dot.style.transform = 'scale(1.2)';
+              }
+            }
+          });
+
+          region.addEventListener('mouseleave', () => {
+            const regionName = region.getAttribute('data-region');
+            const marker = this.querySelector(`[data-location="${regionName}"]`);
+            if (marker) {
+              const dot = marker.querySelector('.ai-world-map__marker-dot-{{ ai_gen_id }}');
+              if (dot) {
+                dot.style.transform = 'scale(1)';
+              }
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('world-map-{{ ai_gen_id }}', WorldMap{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "World map presence",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Presence"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing",
+      "label": "Spacing below heading",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Locations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_india",
+      "label": "Show India",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "india_label",
+      "label": "India label",
+      "default": "India"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_usa",
+      "label": "Show USA",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "usa_label",
+      "label": "USA label",
+      "default": "USA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_middle_east",
+      "label": "Show Middle East",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "middle_east_label",
+      "label": "Middle East label",
+      "default": "Middle East"
+    },
+    {
+      "type": "header",
+      "content": "Map style"
+    },
+    {
+      "type": "color",
+      "id": "region_color",
+      "label": "Region color",
+      "default": "#E6E6E6"
+    },
+    {
+      "type": "color",
+      "id": "region_active_color",
+      "label": "Active region color",
+      "default": "#C3CCA6"
+    },
+    {
+      "type": "color",
+      "id": "region_hover_color",
+      "label": "Region hover color",
+      "default": "#EEDDC6"
+    },
+    {
+      "type": "color",
+      "id": "region_border_color",
+      "label": "Region border color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Markers"
+    },
+    {
+      "type": "range",
+      "id": "marker_size",
+      "label": "Marker size",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "marker_border_color",
+      "label": "Marker border color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "label_background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "label_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#F5F3EF"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "World map presence"
+    }
+  ]
+}
 {% endschema %}
