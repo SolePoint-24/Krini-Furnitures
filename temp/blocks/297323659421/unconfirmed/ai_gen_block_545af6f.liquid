@@ -1,6 +1,222 @@
+{% doc %}
+  @prompt
+    Create a custom HTML and Liquid code block that can be added to the contact page. The block should support dynamic Liquid syntax for rendering store data, and be fully customizable.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-custom-liquid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px {{ block.settings.padding_horizontal }}px;
+    background-color: {{ block.settings.background_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-custom-liquid-content-{{ ai_gen_id }} {
+    width: 100%;
+  }
+
+  .ai-custom-liquid-content-{{ ai_gen_id }} h1,
+  .ai-custom-liquid-content-{{ ai_gen_id }} h2,
+  .ai-custom-liquid-content-{{ ai_gen_id }} h3,
+  .ai-custom-liquid-content-{{ ai_gen_id }} h4,
+  .ai-custom-liquid-content-{{ ai_gen_id }} h5,
+  .ai-custom-liquid-content-{{ ai_gen_id }} h6 {
+    color: {{ block.settings.heading_color }};
+  }
+
+  .ai-custom-liquid-content-{{ ai_gen_id }} a {
+    color: {{ block.settings.link_color }};
+    text-decoration: underline;
+  }
+
+  .ai-custom-liquid-content-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-custom-liquid-empty-state-{{ ai_gen_id }} {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+    border-radius: {{ block.settings.border_radius }}px;
+    color: #666;
+  }
+
+  .ai-custom-liquid-empty-state-title-{{ ai_gen_id }} {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: #333;
+  }
+
+  .ai-custom-liquid-empty-state-text-{{ ai_gen_id }} {
+    font-size: 14px;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-custom-liquid-{{ ai_gen_id }} {
+      width: 100%;
+      padding: {{ block.settings.padding_top | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px {{ block.settings.padding_bottom | times: 0.7 }}px {{ block.settings.padding_horizontal | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<custom-liquid-block-{{ ai_gen_id }}
+  class="ai-custom-liquid-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.custom_liquid != blank %}
+    <div class="ai-custom-liquid-content-{{ ai_gen_id }}">
+      {{ block.settings.custom_liquid }}
+    </div>
+  {% else %}
+    <div class="ai-custom-liquid-empty-state-{{ ai_gen_id }}">
+      <h3 class="ai-custom-liquid-empty-state-title-{{ ai_gen_id }}">Custom Liquid block</h3>
+      <p class="ai-custom-liquid-empty-state-text-{{ ai_gen_id }}">Add your custom HTML and Liquid code in the block settings</p>
+    </div>
+  {% endif %}
+</custom-liquid-block-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class CustomLiquidBlock{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.initializeScripts();
+      }
+
+      initializeScripts() {
+        const scripts = this.querySelectorAll('script');
+        scripts.forEach((oldScript) => {
+          const newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach((attr) => {
+            newScript.setAttribute(attr.name, attr.value);
+          });
+          newScript.textContent = oldScript.textContent;
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      }
+    }
+
+    customElements.define('custom-liquid-block-{{ ai_gen_id }}', CustomLiquidBlock{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Custom Liquid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Custom code"
+    },
+    {
+      "type": "liquid",
+      "id": "custom_liquid",
+      "label": "Custom Liquid code",
+      "info": "Add your custom HTML and Liquid code here. You can use Liquid objects like {{ shop.name }}, {{ page.title }}, and more."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Padding horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f5f3ef"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headings",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Links",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Links hover",
+      "default": "#c3cca6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Liquid"
+    }
+  ]
+}
 {% endschema %}
