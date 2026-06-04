@@ -649,22 +649,29 @@
     "multi_collection_showcase_HA674p": {
       "type": "multi-collection-showcase",
       "blocks": {
+        "collection_7HGDKW": {
+          "type": "collection",
+          "settings": {
+            "collection": "wall-beds"
+          }
+        },
         "collection_hkfWJR": {
           "type": "collection",
           "settings": {
             "collection": "smart-saving"
           }
         },
-        "collection_7HGDKW": {
+        "collection_PXfB4w": {
           "type": "collection",
           "settings": {
-            "collection": "wall-beds"
+            "collection": "bed-frames"
           }
         }
       },
       "block_order": [
+        "collection_7HGDKW",
         "collection_hkfWJR",
-        "collection_7HGDKW"
+        "collection_PXfB4w"
       ],
       "name": "Multi-Collection Viewer",
       "settings": {
