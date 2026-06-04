@@ -247,7 +247,7 @@
             "padding_bottom": 40,
             "padding_horizontal": 20,
             "border_radius": 0,
-            "background_color": "#f5f3ef",
+            "background_color": "rgba(0,0,0,0)",
             "text_color": "#000000",
             "heading_color": "#000000",
             "link_color": "#000000",
