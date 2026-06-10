@@ -646,6 +646,65 @@
         "padding-block-end": 40
       }
     },
+    "section_7ht8EH": {
+      "type": "section",
+      "blocks": {
+        "image_wHhQ3f": {
+          "type": "image",
+          "name": "t:names.image",
+          "settings": {
+            "image": "shopify://shop_images/Krini_15_off_Banner.png",
+            "link": "",
+            "image_ratio": "landscape",
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 12,
+            "padding-block-start": 10,
+            "padding-block-end": 10,
+            "padding-inline-start": 10,
+            "padding-inline-end": 10
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "image_wHhQ3f"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 24,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
     "multi_collection_showcase_HA674p": {
       "type": "multi-collection-showcase",
       "blocks": {
@@ -1530,33 +1589,13 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
-    },
-    "custom_image_banner_dxd6dr": {
-      "type": "custom-image-banner",
-      "name": "Image Banner",
-      "settings": {
-        "background_image": "shopify://shop_images/Krini_15_off_Banner.png",
-        "section_height": 85,
-        "content_alignment": "middle-center",
-        "title": "",
-        "description": "",
-        "text_color": "#FFFFFF",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0,
-        "button_1_label": "Shop All",
-        "button_1_link": "",
-        "button_1_is_secondary": false,
-        "button_2_label": "",
-        "button_2_link": "",
-        "button_2_is_secondary": true
-      }
     }
   },
   "order": [
     "custom_hero_gKtgPw",
     "17634522735523af36",
     "section_JPYAKP",
-    "custom_image_banner_dxd6dr",
+    "section_7ht8EH",
     "multi_collection_showcase_HA674p",
     "collection_links_yTMyPx",
     "product_list_EDUBdR",
