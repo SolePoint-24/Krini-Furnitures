@@ -191,7 +191,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h2>Why Choose Krini Furnitures</h2>",
+            "text": "<h2>Why Choose Krini Furniture</h2>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
