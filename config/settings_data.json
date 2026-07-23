@@ -775,7 +775,7 @@
       "body {background-color: #f3efe7;}",
       " /* Override Word's inline font-family on pasted content */accordion-custom,accordion-custom *,.details-content,.details-content *,rte-formatter,rte-formatter *,.text-block,.text-block *,.rte,.rte * {font-family: \"Poppins\", sans-serif !important;}",
       " /* Extra-specific override for inline styles from Word paste */.details-content span[style*=\"Times New Roman\"],.details-content span[style*=\"font-family\"],rte-formatter span[style*=\"font-family\"],.text-block span[style*=\"font-family\"] {font-family: \"Poppins\", sans-serif !important;}",
-      ".sort-option-created-ascending-template--19718956941469__main,.sort-option-created-descending-template--19718956941469__main {display: none;}"
+      ".sort-option-created-ascending-template--19718956941469__main,.sort-option-created-descending-template--19718956941469__main {display: none !important;}"
     ]
   }
 }
