@@ -1215,7 +1215,7 @@
         "overlay_color": "#000000",
         "overlay_opacity": 0.1,
         "button_1_label": "View Catalog",
-        "button_1_link": "shopify://collections",
+        "button_1_link": "shopify://collections/all",
         "button_1_is_secondary": false,
         "button_2_label": "Request a Quote",
         "button_2_link": "shopify://pages/request-a-quote",
