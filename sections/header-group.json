@@ -31,6 +31,9 @@
       "block_order": [
         "announcement_mxxhta"
       ],
+      "custom_css": [
+        ".announcement-bar{background-color: #513117;}"
+      ],
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
