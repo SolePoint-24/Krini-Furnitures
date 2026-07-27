@@ -71,6 +71,10 @@
         "social_icon_9aKj4B",
         "social_icon_wA94Pb"
       ],
+      "custom_css": [
+        ".copyright-banner {background-color: #513117;}",
+        ".copyright p {color: #fff;}"
+      ],
       "name": "Custom Footer",
       "settings": {
         "color_scheme": "scheme-ffdd2e42-cb6d-4b14-a000-e0e5bce5661a",
@@ -292,7 +296,7 @@
       "settings": {
         "section_width": "page-width",
         "gap": 12,
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-4",
         "padding-block-start": 36,
         "padding-block-end": 18
       }
