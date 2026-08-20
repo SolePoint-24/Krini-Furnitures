@@ -49,7 +49,7 @@
         "page-content"
       ],
       "custom_css": [
-        ".template-page-no-header-footer .header-wrapper,.template-page-no-header-footer footer {display: none !important;}"
+        "h1 {color: #513117; text-align: center;}"
       ],
       "settings": {
         "content_direction": "column",
