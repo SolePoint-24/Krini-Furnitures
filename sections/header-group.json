@@ -31,7 +31,6 @@
       "block_order": [
         "announcement_mxxhta"
       ],
-      "disabled": true,
       "custom_css": [
         ".announcement-bar {background-color: #513117;}"
       ],
