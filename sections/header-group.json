@@ -17,7 +17,7 @@
         "announcement_mxxhta": {
           "type": "_announcement",
           "settings": {
-            "text": "15% OFF ON ALL KRINI PRODUCTS",
+            "text": "<strong>15% OFF on All Krini Products</strong> <em>(Except Furniture Packages)</em>",
             "link": "shopify://collections/all",
             "font": "var(--font-primary--family)",
             "font_size": "var(--font-size--body-md)",
