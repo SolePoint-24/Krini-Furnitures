@@ -1226,10 +1226,10 @@
     "multi_collection_showcase_PN8Hza": {
       "type": "multi-collection-showcase",
       "blocks": {
-        "collection_9gEDCB": {
+        "collection_YbxJ4Y": {
           "type": "collection",
           "settings": {
-            "collection": "bed-frames"
+            "collection": "wall-beds"
           }
         },
         "collection_B4yBAb": {
@@ -1238,17 +1238,17 @@
             "collection": "smart-saving"
           }
         },
-        "collection_YbxJ4Y": {
+        "collection_9gEDCB": {
           "type": "collection",
           "settings": {
-            "collection": "wall-beds"
+            "collection": "bed-frames"
           }
         }
       },
       "block_order": [
-        "collection_9gEDCB",
+        "collection_YbxJ4Y",
         "collection_B4yBAb",
-        "collection_YbxJ4Y"
+        "collection_9gEDCB"
       ],
       "custom_css": [
         "#multi-collection-viewer-template--19781506891933__multi_collection_showcase_PN8Hza {background-color: #f3efe7 !important;}"
