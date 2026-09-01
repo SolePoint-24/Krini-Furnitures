@@ -1178,7 +1178,7 @@
       "type": "custom-image-banner",
       "name": "Image Banner",
       "settings": {
-        "background_image": "shopify://shop_images/Ganesh_Fesival_Offer.jpg",
+        "background_image": "shopify://shop_images/home_page.jpg",
         "section_height": 65,
         "content_alignment": "middle-center",
         "title": "",
