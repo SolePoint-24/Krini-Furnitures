@@ -558,7 +558,7 @@
           "settings": {
             "image": "shopify://shop_images/Ganesh_Chaturthi_Banner.jpg",
             "link": "",
-            "image_ratio": "landscape",
+            "image_ratio": "adapt",
             "width": "fill",
             "custom_width": 100,
             "width_mobile": "fill",
