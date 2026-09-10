@@ -28,7 +28,7 @@
           {%- endif -%}
           <strong>{{ product.title }}</strong>
 
-        {%- when 'collection' and collection.handle != 'all' -%}
+        {%- when 'collection' -%}
           <strong>{{ collection.title }}</strong>
 
         {%- when 'blog' -%}
@@ -144,3 +144,13 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- when 'collection' and collection.handle != 'all' -%}"
+  to: "{%- when 'collection' -%}"
+  position: 993..1018
+{% endcomment %}
