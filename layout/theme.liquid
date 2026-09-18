@@ -101,5 +101,18 @@
         AOS.init();
       });
     </script>
+    <script>
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var box = e.target.closest && e.target.closest('.ZipCodeRestrict');
+    if (!box) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.target.id === 'zipcode_text') {
+      var check = box.querySelector('.zipcode_submit');
+      if (check) check.click();
+    }
+  }, true);
+</script>
   </body>
 </html>
