@@ -100,7 +100,49 @@
   else
     assign sorted_media = selected_product.media
   endif
-  assign has_image_drop = sorted_media | has: 'media_type', 'image'
+  # --- Filter the gallery to the selected colour, matched on image alt text ---
+    assign colour_selected = ''
+    assign colour_values_all = ''
+    for product_option in selected_product.options_with_values
+      assign option_name_check = product_option.name | downcase
+      if option_name_check contains 'colo'
+        assign colour_selected = product_option.selected_value | downcase
+        assign colour_values_all = product_option.values | join: '~~' | downcase
+      endif
+    endfor
+
+    if colour_selected != blank
+      assign colour_media = '' | split: ','
+      assign colour_value_list = colour_values_all | split: '~~'
+
+      for media in sorted_media
+        assign media_alt = media.alt | default: '' | downcase
+        assign media_keep = false
+
+        if media_alt contains colour_selected
+          assign media_keep = true
+        else
+          assign media_keep = true
+          for colour_value in colour_value_list
+            if media_alt contains colour_value
+              assign media_keep = false
+            endif
+          endfor
+        endif
+
+        if media_keep
+          assign matched_media = sorted_media | where: 'id', media.id
+          assign colour_media = colour_media | concat: matched_media
+        endif
+      endfor
+
+      if colour_media.size > 0
+        assign sorted_media = colour_media
+      endif
+    endif
+    # --- end colour filter ---
+
+    assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   # Determine if we're in single column mode (carousel or grid with one column)
   assign is_single_column = false
