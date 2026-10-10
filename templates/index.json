@@ -1097,26 +1097,6 @@
         "button_2_is_secondary": true
       }
     },
-    "custom_image_banner_9iF78B": {
-      "type": "custom-image-banner",
-      "name": "Image Banner",
-      "settings": {
-        "background_image": "shopify://shop_images/Navratri_Banner_2.png",
-        "section_height": 50,
-        "content_alignment": "middle-center",
-        "title": "Ready to Transform Your Space?",
-        "description": "",
-        "text_color": "#ffffff",
-        "overlay_color": "#000000",
-        "overlay_opacity": 0.1,
-        "button_1_label": "View Catalog",
-        "button_1_link": "shopify://collections/all",
-        "button_1_is_secondary": true,
-        "button_2_label": "Request a quote",
-        "button_2_link": "shopify://pages/request-a-quote",
-        "button_2_is_secondary": true
-      }
-    },
     "1762417435a057e2e1": {
       "type": "_blocks",
       "blocks": {
@@ -1495,7 +1475,6 @@
     "product_list_EDUBdR",
     "section_DHbwpb",
     "custom_image_banner_kzPVVU",
-    "custom_image_banner_9iF78B",
     "1762417435a057e2e1",
     "faq_section_a9fqKK",
     "section_NhdUhA",
